@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PRICING } from '@/config/pricing';
 
 const fmt = new Intl.NumberFormat('en-US', {
@@ -202,6 +203,7 @@ function BreakdownRow({
 }
 
 export function DealDesigner() {
+  const searchParams = useSearchParams();
   const [deal, setDeal] = useState<DealState>({
     seats: 500,
     monthlyTokensM: 10,
@@ -209,6 +211,22 @@ export function DealDesigner() {
     includeOutcome: false,
   });
   const [showBreakdown, setShowBreakdown] = useState(false);
+
+  // Pre-populate from ?example=smb|enterprise|fortune100
+  useEffect(() => {
+    const example = searchParams?.get('example');
+    if (!example) return;
+    const match = EXAMPLE_DEALS.find((e) => e.label.toLowerCase().replace(' ', '') === example.toLowerCase().replace(' ', '').replace('-', ''));
+    if (match) {
+      setDeal({
+        seats: match.seats,
+        monthlyTokensM: match.monthlyTokensM,
+        monthlyOutcomeCases: match.monthlyOutcomeCases,
+        includeOutcome: match.includeOutcome,
+      });
+      setShowBreakdown(true);
+    }
+  }, []); // intentionally run once on mount to read URL params
 
   const pricing = calculatePricing(deal);
 

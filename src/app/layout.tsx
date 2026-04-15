@@ -10,10 +10,31 @@ export const metadata: Metadata = {
   description:
     'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay, and policy-as-code. Published pricing. EU AI Act ready.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com'),
-  // TODO Week 8: remove noindex before launch deploy
-  robots: {
-    index: false,
-    follow: false,
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://thursdai.com',
+    siteName: 'Thursdai',
+    title: 'Thursdai — The Governed Agent Substrate for Regulated Enterprises',
+    description:
+      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay, and policy-as-code. Published pricing. EU AI Act ready.',
+    images: [
+      {
+        url: '/og-backgrounds/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'Thursdai — The Governed Agent Substrate',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@thursdai',
+    creator: '@thursdai',
+    title: 'Thursdai — The Governed Agent Substrate for Regulated Enterprises',
+    description:
+      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay, and policy-as-code.',
+    images: ['/og-backgrounds/default.png'],
   },
 };
 

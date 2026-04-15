@@ -1,8 +1,5 @@
-// TODO Week 3: evaluate PostHog 'hero-variant' flag server-side
-// Default: 'option-b' until PostHog is configured
-const variant: 'option-a' | 'option-b' = 'option-b';
-
-import React from 'react';
+import React, { Suspense } from 'react';
+import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
@@ -21,7 +18,9 @@ import { PolicyEditor } from '@/components/demos/PolicyEditor';
 import { DealDesigner } from '@/components/demos/DealDesigner';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
+import { Badge } from '@/components/ui/Badge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { getHeroVariant } from '@/lib/posthog';
 
 // ── Cert badges data ──────────────────────────────────────────
 
@@ -149,9 +148,10 @@ function ScrollCue() {
 
 // ── Page ───────────────────────────────────────────────────────
 
-export default function HomePage() {
-  // variant is reserved for PostHog A/B — currently always 'option-b'
-  void variant;
+export default async function HomePage() {
+  const cookieStore = await cookies();
+  const distinctId = cookieStore.get('__thursdai_id')?.value ?? 'anon';
+  const variant = await getHeroVariant(distinctId);
 
   return (
     <>
@@ -192,13 +192,27 @@ export default function HomePage() {
                   }}
                 />
                 <Label>Enterprise Agent Platform</Label>
-                <Display>
-                  See who said what. Replay the decision. Know why it changed.
-                </Display>
-                <Body variant="large">
-                  Thursdai gives regulated enterprises a governed agent substrate — role-based
-                  moderation, decision replay, and policies the model cannot break.
-                </Body>
+                {variant === 'option-a' ? (
+                  <>
+                    <Display>
+                      The governed agent substrate for regulated enterprises.
+                    </Display>
+                    <Body variant="large">
+                      Role-based moderation, decision replay, and policies the model cannot break
+                      — built for the teams that can&apos;t afford an unauditable AI.
+                    </Body>
+                  </>
+                ) : (
+                  <>
+                    <Display>
+                      See who said what. Replay the decision. Know why it changed.
+                    </Display>
+                    <Body variant="large">
+                      Thursdai gives regulated enterprises a governed agent substrate — role-based
+                      moderation, decision replay, and policies the model cannot break.
+                    </Body>
+                  </>
+                )}
                 <HeroCTAs />
               </div>
             }
@@ -395,23 +409,26 @@ export default function HomePage() {
             Governed AI in production
           </Heading2>
           <Grid cols={3} gap="lg">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Card variant="stat" number="4×" label="Faster compliance review" sub="Acme Financial — Financial Services" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <Card variant="stat" number="4×" label="Faster compliance review" sub="A Financial Services Company" />
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                Acme Financial uses Thursdai&apos;s Moderator to route every AI output through Legal, Compliance, and Risk before it reaches a relationship manager.
+                A financial services company uses Thursdai&apos;s Moderator to route every AI output through Legal, Compliance, and Risk before it reaches a relationship manager.
               </Body>
+              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Card variant="stat" number="91%" label="Policy violation catch rate" sub="Meridian Health — Healthcare" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <Card variant="stat" number="91%" label="Policy violation catch rate" sub="A Healthcare Organisation" />
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                Meridian Health enforces HIPAA policy rules at the model layer — no PII leaves the system without explicit approval.
+                A healthcare organisation enforces HIPAA policy rules at the model layer — no PII leaves the system without explicit approval.
               </Body>
+              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <Card variant="stat" number="$2.1M" label="Avoided in contract risk" sub="Sterling Legal — Legal Services" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <Card variant="stat" number="$2.1M" label="Avoided in contract risk" sub="A Legal Services Firm" />
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                Sterling Legal replays every AI-assisted contract review to audit what knowledge was active when a recommendation was made.
+                A legal services firm replays every AI-assisted contract review to audit what knowledge was active when a recommendation was made.
               </Body>
+              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
           </Grid>
           <p style={{ textAlign: 'center', marginTop: '2rem' }}>
@@ -419,7 +436,7 @@ export default function HomePage() {
               href="/customers"
               style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
             >
-              See all customer stories →
+              See deployment context + apply to be featured →
             </Link>
           </p>
         </Container>
@@ -524,7 +541,9 @@ export default function HomePage() {
               background: 'var(--color-surface-primary)',
             }}
           >
-            <DealDesigner />
+            <Suspense>
+              <DealDesigner />
+            </Suspense>
           </div>
         </Container>
       </Section>

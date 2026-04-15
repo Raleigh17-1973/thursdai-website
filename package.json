@@ -6,7 +6,10 @@
     "dev": "velite build --watch & next dev --turbopack",
     "prebuild": "velite build",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.48.0",

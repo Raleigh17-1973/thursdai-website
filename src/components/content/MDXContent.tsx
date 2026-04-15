@@ -15,7 +15,6 @@ interface MDXContentProps {
 export function MDXContent({ code }: MDXContentProps) {
   const Component = useMemo(() => {
     try {
-      // eslint-disable-next-line no-new-func
       const fn = new Function('arguments', code);
       const result = fn(runtime);
       return result?.default ?? (() => null);

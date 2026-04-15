@@ -81,7 +81,6 @@ export function Card(props: CardProps) {
         </blockquote>
         <figcaption className="flex items-center gap-3">
           {authorImage && (
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={authorImage}
               alt={authorName}
