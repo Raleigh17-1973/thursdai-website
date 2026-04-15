@@ -4,7 +4,7 @@
 
 export const DEMO_DECISIONS = [
   {
-    id: 'model-selection',
+    id: 'vendor-decision',
     question: 'Should we use GPT-4o or Claude 3.5 for our customer-support triage flow?',
     date: '2024-09-15',
     roleBreakdown: { Legal: 10, Engineering: 70, Finance: 20 },
@@ -16,7 +16,7 @@ export const DEMO_DECISIONS = [
     ],
   },
   {
-    id: 'conversation-logs',
+    id: 'past-decision-replay',
     question: 'What is our policy on storing conversation logs for QA purposes?',
     date: '2024-03-10',
     roleBreakdown: { Legal: 60, Engineering: 25, Finance: 15 },
@@ -28,7 +28,7 @@ export const DEMO_DECISIONS = [
     ],
   },
   {
-    id: 'ai-agent-deployment',
+    id: 'policy-enforcement',
     question: 'What due diligence steps are required before deploying an AI agent to a tier-1 client?',
     date: '2025-01-20',
     roleBreakdown: { Legal: 40, Engineering: 35, Finance: 25 },

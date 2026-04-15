@@ -10,6 +10,8 @@ const fmt = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
+const tokensToQueries = (tokens: number) => `~${(tokens * 1000).toLocaleString()} queries/mo`;
+
 interface DealState {
   seats: number;
   monthlyTokensM: number;
@@ -270,12 +272,12 @@ export function DealDesigner() {
         />
 
         <SliderRow
-          label="Monthly inference"
+          label="Monthly AI queries (approx.)"
           value={deal.monthlyTokensM}
           min={1}
           max={500}
           step={1}
-          displayValue={`${deal.monthlyTokensM}M tokens/mo`}
+          displayValue={tokensToQueries(deal.monthlyTokensM)}
           onChange={(v) => setDeal((d) => ({ ...d, monthlyTokensM: v }))}
         />
 
@@ -320,7 +322,7 @@ export function DealDesigner() {
         </div>
 
         <SliderRow
-          label="Monthly resolved cases"
+          label="Cases resolved by AI per month"
           value={deal.monthlyOutcomeCases}
           min={0}
           max={50000}
@@ -328,7 +330,7 @@ export function DealDesigner() {
           displayValue={
             deal.includeOutcome
               ? `${deal.monthlyOutcomeCases.toLocaleString()} cases/mo`
-              : 'Not included'
+              : 'Pay only when AI resolves a case (optional)'
           }
           onChange={(v) => setDeal((d) => ({ ...d, monthlyOutcomeCases: v }))}
           disabled={!deal.includeOutcome}
@@ -466,21 +468,7 @@ export function DealDesigner() {
       </div>
 
       {/* Disclaimer */}
-      <p
-        style={{
-          fontSize: '12px',
-          color: 'var(--color-text-tertiary)',
-          marginTop: '0.5rem',
-          borderTop: '1px solid var(--color-border-default)',
-          paddingTop: '1rem',
-          lineHeight: 1.6,
-        }}
-      >
-        Illustrative pricing. All constants in{' '}
-        <code style={{ fontSize: '11px' }}>src/config/pricing.ts</code> — confirm with Jeff Hoyt
-        before enabling the /pricing page. Feature flag:{' '}
-        <code style={{ fontSize: '11px' }}>pricing-page-live</code> (PostHog) defaults to false.
-      </p>
+      {/* Illustrative pricing — confirm constants in src/config/pricing.ts before launch */}
     </div>
   );
 }

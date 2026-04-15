@@ -67,8 +67,8 @@ const productLinks = [
   { label: 'Moderator', href: '/product/moderator' },
   { label: 'Time-Travel', href: '/product/time-travel' },
   { label: 'Policy-as-Code', href: '/product/policy-as-code' },
-  { label: 'Ambient Cases', href: '/product/ambient-cases' },
-  { label: 'Two-Tier Knowledge', href: '/product/two-tier-knowledge' },
+  { label: 'Auto-built case files', href: '/product/ambient-cases' },
+  { label: 'Your data, kept separate', href: '/product/two-tier-knowledge' },
   { label: 'Role Bench', href: '/resources/role-bench' },
 ];
 
@@ -90,7 +90,7 @@ const bottomLinks = [
 
 export function Footer() {
   return (
-    <footer style={{ background: '#0b0f19' }}>
+    <footer className="footer-root" style={{ background: '#0b0f19' }}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-16 md:py-20">
         {/* Four-column grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
@@ -100,7 +100,7 @@ export function Footer() {
               <FooterLogo />
             </div>
             <p className="footer-link text-[14px] leading-relaxed mb-6" style={{ color: '#a1a1aa' }}>
-              The governed agent substrate for regulated enterprises.
+              Your team&apos;s AI — controlled, auditable, and safe to use.
             </p>
             <div className="flex items-center gap-3">
               <a
@@ -191,7 +191,7 @@ export function Footer() {
                 <input
                   id="footer-email"
                   type="email"
-                  placeholder="you@company.com"
+                  placeholder="your@email.com"
                   aria-label="Email address"
                   className="w-full px-3 py-2.5 rounded-lg text-[14px] border"
                   style={{

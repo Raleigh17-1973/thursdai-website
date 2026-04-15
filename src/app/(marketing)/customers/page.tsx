@@ -13,21 +13,20 @@ import { CaseStudyApplyForm } from '@/components/content/CaseStudyApplyForm';
 export const metadata: Metadata = {
   title: 'Customers — Thursdai',
   description:
-    'How regulated enterprises use Thursdai to govern AI agent decisions. Case studies publishing August 2026.',
+    'How regulated enterprises use Thursdai to govern AI agent decisions. Active deployments across financial services, healthcare, and legal.',
 };
 
 export default function CustomersPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <Section>
+      <Section style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
         <Container>
           <Label>Customers</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>Governed AI in production.</Heading1>
+          <Heading1 style={{ marginTop: '0.75rem' }}>Real results, from real teams.</Heading1>
           <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
-            Thursdai is deployed at regulated enterprises across financial services, healthcare, and
-            legal. Named case studies — with real numbers and customer approval — are publishing in
-            August 2026.
+            Thursdai is in active deployment across financial services, healthcare, and legal. Early
+            results below.
           </Body>
         </Container>
       </Section>
@@ -43,9 +42,6 @@ export default function CustomersPage() {
                 label="Faster compliance review"
                 sub="A Financial Services Company"
               />
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>
-                Identity disclosed August 2026
-              </Badge>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card
@@ -54,9 +50,6 @@ export default function CustomersPage() {
                 label="Policy violation catch rate"
                 sub="A Healthcare Organisation"
               />
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>
-                Identity disclosed August 2026
-              </Badge>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card
@@ -65,9 +58,6 @@ export default function CustomersPage() {
                 label="Avoided in contract risk"
                 sub="A Legal Services Firm"
               />
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>
-                Identity disclosed August 2026
-              </Badge>
             </div>
           </Grid>
         </Container>

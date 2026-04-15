@@ -158,6 +158,14 @@ a:hover { text-decoration: underline; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
 * { scrollbar-width: thin; scrollbar-color: var(--color-border-default) transparent; }
 
+/* Footer root — dark background always, softened slightly in light mode */
+.footer-root {
+  background: #0b0f19;
+}
+:root[data-theme="light"] .footer-root {
+  background: #1f2937;
+}
+
 /* Footer link hover (always-dark footer, no theme switching needed) */
 .footer-link {
   color: #a1a1aa;

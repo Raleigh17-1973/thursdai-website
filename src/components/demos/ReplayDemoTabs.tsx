@@ -62,6 +62,7 @@ function ConfidenceBar({ value }: { value: number }) {
 
 export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const active = decisions[activeIdx];
 
   return (
@@ -76,6 +77,18 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
       }}
     >
       {/* Tab switcher */}
+      <div style={{ padding: '0.75rem 1.25rem 0' }}>
+        <p
+          style={{
+            fontSize: '12px',
+            color: 'var(--color-text-secondary)',
+            marginBottom: '0.5rem',
+            margin: '0 0 0.5rem 0',
+          }}
+        >
+          ← Click to explore different decisions
+        </p>
+      </div>
       <div
         role="tablist"
         aria-label="Decision examples"
@@ -93,6 +106,8 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
             aria-controls={`replay-panel-${d.id}`}
             id={`replay-tab-${d.id}`}
             onClick={() => setActiveIdx(i)}
+            onMouseEnter={() => setHoveredIdx(i)}
+            onMouseLeave={() => setHoveredIdx(null)}
             style={{
               flex: '0 0 auto',
               padding: '0.75rem 1.25rem',
@@ -106,9 +121,10 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
                   ? '2px solid var(--color-accent)'
                   : '2px solid transparent',
               cursor: 'pointer',
-              transition: 'color 150ms ease',
+              transition: 'color 150ms ease, opacity 150ms ease',
               whiteSpace: 'nowrap',
               marginBottom: '-1px',
+              opacity: i === activeIdx ? 1 : hoveredIdx === i ? 1 : 0.6,
             }}
           >
             {d.label}

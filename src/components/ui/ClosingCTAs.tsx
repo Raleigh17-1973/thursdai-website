@@ -18,7 +18,7 @@ export function ClosingCTAs() {
           variant="primary"
           size="lg"
           onClick={scrollToDemo}
-          style={{ background: '#ffffff', color: '#0d9488' }}
+          style={{ background: '#111827', color: '#ffffff' }}
         >
           Try the replay demo
         </Button>

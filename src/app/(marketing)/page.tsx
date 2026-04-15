@@ -18,7 +18,6 @@ import { PolicyEditor } from '@/components/demos/PolicyEditor';
 import { DealDesigner } from '@/components/demos/DealDesigner';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
-import { Badge } from '@/components/ui/Badge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { getHeroVariant } from '@/lib/posthog';
 
@@ -159,12 +158,10 @@ export default async function HomePage() {
       <section
         style={{
           position: 'relative',
-          minHeight: '100svh',
-          display: 'flex',
-          alignItems: 'center',
+          paddingTop: '6rem',
+          paddingBottom: '4rem',
           background: 'var(--color-bg)',
         }}
-        className="md:min-h-0 md:py-32"
       >
         <Container>
           <Split
@@ -191,7 +188,7 @@ export default async function HomePage() {
                     pointerEvents: 'none',
                   }}
                 />
-                <Label>Enterprise Agent Platform</Label>
+                <Label>AI THAT WORKS FOR YOUR WHOLE TEAM</Label>
                 {variant === 'option-a' ? (
                   <>
                     <Display>
@@ -208,12 +205,19 @@ export default async function HomePage() {
                       See who said what. Replay the decision. Know why it changed.
                     </Display>
                     <Body variant="large">
-                      Thursdai gives regulated enterprises a governed agent substrate — role-based
-                      moderation, decision replay, and policies the model cannot break.
+                      Ask a question. Thursdai consults Legal, Finance, and Operations simultaneously, reconciles their input, and gives you one sourced, policy-checked answer — with a full audit trail. No guesswork. No liability.
                     </Body>
                   </>
                 )}
                 <HeroCTAs />
+                <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                  {['SOC 2 Type II', 'ISO 27001', 'HIPAA-eligible', 'EU AI Act Ready'].map((badge) => (
+                    <span key={badge} style={{ fontSize: '12px', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-block' }} />
+                      {badge}
+                    </span>
+                  ))}
+                </div>
               </div>
             }
             right={<ReplayDemo />}
@@ -221,6 +225,29 @@ export default async function HomePage() {
         </Container>
         <ScrollCue />
       </section>
+
+      {/* ── How it works ──────────────────────────────────────── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <Label>How it works</Label>
+            <Heading2 style={{ marginTop: '0.5rem' }}>Three steps. One trusted answer.</Heading2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+            {[
+              { step: '01', title: 'You ask a question', body: 'Type your question — or connect Thursdai to your existing tools and let it surface decisions automatically.' },
+              { step: '02', title: 'Your whole team weighs in', body: 'Thursdai consults your Legal, Finance, and Operations knowledge simultaneously — each role applies its own rules.' },
+              { step: '03', title: 'One sourced, policy-checked answer', body: 'You get one clear answer, with citations, a full audit trail, and the confidence that it followed every rule you set.' },
+            ].map(({ step, title, body }) => (
+              <div key={step} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <span style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--color-accent)', lineHeight: 1 }}>{step}</span>
+                <Heading2 style={{ fontSize: '1.125rem' }}>{title}</Heading2>
+                <Body style={{ color: 'var(--color-text-secondary)' }}>{body}</Body>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
 
       {/* ── Section 2: Three Promises ────────────────────────── */}
       <Section variant="compact">
@@ -230,7 +257,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconPanel />}
               title="A panel, not a chatbot"
-              body="Every question goes to Legal, Finance, and Engineering simultaneously. The Moderator reconciles the answers. You see who agreed, who differed, and why."
+              body="Ask once and get perspectives from all your business areas — Legal, Finance, Operations — at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
             />
             <Card
               variant="feature"
@@ -242,7 +269,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconShield />}
               title="Policies the model cannot break"
-              body="Express governance rules in YAML. The Moderator enforces them before any answer leaves the system — not as a prompt suggestion, but as a hard constraint."
+              body="Set rules your AI must follow — and it literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
             />
           </Grid>
         </Container>
@@ -253,15 +280,13 @@ export default async function HomePage() {
         <Container>
           <Label style={{ color: '#2dd4bf' }}>Moderator</Label>
           <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
-            Three roles. One reconciled answer.
+            Your whole team, asked at once. One clear answer.
           </Heading2>
           <Body
             variant="large"
             style={{ color: '#a1a1aa', maxWidth: '640px', marginTop: '1rem' }}
           >
-            Ask once. Get Legal, Finance, and Engineering in the same panel. The Moderator
-            reconciles — flagging disagreements, citing sources, applying your policies before the
-            answer leaves.
+            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance, and Operations knowledge — flags where they disagree, cites every source, and applies your rules before the answer reaches you.
           </Body>
           <ModeratorPanel />
           <div style={{ marginTop: '2rem' }}>
@@ -269,6 +294,9 @@ export default async function HomePage() {
               See Moderator in depth →
             </Link>
           </div>
+          <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
+            or <a href="#request-demo" style={{ color: '#2dd4bf' }}>book a live walk-through →</a>
+          </Body>
         </Container>
       </section>
 
@@ -312,11 +340,9 @@ export default async function HomePage() {
             right={
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <Label>Policy-as-Code</Label>
-                <Heading2>Rules the model cannot break.</Heading2>
+                <Heading2>Rules your AI must follow. No exceptions.</Heading2>
                 <Body>
-                  Express governance constraints in YAML. The Moderator enforces them before any
-                  answer leaves the system — blocking, transforming, or flagging outputs that
-                  violate your policies.
+                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer — automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
                 </Body>
                 <Body>Three policy primitives:</Body>
                 <ul
@@ -400,7 +426,7 @@ export default async function HomePage() {
       </Section>
 
       {/* ── Section 7: Customer logos + stats ────────────────── */}
-      <Section variant="default">
+      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
             Customers
@@ -414,21 +440,18 @@ export default async function HomePage() {
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
                 A financial services company uses Thursdai&apos;s Moderator to route every AI output through Legal, Compliance, and Risk before it reaches a relationship manager.
               </Body>
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card variant="stat" number="91%" label="Policy violation catch rate" sub="A Healthcare Organisation" />
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
                 A healthcare organisation enforces HIPAA policy rules at the model layer — no PII leaves the system without explicit approval.
               </Body>
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card variant="stat" number="$2.1M" label="Avoided in contract risk" sub="A Legal Services Firm" />
               <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
                 A legal services firm replays every AI-assisted contract review to audit what knowledge was active when a recommendation was made.
               </Body>
-              <Badge variant="muted" style={{ marginTop: '0.5rem' }}>Named case study publishing August 2026</Badge>
             </div>
           </Grid>
           <p style={{ textAlign: 'center', marginTop: '2rem' }}>
@@ -453,15 +476,10 @@ export default async function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <Label style={{ color: '#2dd4bf' }}>Developers</Label>
                 <Heading2 style={{ color: '#e4e4e7' }}>
-                  Thursdai is infrastructure other agents call.
+                  Built to connect to your existing tools. With an open API for technical teams.
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
-                  invoke_role(), replay_case(), dry_run_policy() — seven MCP tools and a REST API
-                  built for the agent-to-agent layer. Your orchestrator calls Thursdai; Thursdai
-                  handles governance, attribution, and audit.
-                </Body>
-                <Body style={{ color: '#a1a1aa' }}>
-                  Works with Claude Desktop, Cursor, and any MCP-compatible client out of the box.
+                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK, and MCP server. Connect to your existing systems, automate workflows, and build on top of Thursdai&apos;s roles and policies.
                 </Body>
                 <Link href="/developers" style={{ color: '#2dd4bf', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →
@@ -558,7 +576,7 @@ export default async function HomePage() {
       >
         <Container>
           <Heading2 style={{ color: '#ffffff', marginBottom: '1rem' }}>
-            Ready to govern your AI agents?
+            Ready to use AI you can actually trust?
           </Heading2>
           <Body
             variant="large"
@@ -568,7 +586,7 @@ export default async function HomePage() {
               margin: '0 auto 2rem',
             }}
           >
-            Try the replay demo or request a dedicated tenant pilot.
+            Try the replay demo — no login required — or talk to us about a pilot.
           </Body>
           <ClosingCTAs />
         </Container>

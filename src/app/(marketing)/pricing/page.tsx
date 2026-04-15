@@ -71,7 +71,7 @@ export default function PricingPage() {
       />
 
       {/* ── Hero ── */}
-      <Section>
+      <Section style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
         <Container>
           <Label>Pricing</Label>
           <Display style={{ marginTop: '0.75rem' }}>Published pricing. Tuned to outcome.</Display>
@@ -97,65 +97,98 @@ export default function PricingPage() {
             Example deals — click to load in the calculator below
           </p>
           <Grid cols={3} gap="md">
-            <Card
-              variant="stat"
-              number="$72K"
-              label="SMB / year"
-              sub="400 seats · 5M tokens/mo · 500 outcome cases"
-            />
-            <Link
-              href="/pricing?example=smb"
+            <div
               style={{
-                display: 'block',
-                textAlign: 'center',
-                color: 'var(--color-accent)',
-                fontSize: '13px',
-                fontWeight: 600,
-                marginTop: '-0.25rem',
+                background: 'var(--color-surface-primary)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: '12px',
+                padding: '1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
               }}
             >
-              Load this example →
-            </Link>
+              <Card
+                variant="stat"
+                number="$72K"
+                label="SMB / year"
+                sub="400 seats · 5M tokens/mo · 500 outcome cases"
+              />
+              <Link
+                href="/pricing?example=smb"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  color: 'var(--color-accent)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                }}
+              >
+                Load this example →
+              </Link>
+            </div>
 
-            <Card
-              variant="stat"
-              number="$385K"
-              label="Enterprise / year"
-              sub="5,000 seats · 50M tokens/mo · 3,000 outcome cases"
-            />
-            <Link
-              href="/pricing?example=enterprise"
+            <div
               style={{
-                display: 'block',
-                textAlign: 'center',
-                color: 'var(--color-accent)',
-                fontSize: '13px',
-                fontWeight: 600,
-                marginTop: '-0.25rem',
+                background: 'var(--color-surface-primary)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: '12px',
+                padding: '1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
               }}
             >
-              Load this example →
-            </Link>
+              <Card
+                variant="stat"
+                number="$385K"
+                label="Enterprise / year"
+                sub="5,000 seats · 50M tokens/mo · 3,000 outcome cases"
+              />
+              <Link
+                href="/pricing?example=enterprise"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  color: 'var(--color-accent)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                }}
+              >
+                Load this example →
+              </Link>
+            </div>
 
-            <Card
-              variant="stat"
-              number="$1.2M"
-              label="Fortune 100 / year"
-              sub="15,000 seats · 250M tokens/mo · 15,000 outcome cases"
-            />
-            <Link
-              href="/pricing?example=fortune100"
+            <div
               style={{
-                display: 'block',
-                textAlign: 'center',
-                color: 'var(--color-accent)',
-                fontSize: '13px',
-                fontWeight: 600,
-                marginTop: '-0.25rem',
+                background: 'var(--color-surface-primary)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: '12px',
+                padding: '1.5rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
               }}
             >
-              Load this example →
-            </Link>
+              <Card
+                variant="stat"
+                number="$1.2M"
+                label="Fortune 100 / year"
+                sub="15,000 seats · 250M tokens/mo · 15,000 outcome cases"
+              />
+              <Link
+                href="/pricing?example=fortune100"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  color: 'var(--color-accent)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                }}
+              >
+                Load this example →
+              </Link>
+            </div>
           </Grid>
         </Container>
       </Section>

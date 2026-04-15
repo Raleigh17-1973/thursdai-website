@@ -89,18 +89,17 @@ export default function TrustPage() {
   return (
     <>
       {/* Hero */}
-      <Section variant="default">
+      <Section variant="default" style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
         <Container>
           <Label>Trust &amp; Security</Label>
           <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
-            Built for procurement, compliance, and engineering to all say yes.
+            Built so your team, your clients, and your auditors all feel confident.
           </Display>
           <Body
             variant="large"
             style={{ maxWidth: '700px' }}
           >
-            Thursdai is designed for regulated enterprise deployment from the ground up — not
-            retrofitted. Every architectural decision, certification, and policy is documented here.
+            Whether you&apos;re a 10-person team or a Fortune 500, Thursdai was built with security and accountability as its foundation — not bolted on later.
           </Body>
         </Container>
       </Section>

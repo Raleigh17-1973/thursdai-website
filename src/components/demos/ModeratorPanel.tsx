@@ -29,7 +29,7 @@ const MODERATOR = {
 };
 
 const panelVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0.15, y: 16 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
@@ -52,8 +52,8 @@ function PanelCard({
         display: 'flex',
         flexDirection: 'column',
         gap: '0.75rem',
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        background: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.10)',
         borderRadius: '12px',
         padding: '1.25rem',
         cursor: 'pointer',
@@ -74,7 +74,7 @@ function PanelCard({
     >
       <Label style={{ color: '#2dd4bf' }}>{panel.role}</Label>
       <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-      <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#a1a1aa', margin: 0 }}>
+      <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--color-text-secondary, #9CA3AF)', margin: 0 }}>
         {panel.text}
       </p>
       <span style={{ fontSize: '12px', color: '#2dd4bf', marginTop: 'auto' }}>

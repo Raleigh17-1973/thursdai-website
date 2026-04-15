@@ -12,8 +12,8 @@ interface SectionProps {
 }
 
 const paddingMap: Record<SectionVariant, string> = {
-  default: 'py-24 md:py-40',
-  compact: 'py-16 md:py-24',
+  default: 'py-16 md:py-24',
+  compact: 'py-10 md:py-16',
   flush: '',
 };
 

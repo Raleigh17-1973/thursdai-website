@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Stack: Next.js 15 App Router, Tailwind CSS 4, TypeScript strict, Velite MDX, Framer Motion
+  Architecture: RSC by default; client islands with 'use client'; CSS vars token system; data-theme dark mode
+  Testing: tsc --noEmit; ESLint flat config; Lighthouse CI (lighthouserc.json)
+  Style: no @tailwind v3 config; @theme inline in globals.css; tokens in src/tokens/thursdai.ts
+  Conventions: npm only; no pnpm; src/config/* for data; content/* for MDX
+
+rules:
+  proposal:
+    - Group issues by sprint (Critical → High → Medium) matching the audit document
+    - Include rollback notes for any structural changes
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  tasks:
+    - Group by sprint and file target — one task per file or component
+    - Keep tasks atomic (completable in one sitting)
+  apply:
+    - Follow existing token and CSS variable patterns — never hardcode colors unless the audit explicitly requires it
+    - Preserve all TypeScript types; tsc must stay clean
+  verify:
+    - Run tsc --noEmit and ESLint --max-warnings 0 after each sprint
+    - Visual check on localhost:3002 for Critical items
+  archive:
+    - Commit each sprint separately with descriptive message

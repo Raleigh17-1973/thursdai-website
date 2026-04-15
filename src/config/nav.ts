@@ -15,4 +15,5 @@ export const NAV_ITEMS = [
   { label: 'Customers', href: '/customers' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Compare', href: '/compare/glean' },
+  { label: 'Company', href: '/company' },
 ] as const;

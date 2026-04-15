@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { TopNav } from '@/components/nav/TopNav';
 import { Footer } from '@/components/nav/Footer';
+import { BackToTop } from '@/components/ui/BackToTop';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -105,6 +106,7 @@ export default function RootLayout({
       <body>
         <TopNav />
         <main>{children}</main>
+        <BackToTop />
         <Footer />
       </body>
     </html>

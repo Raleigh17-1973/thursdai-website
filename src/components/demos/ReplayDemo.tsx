@@ -3,7 +3,7 @@ import React from 'react';
 import { DEMO_DECISIONS } from '@/config/demo-data';
 import { ReplayDemoTabs, type ReplayDecisionData } from './ReplayDemoTabs';
 
-const TAB_LABELS = ['Model Selection', 'Conversation Logs', 'AI Agent Deployment'];
+const TAB_LABELS = ['Vendor Decision', 'Past Decision Replay', 'Policy Enforcement'];
 
 const WHAT_CHANGED = [
   'Since Sept 2024: GPT-4o now leads benchmarks for this use case. Role Bench v1 adds structured comparison data.',
@@ -43,7 +43,7 @@ export function ReplayDemo() {
       id: d.id,
       label: TAB_LABELS[i] ?? d.id,
       question: d.question,
-      date: `Recorded ${formattedDate}`,
+      date: formattedDate,
       roleBreakdown: d.roleBreakdown as Record<string, number>,
       annotated: buildAnnotated(d.answer, d.provenance),
       provenance: d.provenance.map((p) => ({
