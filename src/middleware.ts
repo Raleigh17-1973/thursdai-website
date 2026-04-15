@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { randomUUID } from 'crypto';
 
 const DISTINCT_ID_COOKIE = '__thursdai_id';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
@@ -11,7 +10,7 @@ export function middleware(request: NextRequest) {
   // Set a stable anonymous distinct ID for PostHog A/B testing
   // Only set if not already present — never overwrite an existing ID
   if (!request.cookies.get(DISTINCT_ID_COOKIE)) {
-    response.cookies.set(DISTINCT_ID_COOKIE, randomUUID(), {
+    response.cookies.set(DISTINCT_ID_COOKIE, crypto.randomUUID(), {
       maxAge: COOKIE_MAX_AGE,
       httpOnly: true,
       sameSite: 'lax',
