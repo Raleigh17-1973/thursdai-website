@@ -7,6 +7,7 @@ interface CalloutProps {
   title?: string;
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const variantStyles: Record<
@@ -30,7 +31,7 @@ const variantStyles: Record<
   },
 };
 
-export function Callout({ variant = 'info', title, children, className = '' }: CalloutProps) {
+export function Callout({ variant = 'info', title, children, className = '', style }: CalloutProps) {
   const { borderColor, background, titleColor } = variantStyles[variant];
 
   return (
@@ -39,6 +40,7 @@ export function Callout({ variant = 'info', title, children, className = '' }: C
       style={{
         borderLeft: `4px solid ${borderColor}`,
         background,
+        ...style,
       }}
       role={variant === 'danger' ? 'alert' : undefined}
     >
