@@ -13,13 +13,77 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
+import { CodeBlock } from '@/components/ui/CodeBlock';
 import { ReplayDemo } from '@/components/demos/ReplayDemo';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
+import { CertBadge } from '@/components/content/CertBadge';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+
+// ── Cert badges data ──────────────────────────────────────────
+
+const CERT_BADGES = [
+  { name: 'SOC 2 Type II', status: 'live' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II certified' },
+  { name: 'ISO 27001', status: 'live' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 certified' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
+  { name: 'HIPAA-eligible', status: 'live' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible infrastructure' },
+  { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
+];
+
+// ── invoke_role code snippet ───────────────────────────────────
+
+const INVOKE_ROLE_SNIPPET = `from thursdai import ThursdaiClient
+
+client = ThursdaiClient(api_key="thy_live_...")
+
+# Route a question through three roles
+result = client.invoke_role(
+    question="Should we deploy GPT-4o to tier-1 clients?",
+    roles=["legal", "finance", "engineering"],
+    tenant_id="acme-financial",
+    policy_set="production-v2",
+)
+
+# Access role-specific answers
+for role in result.panel:
+    print(f"{role.name}: {role.answer}")
+    print(f"  Sources: {[s.name for s in role.sources]}")
+
+# Get the Moderator's reconciled answer
+print(result.moderator.answer)
+print(f"Consensus: {result.moderator.consensus}")`;
 
 // ── Inline SVG icons ─────────────────────────────────────────
+
+function IconBuilding() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
+      <path d="M9 21V9h6v12" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
+      <rect x="10.5" y="12" width="3" height="3" fill="var(--color-accent)" opacity="0.6" />
+    </svg>
+  );
+}
+
+function IconLightning() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function IconCheckCircle() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="var(--color-accent)" strokeWidth="2" />
+      <polyline points="9 12 11 14 15 10" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 function IconPanel() {
   return (
@@ -281,6 +345,201 @@ export default function HomePage() {
           />
         </Container>
       </Section>
+
+      {/* ── Section 6: Trust banner ───────────────────────────── */}
+      <Section
+        variant="compact"
+        style={{
+          borderTop: '1px solid var(--color-border-default)',
+          borderBottom: '1px solid var(--color-border-default)',
+        }}
+      >
+        <Container>
+          <p
+            style={{
+              textAlign: 'center',
+              fontSize: '11px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: 'var(--color-text-tertiary)',
+              marginBottom: '1.5rem',
+            }}
+          >
+            Security &amp; compliance
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '1rem',
+              alignItems: 'center',
+            }}
+          >
+            {CERT_BADGES.map((badge) => (
+              <CertBadge key={badge.name} {...badge} />
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Section 7: Customer logos + stats ────────────────── */}
+      <Section variant="default">
+        <Container>
+          <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
+            Customers
+          </Label>
+          <Heading2 style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            Governed AI in production
+          </Heading2>
+          <Grid cols={3} gap="lg">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Card variant="stat" number="4×" label="Faster compliance review" sub="Acme Financial — Financial Services" />
+              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
+                Acme Financial uses Thursdai&apos;s Moderator to route every AI output through Legal, Compliance, and Risk before it reaches a relationship manager.
+              </Body>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Card variant="stat" number="91%" label="Policy violation catch rate" sub="Meridian Health — Healthcare" />
+              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
+                Meridian Health enforces HIPAA policy rules at the model layer — no PII leaves the system without explicit approval.
+              </Body>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <Card variant="stat" number="$2.1M" label="Avoided in contract risk" sub="Sterling Legal — Legal Services" />
+              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
+                Sterling Legal replays every AI-assisted contract review to audit what knowledge was active when a recommendation was made.
+              </Body>
+            </div>
+          </Grid>
+          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <Link
+              href="/customers"
+              style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
+            >
+              See all customer stories →
+            </Link>
+          </p>
+        </Container>
+      </Section>
+
+      {/* ── Section 8: Developers band ───────────────────────── */}
+      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '5rem 0' }}>
+        <Container>
+          <Split
+            ratio="50/50"
+            alignItems="center"
+            gap="xl"
+            left={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <Label style={{ color: '#2dd4bf' }}>Developers</Label>
+                <Heading2 style={{ color: '#e4e4e7' }}>
+                  Thursdai is infrastructure other agents call.
+                </Heading2>
+                <Body style={{ color: '#a1a1aa' }}>
+                  invoke_role(), replay_case(), dry_run_policy() — seven MCP tools and a REST API
+                  built for the agent-to-agent layer. Your orchestrator calls Thursdai; Thursdai
+                  handles governance, attribution, and audit.
+                </Body>
+                <Body style={{ color: '#a1a1aa' }}>
+                  Works with Claude Desktop, Cursor, and any MCP-compatible client out of the box.
+                </Body>
+                <Link href="/developers" style={{ color: '#2dd4bf', fontSize: '15px', fontWeight: 600 }}>
+                  Explore the developer surface →
+                </Link>
+              </div>
+            }
+            right={
+              <CodeBlock
+                language="python"
+                filename="example.py"
+                code={INVOKE_ROLE_SNIPPET}
+              />
+            }
+          />
+        </Container>
+      </section>
+
+      {/* ── Section 9: Pricing wedge ─────────────────────────── */}
+      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Label style={{ textAlign: 'center', display: 'block' }}>Pricing</Label>
+          <Heading2 style={{ textAlign: 'center' }}>
+            Published pricing. Tuned to outcome.
+          </Heading2>
+          <Body
+            variant="large"
+            style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem' }}
+          >
+            Three components. All published. No &ldquo;contact us for pricing.&rdquo;
+          </Body>
+          <Grid cols={3} gap="md">
+            <Card
+              variant="feature"
+              icon={<IconBuilding />}
+              title="Platform"
+              body="Annual platform fee based on seat count. Covers all roles, all policies, all deployment models. Starting at $60K/year."
+            />
+            <Card
+              variant="feature"
+              icon={<IconLightning />}
+              title="Credits"
+              body="Per 1,000 inference tokens across all roles. Pay for what you use, nothing more. $0.018 per 1K tokens."
+            />
+            <Card
+              variant="feature"
+              icon={<IconCheckCircle />}
+              title="Outcome"
+              body="Optional per-closed-case fee for outcome-based deployments. $2.20 per resolved case. Only pay when the system delivers."
+            />
+          </Grid>
+          <p style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <Link href="/pricing">
+              <button
+                className="inline-flex items-center justify-center font-semibold rounded-lg transition-colors px-6 py-3 text-[17px] bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
+              >
+                Design your deal →
+              </button>
+            </Link>
+          </p>
+          <Body
+            variant="small"
+            style={{ textAlign: 'center', color: 'var(--color-text-tertiary)', marginTop: '1rem' }}
+          >
+            Illustrative pricing.{' '}
+            <Link href="/pricing" style={{ color: 'var(--color-accent)' }}>
+              See the full Deal Designer →
+            </Link>
+          </Body>
+        </Container>
+      </Section>
+
+      {/* ── Section 10: Closing CTA band ─────────────────────── */}
+      <section
+        style={{
+          background: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%)',
+          padding: '5rem 0',
+          textAlign: 'center',
+        }}
+      >
+        <Container>
+          <Heading2 style={{ color: '#ffffff', marginBottom: '1rem' }}>
+            Ready to govern your AI agents?
+          </Heading2>
+          <Body
+            variant="large"
+            style={{
+              color: 'rgba(255,255,255,0.85)',
+              maxWidth: '500px',
+              margin: '0 auto 2rem',
+            }}
+          >
+            Try the replay demo or request a dedicated tenant pilot.
+          </Body>
+          <ClosingCTAs />
+        </Container>
+      </section>
     </>
   );
 }
