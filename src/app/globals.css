@@ -208,3 +208,74 @@ a:hover { text-decoration: underline; }
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
+
+/* ── ReplayDemo sentence-level provenance tooltip ───────────── */
+.replay-sentence[data-has-citation] {
+  text-decoration: underline dotted var(--color-accent);
+  text-underline-offset: 3px;
+  cursor: help;
+  position: relative;
+}
+.replay-sentence[data-has-citation]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 0;
+  background: var(--color-surface-tertiary, #0b0f19);
+  border: 1px solid var(--color-border-default);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 50;
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+/* ── ReplayDemo mobile / desktop provenance panel ───────────── */
+.replay-provenance-mobile { display: none; }
+@media (max-width: 767px) {
+  .replay-provenance-desktop { display: none; }
+  .replay-provenance-mobile { display: block; }
+}
+
+/* ── TimeTravelScrubber slider ──────────────────────────────── */
+.time-travel-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) 0%,
+    var(--color-accent) var(--slider-progress, 0%),
+    var(--color-border-default) var(--slider-progress, 0%),
+    var(--color-border-default) 100%
+  );
+}
+.time-travel-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-surface-primary, #0b0f19);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.time-travel-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-surface-primary, #0b0f19);
+  cursor: pointer;
+}
+.time-travel-slider:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 4px;
+}

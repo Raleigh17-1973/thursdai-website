@@ -6,9 +6,11 @@ type CodeLanguage = 'bash' | 'typescript' | 'python' | 'yaml' | 'json' | 'text';
 
 interface CodeBlockProps {
   code: string;
-  language?: CodeLanguage; // default: 'text'
+  language?: CodeLanguage;
   filename?: string;
   className?: string;
+  /** Pre-rendered HTML from SyntaxHighlighter server component */
+  highlightedHtml?: string;
 }
 
 function CopyIcon() {
@@ -38,8 +40,7 @@ function CheckIcon() {
   );
 }
 
-// TODO Week 5: replace with Shiki syntax highlighting
-export function CodeBlock({ code, language = 'text', filename, className = '' }: CodeBlockProps) {
+function CopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
@@ -48,6 +49,31 @@ export function CodeBlock({ code, language = 'text', filename, className = '' }:
     setTimeout(() => setCopied(false), 2000);
   }
 
+  return (
+    <button
+      onClick={handleCopy}
+      aria-label={copied ? 'Copied!' : 'Copy code'}
+      className="flex items-center gap-1.5 px-2 py-1 rounded text-[12px] transition-colors"
+      style={{
+        color: copied ? 'rgb(34,197,94)' : 'rgba(255,255,255,0.5)',
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+      }}
+    >
+      {copied ? <CheckIcon /> : <CopyIcon />}
+      {copied ? 'Copied!' : 'Copy'}
+    </button>
+  );
+}
+
+export function CodeBlock({
+  code,
+  language = 'text',
+  filename,
+  className = '',
+  highlightedHtml,
+}: CodeBlockProps) {
   return (
     <div
       className={['rounded-xl overflow-hidden', className].filter(Boolean).join(' ')}
@@ -61,29 +87,27 @@ export function CodeBlock({ code, language = 'text', filename, className = '' }:
         <span className="text-[12px] font-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
           {filename ?? language}
         </span>
-        <button
-          onClick={handleCopy}
-          aria-label="Copy code"
-          className="flex items-center gap-1.5 px-2 py-1 rounded text-[12px] transition-colors"
-          style={{
-            color: copied ? 'rgb(34,197,94)' : 'rgba(255,255,255,0.5)',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          {copied ? <CheckIcon /> : <CopyIcon />}
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
+        <CopyButton code={code} />
       </div>
 
-      {/* Code */}
-      <pre
-        className="overflow-x-auto p-4 text-[13px] leading-relaxed"
-        style={{ fontFamily: 'var(--font-mono, monospace)', color: 'rgba(255,255,255,0.85)', margin: 0 }}
-      >
-        <code>{code}</code>
-      </pre>
+      {/* Code — use pre-rendered Shiki HTML when available, else plain pre */}
+      {highlightedHtml ? (
+        <div
+          dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+          style={{ padding: '0 1rem 1rem' }}
+        />
+      ) : (
+        <pre
+          className="overflow-x-auto p-4 text-[13px] leading-relaxed"
+          style={{
+            fontFamily: 'var(--font-mono, monospace)',
+            color: 'rgba(255,255,255,0.85)',
+            margin: 0,
+          }}
+        >
+          <code>{code}</code>
+        </pre>
+      )}
     </div>
   );
 }

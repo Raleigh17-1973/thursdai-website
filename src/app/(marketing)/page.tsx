@@ -18,6 +18,7 @@ import { ReplayDemo } from '@/components/demos/ReplayDemo';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
+import { DealDesigner } from '@/components/demos/DealDesigner';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
@@ -512,6 +513,19 @@ export default function HomePage() {
               See the full Deal Designer →
             </Link>
           </Body>
+
+          {/* Deal Designer inline preview */}
+          <div
+            style={{
+              marginTop: '3rem',
+              border: '1px solid var(--color-border-default)',
+              borderRadius: '16px',
+              padding: '2rem',
+              background: 'var(--color-surface-primary)',
+            }}
+          >
+            <DealDesigner />
+          </div>
         </Container>
       </Section>
 

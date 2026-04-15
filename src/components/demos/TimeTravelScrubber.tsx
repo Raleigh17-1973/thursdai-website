@@ -110,6 +110,7 @@ export function TimeTravelScrubber() {
       {/* Answer — crossfades on change */}
       <div
         ref={answerRef}
+        aria-live="polite"
         style={{
           opacity: fading ? 0 : 1,
           transition: 'opacity 200ms ease',
@@ -179,23 +180,26 @@ export function TimeTravelScrubber() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <input
           type="range"
+          list="time-travel-ticks"
           min={0}
           max={4}
           step={1}
           value={sliderVal}
           onChange={handleSliderChange}
-          aria-label="Time-travel slider"
-          style={{
-            width: '100%',
-            height: '4px',
-            accentColor: 'var(--color-accent)',
-            cursor: 'pointer',
-            appearance: 'none',
-            WebkitAppearance: 'none',
-            background: `linear-gradient(to right, var(--color-accent) ${(sliderVal / 4) * 100}%, var(--color-border-default) ${(sliderVal / 4) * 100}%)`,
-            borderRadius: '2px',
-          }}
+          aria-label="Time-Travel slider"
+          aria-valuetext={snapshot.label}
+          className="time-travel-slider"
+          style={
+            { '--slider-progress': `${(sliderVal / 4) * 100}%` } as React.CSSProperties
+          }
         />
+        <datalist id="time-travel-ticks">
+          <option value="0" />
+          <option value="1" />
+          <option value="2" />
+          <option value="3" />
+          <option value="4" />
+        </datalist>
         <div
           style={{
             display: 'flex',

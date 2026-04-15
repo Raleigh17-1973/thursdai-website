@@ -1,6 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { codeToHtml } from 'shiki/bundle/web';
+import { diffWords } from 'diff';
 import { Tabs } from '@/components/ui/Tabs';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 
@@ -8,8 +10,8 @@ interface Preset {
   id: string;
   label: string;
   yaml: string;
-  withoutPolicy: string;
-  withPolicy: React.ReactNode;
+  before: string;
+  after: string;
 }
 
 const PRESETS: Preset[] = [
@@ -25,46 +27,10 @@ patterns:
   - phone_numbers
   - national_id_numbers
 on_violation: redact_and_flag`,
-    withoutPolicy:
+    before:
       'Contact Sarah Chen at sarah.chen@acmecorp.com or +1 (415) 555-0147 to schedule the compliance review.',
-    withPolicy: (
-      <>
-        Contact{' '}
-        <span
-          style={{
-            background: 'rgba(45,212,191,0.15)',
-            color: 'var(--color-accent)',
-            padding: '0 4px',
-            borderRadius: '4px',
-          }}
-        >
-          [REDACTED]
-        </span>{' '}
-        at{' '}
-        <span
-          style={{
-            background: 'rgba(45,212,191,0.15)',
-            color: 'var(--color-accent)',
-            padding: '0 4px',
-            borderRadius: '4px',
-          }}
-        >
-          [EMAIL REDACTED]
-        </span>{' '}
-        or{' '}
-        <span
-          style={{
-            background: 'rgba(45,212,191,0.15)',
-            color: 'var(--color-accent)',
-            padding: '0 4px',
-            borderRadius: '4px',
-          }}
-        >
-          [PHONE REDACTED]
-        </span>{' '}
-        to schedule the compliance review.
-      </>
-    ),
+    after:
+      'Contact [REDACTED] at [EMAIL REDACTED] or [PHONE REDACTED] to schedule the compliance review.',
   },
   {
     id: 'legal-gate',
@@ -78,27 +44,10 @@ condition:
   value: 500000
 action: block_and_require_review
 message: "Legal review required before proceeding."`,
-    withoutPolicy:
+    before:
       'The proposed SaaS agreement at $750K annual value can proceed to procurement. Standard terms apply.',
-    withPolicy: (
-      <>
-        <span
-          style={{
-            display: 'block',
-            background: 'rgba(245,158,11,0.12)',
-            border: '1px solid rgba(245,158,11,0.3)',
-            borderRadius: '8px',
-            padding: '0.75rem 1rem',
-            color: 'rgb(217,119,6)',
-            fontSize: '14px',
-            lineHeight: 1.6,
-          }}
-        >
-          ⚠️ Legal review required. The proposed SaaS agreement at $750K annual value exceeds the
-          $500K threshold. This response is blocked pending Legal sign-off.
-        </span>
-      </>
-    ),
+    after:
+      '[BLOCKED] Legal review required. The proposed SaaS agreement at $750K annual value exceeds the $500K threshold. This response is blocked pending Legal sign-off.',
   },
   {
     id: 'citation',
@@ -116,61 +65,84 @@ triggers:
       - FedRAMP
 action: require_citation
 on_violation: append_disclaimer`,
-    withoutPolicy:
+    before:
       'HIPAA requires encryption of all PHI at rest and in transit. Your current setup is compliant.',
-    withPolicy: (
-      <>
-        HIPAA requires encryption of all PHI at rest and in transit{' '}
-        <span
-          style={{
-            background: 'rgba(45,212,191,0.15)',
-            color: 'var(--color-accent)',
-            padding: '0 4px',
-            borderRadius: '4px',
-            fontSize: '12px',
-            fontWeight: 600,
-          }}
-        >
-          [45 CFR § 164.312(a)(2)(iv)]
-        </span>
-        . Your current setup is compliant{' '}
-        <span
-          style={{
-            background: 'rgba(45,212,191,0.15)',
-            color: 'var(--color-accent)',
-            padding: '0 4px',
-            borderRadius: '4px',
-            fontSize: '12px',
-            fontWeight: 600,
-          }}
-        >
-          [Security Assessment Report, March 2026, §3.2]
-        </span>
-        .
-      </>
-    ),
+    after:
+      'HIPAA [45 CFR § 164.312(a)(2)(iv)] requires encryption of all PHI at rest and in transit. Your current setup is compliant [Security Assessment Report, March 2026, §3.2].',
   },
 ];
 
+// Hook: Shiki client-side YAML highlighting
+function useHighlightedYaml(yaml: string) {
+  const [html, setHtml] = useState('');
+  useEffect(() => {
+    codeToHtml(yaml, { lang: 'yaml', theme: 'github-dark' }).then(setHtml);
+  }, [yaml]);
+  return html;
+}
+
+// Word-level diff component
+function WordDiff({ before, after }: { before: string; after: string }) {
+  const parts = diffWords(before, after);
+  return (
+    <p style={{ fontSize: '14px', lineHeight: 1.65, color: 'var(--color-text-primary)', margin: 0 }}>
+      {parts.map((part, i) => {
+        if (part.added) {
+          return (
+            <ins
+              key={i}
+              style={{
+                background: 'rgba(45, 212, 191, 0.15)',
+                textDecoration: 'underline',
+                textDecorationColor: 'var(--color-accent)',
+                borderRadius: '2px',
+                padding: '0 2px',
+              }}
+            >
+              {part.value}
+            </ins>
+          );
+        }
+        if (part.removed) {
+          return (
+            <del
+              key={i}
+              style={{
+                background: 'rgba(239, 68, 68, 0.1)',
+                textDecoration: 'line-through',
+                color: '#ef4444',
+                borderRadius: '2px',
+                padding: '0 2px',
+              }}
+            >
+              {part.value}
+            </del>
+          );
+        }
+        return <span key={i}>{part.value}</span>;
+      })}
+    </p>
+  );
+}
+
+// Code block with Shiki highlighting (client-side)
+function HighlightedCodeBlock({ code, filename }: { code: string; filename: string }) {
+  const html = useHighlightedYaml(code);
+  return (
+    <CodeBlock
+      code={code}
+      language="yaml"
+      filename={filename}
+      highlightedHtml={html || undefined}
+    />
+  );
+}
+
 function DiffView({ preset }: { preset: Preset }) {
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '1rem',
-        marginTop: '1rem',
-      }}
-    >
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginTop: '1rem' }}>
       {/* Without policy */}
-      <div
-        style={{
-          background: 'var(--color-surface-secondary)',
-          border: '1px solid var(--color-border-default)',
-          borderRadius: '10px',
-          padding: '1rem',
-        }}
-      >
+      <div>
         <p
           style={{
             fontSize: '11px',
@@ -178,25 +150,33 @@ function DiffView({ preset }: { preset: Preset }) {
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             color: 'var(--color-text-tertiary)',
-            margin: '0 0 0.75rem 0',
+            margin: '0 0 0.5rem 0',
           }}
         >
           Without policy
         </p>
-        <p style={{ fontSize: '14px', lineHeight: 1.65, color: 'var(--color-text-primary)', margin: 0 }}>
-          {preset.withoutPolicy}
-        </p>
+        <div
+          style={{
+            padding: '1rem',
+            background: 'var(--color-surface-secondary)',
+            borderRadius: '8px',
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: '14px',
+              lineHeight: 1.65,
+              color: 'var(--color-text-secondary)',
+            }}
+          >
+            {preset.before}
+          </p>
+        </div>
       </div>
 
-      {/* With policy */}
-      <div
-        style={{
-          background: 'var(--color-surface-secondary)',
-          border: '1px solid var(--color-border-default)',
-          borderRadius: '10px',
-          padding: '1rem',
-        }}
-      >
+      {/* With policy — word diff */}
+      <div>
         <p
           style={{
             fontSize: '11px',
@@ -204,14 +184,21 @@ function DiffView({ preset }: { preset: Preset }) {
             textTransform: 'uppercase',
             letterSpacing: '0.06em',
             color: 'var(--color-accent)',
-            margin: '0 0 0.75rem 0',
+            margin: '0 0 0.5rem 0',
           }}
         >
-          With policy
+          With policy applied
         </p>
-        <p style={{ fontSize: '14px', lineHeight: 1.65, color: 'var(--color-text-primary)', margin: 0 }}>
-          {preset.withPolicy}
-        </p>
+        <div
+          style={{
+            padding: '1rem',
+            background: 'rgba(45, 212, 191, 0.05)',
+            border: '1px solid rgba(45, 212, 191, 0.2)',
+            borderRadius: '8px',
+          }}
+        >
+          <WordDiff before={preset.before} after={preset.after} />
+        </div>
       </div>
     </div>
   );
@@ -224,14 +211,10 @@ export function PolicyEditor() {
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '1rem',
-          }}
+          style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}
           className="md:grid-cols-2"
         >
-          <CodeBlock code={preset.yaml} language="yaml" filename="policy.yaml" />
+          <HighlightedCodeBlock code={preset.yaml} filename="policy.yaml" />
           <DiffView preset={preset} />
         </div>
       </div>
