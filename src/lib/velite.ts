@@ -10,7 +10,10 @@ export async function getAllPosts(): Promise<Post[]> {
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
   const posts = await getAllPosts();
-  return posts.find((p: Post) => p.slug === slug);
+  // slug may be the full path (e.g. "blog/hello-world") or just the last segment
+  return posts.find(
+    (p: Post) => p.slug === slug || p.slug.split('/').pop() === slug,
+  );
 }
 
 export async function getApprovedCaseStudies(): Promise<CaseStudy[]> {

@@ -10,6 +10,36 @@ export const metadata: Metadata = {
   description:
     'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay, and policy-as-code. Published pricing. EU AI Act ready.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com'),
+  // TODO Week 8: remove noindex before launch deploy
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Thursdai',
+  url: 'https://thursdai.com',
+  logo: 'https://thursdai.com/og-backgrounds/logo.png',
+  sameAs: [
+    'https://linkedin.com/company/thursdai',
+    'https://github.com/thursdai',
+    'https://x.com/thursdai',
+  ],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Thursdai',
+  url: 'https://thursdai.com',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://thursdai.com/search?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 export default function RootLayout({
@@ -39,6 +69,17 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        {/* RSS feed discovery */}
+        <link rel="alternate" type="application/rss+xml" title="Thursdai Blog" href="/feed.xml" />
       </head>
       <body>
         <TopNav />

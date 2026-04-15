@@ -7,6 +7,7 @@ interface BodyProps {
   variant?: BodyVariant;
   className?: string;
   as?: React.ElementType;
+  style?: React.CSSProperties;
 }
 
 const variantStyles: Record<BodyVariant, React.CSSProperties> = {
@@ -16,11 +17,11 @@ const variantStyles: Record<BodyVariant, React.CSSProperties> = {
   mono: { fontSize: '15px', lineHeight: 1.6, fontFamily: 'var(--font-mono)' },
 };
 
-export function Body({ children, variant = 'base', className = '', as: Tag = 'p' }: BodyProps) {
+export function Body({ children, variant = 'base', className = '', as: Tag = 'p', style }: BodyProps) {
   return (
     <Tag
       className={className}
-      style={{ ...variantStyles[variant], color: 'var(--color-text-secondary)' }}
+      style={{ ...variantStyles[variant], color: 'var(--color-text-secondary)', ...style }}
     >
       {children}
     </Tag>
