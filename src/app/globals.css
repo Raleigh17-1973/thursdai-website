@@ -157,3 +157,12 @@ a:hover { text-decoration: underline; }
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
 * { scrollbar-width: thin; scrollbar-color: var(--color-border-default) transparent; }
+
+/* Footer link hover (always-dark footer, no theme switching needed) */
+.footer-link {
+  color: #a1a1aa;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.footer-link:hover { color: #e4e4e7; }
+.footer-link:focus-visible { color: #e4e4e7; }

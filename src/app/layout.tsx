@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { TopNav } from '@/components/nav/TopNav';
+import { Footer } from '@/components/nav/Footer';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -39,7 +41,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
+        <TopNav />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
