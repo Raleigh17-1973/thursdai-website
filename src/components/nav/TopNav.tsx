@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { NAV_ITEMS } from '@/config/nav';
 import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
+import { Toggle } from '@/components/ui/Toggle';
 
 function ThursdaiLogo({ light = false }: { light?: boolean }) {
   const fill = light ? '#ffffff' : 'var(--color-accent)';
@@ -28,34 +29,6 @@ function ThursdaiLogo({ light = false }: { light?: boolean }) {
       >
         Thursdai
       </text>
-    </svg>
-  );
-}
-
-function SunIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
-      <path
-        d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }
@@ -89,23 +62,7 @@ function ChevronDownIcon({ open }: { open: boolean }) {
 export function TopNav() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const productButtonRef = useRef<HTMLButtonElement>(null);
-
-  // Read initial theme from DOM
-  useEffect(() => {
-    const stored = localStorage.getItem('thursdai-color-mode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = (stored as 'light' | 'dark' | null) ?? (prefersDark ? 'dark' : 'light');
-    setTheme(initial);
-  }, []);
-
-  function toggleTheme() {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('thursdai-color-mode', next);
-  }
 
   const otherNavItems = NAV_ITEMS.filter((item) => item.label !== 'Product');
 
@@ -165,14 +122,7 @@ export function TopNav() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            className="flex items-center justify-center w-9 h-9 rounded-md"
-            style={{ color: 'var(--color-text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer' }}
-          >
-            {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-          </button>
+          <Toggle />
 
           {/* Request demo — hidden on mobile */}
           <Link
