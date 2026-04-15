@@ -1,2 +1,4 @@
-// Demo components — built in Weeks 3-5
-export {};
+export { ReplayDemo } from './ReplayDemo';
+export { ModeratorPanel } from './ModeratorPanel';
+export { TimeTravelScrubber } from './TimeTravelScrubber';
+export { PolicyEditor } from './PolicyEditor';

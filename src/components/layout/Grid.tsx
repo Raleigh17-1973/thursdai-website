@@ -2,7 +2,7 @@ import React from 'react';
 
 type GridCols = 2 | 3 | 4;
 
-interface GridProps {
+interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   cols: GridCols;
   gap?: 'sm' | 'md' | 'lg';
@@ -21,9 +21,9 @@ const colsMap: Record<GridCols, string> = {
   4: 'grid-cols-1 md:grid-cols-4',
 };
 
-export function Grid({ children, cols, gap = 'md', className = '' }: GridProps) {
+export function Grid({ children, cols, gap = 'md', className = '', ...rest }: GridProps) {
   return (
-    <div className={`grid ${colsMap[cols]} ${gapMap[gap]} ${className}`}>
+    <div className={`grid ${colsMap[cols]} ${gapMap[gap]} ${className}`} {...rest}>
       {children}
     </div>
   );

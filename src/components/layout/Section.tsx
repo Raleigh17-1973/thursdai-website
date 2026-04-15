@@ -8,6 +8,7 @@ interface SectionProps {
   className?: string;
   as?: React.ElementType;
   id?: string;
+  style?: React.CSSProperties;
 }
 
 const paddingMap: Record<SectionVariant, string> = {
@@ -22,9 +23,10 @@ export function Section({
   className = '',
   as: Tag = 'section',
   id,
+  style,
 }: SectionProps) {
   return (
-    <Tag id={id} className={`${paddingMap[variant]} ${className}`}>
+    <Tag id={id} className={`${paddingMap[variant]} ${className}`} style={style}>
       {children}
     </Tag>
   );

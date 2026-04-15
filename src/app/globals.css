@@ -166,3 +166,45 @@ a:hover { text-decoration: underline; }
 }
 .footer-link:hover { color: #e4e4e7; }
 .footer-link:focus-visible { color: #e4e4e7; }
+
+/* ── ScrollCue bounce animation ─────────────────────────────── */
+@keyframes scrollCueBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+  50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
+}
+
+/* ── ReplayDemo citation tooltip ────────────────────────────── */
+.replay-citation {
+  position: relative;
+}
+.replay-citation::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0b0f19;
+  color: #e4e4e7;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  z-index: 10;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.replay-citation:hover::after {
+  opacity: 1;
+}
+
+/* ── Feature card hover ──────────────────────────────────────── */
+[data-animate="stagger"] > * {
+  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+[data-animate="stagger"] > *:hover {
+  border-color: var(--color-accent) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
