@@ -12,7 +12,7 @@ interface CertBadgeProps {
 const statusVariant = {
   live: 'green',
   'in-progress': 'amber',
-  ready: 'teal',
+  ready: 'indigo',
 } as const;
 
 const statusLabel = {

@@ -53,6 +53,9 @@ export default function CustomersPage() {
                 label="Faster compliance review"
                 sub="A Financial Services Company"
               />
+              <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', margin: '0.25rem 0 0 0' }}>
+                median pilot result
+              </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card
@@ -61,6 +64,9 @@ export default function CustomersPage() {
                 label="Policy violation catch rate"
                 sub="A Healthcare Organisation"
               />
+              <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', margin: '0.25rem 0 0 0' }}>
+                measured over 90-day pilot
+              </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card
@@ -69,6 +75,9 @@ export default function CustomersPage() {
                 label="Avoided in contract risk"
                 sub="A Legal Services Firm"
               />
+              <p style={{ fontSize: '11px', color: 'var(--color-text-tertiary)', margin: '0.25rem 0 0 0' }}>
+                estimated by client legal team
+              </p>
             </div>
           </Grid>
         </Container>

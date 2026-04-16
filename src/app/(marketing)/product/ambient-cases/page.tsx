@@ -212,29 +212,41 @@ export default function AmbientCasesPage() {
       {/* ── 5. CTA ──────────────────────────────────────────── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%)',
+          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
           padding: '4rem 0',
           textAlign: 'center',
         }}
       >
         <Container>
-          <Heading2 style={{ color: '#fff' }}>See Ambient Cases in context</Heading2>
-          <Body
-            variant="large"
-            style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
-          >
-            Read how Meridian Health and Sterling Legal use Ambient Cases to close
-            investigations faster.
-          </Body>
-          <Link href="/customers">
-            <Button
-              variant="primary"
-              size="lg"
-              style={{ background: '#ffffff', color: '#0d9488' }}
+          <div style={{
+            background: 'rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '20px',
+            padding: '3rem',
+            maxWidth: '640px',
+            margin: '0 auto',
+            textAlign: 'center',
+          }}>
+            <Heading2 style={{ color: '#fff' }}>See Ambient Cases in context</Heading2>
+            <Body
+              variant="large"
+              style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
             >
-              Customer stories →
-            </Button>
-          </Link>
+              Read how Meridian Health and Sterling Legal use Ambient Cases to close
+              investigations faster.
+            </Body>
+            <Link href="/customers">
+              <Button
+                variant="primary"
+                size="lg"
+                style={{ background: '#ffffff', color: '#3e4fb8' }}
+              >
+                Customer stories →
+              </Button>
+            </Link>
+          </div>
         </Container>
       </section>
     </>

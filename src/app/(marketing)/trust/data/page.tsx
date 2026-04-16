@@ -83,7 +83,7 @@ export default function DataPage() {
           </Callout>
           <div
             style={{
-              background: 'linear-gradient(135deg, #0f766e22, #0d948822)',
+              background: 'linear-gradient(135deg, rgba(62,79,184,0.13), rgba(91,58,122,0.13))',
               border: '2px solid var(--color-accent)',
               borderRadius: '16px',
               padding: '2rem',

@@ -130,7 +130,7 @@ export default function DevelopersPage() {
       {/* Hero */}
       <Section variant="default" style={{ background: '#0b0f19' }}>
         <Container>
-          <Label style={{ color: '#2dd4bf' }}>Developers</Label>
+          <Label style={{ color: '#8b9ef0' }}>Developers</Label>
           <Display style={{ color: '#e4e4e7', marginTop: '1rem', marginBottom: '1.5rem' }}>
             Thursdai is infrastructure other agents call.
           </Display>
@@ -146,8 +146,8 @@ export default function DevelopersPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 padding: '10px 20px',
-                background: '#2dd4bf',
-                color: '#0b0f19',
+                background: '#3e4fb8',
+                color: '#ffffff',
                 borderRadius: '8px',
                 fontWeight: 600,
                 fontSize: '15px',
@@ -162,8 +162,8 @@ export default function DevelopersPage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 padding: '10px 20px',
-                border: '1px solid #2dd4bf',
-                color: '#2dd4bf',
+                border: '1px solid #8b9ef0',
+                color: '#8b9ef0',
                 borderRadius: '8px',
                 fontWeight: 600,
                 fontSize: '15px',
@@ -196,8 +196,8 @@ export default function DevelopersPage() {
                   padding: '8px 16px',
                   fontSize: '14px',
                   fontWeight: 600,
-                  color: i === 0 ? '#2dd4bf' : 'rgba(255,255,255,0.4)',
-                  borderBottom: i === 0 ? '2px solid #2dd4bf' : '2px solid transparent',
+                  color: i === 0 ? '#8b9ef0' : 'rgba(255,255,255,0.4)',
+                  borderBottom: i === 0 ? '2px solid #8b9ef0' : '2px solid transparent',
                   marginBottom: '-1px',
                 }}
               >

@@ -214,7 +214,7 @@ export default function McpPage() {
               { label: 'MCP Server' },
             ]}
           />
-          <Label style={{ color: '#2dd4bf', marginTop: '1.5rem', display: 'block' }}>MCP Server</Label>
+          <Label style={{ color: '#8b9ef0', marginTop: '1.5rem', display: 'block' }}>MCP Server</Label>
           <Display style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Thursdai speaks MCP natively.
           </Display>

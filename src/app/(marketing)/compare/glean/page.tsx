@@ -361,6 +361,15 @@ export default function CompareGleanPage() {
         </Container>
       </Section>
 
+      {/* ── Bottom line ── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Callout variant="info" title="Bottom line">
+            Glean finds information. Thursdai governs decisions. If your team needs AI that surfaces knowledge AND answers for it, Glean alone isn&apos;t enough.
+          </Callout>
+        </Container>
+      </Section>
+
       {/* ── CTA ── */}
       <section
         style={{

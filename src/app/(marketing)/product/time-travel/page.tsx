@@ -177,28 +177,40 @@ export default function TimeTravelPage() {
       {/* ── 5. CTA ──────────────────────────────────────────── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%)',
+          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
           padding: '4rem 0',
           textAlign: 'center',
         }}
       >
         <Container>
-          <Heading2 style={{ color: '#fff' }}>Try Time-Travel in the demo</Heading2>
-          <Body
-            variant="large"
-            style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
-          >
-            Move the slider to replay any decision with period-accurate knowledge and policies.
-          </Body>
-          <Link href="/">
-            <Button
-              variant="primary"
-              size="lg"
-              style={{ background: '#ffffff', color: '#0d9488' }}
+          <div style={{
+            background: 'rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '20px',
+            padding: '3rem',
+            maxWidth: '640px',
+            margin: '0 auto',
+            textAlign: 'center',
+          }}>
+            <Heading2 style={{ color: '#fff' }}>Try Time-Travel in the demo</Heading2>
+            <Body
+              variant="large"
+              style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
             >
-              See the demo →
-            </Button>
-          </Link>
+              Move the slider to replay any decision with period-accurate knowledge and policies.
+            </Body>
+            <Link href="/">
+              <Button
+                variant="primary"
+                size="lg"
+                style={{ background: '#ffffff', color: '#3e4fb8' }}
+              >
+                See the demo →
+              </Button>
+            </Link>
+          </div>
         </Container>
       </section>
     </>

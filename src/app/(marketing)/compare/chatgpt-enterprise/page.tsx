@@ -296,6 +296,15 @@ export default function CompareChatGPTEnterprisePage() {
         </Container>
       </Section>
 
+      {/* ── Bottom line ── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Callout variant="info" title="Bottom line">
+            ChatGPT Enterprise is a powerful general assistant. Thursdai is governance infrastructure. They solve different problems — and for regulated teams, governance isn&apos;t optional.
+          </Callout>
+        </Container>
+      </Section>
+
       {/* ── CTA ── */}
       <section
         style={{

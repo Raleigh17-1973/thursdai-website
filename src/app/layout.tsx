@@ -1,10 +1,19 @@
 import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { Instrument_Serif } from 'next/font/google';
 import { TopNav } from '@/components/nav/TopNav';
 import { Footer } from '@/components/nav/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';
 import './globals.css';
+
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+});
 
 export const metadata: Metadata = {
   title: 'Thursdai — The Governed Agent Substrate for Regulated Enterprises',
@@ -73,7 +82,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
     >
       <head>
         {/* Dark mode script — runs before React hydrates to prevent flash */}

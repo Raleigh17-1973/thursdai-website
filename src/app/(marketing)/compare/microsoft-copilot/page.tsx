@@ -300,6 +300,15 @@ export default function CompareMicrosoftCopilotPage() {
         </Container>
       </Section>
 
+      {/* ── Bottom line ── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Callout variant="info" title="Bottom line">
+            If your team needs to explain every AI-assisted decision to a regulator, a client, or a board — Copilot cannot do that. Thursdai can.
+          </Callout>
+        </Container>
+      </Section>
+
       {/* ── CTA ── */}
       <section
         style={{

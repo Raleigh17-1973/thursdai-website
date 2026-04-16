@@ -1,6 +1,7 @@
 import React from 'react';
 
-type BadgeVariant = 'teal' | 'green' | 'amber' | 'muted' | 'red';
+// 'teal' kept as alias for 'indigo' — backward compat; colors are now brand-correct.
+type BadgeVariant = 'teal' | 'indigo' | 'green' | 'amber' | 'muted' | 'red';
 
 interface BadgeProps {
   variant?: BadgeVariant; // default: 'muted'
@@ -10,11 +11,12 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<BadgeVariant, React.CSSProperties> = {
-  teal: { background: 'color-mix(in srgb, var(--color-accent) 15%, transparent)', color: 'var(--color-accent)' },
-  green: { background: 'rgba(34,197,94,0.15)', color: 'rgb(22,163,74)' },
-  amber: { background: 'rgba(245,158,11,0.15)', color: 'rgb(217,119,6)' },
-  muted: { background: 'var(--color-surface-secondary)', color: 'var(--color-text-secondary)' },
-  red: { background: 'rgba(239,68,68,0.15)', color: 'rgb(220,38,38)' },
+  indigo: { background: 'color-mix(in srgb, var(--color-accent) 15%, transparent)', color: 'var(--color-accent)' },
+  teal:   { background: 'color-mix(in srgb, var(--color-accent) 15%, transparent)', color: 'var(--color-accent)' },
+  green:  { background: 'rgba(34,197,94,0.15)', color: 'rgb(22,163,74)' },
+  amber:  { background: 'rgba(232,163,74,0.18)', color: 'rgb(180,120,30)' },
+  muted:  { background: 'var(--color-surface-secondary)', color: 'var(--color-text-secondary)' },
+  red:    { background: 'rgba(239,68,68,0.15)', color: 'rgb(220,38,38)' },
 };
 
 export function Badge({ variant = 'muted', children, className = '', style }: BadgeProps) {

@@ -98,6 +98,7 @@ export default function PricingPage() {
           </p>
           <Grid cols={3} gap="md">
             <div
+              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
@@ -106,6 +107,7 @@ export default function PricingPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
+                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card
@@ -129,6 +131,7 @@ export default function PricingPage() {
             </div>
 
             <div
+              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
@@ -137,6 +140,7 @@ export default function PricingPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
+                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card
@@ -160,6 +164,7 @@ export default function PricingPage() {
             </div>
 
             <div
+              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
@@ -168,6 +173,7 @@ export default function PricingPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
+                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card

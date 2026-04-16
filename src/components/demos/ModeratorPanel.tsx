@@ -63,8 +63,8 @@ function PanelCard({
         transition: 'border-color 150ms ease, background 150ms ease',
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(45,212,191,0.4)';
-        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(45,212,191,0.04)';
+        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-accent)';
+        (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-accent-subtle)';
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.08)';
@@ -72,12 +72,12 @@ function PanelCard({
       }}
       aria-label={`View full ${panel.role} response`}
     >
-      <Label style={{ color: '#2dd4bf' }}>{panel.role}</Label>
+      <Label style={{ color: 'var(--color-accent)' }}>{panel.role}</Label>
       <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
       <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--color-text-secondary, #9CA3AF)', margin: 0 }}>
         {panel.text}
       </p>
-      <span style={{ fontSize: '12px', color: '#2dd4bf', marginTop: 'auto' }}>
+      <span style={{ fontSize: '12px', color: 'var(--color-accent)', marginTop: 'auto' }}>
         View full response →
       </span>
     </button>
@@ -142,7 +142,7 @@ function OverlayPanel({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Label style={{ color: '#2dd4bf', fontSize: '18px' }}>{panel.role}</Label>
+          <Label style={{ color: 'var(--color-accent)', fontSize: '18px' }}>{panel.role}</Label>
           <button
             onClick={onClose}
             aria-label="Close"
@@ -230,8 +230,8 @@ export function ModeratorPanel() {
         >
           <div
             style={{
-              background: 'rgba(45, 212, 191, 0.05)',
-              border: '2px solid #2dd4bf',
+              background: 'var(--color-accent-subtle)',
+              border: '2px solid var(--color-accent)',
               borderRadius: '12px',
               padding: '1.25rem',
               display: 'flex',
@@ -240,16 +240,16 @@ export function ModeratorPanel() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Label style={{ color: '#2dd4bf' }}>{MODERATOR.role}</Label>
+              <Label style={{ color: 'var(--color-accent)' }}>{MODERATOR.role}</Label>
               <Badge variant="teal">Reconciled</Badge>
             </div>
-            <div style={{ height: '1px', background: 'rgba(45,212,191,0.2)' }} />
+            <div style={{ height: '1px', background: 'var(--color-accent-muted)' }} />
             <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#e4e4e7', margin: 0, fontWeight: 500 }}>
               {MODERATOR.text}
             </p>
             <a
               href="/product/moderator"
-              style={{ fontSize: '12px', color: '#2dd4bf', textDecoration: 'none', marginTop: 'auto' }}
+              style={{ fontSize: '12px', color: 'var(--color-accent)', textDecoration: 'none', marginTop: 'auto' }}
             >
               Read full →
             </a>

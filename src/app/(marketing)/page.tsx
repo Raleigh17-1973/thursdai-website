@@ -20,6 +20,8 @@ import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { getHeroVariant } from '@/lib/posthog';
+import { HomeStatCards } from '@/components/ui/HomeStatCards';
+import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
 
 // ── Cert badges data ──────────────────────────────────────────
 
@@ -163,33 +165,27 @@ export default async function HomePage() {
           background: 'var(--color-bg)',
         }}
       >
-        {/* Ambient hero background gradients */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            pointerEvents: 'none',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Large ambient teal glow — top-left area */}
+        {/* Dawn ambient glow */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
+        }}>
           <div style={{
-            position: 'absolute',
-            top: '-20%',
-            left: '-10%',
-            width: '70%',
-            height: '120%',
-            background: 'radial-gradient(ellipse 60% 60% at 30% 40%, rgba(45,212,191,0.06) 0%, transparent 70%)',
+            position: 'absolute', top: '-20%', left: '-10%',
+            width: '60%', height: '70%',
+            background: 'radial-gradient(ellipse at center, rgba(62,79,184,0.18) 0%, transparent 70%)',
+            filter: 'blur(40px)',
           }} />
-          {/* Smaller focused glow behind headline */}
           <div style={{
-            position: 'absolute',
-            top: '10%',
-            left: '5%',
-            width: '50%',
-            height: '80%',
-            background: 'radial-gradient(ellipse 50% 50% at 20% 50%, rgba(15,118,110,0.08) 0%, transparent 65%)',
+            position: 'absolute', top: '10%', right: '-5%',
+            width: '45%', height: '55%',
+            background: 'radial-gradient(ellipse at center, rgba(91,58,122,0.14) 0%, transparent 70%)',
+            filter: 'blur(50px)',
+          }} />
+          <div style={{
+            position: 'absolute', bottom: '-10%', right: '20%',
+            width: '35%', height: '40%',
+            background: 'radial-gradient(ellipse at center, rgba(232,163,74,0.08) 0%, transparent 70%)',
+            filter: 'blur(60px)',
           }} />
         </div>
         <Container>
@@ -210,7 +206,7 @@ export default async function HomePage() {
                 {variant === 'option-a' ? (
                   <>
                     <Display>
-                      AI governance infrastructure for teams that can&apos;t afford to be wrong.
+                      AI governance infrastructure for teams that <span className="dawn-gradient-text">can&apos;t afford to be wrong.</span>
                     </Display>
                     <Body variant="large">
                       Multi-role deliberation, decision replay, and policy enforcement at the model
@@ -220,7 +216,7 @@ export default async function HomePage() {
                 ) : (
                   <>
                     <Display>
-                      The AI that shows its work.
+                      The AI that <span className="dawn-gradient-text">shows its work.</span>
                     </Display>
                     <Body variant="large">
                       Role-based answers. Decision replay. Policies the model cannot break. Built
@@ -229,12 +225,22 @@ export default async function HomePage() {
                   </>
                 )}
                 <HeroCTAs />
-                <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
-                  {['SOC 2 Type II', 'ISO 27001', 'HIPAA-eligible', 'EU AI Act Ready'].map((badge) => (
-                    <span key={badge} style={{ fontSize: '12px', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                      <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-accent)', display: 'inline-block' }} />
-                      {badge}
-                    </span>
+                <div style={{
+                  display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1.5rem',
+                  justifyContent: 'center', alignItems: 'center',
+                  marginTop: '1.5rem',
+                  fontSize: '12px', fontWeight: 600,
+                  color: 'var(--color-text-secondary)',
+                  letterSpacing: '0.04em', textTransform: 'uppercase',
+                }}>
+                  {[
+                    '✓ EU AI Act ready',
+                    '✓ Published pricing',
+                    '✓ Role-based moderation',
+                    '✓ Full decision audit trail',
+                    '✓ SOC 2 in audit',
+                  ].map((item) => (
+                    <span key={item}>{item}</span>
                   ))}
                 </div>
               </div>
@@ -245,26 +251,50 @@ export default async function HomePage() {
         <ScrollCue />
       </section>
 
+      {/* ── Industry band ────────────────────────────────────── */}
+      <div style={{
+        borderTop: '1px solid var(--color-border-default)',
+        borderBottom: '1px solid var(--color-border-default)',
+        padding: '1.25rem 0',
+        textAlign: 'center',
+      }}>
+        <p style={{
+          fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em',
+          textTransform: 'uppercase', color: 'var(--color-text-tertiary)',
+          marginBottom: '1rem',
+        }}>
+          Built for teams in highly-regulated industries
+        </p>
+        <div style={{
+          display: 'flex', flexWrap: 'wrap', gap: '0.5rem 3rem',
+          justifyContent: 'center', alignItems: 'center',
+        }}>
+          {[
+            'Financial Services',
+            'Healthcare & Life Sciences',
+            'Legal & Professional Services',
+            'Insurance',
+            'Government Contracting',
+          ].map((industry) => (
+            <span key={industry} style={{
+              fontSize: '13px', fontWeight: 600,
+              color: 'var(--color-text-tertiary)',
+              opacity: 0.7,
+            }}>
+              {industry}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ── How it works ──────────────────────────────────────── */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <Label>How it works</Label>
-            <Heading2 style={{ marginTop: '0.5rem' }}>Three steps. One trusted answer.</Heading2>
+            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
-            {[
-              { step: '01', title: 'You ask a question', body: 'Type your question — or connect Thursdai to your existing tools and let it surface decisions automatically.' },
-              { step: '02', title: 'Your whole team weighs in', body: 'Thursdai consults your Legal, Finance, and Operations knowledge simultaneously — each role applies its own rules.' },
-              { step: '03', title: 'One sourced, policy-checked answer', body: 'You get one clear answer, with citations, a full audit trail, and the confidence that it followed every rule you set.' },
-            ].map(({ step, title, body }) => (
-              <div key={step} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <span style={{ fontSize: '3rem', fontWeight: 800, color: 'var(--color-accent)', lineHeight: 1 }}>{step}</span>
-                <Heading2 style={{ fontSize: '1.125rem' }}>{title}</Heading2>
-                <Body style={{ color: 'var(--color-text-secondary)' }}>{body}</Body>
-              </div>
-            ))}
-          </div>
+          <HowItWorksSteps />
         </Container>
       </Section>
 
@@ -277,18 +307,21 @@ export default async function HomePage() {
               icon={<IconPanel />}
               title="A panel, not a chatbot"
               body="Ask once and get perspectives from all your business areas — Legal, Finance, Operations — at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
+              className="hover:-translate-y-1 transition-transform duration-200"
             />
             <Card
               variant="feature"
               icon={<IconReplay />}
               title="Replay any decision"
               body="Every agent decision is recorded with the knowledge and policies that were active at the time. Go back to any point and see exactly what happened and why."
+              className="hover:-translate-y-1 transition-transform duration-200"
             />
             <Card
               variant="feature"
               icon={<IconShield />}
               title="Policies the model cannot break"
               body="Set rules your AI must follow — and it literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
+              className="hover:-translate-y-1 transition-transform duration-200"
             />
           </Grid>
         </Container>
@@ -297,9 +330,9 @@ export default async function HomePage() {
       {/* ── Section 3: Moderator Demo ────────────────────────── */}
       <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
         <Container>
-          <Label style={{ color: '#2dd4bf' }}>Moderator</Label>
+          <Label style={{ color: '#8b9ef0' }}>Moderator</Label>
           <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
-            Your whole team, asked at once. One clear answer.
+            <span className="font-display">Your whole team, asked at once. One clear answer.</span>
           </Heading2>
           <Body
             variant="large"
@@ -309,12 +342,12 @@ export default async function HomePage() {
           </Body>
           <ModeratorPanel />
           <div style={{ marginTop: '2rem' }}>
-            <Link href="/product/moderator" style={{ color: '#2dd4bf', fontSize: '15px', fontWeight: 600 }}>
+            <Link href="/product/moderator" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
               See Moderator in depth →
             </Link>
           </div>
           <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
-            or <a href="#request-demo" style={{ color: '#2dd4bf' }}>book a live walk-through →</a>
+            or <a href="#request-demo" style={{ color: '#8b9ef0' }}>book a live walk-through →</a>
           </Body>
         </Container>
       </section>
@@ -453,26 +486,7 @@ export default async function HomePage() {
           <Heading2 style={{ textAlign: 'center', marginBottom: '3rem' }}>
             Governed AI in production
           </Heading2>
-          <Grid cols={3} gap="lg">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Card variant="stat" number="4×" label="Faster compliance review" sub="A Financial Services Company" />
-              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                A financial services company uses Thursdai&apos;s Moderator to route every AI output through Legal, Compliance, and Risk before it reaches a relationship manager.
-              </Body>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Card variant="stat" number="91%" label="Policy violation catch rate" sub="A Healthcare Organisation" />
-              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                A healthcare organisation enforces HIPAA policy rules at the model layer — no PII leaves the system without explicit approval.
-              </Body>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <Card variant="stat" number="$2.1M" label="Avoided in contract risk" sub="A Legal Services Firm" />
-              <Body variant="small" style={{ color: 'var(--color-text-secondary)', padding: '0 0.25rem' }}>
-                A legal services firm replays every AI-assisted contract review to audit what knowledge was active when a recommendation was made.
-              </Body>
-            </div>
-          </Grid>
+          <HomeStatCards />
           <p style={{ textAlign: 'center', marginTop: '2rem' }}>
             <Link
               href="/customers"
@@ -493,14 +507,14 @@ export default async function HomePage() {
             gap="xl"
             left={
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <Label style={{ color: '#2dd4bf' }}>Developers</Label>
+                <Label style={{ color: '#8b9ef0' }}>Developers</Label>
                 <Heading2 style={{ color: '#e4e4e7' }}>
-                  Built to connect to your existing tools. With an open API for technical teams.
+                  <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
                   Thursdai works out of the box for most teams. For developers and IT: a full API, SDK, and MCP server. Connect to your existing systems, automate workflows, and build on top of Thursdai&apos;s roles and policies.
                 </Body>
-                <Link href="/developers" style={{ color: '#2dd4bf', fontSize: '15px', fontWeight: 600 }}>
+                <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →
                 </Link>
               </div>
@@ -521,7 +535,10 @@ export default async function HomePage() {
         <Container>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <Label>HONEST COMPARISON</Label>
-            <Heading2 style={{ marginTop: '0.5rem' }}>Every platform gives you AI. Only Thursdai gives you governed AI.</Heading2>
+            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Most AI tools weren&apos;t built for accountability.</span></Heading2>
+            <Body style={{ marginTop: '0.75rem', color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0.75rem auto 0' }}>
+              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited, and traced.
+            </Body>
           </div>
           <Grid cols={3} gap="lg">
             {[
@@ -529,23 +546,27 @@ export default async function HomePage() {
                 competitor: 'Microsoft Copilot',
                 theyGive: 'AI embedded in Office 365 — excellent for drafting and writing',
                 thursdaiAdds: 'The audit trail, policy enforcement, and decision replay that Copilot cannot provide',
+                keyDifference: 'No policy layer. No moderation. No audit trail.',
                 href: '/compare/microsoft-copilot',
               },
               {
                 competitor: 'ChatGPT Enterprise',
                 theyGive: 'A private, powerful instance of the world\'s best language model',
                 thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies, and replayable decisions',
+                keyDifference: 'No governance. No roles. No replay.',
                 href: '/compare/chatgpt-enterprise',
               },
               {
                 competitor: 'Glean',
                 theyGive: 'Best-in-class enterprise search — finds the document that says X',
                 thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X — with proof',
+                keyDifference: 'Knowledge retrieval only — no decisions, no compliance.',
                 href: '/compare/glean',
               },
-            ].map(({ competitor, theyGive, thursdaiAdds, href }) => (
+            ].map(({ competitor, theyGive, thursdaiAdds, keyDifference, href }) => (
               <div
                 key={competitor}
+                className="hover:-translate-y-1 hover:shadow-lg"
                 style={{
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-border, rgba(255,255,255,0.08))',
@@ -554,6 +575,7 @@ export default async function HomePage() {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '1rem',
+                  transition: 'transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease',
                 }}
               >
                 <Body style={{ fontWeight: 600 }}>{competitor}</Body>
@@ -564,6 +586,16 @@ export default async function HomePage() {
                 <div>
                   <Label style={{ fontSize: '10px', marginBottom: '0.25rem', color: 'var(--color-accent)' }}>Thursdai adds</Label>
                   <Body variant="small">{thursdaiAdds}</Body>
+                </div>
+                <div style={{
+                  borderTop: '1px solid var(--color-border-default)',
+                  paddingTop: '0.75rem',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: 'var(--color-text-tertiary)',
+                  letterSpacing: '0.02em',
+                }}>
+                  {keyDifference}
                 </div>
                 <a href={href} style={{ fontSize: '13px', color: 'var(--color-accent)', marginTop: 'auto', textDecoration: 'none' }}>
                   Full comparison →
@@ -579,7 +611,7 @@ export default async function HomePage() {
         <Container>
           <Label style={{ textAlign: 'center', display: 'block' }}>Pricing</Label>
           <Heading2 style={{ textAlign: 'center' }}>
-            Published pricing. Tuned to outcome.
+            <span className="font-display">Published pricing. Tuned to outcome.</span>
           </Heading2>
           <Body
             variant="large"
@@ -646,14 +678,14 @@ export default async function HomePage() {
       {/* ── Section 10: Closing CTA band ─────────────────────── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%)',
+          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
           padding: '5rem 0',
           textAlign: 'center',
         }}
       >
         <Container>
           <Heading2 style={{ color: '#ffffff', marginBottom: '1rem' }}>
-            Ready to use AI you can actually trust?
+            <span className="font-display">Ready to use AI you can actually trust?</span>
           </Heading2>
           <Body
             variant="large"

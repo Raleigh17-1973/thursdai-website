@@ -187,26 +187,38 @@ export default function ModeratorPage() {
       {/* ── 6. CTA ──────────────────────────────────────────── */}
       <section
         style={{
-          background: 'var(--color-accent)',
+          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
           padding: '4rem 0',
           textAlign: 'center',
         }}
       >
         <Container>
-          <Heading2 style={{ color: '#fff' }}>See the full role library</Heading2>
-          <Body style={{ color: 'rgba(255,255,255,0.85)', marginTop: '0.75rem' }}>
-            Configure roles for Legal, Finance, Engineering, HR, and more — or define custom roles
-            for your domain.
-          </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/developers/docs">
-              <Button
-                variant="secondary"
-                style={{ borderColor: '#fff', color: '#fff' }}
-              >
-                Read the role configuration docs
-              </Button>
-            </Link>
+          <div style={{
+            background: 'rgba(255,255,255,0.08)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255,255,255,0.15)',
+            borderRadius: '20px',
+            padding: '3rem',
+            maxWidth: '640px',
+            margin: '0 auto',
+            textAlign: 'center',
+          }}>
+            <Heading2 style={{ color: '#fff' }}>See the full role library</Heading2>
+            <Body style={{ color: 'rgba(255,255,255,0.85)', marginTop: '0.75rem' }}>
+              Configure roles for Legal, Finance, Engineering, HR, and more — or define custom roles
+              for your domain.
+            </Body>
+            <div style={{ marginTop: '1.5rem' }}>
+              <Link href="/developers/docs">
+                <Button
+                  variant="secondary"
+                  style={{ borderColor: '#fff', color: '#fff' }}
+                >
+                  Read the role configuration docs
+                </Button>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

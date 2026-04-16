@@ -94,9 +94,16 @@ export default function TrustPage() {
           <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
             Built so your team, your clients, and your auditors all feel confident.
           </Display>
+          <p style={{
+            fontSize: '1.25rem', color: 'var(--color-text-secondary)',
+            maxWidth: '560px', margin: '0.75rem auto 0',
+            fontStyle: 'italic',
+          }}>
+            &ldquo;We show our work — so your auditors don&apos;t have to.&rdquo;
+          </p>
           <Body
             variant="large"
-            style={{ maxWidth: '700px' }}
+            style={{ maxWidth: '700px', marginTop: '1.5rem' }}
           >
             Whether you&apos;re a 10-person team or a Fortune 500, Thursdai was built with security and accountability as its foundation — not bolted on later.
           </Body>
@@ -163,16 +170,25 @@ export default function TrustPage() {
           </p>
           <div
             style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '1rem',
-              alignItems: 'center',
+              background: 'var(--color-accent-subtle)',
+              border: '1px solid var(--color-accent-muted)',
+              borderRadius: '16px',
+              padding: '1.5rem 2rem',
             }}
           >
-            {CERT_BADGES.map((badge) => (
-              <CertBadge key={badge.name} {...badge} />
-            ))}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '1rem',
+                alignItems: 'center',
+              }}
+            >
+              {CERT_BADGES.map((badge) => (
+                <CertBadge key={badge.name} {...badge} />
+              ))}
+            </div>
           </div>
         </Container>
       </Section>
