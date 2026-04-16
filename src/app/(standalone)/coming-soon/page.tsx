@@ -168,7 +168,7 @@ export default function ComingSoonPage() {
         {/* CTA */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem', width: '100%' }}>
           <Link
-            href="mailto:hello@thursdai.com"
+            href="mailto:thursdai@getthursdai.com"
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               padding: '0.875rem 2rem',
@@ -183,8 +183,8 @@ export default function ComingSoonPage() {
           </Link>
           <p style={{ fontSize: '12px', color: '#525260', margin: 0 }}>
             Or reach us at{' '}
-            <a href="mailto:hello@thursdai.com" style={{ color: '#8b9ef0', textDecoration: 'none' }}>
-              hello@thursdai.com
+            <a href="mailto:thursdai@getthursdai.com" style={{ color: '#8b9ef0', textDecoration: 'none' }}>
+              thursdai@getthursdai.com
             </a>
           </p>
         </div>
