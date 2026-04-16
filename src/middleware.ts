@@ -6,19 +6,27 @@ const PREVIEW_COOKIE = '__thursdai_preview';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 const PREVIEW_MAX_AGE = 60 * 60 * 24;       // 24 hours
 
-// Set COMING_SOON_MODE=true in Vercel env vars to activate.
-// Set PREVIEW_BYPASS_SECRET to a hard-to-guess string (e.g. a UUID).
-// Visiting /?preview=<secret> grants 24h access to the real site.
-const COMING_SOON = process.env.COMING_SOON_MODE === 'true';
-const BYPASS_SECRET = process.env.PREVIEW_BYPASS_SECRET ?? '';
+// NEXT_PUBLIC_ prefix is required — Next.js inlines these at build time
+// for edge middleware. Plain process.env vars are NOT available in the edge runtime.
+//
+// To activate coming-soon mode:
+//   Vercel → thursdai-website → Settings → Environment Variables
+//   Add NEXT_PUBLIC_COMING_SOON=true (Production) → Redeploy
+//
+// To deactivate (go live):
+//   Change NEXT_PUBLIC_COMING_SOON to false (or delete it) → Redeploy
+//
+// Preview bypass: visit /?preview=<NEXT_PUBLIC_PREVIEW_SECRET> to get
+// a 24h cookie that skips the gate.
+const COMING_SOON = process.env.NEXT_PUBLIC_COMING_SOON === 'true';
+const BYPASS_SECRET = process.env.NEXT_PUBLIC_PREVIEW_SECRET ?? '';
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
 
   // ── Coming-soon gate ────────────────────────────────────────────
   if (COMING_SOON) {
-    // 1. If the request carries the bypass secret, set the cookie and redirect
-    //    to the real page (stripping the ?preview param).
+    // 1. Bypass secret in URL → set cookie, redirect to clean URL
     const providedSecret = searchParams.get('preview');
     if (BYPASS_SECRET && providedSecret === BYPASS_SECRET) {
       const destination = new URL(request.url);
@@ -34,11 +42,11 @@ export function middleware(request: NextRequest) {
       return res;
     }
 
-    // 2. If the visitor already has the preview cookie, let them through.
+    // 2. Preview cookie present → let through
     if (request.cookies.get(PREVIEW_COOKIE)?.value === '1') {
-      // Fall through to normal handling below.
+      // fall through to normal handling below
     } else if (pathname !== '/coming-soon') {
-      // 3. Everyone else → coming soon (unless they're already there).
+      // 3. Everyone else → coming soon
       const url = request.nextUrl.clone();
       url.pathname = '/coming-soon';
       return NextResponse.redirect(url);
@@ -61,6 +69,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run on all routes except static files, API, and _next internals
   matcher: ['/((?!_next/static|_next/image|favicon.ico|og-backgrounds|fonts|api).*)'],
 };
