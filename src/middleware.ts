@@ -2,33 +2,31 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const DISTINCT_ID_COOKIE = '__thursdai_id';
-const PREVIEW_COOKIE = '__thursdai_preview';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
-const PREVIEW_MAX_AGE = 60 * 60 * 24;       // 24 hours
+const PREVIEW_COOKIE    = '__thursdai_preview';
+const COOKIE_MAX_AGE    = 60 * 60 * 24 * 365; // 1 year
+const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
 
-// NEXT_PUBLIC_ prefix is required — Next.js inlines these at build time
-// for edge middleware. Plain process.env vars are NOT available in the edge runtime.
+// ─────────────────────────────────────────────────────────────────
+// COMING SOON MODE
+// Set to true  → all visitors see /coming-soon
+// Set to false → full site is live
 //
-// To activate coming-soon mode:
-//   Vercel → thursdai-website → Settings → Environment Variables
-//   Add NEXT_PUBLIC_COMING_SOON=true (Production) → Redeploy
-//
-// To deactivate (go live):
-//   Change NEXT_PUBLIC_COMING_SOON to false (or delete it) → Redeploy
-//
-// Preview bypass: visit /?preview=<NEXT_PUBLIC_PREVIEW_SECRET> to get
-// a 24h cookie that skips the gate.
-const COMING_SOON = process.env.NEXT_PUBLIC_COMING_SOON === 'true';
-const BYPASS_SECRET = process.env.NEXT_PUBLIC_PREVIEW_SECRET ?? '';
+// When you're ready to launch: change the line below to `false`
+// and push. No env vars needed.
+// ─────────────────────────────────────────────────────────────────
+const COMING_SOON = true;
+
+// Preview bypass secret — visit /?preview=<this> to get a 24h
+// cookie that skips the coming-soon gate.
+const BYPASS_SECRET = '31151b03-3db3-4184-9d65-eb05c02df216';
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
 
-  // ── Coming-soon gate ────────────────────────────────────────────
+  // ── Coming-soon gate ───────────────────────────────────────────
   if (COMING_SOON) {
     // 1. Bypass secret in URL → set cookie, redirect to clean URL
-    const providedSecret = searchParams.get('preview');
-    if (BYPASS_SECRET && providedSecret === BYPASS_SECRET) {
+    if (searchParams.get('preview') === BYPASS_SECRET) {
       const destination = new URL(request.url);
       destination.searchParams.delete('preview');
       const res = NextResponse.redirect(destination);
@@ -36,7 +34,7 @@ export function middleware(request: NextRequest) {
         maxAge: PREVIEW_MAX_AGE,
         httpOnly: true,
         sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         path: '/',
       });
       return res;
@@ -44,16 +42,16 @@ export function middleware(request: NextRequest) {
 
     // 2. Preview cookie present → let through
     if (request.cookies.get(PREVIEW_COOKIE)?.value === '1') {
-      // fall through to normal handling below
+      // fall through
     } else if (pathname !== '/coming-soon') {
-      // 3. Everyone else → coming soon
+      // 3. Everyone else → /coming-soon
       const url = request.nextUrl.clone();
       url.pathname = '/coming-soon';
       return NextResponse.redirect(url);
     }
   }
 
-  // ── PostHog distinct-ID cookie ──────────────────────────────────
+  // ── PostHog distinct-ID cookie ─────────────────────────────────
   const response = NextResponse.next();
   if (!request.cookies.get(DISTINCT_ID_COOKIE)) {
     response.cookies.set(DISTINCT_ID_COOKIE, crypto.randomUUID(), {
