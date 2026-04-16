@@ -1,5 +1,14 @@
 # Thursdai Website — Backlog
 
+## Your Content — Fill These In (blocks launch credibility)
+
+- [ ] **Company page — founder name** — edit `src/app/(marketing)/company/page.tsx`, replace all `[Your Name]` / `[placeholder]` blocks with real content: your name, years of experience, specific incident that led to building Thursdai, your previous role/company, your direct email
+- [ ] **Company page — market size** — add a real IDC/Gartner citation for the AI governance market size figure (currently `[$XX billion]`)
+- [ ] **Company page — unfair advantage** — fill in the "Why Thursdai wins" section with your specific background/architecture advantage
+- [ ] **SOC 2 audit** — badges now show "In Audit" (honest); begin the actual SOC 2 Type II audit process if not started; update badge to reflect real stage
+- [ ] **Mobile testing** — manually test at 390px (iPhone 15) viewport: hero demo panel stacking, Moderator section readability, Policy-as-Code YAML overflow
+- [ ] **Customers page** — if any early pilots have given permission, replace "A Financial Services Company" etc. with real names + quotes
+
 ## Pre-Launch (required before July 14, 2026)
 
 - [ ] **Vercel project** — create project at vercel.com, link the GitHub repo, add `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` to GitHub repo secrets
