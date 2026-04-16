@@ -24,10 +24,10 @@ import { getHeroVariant } from '@/lib/posthog';
 // ── Cert badges data ──────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'live' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II certified' },
-  { name: 'ISO 27001', status: 'live' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 certified' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
   { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
-  { name: 'HIPAA-eligible', status: 'live' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible infrastructure' },
+  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
   { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
 ];
@@ -163,6 +163,35 @@ export default async function HomePage() {
           background: 'var(--color-bg)',
         }}
       >
+        {/* Ambient hero background gradients */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Large ambient teal glow — top-left area */}
+          <div style={{
+            position: 'absolute',
+            top: '-20%',
+            left: '-10%',
+            width: '70%',
+            height: '120%',
+            background: 'radial-gradient(ellipse 60% 60% at 30% 40%, rgba(45,212,191,0.06) 0%, transparent 70%)',
+          }} />
+          {/* Smaller focused glow behind headline */}
+          <div style={{
+            position: 'absolute',
+            top: '10%',
+            left: '5%',
+            width: '50%',
+            height: '80%',
+            background: 'radial-gradient(ellipse 50% 50% at 20% 50%, rgba(15,118,110,0.08) 0%, transparent 65%)',
+          }} />
+        </div>
         <Container>
           <Split
             ratio="60/40"
@@ -177,35 +206,25 @@ export default async function HomePage() {
                   position: 'relative',
                 }}
               >
-                {/* Teal radial gradient accent behind copy */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    inset: '-60px -40px -60px -40px',
-                    background:
-                      'radial-gradient(ellipse 60% 50% at 20% 50%, rgba(45,212,191,0.05) 0%, transparent 70%)',
-                    pointerEvents: 'none',
-                  }}
-                />
-                <Label>AI THAT WORKS FOR YOUR WHOLE TEAM</Label>
+                <Label>FOR TEAMS WHERE AI DECISIONS HAVE REAL CONSEQUENCES</Label>
                 {variant === 'option-a' ? (
                   <>
                     <Display>
-                      The governed agent substrate for regulated enterprises.
+                      AI governance infrastructure for teams that can&apos;t afford to be wrong.
                     </Display>
                     <Body variant="large">
-                      Role-based moderation, decision replay, and policies the model cannot break
-                      — built for the teams that can&apos;t afford an unauditable AI.
+                      Multi-role deliberation, decision replay, and policy enforcement at the model
+                      layer — not bolted on after.
                     </Body>
                   </>
                 ) : (
                   <>
                     <Display>
-                      See who said what. Replay the decision. Know why it changed.
+                      The AI that shows its work.
                     </Display>
                     <Body variant="large">
-                      Ask a question. Thursdai consults Legal, Finance, and Operations simultaneously, reconciles their input, and gives you one sourced, policy-checked answer — with a full audit trail. No guesswork. No liability.
+                      Role-based answers. Decision replay. Policies the model cannot break. Built
+                      for teams where AI outputs have real consequences.
                     </Body>
                   </>
                 )}
@@ -497,6 +516,64 @@ export default async function HomePage() {
         </Container>
       </section>
 
+      {/* ── Why Thursdai vs. competitors ──────────────────────── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <Label>HONEST COMPARISON</Label>
+            <Heading2 style={{ marginTop: '0.5rem' }}>Every platform gives you AI. Only Thursdai gives you governed AI.</Heading2>
+          </div>
+          <Grid cols={3} gap="lg">
+            {[
+              {
+                competitor: 'Microsoft Copilot',
+                theyGive: 'AI embedded in Office 365 — excellent for drafting and writing',
+                thursdaiAdds: 'The audit trail, policy enforcement, and decision replay that Copilot cannot provide',
+                href: '/compare/microsoft-copilot',
+              },
+              {
+                competitor: 'ChatGPT Enterprise',
+                theyGive: 'A private, powerful instance of the world\'s best language model',
+                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies, and replayable decisions',
+                href: '/compare/chatgpt-enterprise',
+              },
+              {
+                competitor: 'Glean',
+                theyGive: 'Best-in-class enterprise search — finds the document that says X',
+                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X — with proof',
+                href: '/compare/glean',
+              },
+            ].map(({ competitor, theyGive, thursdaiAdds, href }) => (
+              <div
+                key={competitor}
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-border, rgba(255,255,255,0.08))',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem',
+                }}
+              >
+                <Body style={{ fontWeight: 600 }}>{competitor}</Body>
+                <div>
+                  <Label style={{ fontSize: '10px', marginBottom: '0.25rem' }}>They give you</Label>
+                  <Body variant="small" style={{ color: 'var(--color-text-secondary)' }}>{theyGive}</Body>
+                </div>
+                <div>
+                  <Label style={{ fontSize: '10px', marginBottom: '0.25rem', color: 'var(--color-accent)' }}>Thursdai adds</Label>
+                  <Body variant="small">{thursdaiAdds}</Body>
+                </div>
+                <a href={href} style={{ fontSize: '13px', color: 'var(--color-accent)', marginTop: 'auto', textDecoration: 'none' }}>
+                  Full comparison →
+                </a>
+              </div>
+            ))}
+          </Grid>
+        </Container>
+      </Section>
+
       {/* ── Section 9: Pricing wedge ─────────────────────────── */}
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
@@ -531,11 +608,11 @@ export default async function HomePage() {
             />
           </Grid>
           <p style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/pricing">
+            <Link href="/pricing#deal-designer">
               <button
                 className="inline-flex items-center justify-center font-semibold rounded-lg transition-colors px-6 py-3 text-[17px] bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
               >
-                Design your deal →
+                Build Your Deal
               </button>
             </Link>
           </p>

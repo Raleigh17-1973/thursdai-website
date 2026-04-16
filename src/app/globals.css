@@ -175,6 +175,12 @@ a:hover { text-decoration: underline; }
 .footer-link:hover { color: #e4e4e7; }
 .footer-link:focus-visible { color: #e4e4e7; }
 
+/* ── Live indicator pulse animation ─────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 /* ── ScrollCue bounce animation ─────────────────────────────── */
 @keyframes scrollCueBounce {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }

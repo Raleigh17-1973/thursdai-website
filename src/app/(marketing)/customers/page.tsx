@@ -25,8 +25,7 @@ export default function CustomersPage() {
           <Label>Customers</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Real results, from real teams.</Heading1>
           <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
-            Thursdai is in active deployment across financial services, healthcare, and legal. Early
-            results below.
+            Here&apos;s what early pilots are delivering:
           </Body>
         </Container>
       </Section>
@@ -34,6 +33,18 @@ export default function CustomersPage() {
       {/* ── Anonymised stat cards ── */}
       <Section variant="compact">
         <Container>
+          <Body
+            variant="small"
+            style={{
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: 'var(--color-text-tertiary)',
+              marginBottom: '1.5rem',
+            }}
+          >
+            Early pilot results
+          </Body>
           <Grid cols={3} gap="lg">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <Card
@@ -77,14 +88,14 @@ export default function CustomersPage() {
             }}
           >
             <Badge variant="teal">Now open</Badge>
-            <Heading2 style={{ marginTop: '1rem' }}>Apply to be a launch case study</Heading2>
+            <Heading2 style={{ marginTop: '1rem' }}>Become an early design partner</Heading2>
             <Body
               variant="large"
               style={{ maxWidth: '560px', margin: '1rem auto 2rem' }}
             >
-              We&apos;re publishing three named case studies in August 2026 — each with one hard
-              number, a technical deployment section, and your team&apos;s quote. If you&apos;re
-              using Thursdai and want to be featured, apply below.
+              We&apos;re working with a small group of early customers to validate results and
+              develop case studies. If you&apos;re seeing AI governance challenges in your
+              organisation, we&apos;d like to work with you.
             </Body>
             <Body
               variant="small"

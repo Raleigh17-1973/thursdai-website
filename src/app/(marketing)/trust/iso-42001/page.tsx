@@ -5,7 +5,6 @@ import { Container } from '@/components/layout/Container';
 import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Callout } from '@/components/ui/Callout';
 import { Timeline } from '@/components/ui/Timeline';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -138,14 +137,9 @@ export default function Iso42001Page() {
       </Section>
 
       {/* Why it matters */}
-      {/* LEGAL REVIEW REQUIRED */}
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container narrow>
-          <Callout variant="warning" title="Content pending">
-            This section will be written by the Trust &amp; Compliance Lead (target: 400 words
-            explaining ISO 42001 significance for enterprise buyers).
-          </Callout>
-          <Heading2 style={{ marginTop: '1.5rem' }}>Why ISO 42001 matters</Heading2>
+          <Heading2>Why ISO 42001 matters</Heading2>
           <Body style={{ marginTop: '1rem' }}>
             ISO 42001 is the first internationally recognised standard specifically for AI management
             systems. Unlike generic information security standards, it addresses the unique governance
@@ -162,9 +156,6 @@ export default function Iso42001Page() {
             For procurement teams, it means Thursdai&apos;s AI management practices have been
             assessed by an accredited third party, not just self-attested.
           </Body>
-          <Callout variant="info" style={{ marginTop: '1.5rem' }}>
-            Full section text from Trust &amp; Compliance Lead due Week 6. Target: 400 words.
-          </Callout>
         </Container>
       </Section>
 

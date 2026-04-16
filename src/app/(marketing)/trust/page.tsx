@@ -8,7 +8,6 @@ import { Heading3 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Callout } from '@/components/ui/Callout';
 import { CertBadge } from '@/components/content/CertBadge';
 import { SecurityPackForm } from '@/components/content/SecurityPackForm';
 
@@ -75,10 +74,10 @@ function IconDatabase() {
 // ── Cert badges ────────────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'live' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II certified' },
-  { name: 'ISO 27001', status: 'live' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 certified' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
   { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
-  { name: 'HIPAA-eligible', status: 'live' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible infrastructure' },
+  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
   { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
 ];
@@ -105,12 +104,8 @@ export default function TrustPage() {
       </Section>
 
       {/* Nav cards */}
-      {/* LEGAL REVIEW REQUIRED */}
       <Section variant="compact">
         <Container>
-          <Callout variant="warning">
-            Content pending legal review before launch.
-          </Callout>
           <Grid cols={2} gap="lg" style={{ marginTop: '2rem' }}>
             <Card
               variant="feature"
@@ -197,8 +192,8 @@ export default function TrustPage() {
           >
             <Heading3>Download the security pack</Heading3>
             <Body style={{ maxWidth: '500px', margin: '0 auto 1.5rem' }}>
-              SOC 2 summary, ISO 27001 certificate, pen-test executive summary, and AI RMF
-              self-assessment — delivered to your inbox.
+              Get our Security Overview — architecture summary, current controls, and our SOC 2 audit
+              timeline — delivered to your inbox.
             </Body>
             <SecurityPackForm />
           </div>

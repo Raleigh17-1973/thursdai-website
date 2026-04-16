@@ -8,6 +8,8 @@ const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/pricing`, priority: 1.0, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/compare/glean`, priority: 0.9, changeFrequency: 'monthly' },
+  { url: `${SITE_URL}/compare/microsoft-copilot`, priority: 0.9, changeFrequency: 'monthly' },
+  { url: `${SITE_URL}/compare/chatgpt-enterprise`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust/annex-iii`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/product/moderator`, priority: 0.8, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/product/time-travel`, priority: 0.8, changeFrequency: 'monthly' },

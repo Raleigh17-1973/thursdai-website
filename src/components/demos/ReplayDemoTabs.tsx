@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Badge } from '@/components/ui/Badge';
 import { Callout } from '@/components/ui/Callout';
 
@@ -63,7 +63,16 @@ function ConfidenceBar({ value }: { value: number }) {
 export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [userInteracted, setUserInteracted] = useState(false);
   const active = decisions[activeIdx];
+
+  useEffect(() => {
+    if (userInteracted) return;
+    const interval = setInterval(() => {
+      setActiveIdx(prev => (prev + 1) % decisions.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [userInteracted, decisions.length]);
 
   return (
     <div
@@ -78,16 +87,21 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
     >
       {/* Tab switcher */}
       <div style={{ padding: '0.75rem 1.25rem 0' }}>
-        <p
-          style={{
-            fontSize: '12px',
-            color: 'var(--color-text-secondary)',
-            marginBottom: '0.5rem',
-            margin: '0 0 0.5rem 0',
-          }}
-        >
-          ← Click to explore different decisions
-        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginBottom: '0.75rem' }}>
+          <span
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              background: 'var(--color-accent)',
+              display: 'inline-block',
+              animation: 'pulse-dot 2s ease-in-out infinite',
+            }}
+          />
+          <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Live · Recording
+          </span>
+        </div>
       </div>
       <div
         role="tablist"
@@ -105,7 +119,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
             aria-selected={i === activeIdx}
             aria-controls={`replay-panel-${d.id}`}
             id={`replay-tab-${d.id}`}
-            onClick={() => setActiveIdx(i)}
+            onClick={() => { setUserInteracted(true); setActiveIdx(i); }}
             onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(null)}
             style={{

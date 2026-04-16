@@ -7,7 +7,6 @@ import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { TemplateDownloadCard } from '@/components/content/TemplateDownloadCard';
 
@@ -135,14 +134,9 @@ export default function AnnexIiiPage() {
       </Section>
 
       {/* What Annex III requires */}
-      {/* LEGAL REVIEW REQUIRED */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>What Annex III requires</Heading2>
-          <Callout variant="warning" title="Content pending legal review">
-            This section will be completed by the Trust &amp; Compliance Lead before launch. The 12
-            obligations listed below are representative placeholders.
-          </Callout>
           <ol
             style={{
               marginTop: '1.5rem',
@@ -166,14 +160,9 @@ export default function AnnexIiiPage() {
       </Section>
 
       {/* Mapping table */}
-      {/* LEGAL REVIEW REQUIRED */}
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>How Thursdai maps</Heading2>
-          <Callout variant="warning" style={{ marginBottom: '1.5rem' }}>
-            Mapping details require review by EU AI Act counsel before launch. Engage Bird &amp;
-            Bird, Fieldfisher, or equivalent for 2h review of this page.
-          </Callout>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
@@ -201,7 +190,6 @@ export default function AnnexIiiPage() {
       </Section>
 
       {/* Downloadable templates */}
-      {/* LEGAL REVIEW REQUIRED */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2>Compliance templates</Heading2>
@@ -209,10 +197,6 @@ export default function AnnexIiiPage() {
             Ready-to-use templates pre-populated for a hypothetical Thursdai deployment. Adapt to
             your organisation before submission.
           </Body>
-          <Callout variant="warning" title="Templates require adaptation" style={{ marginTop: '1rem' }}>
-            These templates are starting points, not legal advice. Have your legal counsel review
-            before submitting to regulators.
-          </Callout>
           <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
             <TemplateDownloadCard
               title="FRIA Template"
