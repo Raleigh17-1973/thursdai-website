@@ -185,7 +185,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             href="/demo"
             onClick={onClose}
             className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold text-white"
-            style={{ background: 'var(--color-accent)', textDecoration: 'none' }}
+            style={{ background: 'var(--color-accent)', color: '#ffffff', textDecoration: 'none' }}
           >
             Request demo
           </Link>

@@ -204,7 +204,7 @@ export function Footer() {
               <button
                 type="button"
                 className="w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold text-white"
-                style={{ background: '#3e4fb8', cursor: 'pointer', border: 'none' }}
+                style={{ background: '#3e4fb8', color: '#ffffff', cursor: 'pointer', border: 'none' }}
               >
                 Subscribe
               </button>
