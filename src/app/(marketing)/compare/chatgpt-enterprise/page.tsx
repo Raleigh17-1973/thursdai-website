@@ -34,7 +34,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Decision replay / time-travel', chatgpt: 'no', thursdai: 'yes' },
   { feature: 'Foundation-model choice', chatgpt: 'text', thursdai: 'text' },
   { feature: 'EU AI Act compliance tooling', chatgpt: 'partial', thursdai: 'yes' },
-  { feature: 'Published pricing', chatgpt: 'yes', thursdai: 'yes' },
 ];
 
 function MatrixCell({ row, col }: { row: MatrixRow; col: 'chatgpt' | 'thursdai' }) {
@@ -314,13 +313,11 @@ export default function CompareChatGPTEnterprisePage() {
         }}
       >
         <Container>
-          <Heading2>See Thursdai pricing</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Published pricing. No &ldquo;contact us.&rdquo; No surprises.
-          </Body>
-          <Link href="/pricing?ref=compare-chatgpt">
+          <Heading2>See Thursdai for yourself</Heading2>
+          <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
+          <Link href="/?ref=compare-chatgpt#replay-demo">
             <Button variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-              See Thursdai pricing →
+              Try the replay demo →
             </Button>
           </Link>
         </Container>

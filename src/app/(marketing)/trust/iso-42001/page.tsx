@@ -5,56 +5,15 @@ import { Container } from '@/components/layout/Container';
 import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Timeline } from '@/components/ui/Timeline';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'ISO 42001 Certification: Thursdai',
   description:
-    "Thursdai's ISO 42001 AI management system certification roadmap. Current stage, timeline and what it means for your compliance programme.",
+    "Thursdai's plan for ISO 42001 AI management system certification, and what the standard means for your compliance programme.",
 };
 
 // ── Data ───────────────────────────────────────────────────────
-
-interface TimelineItem {
-  date: string;
-  title: string;
-  description?: string;
-  status: 'done' | 'current' | 'upcoming';
-}
-
-const ISO_TIMELINE: TimelineItem[] = [
-  {
-    date: 'Q1 2026',
-    title: 'Gap analysis completed',
-    description: 'Internal assessment against ISO 42001 requirements. 23 gaps identified, 19 resolved.',
-    status: 'done',
-  },
-  {
-    date: 'Q2 2026',
-    title: 'Stage 1 audit',
-    description: 'Documentation review by accredited certification body. Scheduled May 2026.',
-    status: 'current',
-  },
-  {
-    date: 'Q3 2026',
-    title: 'Stage 2 audit',
-    description: 'On-site assessment of AI management system implementation. Scheduled July 2026.',
-    status: 'upcoming',
-  },
-  {
-    date: 'Q3 2026',
-    title: 'Certification issued',
-    description: 'Expected certification by September 2026 pending successful Stage 2 audit.',
-    status: 'upcoming',
-  },
-  {
-    date: 'Annual',
-    title: 'Surveillance audits',
-    description: 'Annual recertification audits to maintain certification status.',
-    status: 'upcoming',
-  },
-];
 
 const ISO_FAQ = [
   {
@@ -70,17 +29,17 @@ const ISO_FAQ = [
   {
     question: 'When will Thursdai be certified?',
     answer:
-      'We expect to receive ISO 42001 certification in Q3 2026, pending successful Stage 2 audit in July 2026. Status updates are published on this page.',
+      'We do not have a certification date. ISO 42001 certification requires an operational AI management system with enough production history for an accredited body to audit. We will begin the formal process once we have production customers and the operational data the audit requires.',
   },
   {
     question: "Can I use Thursdai's ISO 42001 certification for my own compliance programme?",
     answer:
-      "Thursdai's certification covers our AI management system. For customer deployments, you will need your own AI management system. Our certification demonstrates that Thursdai as a platform is managed to ISO 42001 standards, which supports but does not replace your organisation's own certification effort.",
+      "Once we are certified, our certification will cover Thursdai's own AI management system. For customer deployments, you will still need your own AI management system. Our certification will support, but not replace, your organisation's own certification effort.",
   },
   {
-    question: 'Which certification body is conducting the audit?',
+    question: 'Have you engaged a certification body?',
     answer:
-      'We will disclose the certification body name once the audit is confirmed. We are working with an accredited body with experience in AI and technology sector certifications.',
+      'Not yet. When we begin the certification process we will select an accredited body with experience in AI and technology sector certifications, and we will name it here.',
   },
 ];
 
@@ -116,28 +75,35 @@ export default function Iso42001Page() {
           />
           <Label style={{ marginTop: '1.5rem', display: 'block' }}>ISO 42001</Label>
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            AI management system certification in progress.
+            AI management system certification, planned.
           </Heading1>
           <Body variant="large">
-            ISO 42001 is the international standard for AI management systems. Thursdai is working
-            toward certification. This page shows our current stage, timeline and what it means
-            for enterprise buyers.
+            ISO 42001 is the international standard for AI management systems. Certification is on
+            our roadmap. This page explains what the standard is and where we stand.
           </Body>
         </Container>
       </Section>
 
-      {/* Timeline */}
+      {/* Where we stand */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Heading2 style={{ marginBottom: '2rem' }}>Certification timeline</Heading2>
-          <div style={{ maxWidth: '600px' }}>
-            <Timeline items={ISO_TIMELINE} />
-          </div>
+        <Container narrow>
+          <Heading2>Where we stand</Heading2>
+          <Body style={{ marginTop: '1rem' }}>
+            We have not started the formal certification process and we do not have a target date.
+            ISO 42001 certification requires an operational AI management system that an accredited
+            body can audit against real production history.
+          </Body>
+          <Body style={{ marginTop: '1rem' }}>
+            We will begin once we have production customers and the operational data the audit
+            requires. We would rather earn the certification on real deployments than publish a date
+            we cannot stand behind. When the process starts, we will share the certification body
+            and our progress here.
+          </Body>
         </Container>
       </Section>
 
       {/* Why it matters */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="default">
         <Container narrow>
           <Heading2>Why ISO 42001 matters</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -148,13 +114,13 @@ export default function Iso42001Page() {
           </Body>
           <Body style={{ marginTop: '1rem' }}>
             For regulated enterprises, ISO 42001 certification provides an independent, audited
-            baseline that your AI systems are managed according to international best practices. It
-            complements (and in some jurisdictions, satisfies) the governance requirements of the
-            EU AI Act.
+            baseline that an AI system is managed according to international best practices. It
+            complements, and in some jurisdictions satisfies, the governance requirements of the EU
+            AI Act.
           </Body>
           <Body style={{ marginTop: '1rem' }}>
-            For procurement teams, it means Thursdai&apos;s AI management practices have been
-            assessed by an accredited third party, not just self-attested.
+            Once certified, it will mean Thursdai&apos;s AI management practices have been assessed by
+            an accredited third party, not just self-attested.
           </Body>
         </Container>
       </Section>

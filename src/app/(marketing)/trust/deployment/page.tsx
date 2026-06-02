@@ -47,11 +47,11 @@ const MATRIX_ROWS = [
     onprem: 'Customer-managed, Thursdai support',
   },
   {
-    label: 'Pricing implication',
-    saas: 'Platform fee + credits + outcome',
-    dedicated: '+$40K/yr dedicated infrastructure',
-    vpc: '+$80K/yr VPC setup + running costs',
-    onprem: 'Custom quote; typically +$150K/yr',
+    label: 'Cost implication',
+    saas: 'Standard plan, no infrastructure add-on',
+    dedicated: 'Dedicated infrastructure add-on',
+    vpc: 'VPC setup and running costs add-on',
+    onprem: 'Custom quote',
   },
 ];
 

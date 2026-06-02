@@ -59,7 +59,7 @@ const ARCHITECTURE_ROWS = [
 ];
 
 const DATA_CLASSIFICATION_ROWS = [
-  { category: 'HR decisions', description: 'Approval requests, case outcomes, policy evaluations' },
+  { category: 'Governed decisions', description: 'Approval requests, case outcomes, policy evaluations' },
   { category: 'Identity data', description: 'Employee names, email addresses, departments, roles' },
   {
     category: 'Compliance artifacts',
@@ -80,7 +80,7 @@ const SUBPROCESSOR_ROWS = [
   },
   {
     name: 'Anthropic',
-    purpose: 'LLM inference (AI-powered HR guidance and compliance analysis)',
+    purpose: 'LLM inference (governed AI decisions and compliance analysis)',
     dpaStatus: 'DPA on file',
   },
   {
@@ -108,19 +108,19 @@ const SUBPROCESSOR_ROWS = [
 const CERTIFICATION_ROWS = [
   {
     framework: 'SOC 2 Type II',
-    status: 'In progress',
-    notes: 'Observation period underway; third-party audit in progress. Contact security@thursdai.com for current status.',
+    status: 'Planned',
+    notes: 'Planned. The SOC 2 observation period and third-party audit require production customers and operational history; we will begin once those are in place. Contact security@thursdai.com for status.',
   },
   {
     framework: 'ISO 42001',
     status: 'Planned',
-    notes: 'Scoped for 2026. AI management system controls align with current architecture.',
+    notes: 'Planned, no date yet. AI management system controls align with our current architecture.',
   },
   {
     framework: 'EU AI Act Annex III',
-    status: 'In progress',
+    status: 'Planned',
     notes:
-      'High-risk system classification assessment complete. Technical documentation and conformity controls in active implementation.',
+      'High-risk system classification self-assessment complete and technical documentation prepared. Third-party conformity assessment is planned; we have no date yet.',
   },
 ];
 
@@ -178,17 +178,19 @@ export default function SecurityPage() {
           <Heading2 style={{ marginBottom: '1.5rem' }}>Executive Summary</Heading2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Body>
-              Thursdai is an AI-powered HR operations platform that helps enterprise teams manage
-              approvals, compliance artifacts and audit trails for workforce decisions. Security and
-              compliance are load-bearing requirements of the product. Thursdai processes HR
-              decisions that affect employees and must satisfy the same audit standards as the
-              workflows it supports.
+              Thursdai is AI governance infrastructure for regulated enterprises. It sits between AI
+              models and the teams that rely on them, enforcing role-based moderation, decision
+              replay and policy-as-code so every AI decision is auditable. Security and compliance
+              are load-bearing requirements of the product. Thursdai governs decisions that carry
+              legal, financial and regulatory consequence, and it must satisfy the same audit
+              standards as the workflows it supports.
             </Body>
             <Body>
               Thursdai applies defense-in-depth across cryptographic controls, access management,
               audit integrity and operational resilience. Engineering controls for SOC 2 CC-series
-              requirements are implemented and in active use. An observation period for third-party
-              SOC 2 Type II certification is in progress.
+              requirements are implemented and in active use. Third-party SOC 2 Type II
+              certification is planned; the observation period requires production customers and
+              operational history before it can begin.
             </Body>
           </div>
         </Container>
@@ -378,11 +380,11 @@ export default function SecurityPage() {
                           fontSize: '12px',
                           fontWeight: 600,
                           background:
-                            row.status === 'In progress'
+                            row.status === 'Planned'
                               ? 'rgba(62,79,184,0.12)'
                               : 'rgba(0,0,0,0.06)',
                           color:
-                            row.status === 'In progress'
+                            row.status === 'Planned'
                               ? 'var(--color-accent)'
                               : 'var(--color-text-tertiary)',
                         }}

@@ -46,6 +46,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // Pricing is not published yet; park the page so it is unreachable.
+      { source: '/pricing', destination: '/', permanent: false },
+    ];
+  },
   webpack: (config: import('webpack').Configuration) => {
     config.plugins = config.plugins ?? [];
     config.plugins.push(new VeliteWebpackPlugin());

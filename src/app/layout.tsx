@@ -15,7 +15,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   title: 'Thursdai: The Governed Agent Substrate for Regulated Enterprises',
   description:
-    'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. Published pricing. EU AI Act ready.',
+    'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. EU AI Act ready.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com'),
   openGraph: {
     type: 'website',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'Thursdai',
     title: 'Thursdai: The Governed Agent Substrate for Regulated Enterprises',
     description:
-      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. Published pricing. EU AI Act ready.',
+      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. EU AI Act ready.',
     images: [
       {
         url: '/og-backgrounds/default.png',

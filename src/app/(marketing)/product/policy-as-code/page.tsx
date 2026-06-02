@@ -39,7 +39,7 @@ const PRIMITIVES = [
   {
     primitive: 'pricing_floor',
     purpose: 'Prevent quoting below contract minimums',
-    example: 'No discount below $60K platform fee',
+    example: 'No discount below the agreed price floor',
   },
   {
     primitive: 'pii_block',

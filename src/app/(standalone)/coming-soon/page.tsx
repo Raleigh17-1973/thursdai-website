@@ -148,7 +148,6 @@ export default function ComingSoonPage() {
             ['Role-based moderation', 'Legal, Finance and Engineering weigh in on every AI decision, automatically.'],
             ['Decision replay', 'Rewind any AI answer to see exactly which sources, policies and roles shaped it.'],
             ['Policy-as-code', 'Enforce your company\'s AI rules in YAML. No vendor calls required.'],
-            ['Published pricing', 'No "contact sales." Real numbers, online, right now.'],
             ['EU AI Act readiness', 'Built-in Annex III documentation, FRIA templates and human-override controls.'],
           ].map(([title, desc]) => (
             <div key={title} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>

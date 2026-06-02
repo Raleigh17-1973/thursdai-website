@@ -17,7 +17,7 @@ const statusVariant = {
 
 const statusLabel = {
   live: 'Live',
-  'in-progress': 'In Progress',
+  'in-progress': 'Planned',
   ready: 'Ready',
 } as const;
 

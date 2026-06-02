@@ -39,7 +39,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Tenant knowledge isolation', writer: 'yes', thursdai: 'yes' },
   { feature: 'EU AI Act Annex III documentation', writer: 'no', thursdai: 'yes' },
   { feature: 'FRIA/DPIA templates', writer: 'no', thursdai: 'yes' },
-  { feature: 'Published pricing', writer: 'yes', thursdai: 'yes' },
   { feature: 'MCP server (agent-to-agent)', writer: 'no', thursdai: 'yes' },
   { feature: 'Ambient case management', writer: 'no', thursdai: 'yes' },
   { feature: 'Audit log API', writer: 'partial', thursdai: 'yes' },
@@ -53,7 +52,7 @@ function StatusCell({ value }: { value: MatrixStatus | string }) {
   if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
   if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>;
   if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">In progress</Badge></td>;
+  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
   return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
 }
 

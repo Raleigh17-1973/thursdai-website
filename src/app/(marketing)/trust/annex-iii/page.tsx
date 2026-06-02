@@ -41,9 +41,9 @@ const OBLIGATION_MAPPINGS = [
   { obligation: 'Transparency', thursdai: 'Sentence-level provenance on every answer. Role attribution breakdown per response. Source confidence scores exposed in API response.' },
   { obligation: 'Human oversight', thursdai: 'Moderator panel surfaces disagreements for human review. Policy dry-run mode before deployment. Approval workflows configurable per role.' },
   { obligation: 'Accuracy and robustness', thursdai: 'Role Bench benchmark measures accuracy across domains. Policy-as-Code enforces citation requirements. Confidence scores on all source attributions.' },
-  { obligation: 'Quality management', thursdai: 'ISO 42001 certification in progress (see /trust/iso-42001). SOC 2 Type II annual audit. Change management process documented.' },
-  { obligation: 'Conformity assessment', thursdai: 'Self-assessment completed. Third-party assessment scheduled Q3 2026. Results published at /trust/certifications.' },
-  { obligation: 'Registration', thursdai: 'EU database registration process initiated. Expected completion prior to August 2, 2026 binding date.' },
+  { obligation: 'Quality management', thursdai: 'ISO 42001 certification planned (see /trust/iso-42001). SOC 2 Type II certification planned. Change management process documented.' },
+  { obligation: 'Conformity assessment', thursdai: 'Self-assessment completed. Third-party assessment planned; no date yet. Results will be published at /trust/certifications.' },
+  { obligation: 'Registration', thursdai: 'EU database registration planned. We will complete it as required for production deployments under the Act.' },
   { obligation: 'Corrective actions', thursdai: 'Incident response process documented. Security incidents reported to customers within 72 hours per SLA. Quarterly security bulletins.' },
   { obligation: 'Post-market monitoring', thursdai: 'Continuous policy compliance monitoring. Role Bench quarterly refresh. Customer anomaly reporting via /developers/api.' },
 ];
@@ -67,7 +67,7 @@ const ANNEX_FAQ = [
   },
   {
     question: 'Is Thursdai registered in the EU AI Act database?',
-    answer: 'Registration is in process. We expect completion prior to the August 2, 2026 binding date. Status is updated at /trust/certifications.',
+    answer: 'Registration is on our roadmap. We will complete it as required for production deployments under the Act; we do not have a specific date yet. Status is updated at /trust/certifications.',
   },
 ];
 
@@ -123,7 +123,7 @@ export default function AnnexIiiPage() {
           />
           <Label style={{ marginTop: '1.5rem', display: 'block' }}>EU AI Act Annex III</Label>
           <Display style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            Ready for August 2, 2026.
+            Built for the EU AI Act.
           </Display>
           <Body variant="large">
             The EU AI Act Annex III binding date is August 2, 2026. Thursdai is designed to help

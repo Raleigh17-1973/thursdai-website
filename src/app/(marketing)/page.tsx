@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
@@ -15,23 +15,21 @@ import { ReplayDemo } from '@/components/demos/ReplayDemo';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
-import { DealDesigner } from '@/components/demos/DealDesigner';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { getHeroVariant } from '@/lib/posthog';
-import { HomeStatCards } from '@/components/ui/HomeStatCards';
 import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
 
 // ── Cert badges data ──────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II planned' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 planned' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 planned' },
   { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate planned' },
 ];
 
 // ── invoke_role code snippet ───────────────────────────────────
@@ -58,33 +56,6 @@ print(result.moderator.answer)
 print(f"Consensus: {result.moderator.consensus}")`;
 
 // ── Inline SVG icons ─────────────────────────────────────────
-
-function IconBuilding() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M9 21V9h6v12" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <rect x="10.5" y="12" width="3" height="3" fill="var(--color-accent)" opacity="0.6" />
-    </svg>
-  );
-}
-
-function IconLightning() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconCheckCircle() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="9 12 11 14 15 10" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 function IconPanel() {
   return (
@@ -191,7 +162,7 @@ export default async function HomePage() {
         <Container>
           <Split
             ratio="60/40"
-            alignItems="center"
+            alignItems="start"
             gap="xl"
             left={
               <div
@@ -235,10 +206,8 @@ export default async function HomePage() {
                 }}>
                   {[
                     '✓ EU AI Act ready',
-                    '✓ Published pricing',
                     '✓ Role-based moderation',
                     '✓ Full decision audit trail',
-                    '✓ SOC 2 in audit',
                   ].map((item) => (
                     <span key={item}>{item}</span>
                   ))}
@@ -477,27 +446,6 @@ export default async function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Section 7: Customer logos + stats ────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
-            Customers
-          </Label>
-          <Heading2 style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            Governed AI in production
-          </Heading2>
-          <HomeStatCards />
-          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Link
-              href="/customers"
-              style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
-            >
-              See deployment context + apply to be featured →
-            </Link>
-          </p>
-        </Container>
-      </Section>
-
       {/* ── Section 8: Developers band ───────────────────────── */}
       <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '5rem 0' }}>
         <Container>
@@ -603,75 +551,6 @@ export default async function HomePage() {
               </div>
             ))}
           </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Section 9: Pricing wedge ─────────────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Label style={{ textAlign: 'center', display: 'block' }}>Pricing</Label>
-          <Heading2 style={{ textAlign: 'center' }}>
-            <span className="font-display">Published pricing. Tuned to outcome.</span>
-          </Heading2>
-          <Body
-            variant="large"
-            style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem' }}
-          >
-            Three components. All published. No &ldquo;contact us for pricing.&rdquo;
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              icon={<IconBuilding />}
-              title="Platform"
-              body="Annual platform fee based on seat count. Covers all roles, all policies, all deployment models. Starting at $60K/year."
-            />
-            <Card
-              variant="feature"
-              icon={<IconLightning />}
-              title="Credits"
-              body="Per 1,000 inference tokens across all roles. Pay for what you use, nothing more. $0.018 per 1K tokens."
-            />
-            <Card
-              variant="feature"
-              icon={<IconCheckCircle />}
-              title="Outcome"
-              body="Optional per-closed-case fee for outcome-based deployments. $2.20 per resolved case. Only pay when the system delivers."
-            />
-          </Grid>
-          <p style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/pricing#deal-designer">
-              <button
-                className="inline-flex items-center justify-center font-semibold rounded-lg transition-colors px-6 py-3 text-[17px] bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
-              >
-                Build Your Deal
-              </button>
-            </Link>
-          </p>
-          <Body
-            variant="small"
-            style={{ textAlign: 'center', color: 'var(--color-text-tertiary)', marginTop: '1rem' }}
-          >
-            Illustrative pricing.{' '}
-            <Link href="/pricing" style={{ color: 'var(--color-accent)' }}>
-              See the full Deal Designer →
-            </Link>
-          </Body>
-
-          {/* Deal Designer inline preview */}
-          <div
-            style={{
-              marginTop: '3rem',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '16px',
-              padding: '2rem',
-              background: 'var(--color-surface-primary)',
-            }}
-          >
-            <Suspense>
-              <DealDesigner />
-            </Suspense>
-          </div>
         </Container>
       </Section>
 

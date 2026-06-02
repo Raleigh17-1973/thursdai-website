@@ -35,7 +35,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Tenant knowledge isolation', glean: 'yes', thursdai: 'yes' },
   { feature: 'EU AI Act Annex III documentation', glean: 'no', thursdai: 'yes' },
   { feature: 'FRIA/DPIA templates', glean: 'no', thursdai: 'yes' },
-  { feature: 'Published pricing', glean: 'no', thursdai: 'yes' },
   { feature: 'MCP server (agent-to-agent)', glean: 'no', thursdai: 'yes' },
   { feature: 'Ambient case management', glean: 'no', thursdai: 'yes' },
   { feature: 'Audit log API', glean: 'partial', thursdai: 'yes' },
@@ -147,7 +146,7 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'glean' | 'thursdai' })
   if (value === 'in-progress') {
     return (
       <td style={{ padding: '0.75rem 1rem' }}>
-        <Badge variant="amber">In progress</Badge>
+        <Badge variant="amber">Planned</Badge>
       </td>
     );
   }
@@ -225,11 +224,6 @@ export default function CompareGleanPage() {
               variant="feature"
               title="Policy-as-Code vs UI-only guardrails"
               body="Thursdai enforces governance rules at the inference layer in YAML: the model cannot override them. Glean's guardrails are prompt-level and can be worked around by the model."
-            />
-            <Card
-              variant="feature"
-              title="Published pricing vs contact-sales-only"
-              body="Thursdai publishes platform fees, per-token rates and outcome units. Glean requires a sales call for any pricing information."
             />
             <Card
               variant="feature"
@@ -352,9 +346,8 @@ export default function CompareGleanPage() {
                 team lives in Docs and Drive, Glean&apos;s context is better there.
               </li>
               <li>
-                <strong>Your budget is under $40K/year.</strong> Thursdai&apos;s SMB tier starts
-                at $60K. If your budget doesn&apos;t reach that, Glean may be accessible at a
-                lower price point.
+                <strong>You need a lower-cost entry point.</strong> Thursdai is built for
+                enterprise budgets; if cost is the deciding factor, Glean may be more accessible.
               </li>
             </ul>
           </Callout>

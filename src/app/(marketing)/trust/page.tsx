@@ -74,12 +74,12 @@ function IconDatabase() {
 // ── Cert badges ────────────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II planned' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 planned' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 planned' },
   { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate planned' },
 ];
 
 // ── Page ───────────────────────────────────────────────────────
@@ -125,7 +125,7 @@ export default function TrustPage() {
               variant="feature"
               icon={<IconCertificate />}
               title="ISO 42001 Certification"
-              body="Our AI management system certification roadmap. Current stage and timeline."
+              body="Our AI management system certification plan."
               href="/trust/iso-42001"
             />
             <Card
@@ -208,8 +208,8 @@ export default function TrustPage() {
           >
             <Heading3>Download the security pack</Heading3>
             <Body style={{ maxWidth: '500px', margin: '0 auto 1.5rem' }}>
-              Get our Security Overview: architecture summary, current controls and our SOC 2 audit
-              timeline, delivered to your inbox.
+              Get our Security Overview: architecture summary, current controls and our certification
+              plans, delivered to your inbox.
             </Body>
             <SecurityPackForm />
           </div>

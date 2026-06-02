@@ -34,7 +34,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Decision replay / time-travel', copilot: 'no', thursdai: 'yes' },
   { feature: 'Foundation-model choice', copilot: 'text', thursdai: 'text' },
   { feature: 'EU AI Act compliance tooling', copilot: 'partial', thursdai: 'yes' },
-  { feature: 'Published pricing', copilot: 'no', thursdai: 'yes' },
 ];
 
 const COPILOT_WRITING = 'copilot';
@@ -318,13 +317,11 @@ export default function CompareMicrosoftCopilotPage() {
         }}
       >
         <Container>
-          <Heading2>See Thursdai pricing</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Published pricing. No &ldquo;contact us.&rdquo; No surprises.
-          </Body>
-          <Link href="/pricing?ref=compare-copilot">
+          <Heading2>See Thursdai for yourself</Heading2>
+          <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
+          <Link href="/?ref=compare-copilot#replay-demo">
             <Button variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-              See Thursdai pricing →
+              Try the replay demo →
             </Button>
           </Link>
         </Container>
