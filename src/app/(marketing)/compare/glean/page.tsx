@@ -13,9 +13,9 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Glean — Thursdai',
+  title: 'Thursdai vs Glean',
   description:
-    'Where Glean is strong and where Thursdai differs. Feature matrix, real-world scenarios, and a direct link to try the Thursdai replay demo.',
+    'Where Glean is strong and where Thursdai differs. Feature matrix, real-world scenarios and a direct link to try the Thursdai replay demo.',
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'in-progress' | 'text';
@@ -166,9 +166,9 @@ export default function CompareGleanPage() {
         <Container>
           <Label>Thursdai vs Glean</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Search is not governance.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Glean is a strong enterprise search and knowledge product. Thursdai is a governed agent
-            substrate. These are different tools for different problems — but they&apos;re often
+            substrate. These are different tools for different problems, but they&apos;re often
             evaluated together. Here&apos;s where each excels.
           </Body>
         </Container>
@@ -191,12 +191,12 @@ export default function CompareGleanPage() {
             <Card
               variant="feature"
               title="Established enterprise trust"
-              body="Glean has been in production at large enterprises since 2022. It has a track record, case studies, and a well-understood security model that procurement teams know."
+              body="Glean has been in production at large enterprises since 2022. It has a track record, case studies and a well-understood security model that procurement teams know."
             />
             <Card
               variant="feature"
               title="Broad connector ecosystem"
-              body="Deep integrations with Google Workspace, Microsoft 365, Salesforce, Jira, and dozens more. If your workflow is connector-dependent, Glean's ecosystem is mature."
+              body="Deep integrations with Google Workspace, Microsoft 365, Salesforce, Jira and dozens more. If your workflow is connector-dependent, Glean's ecosystem is mature."
             />
           </Grid>
         </Container>
@@ -207,34 +207,34 @@ export default function CompareGleanPage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter for regulated use cases.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="Role-based panel vs single-model response"
-              body="Thursdai routes every question to Legal, Finance, and Engineering simultaneously and reconciles their answers. Glean returns a single AI-generated response. For regulated decisions, you need to know which domain drove the answer."
+              body="Thursdai routes every question to Legal, Finance and Engineering simultaneously and reconciles their answers. Glean returns a single AI-generated response. For regulated decisions, you need to know which domain drove the answer."
             />
             <Card
               variant="feature"
               title="Decision replay vs no audit trail"
-              body="Thursdai records every decision with the knowledge and policies active at the time. You can replay any decision from 2 years ago. Glean has no equivalent — answers are stateless."
+              body="Thursdai records every decision with the knowledge and policies active at the time. You can replay any decision from 2 years ago. Glean has no equivalent: answers are stateless."
             />
             <Card
               variant="feature"
               title="Policy-as-Code vs UI-only guardrails"
-              body="Thursdai enforces governance rules at the inference layer in YAML — the model cannot override them. Glean's guardrails are prompt-level and can be worked around by the model."
+              body="Thursdai enforces governance rules at the inference layer in YAML: the model cannot override them. Glean's guardrails are prompt-level and can be worked around by the model."
             />
             <Card
               variant="feature"
               title="Published pricing vs contact-sales-only"
-              body="Thursdai publishes platform fees, per-token rates, and outcome units. Glean requires a sales call for any pricing information."
+              body="Thursdai publishes platform fees, per-token rates and outcome units. Glean requires a sales call for any pricing information."
             />
             <Card
               variant="feature"
               title="EU AI Act Annex III readiness"
-              body="Thursdai documents its Annex III obligations mapping, provides FRIA/DPIA templates, and has audit logs meeting the Act's record-keeping requirements. Glean has no published EU AI Act compliance surface."
+              body="Thursdai documents its Annex III obligations mapping, provides FRIA/DPIA templates and has audit logs meeting the Act's record-keeping requirements. Glean has no published EU AI Act compliance surface."
             />
           </Grid>
         </Container>

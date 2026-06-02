@@ -16,9 +16,9 @@ import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Two-Tier Knowledge — Thursdai',
+  title: 'Two-Tier Knowledge: Thursdai',
   description:
-    'Standard corpus and isolated tenant knowledge — never mixed. Your proprietary knowledge never trains the base model or leaks to other tenants.',
+    'Standard corpus and isolated tenant knowledge, never mixed. Your proprietary knowledge never trains the base model or leaks to other tenants.',
 };
 
 function IconRegulatory() {
@@ -178,13 +178,13 @@ export default function TwoTierKnowledgePage() {
               variant="feature"
               icon={<IconRegulatory />}
               title="Regulatory frameworks"
-              body="GDPR, HIPAA, ISO 27001, ISO 42001, EU AI Act Annex III, FedRAMP, SOC 2 — all major frameworks tracked and versioned monthly."
+              body="GDPR, HIPAA, ISO 27001, ISO 42001, EU AI Act Annex III, FedRAMP, SOC 2. All major frameworks tracked and versioned monthly."
             />
             <Card
               variant="feature"
               icon={<IconIndustry />}
               title="Industry standards"
-              body="Financial services, healthcare, legal, and technology domain standards. Best practices from authoritative bodies, not curated from the open web."
+              body="Financial services, healthcare, legal and technology domain standards. Best practices from authoritative bodies, not curated from the open web."
             />
             <Card
               variant="feature"
@@ -212,7 +212,7 @@ export default function TwoTierKnowledgePage() {
             <Card
               variant="feature"
               title="No training on customer data"
-              body="Thursdai never uses tenant corpus content to improve the standard corpus, fine-tune models, or contribute to any shared system. This is not in the fine print — it is the headline commitment of this section."
+              body="Thursdai never uses tenant corpus content to improve the standard corpus, fine-tune models or contribute to any shared system. This is not in the fine print. It is the headline commitment of this section."
             />
           </Grid>
         </Container>
@@ -222,7 +222,7 @@ export default function TwoTierKnowledgePage() {
       <Section variant="compact">
         <Container>
           <Callout variant="info" title="check_tenant_vs_standard MCP tool">
-            The check_tenant_vs_standard tool returns a structured delta — which sentences in a
+            The check_tenant_vs_standard tool returns a structured delta: which sentences in a
             response came from the standard corpus versus your tenant corpus, with confidence
             scores for each attribution. See{' '}
             <Link href="/developers/mcp" style={{ color: 'var(--color-accent)' }}>
@@ -258,7 +258,7 @@ export default function TwoTierKnowledgePage() {
               variant="large"
               style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
             >
-              Full API schema for source attribution, delta reporting, and corpus versioning.
+              Full API schema for source attribution, delta reporting and corpus versioning.
             </Body>
             <Link href="/developers/docs">
               <Button

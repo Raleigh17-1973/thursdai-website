@@ -9,7 +9,7 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 
 export const metadata: Metadata = {
-  title: 'Compare — Thursdai',
+  title: 'Compare: Thursdai',
   description:
     "Side-by-side comparisons between Thursdai and the enterprise AI tools you're evaluating. Where each product is strong, where it isn't.",
 };
@@ -19,7 +19,7 @@ const COMPARISONS = [
     href: '/compare/glean',
     title: 'Thursdai vs Glean',
     description:
-      'Glean is enterprise search. Thursdai is governed decisions. Different tools — but often evaluated together.',
+      'Glean is enterprise search. Thursdai is governed decisions. Different tools, but often evaluated together.',
   },
   {
     href: '/compare/microsoft-copilot',
@@ -49,7 +49,7 @@ const COMPARISONS = [
     href: '/compare/harvey',
     title: 'Thursdai vs Harvey',
     description:
-      'Harvey is AI for lawyers. Thursdai is governance infrastructure across Legal, Finance, and Engineering simultaneously.',
+      'Harvey is AI for lawyers. Thursdai is governance infrastructure across Legal, Finance and Engineering simultaneously.',
   },
 ];
 
@@ -60,9 +60,9 @@ export default function ComparePage() {
         <Container>
           <Label>Compare</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Side by side.</Heading1>
-          <Body variant="large" style={{ maxWidth: '600px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Every AI platform has genuine strengths. These comparisons show where each product
-            excels — and where Thursdai&apos;s governance layer changes the equation.
+            excels, and where Thursdai&apos;s governance layer changes the equation.
           </Body>
         </Container>
       </Section>

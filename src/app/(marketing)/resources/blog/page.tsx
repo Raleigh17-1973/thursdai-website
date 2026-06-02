@@ -7,8 +7,8 @@ import { Heading1, Heading3, Body, Label } from '@/components/typography';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Blog — Thursdai',
-  description: 'Insights on governed AI agents, enterprise AI deployment, and the EU AI Act.',
+  title: 'Blog: Thursdai',
+  description: 'Insights on governed AI agents, enterprise AI deployment and the EU AI Act.',
 };
 
 export default async function BlogPage() {

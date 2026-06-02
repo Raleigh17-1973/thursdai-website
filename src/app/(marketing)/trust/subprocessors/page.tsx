@@ -9,7 +9,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Subprocessors — Thursdai',
+  title: 'Subprocessors: Thursdai',
   description: 'Third-party subprocessors used by Thursdai for infrastructure and security services.',
 };
 
@@ -62,7 +62,7 @@ export default function SubprocessorsPage() {
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Our subprocessors
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '700px' }}>
+          <Body variant="large">
             Thursdai uses a small number of carefully vetted subprocessors for infrastructure and
             security services. This list is updated when subprocessors change. Customers are
             notified 30 days before a new subprocessor is added.

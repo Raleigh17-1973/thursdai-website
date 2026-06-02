@@ -4,7 +4,7 @@ import { Heading1, Body } from '@/components/typography';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'SDK — Thursdai',
+  title: 'SDK: Thursdai',
   description: 'TypeScript and Python SDKs for integrating Thursdai.',
 };
 

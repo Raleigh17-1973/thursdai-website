@@ -16,9 +16,9 @@ import {
 } from '@/components/content/RoleBenchTable';
 
 export const metadata: Metadata = {
-  title: 'Role Bench — Thursdai',
+  title: 'Role Bench: Thursdai',
   description:
-    'Benchmark comparing AI agent accuracy across roles and domains. Methodology, leaderboard, and raw data.',
+    'Benchmark comparing AI agent accuracy across roles and domains. Methodology, leaderboard and raw data.',
 };
 
 export default function RoleBenchPage() {
@@ -32,10 +32,10 @@ export default function RoleBenchPage() {
             <Badge variant="amber">Results publishing Q3 2026</Badge>
           </div>
           <Heading1>Measuring governed AI accuracy across domains.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Role Bench evaluates how accurately AI systems answer questions in Legal, Finance,
-            Engineering, HR, Compliance, and three other domains — with and without role-based
-            moderation, policy enforcement, and tenant knowledge.
+            Engineering, HR, Compliance and three other domains, with and without role-based
+            moderation, policy enforcement and tenant knowledge.
           </Body>
         </Container>
       </Section>
@@ -44,7 +44,7 @@ export default function RoleBenchPage() {
       <Section variant="compact">
         <Container>
           <Callout variant="warning" title="Real data only">
-            Role Bench scores will be published when the evaluation suite is complete — not before.
+            Role Bench scores will be published when the evaluation suite is complete, not before.
             We&apos;re running the benchmark in Q2 2026. Estimated publication: July 2026. Subscribe
             below to be notified when results are live.
           </Callout>
@@ -106,7 +106,7 @@ export default function RoleBenchPage() {
                 opacity: 0.6,
               }}
             >
-              Download CSV — Available Q3 2026
+              Download CSV: Available Q3 2026
             </button>
           </div>
         </Container>
@@ -131,8 +131,7 @@ export default function RoleBenchPage() {
         <Container>
           <Heading2 style={{ marginBottom: '0.5rem' }}>Get notified when results are live</Heading2>
           <Body style={{ marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>
-            We&apos;ll email you once when the first Role Bench results are published. No marketing
-            — just the one notification.
+            We&apos;ll email you once when the first Role Bench results are published. No marketing, just the one notification.
           </Body>
           <RoleBenchNotifyForm />
         </Container>

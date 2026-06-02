@@ -10,9 +10,9 @@ import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Data Handling — Thursdai',
+  title: 'Data Handling: Thursdai',
   description:
-    "How Thursdai stores, processes, and protects your data. Retention windows, PII handling, tenant isolation, encryption, and our training policy.",
+    "How Thursdai stores, processes and protects your data. Retention windows, PII handling, tenant isolation, encryption and our training policy.",
 };
 
 // ── Styles ─────────────────────────────────────────────────────
@@ -65,10 +65,10 @@ export default function DataPage() {
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Your data is yours. We don&apos;t train on it.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '700px' }}>
+          <Body variant="large">
             This is not fine print. Thursdai never uses customer data to train models, fine-tune
-            systems, or improve the standard corpus. This section documents every data flow,
-            retention window, and isolation guarantee.
+            systems or improve the standard corpus. This section documents every data flow,
+            retention window and isolation guarantee.
           </Body>
         </Container>
       </Section>
@@ -94,7 +94,7 @@ export default function DataPage() {
             <Heading2>Thursdai never trains on customer data.</Heading2>
             <Body variant="large" style={{ marginTop: '1rem' }}>
               Not in the fine print. Not as an opt-out. Never. Your tenant corpus content, your
-              queries, and your outputs are never used for model training, fine-tuning, or standard
+              queries and your outputs are never used for model training, fine-tuning or standard
               corpus improvement.
             </Body>
           </div>
@@ -199,10 +199,10 @@ export default function DataPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Tenant isolation</Heading2>
-          <div style={{ maxWidth: '700px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Body>
               Cryptographic isolation ensures no cross-tenant query is possible at any layer of the
-              stack. The architecture enforces tenant boundaries at the database level — not purely
+              stack. The architecture enforces tenant boundaries at the database level, not purely
               as an application-layer check.
             </Body>
             <Body>
@@ -227,7 +227,7 @@ export default function DataPage() {
           <Callout variant="warning" style={{ marginBottom: '1.5rem' }}>
             Content pending legal review before launch.
           </Callout>
-          <div style={{ maxWidth: '700px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
               <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
                 Detection
@@ -270,7 +270,7 @@ export default function DataPage() {
                 Right to erasure
               </p>
               <Body>
-                Documented workflow — customer submits erasure request via API, Thursdai processes
+                Documented workflow: customer submits erasure request via API, Thursdai processes
                 within 30 days, confirmation receipt issued.
               </Body>
             </div>

@@ -139,7 +139,7 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
             >
               New
             </span>
-            Role Bench — see how Thursdai compares
+            Role Bench: see how Thursdai compares
             <span aria-hidden="true">→</span>
           </Link>
         </div>

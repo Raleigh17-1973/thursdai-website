@@ -11,9 +11,9 @@ import { Badge } from '@/components/ui/Badge';
 import { CaseStudyApplyForm } from '@/components/content/CaseStudyApplyForm';
 
 export const metadata: Metadata = {
-  title: 'Customers — Thursdai',
+  title: 'Customers: Thursdai',
   description:
-    'How regulated enterprises use Thursdai to govern AI agent decisions. Active deployments across financial services, healthcare, and legal.',
+    'How regulated enterprises use Thursdai to govern AI agent decisions. Active deployments across financial services, healthcare and legal.',
 };
 
 export default function CustomersPage() {
@@ -24,7 +24,7 @@ export default function CustomersPage() {
         <Container>
           <Label>Customers</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Real results, from real teams.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Here&apos;s what early pilots are delivering:
           </Body>
         </Container>
@@ -111,7 +111,7 @@ export default function CustomersPage() {
               style={{ color: 'var(--color-text-tertiary)', marginBottom: '1.5rem' }}
             >
               Requirements: named customer, one measurable outcome, approval for the &lsquo;What we
-              deployed&rsquo; technical section. We write the case study — you approve it before
+              deployed&rsquo; technical section. We write the case study; you approve it before
               publication.
             </Body>
             <CaseStudyApplyForm />

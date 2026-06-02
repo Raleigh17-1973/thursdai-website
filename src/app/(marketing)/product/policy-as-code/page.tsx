@@ -15,9 +15,9 @@ import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
 
 export const metadata: Metadata = {
-  title: 'Policy-as-Code — Thursdai',
+  title: 'Policy-as-Code: Thursdai',
   description:
-    'Express governance constraints in YAML. The Moderator enforces them before any answer leaves the system — not as a prompt suggestion, but as a hard constraint.',
+    'Express governance constraints in YAML. The Moderator enforces them before any answer leaves the system: not as a prompt suggestion, but as a hard constraint.',
 };
 
 const DRY_RUN_SNIPPET = `thursdai policy dry-run \\
@@ -76,7 +76,7 @@ export default function PolicyAsCodePage() {
             <Display>Governance rules the model cannot break.</Display>
             <Body variant="large">
               Your legal and compliance team expresses policies in plain YAML. Thursdai enforces
-              them at the Moderator layer — before any answer reaches a user. Not a system prompt.
+              them at the Moderator layer, before any answer reaches a user. Not a system prompt.
               A hard constraint.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -211,7 +211,7 @@ export default function PolicyAsCodePage() {
                 <Label>Dry-run mode</Label>
                 <Heading3>Test policies before deploying them</Heading3>
                 <Body>
-                  Every policy can be run in dry-run mode — the Moderator evaluates the policy
+                  Every policy can be run in dry-run mode: the Moderator evaluates the policy
                   against real queries and returns what would have been blocked, transformed, or
                   flagged. No production traffic affected.
                 </Body>
@@ -221,7 +221,7 @@ export default function PolicyAsCodePage() {
             right={
               <Callout variant="info" title="dry_run_policy MCP tool">
                 The dry_run_policy tool in the Thursdai MCP server runs any policy against a batch
-                of queries and returns a structured report — violations found, sentences affected,
+                of queries and returns a structured report: violations found, sentences affected,
                 and recommended policy adjustments. See{' '}
                 <Link href="/developers/mcp" style={{ color: 'var(--color-accent)' }}>
                   /developers/mcp
@@ -258,7 +258,7 @@ export default function PolicyAsCodePage() {
               variant="large"
               style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
             >
-              Full reference for every primitive, operator, and dry-run flag.
+              Full reference for every primitive, operator and dry-run flag.
             </Body>
             <Link href="/developers/docs">
               <Button

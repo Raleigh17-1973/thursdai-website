@@ -11,9 +11,9 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Product — Thursdai',
+  title: 'Product: Thursdai',
   description:
-    'Five capabilities that let regulated enterprises actually deploy AI: role-based moderation, decision replay, policy enforcement, ambient case assembly, and isolated knowledge.',
+    'Five capabilities that let regulated enterprises actually deploy AI: role-based moderation, decision replay, policy enforcement, ambient case assembly and isolated knowledge.',
 };
 
 const PILLARS = [
@@ -22,7 +22,7 @@ const PILLARS = [
     title: 'Moderator',
     href: '/product/moderator',
     description:
-      'Legal, Finance, and Engineering respond simultaneously. The Moderator reconciles their answers, flags disagreements, and applies your policies before anything reaches a user.',
+      'Legal, Finance and Engineering respond simultaneously. The Moderator reconciles their answers, flags disagreements and applies your policies before anything reaches a user.',
     callout: 'Role-based answer panels',
   },
   {
@@ -30,7 +30,7 @@ const PILLARS = [
     title: 'Time-Travel',
     href: '/product/time-travel',
     description:
-      'Every decision is recorded with a snapshot of the active knowledge base, role definitions, and policy set at that exact moment. Replay any answer, exactly as it happened.',
+      'Every decision is recorded with a snapshot of the active knowledge base, role definitions and policy set at that exact moment. Replay any answer, exactly as it happened.',
     callout: 'Decision replay',
   },
   {
@@ -38,7 +38,7 @@ const PILLARS = [
     title: 'Policy-as-Code',
     href: '/product/policy-as-code',
     description:
-      'Express governance rules in plain YAML. Thursdai enforces them at the inference layer — before any answer reaches a user. The model cannot override them.',
+      'Express governance rules in plain YAML. Thursdai enforces them at the inference layer, before any answer reaches a user. The model cannot override them.',
     callout: 'Hard constraint enforcement',
   },
   {
@@ -69,9 +69,9 @@ export default function ProductPage() {
           <Heading1 style={{ marginTop: '0.75rem' }}>
             The governed agent substrate.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Five capabilities designed together so regulated enterprises can deploy AI that
-            explains every decision, enforces policy automatically, and passes any audit.
+            explains every decision, enforces policy automatically and passes any audit.
           </Body>
         </Container>
       </Section>
@@ -109,13 +109,13 @@ export default function ProductPage() {
       <Section variant="compact">
         <Container>
           <Heading2>Designed to work together.</Heading2>
-          <Body style={{ maxWidth: '680px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Each pillar is useful on its own. Together, they form a complete governance
             layer: the Moderator deliberates, Policy-as-Code constrains, Two-Tier Knowledge
-            grounds every response, Time-Travel records the outcome, and Ambient Cases
+            grounds every response, Time-Travel records the outcome and Ambient Cases
             ensures nothing falls through.
           </Body>
-          <Body style={{ maxWidth: '680px', marginTop: '0.75rem' }}>
+          <Body style={{ marginTop: '0.75rem' }}>
             Every answer is traceable. Every policy is provable. Every audit is answerable.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -133,8 +133,8 @@ export default function ProductPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2>Built for your stack.</Heading2>
-          <Body style={{ maxWidth: '640px', marginTop: '1rem' }}>
-            Thursdai ships with a Python SDK, TypeScript SDK, REST API, and an MCP server
+          <Body style={{ marginTop: '1rem' }}>
+            Thursdai ships with a Python SDK, TypeScript SDK, REST API and an MCP server
             for agent-to-agent orchestration. If you can make an HTTP call, you can add
             governance to your AI stack today.
           </Body>

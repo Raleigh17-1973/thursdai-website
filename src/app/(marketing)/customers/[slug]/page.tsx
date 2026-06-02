@@ -21,8 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const study = studies.find((s) => s.slug.split('/').pop() === slug);
   if (!study) return {};
   return {
-    title: `${study.customer} — Thursdai Customer Story`,
-    description: `${study.stat_number} ${study.stat_headline} — ${study.customer} uses Thursdai to govern AI agent decisions.`,
+    title: `${study.customer}: Thursdai Customer Story`,
+    description: `${study.stat_number} ${study.stat_headline}. ${study.customer} uses Thursdai to govern AI agent decisions.`,
   };
 }
 
@@ -37,10 +37,10 @@ export default async function CaseStudyPage({ params }: Props) {
       <Container narrow>
         <Label>{study.industry}</Label>
         <Display as="h1">{study.customer}</Display>
-        <Body variant="large">{study.stat_number} — {study.stat_headline}</Body>
+        <Body variant="large">{study.stat_number}: {study.stat_headline}</Body>
         <blockquote style={{ borderLeft: '4px solid var(--color-accent)', paddingLeft: '1.5rem', margin: '2rem 0' }}>
           <Body>&quot;{study.quote}&quot;</Body>
-          <Body variant="small">— {study.quote_author}</Body>
+          <Body variant="small">{study.quote_author}</Body>
         </blockquote>
         <div style={{ color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
           <MDXContent code={study.content} />

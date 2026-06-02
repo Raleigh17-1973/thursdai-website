@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/Button';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Ambient Cases — Thursdai',
+  title: 'Ambient Cases: Thursdai',
   description:
     'Background case files that populate automatically from your event streams. No manual intake. Cases arrive ready for AI-assisted investigation.',
 };
@@ -132,19 +132,19 @@ export default function AmbientCasesPage() {
               variant="feature"
               icon={<IconContract />}
               title="Contract events"
-              body="New contracts, amendments, renewals, and expirations trigger case creation. Thursdai extracts parties, value, terms, and risk flags automatically."
+              body="New contracts, amendments, renewals and expirations trigger case creation. Thursdai extracts parties, value, terms and risk flags automatically."
             />
             <Card
               variant="feature"
               icon={<IconCompliance />}
               title="Compliance triggers"
-              body="Regulatory deadlines, policy version changes, and audit events create cases with the relevant obligations pre-populated from your compliance corpus."
+              body="Regulatory deadlines, policy version changes and audit events create cases with the relevant obligations pre-populated from your compliance corpus."
             />
             <Card
               variant="feature"
               icon={<IconIncident />}
               title="Incident signals"
-              body="Security events, SLA breaches, and escalation flags from connected systems create investigation cases with the initial evidence already assembled."
+              body="Security events, SLA breaches and escalation flags from connected systems create investigation cases with the initial evidence already assembled."
             />
           </Grid>
         </Container>
@@ -158,9 +158,9 @@ export default function AmbientCasesPage() {
           </Heading2>
           <Body
             variant="large"
-            style={{ maxWidth: '640px', marginBottom: '2.5rem', color: 'var(--color-text-secondary)' }}
+            style={{ marginBottom: '2.5rem', color: 'var(--color-text-secondary)' }}
           >
-            Ambient Cases are designed around how investigators actually work — opening a case
+            Ambient Cases are designed around how investigators actually work: opening a case
             should mean starting the analysis, not assembling the facts.
           </Body>
           <Grid cols={3} gap="lg">
@@ -168,7 +168,7 @@ export default function AmbientCasesPage() {
               variant="feature"
               icon={<IconEvidence />}
               title="Pre-assembled evidence"
-              body="When you open a case, the relevant documents, policy sections, and prior decisions are already surfaced. The AI panel has already run the initial analysis."
+              body="When you open a case, the relevant documents, policy sections and prior decisions are already surfaced. The AI panel has already run the initial analysis."
             />
             <Card
               variant="feature"
@@ -180,7 +180,7 @@ export default function AmbientCasesPage() {
               variant="feature"
               icon={<IconAudit />}
               title="Audit-ready from day one"
-              body="Every case records who saw what, when, and what the AI recommended at each stage. Export to your GRC system with one API call."
+              body="Every case records who saw what, when and what the AI recommended at each stage. Export to your GRC system with one API call."
             />
           </Grid>
         </Container>

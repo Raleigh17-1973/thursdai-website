@@ -12,7 +12,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Microsoft Copilot — AI Governance vs AI Assistance',
+  title: 'Thursdai vs Microsoft Copilot: AI Governance vs AI Assistance',
   description:
     "Microsoft Copilot is the world's best writing assistant. It's not a decision governance platform. Here's where they diverge.",
 };
@@ -124,8 +124,8 @@ export default function CompareMicrosoftCopilotPage() {
             Microsoft Copilot is the best writing assistant in the world. It is not a decision
             governance platform.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
-            When your compliance team asks &ldquo;what did the AI say and why&rdquo; — Copilot has
+          <Body variant="large" style={{ marginTop: '1rem' }}>
+            When your compliance team asks &ldquo;what did the AI say and why,&rdquo; Copilot has
             no answer. Thursdai does. These are different tools for different problems.
           </Body>
         </Container>
@@ -143,17 +143,17 @@ export default function CompareMicrosoftCopilotPage() {
             <Card
               variant="feature"
               title="Deep Office 365 integration"
-              body="Copilot is embedded in Word, Excel, Outlook, Teams, and every Microsoft application. If your team lives in Microsoft 365, Copilot is the lowest-friction AI available."
+              body="Copilot is embedded in Word, Excel, Outlook, Teams and every Microsoft application. If your team lives in Microsoft 365, Copilot is the lowest-friction AI available."
             />
             <Card
               variant="feature"
               title="World-class language model"
-              body="Copilot is powered by GPT-4o. The underlying model quality is excellent — fast, capable, and accurate for drafting, summarisation, and writing tasks."
+              body="Copilot is powered by GPT-4o. The underlying model quality is excellent: fast, capable and accurate for drafting, summarisation and writing tasks."
             />
             <Card
               variant="feature"
               title="Enterprise-scale deployment"
-              body="Microsoft's enterprise distribution, security posture, and compliance certifications (FedRAMP, ISO 27001) make Copilot easy to clear procurement for large organisations."
+              body="Microsoft's enterprise distribution, security posture and compliance certifications (FedRAMP, ISO 27001) make Copilot easy to clear procurement for large organisations."
             />
           </Grid>
         </Container>
@@ -164,34 +164,34 @@ export default function CompareMicrosoftCopilotPage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter for regulated use cases.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="Decision audit trail"
-              body="Copilot has no audit trail for decisions. If your auditor asks 'what did the AI say and why', there is no record. Thursdai logs every decision with the knowledge state, policy set, and role breakdown that governed it."
+              body="Copilot has no audit trail for decisions. If your auditor asks 'what did the AI say and why', there is no record. Thursdai logs every decision with the knowledge state, policy set and role breakdown that governed it."
             />
             <Card
               variant="feature"
               title="Role-based deliberation"
-              body="Copilot gives you one AI perspective. Thursdai gives you Legal, Finance, and Operations simultaneously — with disagreements flagged and sources cited before the answer reaches you."
+              body="Copilot gives you one AI perspective. Thursdai gives you Legal, Finance and Operations simultaneously, with disagreements flagged and sources cited before the answer reaches you."
             />
             <Card
               variant="feature"
               title="Policy enforcement at inference"
-              body="Copilot's safety guardrails are prompt-level — the model can reason around them. Thursdai enforces policies as hard constraints at the inference layer. The model cannot quote below your pricing floor or make a regulatory claim without a citation."
+              body="Copilot's safety guardrails are prompt-level: the model can reason around them. Thursdai enforces policies as hard constraints at the inference layer. The model cannot quote below your pricing floor or make a regulatory claim without a citation."
             />
             <Card
               variant="feature"
               title="Decision replay"
-              body="Copilot cannot replay a decision from 6 months ago and show you what knowledge was active. Thursdai's Time-Travel engine lets you reconstruct any decision — what the AI knew, what rules were in effect, what it said."
+              body="Copilot cannot replay a decision from 6 months ago and show you what knowledge was active. Thursdai's Time-Travel engine lets you reconstruct any decision: what the AI knew, what rules were in effect, what it said."
             />
             <Card
               variant="feature"
               title="Foundation-model agnostic"
-              body="Copilot is tied to OpenAI models via Microsoft's stack. Thursdai runs on Claude, GPT-4o, or Gemini — whichever model your team prefers."
+              body="Copilot is tied to OpenAI models via Microsoft's stack. Thursdai runs on Claude, GPT-4o, or Gemini, whichever model your team prefers."
             />
           </Grid>
         </Container>
@@ -291,8 +291,8 @@ export default function CompareMicrosoftCopilotPage() {
         <Container>
           <Callout variant="info" title="When Copilot is the right choice">
             <p style={{ marginTop: '0.5rem', lineHeight: 1.7 }}>
-              If your team primarily needs AI-assisted writing, summarisation, or drafting within
-              Microsoft 365 — Copilot is the right choice. It is best-in-class for that use case.
+              If your team primarily needs AI-assisted writing, summarisation or drafting within
+              Microsoft 365, Copilot is the right choice. It is best-in-class for that use case.
               Thursdai is the right choice when those AI outputs need to be governed, audited, and
               replayable.
             </p>
@@ -304,7 +304,7 @@ export default function CompareMicrosoftCopilotPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Callout variant="info" title="Bottom line">
-            If your team needs to explain every AI-assisted decision to a regulator, a client, or a board — Copilot cannot do that. Thursdai can.
+            If your team needs to explain every AI-assisted decision to a regulator, a client or a board, Copilot cannot do that. Thursdai can.
           </Callout>
         </Container>
       </Section>

@@ -8,7 +8,7 @@ const SNAPSHOTS = [
     label: 'Today',
     date: 'April 2026',
     answer:
-      "For customer-facing use cases, evaluate GPT-4o, Claude 3.5, and Gemini 2.0 Flash against your latency SLA (target P95 < 800ms) and your EU AI Act Annex III obligations. Prefer models with published system cards and audit trails. Thursdai's Role Bench v1 scores are available in /resources/role-bench.",
+      "For customer-facing use cases, evaluate GPT-4o, Claude 3.5 and Gemini 2.0 Flash against your latency SLA (target P95 < 800ms) and your EU AI Act Annex III obligations. Prefer models with published system cards and audit trails. Thursdai's Role Bench v1 scores are available in /resources/role-bench.",
     changes: [
       'EU AI Act Annex III binding (Aug 2026)',
       'Role Bench v1 published',
@@ -19,7 +19,7 @@ const SNAPSHOTS = [
     label: '6 months ago',
     date: 'October 2025',
     answer:
-      'Evaluate GPT-4o and Claude 3.5 Sonnet as primary options. Key criteria: context window (128K minimum for full ticket history), latency, and vendor contractual commitments on data handling. EU AI Act compliance documentation is advisory at this stage.',
+      'Evaluate GPT-4o and Claude 3.5 Sonnet as primary options. Key criteria: context window (128K minimum for full ticket history), latency and vendor contractual commitments on data handling. EU AI Act compliance documentation is advisory at this stage.',
     changes: [
       'Claude 3.5 Sonnet added to approved list',
       'EU AI Act compliance moved to advisory',

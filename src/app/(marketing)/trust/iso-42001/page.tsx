@@ -9,9 +9,9 @@ import { Timeline } from '@/components/ui/Timeline';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'ISO 42001 Certification — Thursdai',
+  title: 'ISO 42001 Certification: Thursdai',
   description:
-    "Thursdai's ISO 42001 AI management system certification roadmap. Current stage, timeline, and what it means for your compliance programme.",
+    "Thursdai's ISO 42001 AI management system certification roadmap. Current stage, timeline and what it means for your compliance programme.",
 };
 
 // ── Data ───────────────────────────────────────────────────────
@@ -60,7 +60,7 @@ const ISO_FAQ = [
   {
     question: 'What is ISO 42001?',
     answer:
-      'ISO/IEC 42001:2023 is the international standard for AI management systems. It specifies requirements for establishing, implementing, maintaining, and continually improving an artificial intelligence management system within organisations.',
+      'ISO/IEC 42001:2023 is the international standard for AI management systems. It specifies requirements for establishing, implementing, maintaining and continually improving an artificial intelligence management system within organisations.',
   },
   {
     question: 'How does ISO 42001 relate to the EU AI Act?',
@@ -75,7 +75,7 @@ const ISO_FAQ = [
   {
     question: "Can I use Thursdai's ISO 42001 certification for my own compliance programme?",
     answer:
-      "Thursdai's certification covers our AI management system. For customer deployments, you will need your own AI management system — our certification demonstrates that Thursdai as a platform is managed to ISO 42001 standards, which supports but does not replace your organisation's own certification effort.",
+      "Thursdai's certification covers our AI management system. For customer deployments, you will need your own AI management system. Our certification demonstrates that Thursdai as a platform is managed to ISO 42001 standards, which supports but does not replace your organisation's own certification effort.",
   },
   {
     question: 'Which certification body is conducting the audit?',
@@ -118,9 +118,9 @@ export default function Iso42001Page() {
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             AI management system certification in progress.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '700px' }}>
+          <Body variant="large">
             ISO 42001 is the international standard for AI management systems. Thursdai is working
-            toward certification — this page shows our current stage, timeline, and what it means
+            toward certification. This page shows our current stage, timeline and what it means
             for enterprise buyers.
           </Body>
         </Container>
@@ -143,13 +143,13 @@ export default function Iso42001Page() {
           <Body style={{ marginTop: '1rem' }}>
             ISO 42001 is the first internationally recognised standard specifically for AI management
             systems. Unlike generic information security standards, it addresses the unique governance
-            challenges of AI: fairness, transparency, human oversight, and the management of
+            challenges of AI: fairness, transparency, human oversight and the management of
             AI-specific risks.
           </Body>
           <Body style={{ marginTop: '1rem' }}>
             For regulated enterprises, ISO 42001 certification provides an independent, audited
             baseline that your AI systems are managed according to international best practices. It
-            complements — and in some jurisdictions, satisfies — the governance requirements of the
+            complements (and in some jurisdictions, satisfies) the governance requirements of the
             EU AI Act.
           </Body>
           <Body style={{ marginTop: '1rem' }}>
@@ -163,7 +163,7 @@ export default function Iso42001Page() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '2rem' }}>Frequently asked questions</Heading2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '800px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {ISO_FAQ.map((item, i) => (
               <div key={i}>
                 <p

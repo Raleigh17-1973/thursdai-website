@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/Badge';
 import { MDXContent } from '@/components/content/MDXContent';
 
 export const metadata: Metadata = {
-  title: 'Changelog — Thursdai',
+  title: 'Changelog: Thursdai',
   description: "What's new in Thursdai.",
 };
 

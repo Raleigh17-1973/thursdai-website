@@ -12,9 +12,9 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs ChatGPT Enterprise — Governance vs Capability',
+  title: 'Thursdai vs ChatGPT Enterprise: Governance vs Capability',
   description:
-    "ChatGPT Enterprise gives you a powerful private AI. It gives you no audit trail, no role-based deliberation, and no policy enforcement. Here's where they diverge.",
+    "ChatGPT Enterprise gives you a powerful private AI. It gives you no audit trail, no role-based deliberation and no policy enforcement. Here's where they diverge.",
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'text';
@@ -121,7 +121,7 @@ export default function CompareChatGPTEnterprisePage() {
             ChatGPT Enterprise gives you a private, powerful AI. It gives you no record of what it
             said.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             For teams where AI outputs have legal or compliance implications, that gap costs money.
             Thursdai adds the governance layer that no raw AI platform provides.
           </Body>
@@ -140,17 +140,17 @@ export default function CompareChatGPTEnterprisePage() {
             <Card
               variant="feature"
               title="World's most capable model"
-              body="GPT-4o is the most capable general-purpose language model available. For open-ended reasoning, coding, analysis, and drafting, it is the strongest tool in the market."
+              body="GPT-4o is the most capable general-purpose language model available. For open-ended reasoning, coding, analysis and drafting, it is the strongest tool in the market."
             />
             <Card
               variant="feature"
               title="Private, secure instance"
-              body="ChatGPT Enterprise provides data isolation, SOC 2 certification, and no training on your data. It clears most enterprise security requirements."
+              body="ChatGPT Enterprise provides data isolation, SOC 2 certification and no training on your data. It clears most enterprise security requirements."
             />
             <Card
               variant="feature"
               title="Broad ecosystem"
-              body="OpenAI's plugin and tools ecosystem is the largest in the industry. Thousands of integrations, a mature API, and extensive documentation."
+              body="OpenAI's plugin and tools ecosystem is the largest in the industry. Thousands of integrations, a mature API and extensive documentation."
             />
           </Grid>
         </Container>
@@ -161,34 +161,34 @@ export default function CompareChatGPTEnterprisePage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter for regulated use cases.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="No audit trail in ChatGPT"
-              body="ChatGPT Enterprise has no decision audit trail. Conversations are logged but there is no structured record of what knowledge was active, what rules applied, or what policy governed an answer."
+              body="ChatGPT Enterprise has no decision audit trail. Conversations are logged but there is no structured record of what knowledge was active, what rules applied or what policy governed an answer."
             />
             <Card
               variant="feature"
               title="Prompt-level guardrails only"
-              body="ChatGPT's system prompt is your only governance tool — and a sophisticated user or adversarial input can reason around it. Thursdai enforces constraints at the inference layer before any answer is formed."
+              body="ChatGPT's system prompt is your only governance tool, and a sophisticated user or adversarial input can reason around it. Thursdai enforces constraints at the inference layer before any answer is formed."
             />
             <Card
               variant="feature"
               title="No role-based synthesis"
-              body="ChatGPT gives you one model's perspective. Thursdai gives you Legal, Finance, and Operations simultaneously, with the Moderator synthesising disagreements and citing sources."
+              body="ChatGPT gives you one model's perspective. Thursdai gives you Legal, Finance and Operations simultaneously, with the Moderator synthesising disagreements and citing sources."
             />
             <Card
               variant="feature"
               title="No decision replay"
-              body="You cannot go back 18 months and reconstruct what ChatGPT knew, what it said, and what rules were active at that moment. Thursdai's replay engine makes every decision replayable indefinitely."
+              body="You cannot go back 18 months and reconstruct what ChatGPT knew, what it said and what rules were active at that moment. Thursdai's replay engine makes every decision replayable indefinitely."
             />
             <Card
               variant="feature"
               title="Model lock-in"
-              body="ChatGPT Enterprise is OpenAI-only. Thursdai runs on Claude, GPT-4o, or Gemini — and you can switch models without changing your governance layer."
+              body="ChatGPT Enterprise is OpenAI-only. Thursdai runs on Claude, GPT-4o, or Gemini, and you can switch models without changing your governance layer."
             />
           </Grid>
         </Container>
@@ -288,9 +288,9 @@ export default function CompareChatGPTEnterprisePage() {
         <Container>
           <Callout variant="info" title="When ChatGPT Enterprise is the right choice">
             <p style={{ marginTop: '0.5rem', lineHeight: 1.7 }}>
-              If your team needs a capable, private AI for general-purpose work — writing, analysis,
-              coding — ChatGPT Enterprise is excellent. Thursdai is the right choice when those
-              outputs need to be governed, audited, and defensible to regulators or auditors.
+              If your team needs a capable, private AI for general-purpose work (writing, analysis,
+              coding), ChatGPT Enterprise is excellent. Thursdai is the right choice when those
+              outputs need to be governed, audited and defensible to regulators or auditors.
             </p>
           </Callout>
         </Container>
@@ -300,7 +300,7 @@ export default function CompareChatGPTEnterprisePage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Callout variant="info" title="Bottom line">
-            ChatGPT Enterprise is a powerful general assistant. Thursdai is governance infrastructure. They solve different problems — and for regulated teams, governance isn&apos;t optional.
+            ChatGPT Enterprise is a powerful general assistant. Thursdai is governance infrastructure. They solve different problems. For regulated teams, governance isn&apos;t optional.
           </Callout>
         </Container>
       </Section>

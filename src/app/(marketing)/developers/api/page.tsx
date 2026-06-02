@@ -4,7 +4,7 @@ import { Heading1, Body } from '@/components/typography';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'API Reference — Thursdai',
+  title: 'API Reference: Thursdai',
   description: 'REST API reference for the Thursdai platform.',
 };
 

@@ -209,8 +209,8 @@ export default async function HomePage() {
                       AI governance infrastructure for teams that <span className="dawn-gradient-text">can&apos;t afford to be wrong.</span>
                     </Display>
                     <Body variant="large">
-                      Multi-role deliberation, decision replay, and policy enforcement at the model
-                      layer — not bolted on after.
+                      Multi-role deliberation, decision replay and policy enforcement at the model
+                      layer. Not bolted on after.
                     </Body>
                   </>
                 ) : (
@@ -306,7 +306,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconPanel />}
               title="A panel, not a chatbot"
-              body="Ask once and get perspectives from all your business areas — Legal, Finance, Operations — at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
+              body="Ask once and get perspectives from all your business areas, Legal, Finance, Operations, at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
             <Card
@@ -320,7 +320,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconShield />}
               title="Policies the model cannot break"
-              body="Set rules your AI must follow — and it literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
+              body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
           </Grid>
@@ -336,9 +336,9 @@ export default async function HomePage() {
           </Heading2>
           <Body
             variant="large"
-            style={{ color: '#a1a1aa', maxWidth: '640px', marginTop: '1rem' }}
+            style={{ color: '#a1a1aa', marginTop: '1rem' }}
           >
-            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance, and Operations knowledge — flags where they disagree, cites every source, and applies your rules before the answer reaches you.
+            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules before the answer reaches you.
           </Body>
           <ModeratorPanel />
           <div style={{ marginTop: '2rem' }}>
@@ -364,9 +364,9 @@ export default async function HomePage() {
                 <Label>Time-Travel</Label>
                 <Heading2>Every AI decision, period-accurate.</Heading2>
                 <Body>
-                  Thursdai records every agent decision with the knowledge base, policies, and role
+                  Thursdai records every agent decision with the knowledge base, policies and role
                   definitions that were active at the time. Move the slider to any point in the
-                  past — see the answer that would have been given then, and what has changed since.
+                  past: see the answer that would have been given then, and what has changed since.
                 </Body>
                 <Link
                   href="/product/time-travel"
@@ -394,7 +394,7 @@ export default async function HomePage() {
                 <Label>Policy-as-Code</Label>
                 <Heading2>Rules your AI must follow. No exceptions.</Heading2>
                 <Body>
-                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer — automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
+                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer, automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
                 </Body>
                 <Body>Three policy primitives:</Body>
                 <ul
@@ -411,20 +411,20 @@ export default async function HomePage() {
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       allowed_sources
-                    </strong>{' '}
-                    — restrict citations to approved knowledge sources
+                    </strong>{': '}
+                    restrict citations to approved knowledge sources
                   </li>
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       required_attribution
-                    </strong>{' '}
-                    — mandate source citation on specified claim types
+                    </strong>{': '}
+                    mandate source citation on specified claim types
                   </li>
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       pricing_floor
-                    </strong>{' '}
-                    — prevent the system from quoting below contract minimums
+                    </strong>{': '}
+                    prevent the system from quoting below contract minimums
                   </li>
                 </ul>
                 <Link
@@ -512,7 +512,7 @@ export default async function HomePage() {
                   <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
-                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK, and MCP server. Connect to your existing systems, automate workflows, and build on top of Thursdai&apos;s roles and policies.
+                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK and MCP server. Connect to your existing systems, automate workflows and build on top of Thursdai&apos;s roles and policies.
                 </Body>
                 <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →
@@ -537,30 +537,30 @@ export default async function HomePage() {
             <Label>HOW WE COMPARE</Label>
             <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Most AI tools weren&apos;t built for accountability.</span></Heading2>
             <Body style={{ marginTop: '0.75rem', color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0.75rem auto 0' }}>
-              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited, and traced.
+              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited and traced.
             </Body>
           </div>
           <Grid cols={3} gap="lg">
             {[
               {
                 competitor: 'Microsoft Copilot',
-                theyGive: 'AI embedded in Office 365 — excellent for drafting and writing',
-                thursdaiAdds: 'The audit trail, policy enforcement, and decision replay that Copilot cannot provide',
+                theyGive: 'AI embedded in Office 365: excellent for drafting and writing',
+                thursdaiAdds: 'The audit trail, policy enforcement and decision replay that Copilot cannot provide',
                 keyDifference: 'No policy layer. No moderation. No audit trail.',
                 href: '/compare/microsoft-copilot',
               },
               {
                 competitor: 'ChatGPT Enterprise',
                 theyGive: 'A private, powerful instance of the world\'s best language model',
-                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies, and replayable decisions',
+                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies and replayable decisions',
                 keyDifference: 'No governance. No roles. No replay.',
                 href: '/compare/chatgpt-enterprise',
               },
               {
                 competitor: 'Glean',
-                theyGive: 'Best-in-class enterprise search — finds the document that says X',
-                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X — with proof',
-                keyDifference: 'Knowledge retrieval only — no decisions, no compliance.',
+                theyGive: 'Best-in-class enterprise search: finds the document that says X',
+                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X (with proof)',
+                keyDifference: 'Knowledge retrieval only. No decisions, no compliance.',
                 href: '/compare/glean',
               },
             ].map(({ competitor, theyGive, thursdaiAdds, keyDifference, href }) => (
@@ -695,7 +695,7 @@ export default async function HomePage() {
               margin: '0 auto 2rem',
             }}
           >
-            Try the replay demo — no login required — or talk to us about a pilot.
+            Try the replay demo (no login required) or talk to us about a pilot.
           </Body>
           <ClosingCTAs />
         </Container>

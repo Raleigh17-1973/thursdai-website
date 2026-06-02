@@ -8,8 +8,8 @@ import { Label } from '@/components/typography/Label';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Team — Thursdai',
-  description: 'Meet the people building Thursdai — AI governance infrastructure for regulated enterprises.',
+  title: 'Team: Thursdai',
+  description: 'Meet the people building Thursdai: AI governance infrastructure for regulated enterprises.',
 };
 
 export default function TeamPage() {
@@ -20,9 +20,9 @@ export default function TeamPage() {
         <Container>
           <Label>Team</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Small team. High stakes.</Heading1>
-          <Body variant="large" style={{ maxWidth: '600px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Thursdai is built by practitioners who believe regulated enterprises deserve AI
-            they can actually trust — and audit.
+            they can actually trust and audit.
           </Body>
         </Container>
       </Section>
@@ -82,7 +82,7 @@ export default function TeamPage() {
               >
                 Founder
               </p>
-              <Body style={{ maxWidth: '560px' }}>
+              <Body>
                 Previously at Sprout, where I spent years in Program and Project Management and
                 kept wishing someone would build a governed AI layer that could actually explain
                 its decisions. After getting laid off in early 2026, I finally had the time to
@@ -112,9 +112,9 @@ export default function TeamPage() {
       <Section variant="compact">
         <Container>
           <Heading2>We&apos;re hiring.</Heading2>
-          <Body style={{ maxWidth: '580px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Building a governed AI layer for regulated enterprises requires deep expertise in
-            compliance, distributed systems, and product. If that sounds like you, check out
+            compliance, distributed systems and product. If that sounds like you, check out
             our open roles.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>

@@ -100,7 +100,7 @@ export function Footer() {
               <FooterLogo />
             </div>
             <p className="footer-link text-[14px] leading-relaxed mb-6" style={{ color: '#a1a1aa' }}>
-              Your team&apos;s AI — controlled, auditable, and safe to use.
+              Your team&apos;s AI: controlled, auditable and safe to use.
             </p>
             <div className="flex items-center gap-3">
               <a

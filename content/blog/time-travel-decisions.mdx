@@ -2,10 +2,10 @@
 title: "Time-Travel for AI decisions: replay any choice with period-accurate knowledge"
 date: "2026-04-22"
 category: "product"
-summary: "Every Thursdai decision is recorded with a snapshot of the active knowledge base, role definitions, and policy set. Here's why that matters and how it works."
+summary: "Every Thursdai decision is recorded with a snapshot of the active knowledge base, role definitions and policy set. Here's why that matters and how it works."
 ---
 
-*Draft — Content Lead review required before publication.*
+*Draft. Content Lead review required before publication.*
 
 In March 2025, your AI system recommended proceeding with a vendor contract. In August 2025, you discovered a GDPR issue with that vendor. A regulator asks: what did your AI know when it made that recommendation?
 
@@ -15,20 +15,20 @@ If your AI system is a chatbot, you have conversation logs. You don't have an an
 
 Every Thursdai inference records four things:
 
-1. **The question** — verbatim, with the tenant context it was asked in
-2. **The knowledge snapshot** — the exact version of the standard corpus and tenant corpus active at inference time
-3. **The policy state** — the complete policy YAML set that governed the inference
-4. **The role definitions** — which roles were configured, their scope, and which corpus sections they could access
+1. **The question**: verbatim, with the tenant context it was asked in
+2. **The knowledge snapshot**: the exact version of the standard corpus and tenant corpus active at inference time
+3. **The policy state**: the complete policy YAML set that governed the inference
+4. **The role definitions**: which roles were configured, their scope and which corpus sections they could access
 
-These four elements are stored as an immutable record. The Time-Travel feature is just a UI over that record — it lets you move a slider to any point in the past and reconstruct the exact answer that would have been given.
+These four elements are stored as an immutable record. The Time-Travel feature is just a UI over that record. It lets you move a slider to any point in the past and reconstruct the exact answer that would have been given.
 
 ## Why this matters for regulated industries
 
-Regulatory investigations are backward-looking. "What did your system know in March 2025?" is not a hypothetical — it's the actual form the question takes in an audit, in a dispute, in a post-incident review.
+Regulatory investigations are backward-looking. "What did your system know in March 2025?" is not a hypothetical. It's the actual form the question takes in an audit, in a dispute, in a post-incident review.
 
 Most AI systems cannot answer it. They have conversation logs. They don't have knowledge versioning.
 
-Thursdai records knowledge versions as a first-class architectural concern because regulated enterprises need to answer that question — not eventually, but immediately, with a complete audit trail.
+Thursdai records knowledge versions as a first-class architectural concern because regulated enterprises need to answer that question, not eventually but immediately, with a complete audit trail.
 
 ## How to use Time-Travel in practice
 
@@ -36,8 +36,8 @@ The Time-Travel scrubber on the home page shows a simple version: a slider with 
 
 Three use cases we see most often:
 
-- **Regulatory audit** — reproduce a specific past recommendation with the exact knowledge active at the time
-- **Incident investigation** — trace how an AI recommendation evolved as policies and knowledge changed
-- **Model comparison** — run the same question with today's knowledge versus 12 months ago to see what changed and why
+- **Regulatory audit**: reproduce a specific past recommendation with the exact knowledge active at the time
+- **Incident investigation**: trace how an AI recommendation evolved as policies and knowledge changed
+- **Model comparison**: run the same question with today's knowledge versus 12 months ago to see what changed and why
 
-*[Content Lead: add technical architecture section, customer example — target 1,200 words]*
+*[Content Lead: add technical architecture section, customer example; target 1,200 words]*
