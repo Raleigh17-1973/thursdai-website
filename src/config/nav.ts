@@ -13,7 +13,6 @@ export const NAV_ITEMS = [
   { label: 'Developers', href: '/developers' },
   { label: 'Trust', href: '/trust' },
   { label: 'Customers', href: '/customers' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Compare', href: '/compare/glean' },
+  { label: 'Compare', href: '/compare' },
   { label: 'Company', href: '/company' },
 ] as const;

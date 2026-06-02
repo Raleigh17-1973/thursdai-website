@@ -14,7 +14,7 @@ const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
 // When you're ready to launch: change the line below to `false`
 // and push. No env vars needed.
 // ─────────────────────────────────────────────────────────────────
-const COMING_SOON = true;
+const COMING_SOON = false;
 
 // Preview bypass secret — visit /?preview=<this> to get a 24h
 // cookie that skips the coming-soon gate.
