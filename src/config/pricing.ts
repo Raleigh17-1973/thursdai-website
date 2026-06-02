@@ -1,5 +1,5 @@
 // ALL pricing constants — single source of truth
-// Jeff Hoyt must confirm these values before /pricing goes live.
+// Jeffrey Hoyt must confirm these values before /pricing goes live.
 // See implementation plan: D2, Week 5 Day 34, Risk 2.
 
 export const PRICING = {
@@ -26,5 +26,5 @@ export const PRICING = {
 } as const;
 
 // IMPORTANT: These are illustrative numbers from the implementation plan.
-// Jeff Hoyt must confirm all values before enabling the pricing page.
+// Jeffrey Hoyt must confirm all values before enabling the pricing page.
 // Feature flag: 'pricing-page-live' (PostHog) defaults to false.

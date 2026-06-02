@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "velite build --watch & next dev --turbopack",
+    "dev:next": "next dev --turbopack -p 3002",
     "prebuild": "velite build",
     "build": "next build --turbopack",
     "start": "next start",

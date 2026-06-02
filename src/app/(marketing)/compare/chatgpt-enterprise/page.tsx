@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'Thursdai vs ChatGPT Enterprise — Governance vs Capability',
   description:
-    "ChatGPT Enterprise gives you a powerful private AI. It gives you no audit trail, no role-based deliberation, and no policy enforcement. Here's the honest difference.",
+    "ChatGPT Enterprise gives you a powerful private AI. It gives you no audit trail, no role-based deliberation, and no policy enforcement. Here's where they diverge.",
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'text';
@@ -116,7 +116,7 @@ export default function CompareChatGPTEnterprisePage() {
       {/* ── Hero ── */}
       <Section>
         <Container>
-          <Label>HONEST COMPARISON</Label>
+          <Label>Thursdai vs ChatGPT Enterprise</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>
             ChatGPT Enterprise gives you a private, powerful AI. It gives you no record of what it
             said.

@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'Thursdai vs Glean — Thursdai',
   description:
-    'A fair comparison: where Glean is strong and where Thursdai differs. Feature matrix, honest scenarios, and a direct link to try the Thursdai replay demo.',
+    'Where Glean is strong and where Thursdai differs. Feature matrix, real-world scenarios, and a direct link to try the Thursdai replay demo.',
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'in-progress' | 'text';
@@ -165,7 +165,7 @@ export default function CompareGleanPage() {
       <Section>
         <Container>
           <Label>Thursdai vs Glean</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>A fair comparison.</Heading1>
+          <Heading1 style={{ marginTop: '0.75rem' }}>Search is not governance.</Heading1>
           <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
             Glean is a strong enterprise search and knowledge product. Thursdai is a governed agent
             substrate. These are different tools for different problems — but they&apos;re often

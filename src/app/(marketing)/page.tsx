@@ -534,7 +534,7 @@ export default async function HomePage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <Label>HONEST COMPARISON</Label>
+            <Label>HOW WE COMPARE</Label>
             <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Most AI tools weren&apos;t built for accountability.</span></Heading2>
             <Body style={{ marginTop: '0.75rem', color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0.75rem auto 0' }}>
               Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited, and traced.

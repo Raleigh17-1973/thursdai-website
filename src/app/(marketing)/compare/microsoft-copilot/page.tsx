@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'Thursdai vs Microsoft Copilot — AI Governance vs AI Assistance',
   description:
-    'Microsoft Copilot is the world\'s best writing assistant. It\'s not a decision governance platform. Here\'s the honest difference.',
+    "Microsoft Copilot is the world's best writing assistant. It's not a decision governance platform. Here's where they diverge.",
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'text';
@@ -119,7 +119,7 @@ export default function CompareMicrosoftCopilotPage() {
       {/* ── Hero ── */}
       <Section>
         <Container>
-          <Label>HONEST COMPARISON</Label>
+          <Label>Thursdai vs Microsoft Copilot</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>
             Microsoft Copilot is the best writing assistant in the world. It is not a decision
             governance platform.
