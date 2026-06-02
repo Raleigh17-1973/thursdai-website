@@ -10,9 +10,9 @@ import { Badge } from '@/components/ui/Badge';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'MCP Server — Thursdai',
+  title: 'MCP Server: Thursdai',
   description:
-    'The Thursdai MCP server: invoke_role, replay_case, dry_run_policy, and four more tools for governed AI agent orchestration.',
+    'The Thursdai MCP server: invoke_role, replay_case, dry_run_policy and four more tools for governed AI agent orchestration.',
 };
 
 // ── Tool definitions ────────────────────────────────────────────
@@ -218,7 +218,7 @@ export default function McpPage() {
           <Display style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Thursdai speaks MCP natively.
           </Display>
-          <Body variant="large" style={{ color: '#a1a1aa', maxWidth: '700px' }}>
+          <Body variant="large" style={{ color: '#a1a1aa' }}>
             Seven MCP tools for governed agent orchestration. Works with Claude Desktop, Cursor,
             and any Model Context Protocol-compatible client. invoke_role() brings Thursdai&apos;s
             Moderator into any agent workflow.

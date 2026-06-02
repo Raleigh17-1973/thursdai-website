@@ -13,7 +13,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Moveworks — Thursdai',
+  title: 'Thursdai vs Moveworks',
   description:
     'Where Moveworks is strong and where Thursdai differs. IT service automation vs. cross-functional AI governance.',
 };
@@ -39,7 +39,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Tenant knowledge isolation', moveworks: 'yes', thursdai: 'yes' },
   { feature: 'EU AI Act Annex III documentation', moveworks: 'no', thursdai: 'yes' },
   { feature: 'FRIA/DPIA templates', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Published pricing', moveworks: 'no', thursdai: 'yes' },
   { feature: 'MCP server (agent-to-agent)', moveworks: 'no', thursdai: 'yes' },
   { feature: 'Ambient case management', moveworks: 'partial', thursdai: 'yes' },
   { feature: 'Audit log API', moveworks: 'partial', thursdai: 'yes' },
@@ -53,7 +52,7 @@ function StatusCell({ value }: { value: MatrixStatus | string }) {
   if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
   if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>;
   if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">In progress</Badge></td>;
+  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
   return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
 }
 
@@ -65,10 +64,10 @@ export default function CompareMoveworksPage() {
         <Container>
           <Label>Thursdai vs Moveworks</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Ticket deflection isn&apos;t decision governance.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Moveworks is a strong IT and HR service automation platform. Thursdai is a governed
             agent substrate for cross-functional regulated decisions. These solve different
-            problems — but enterprises often evaluate them in the same AI governance review.
+            problems, but enterprises often evaluate them in the same AI governance review.
           </Body>
         </Container>
       </Section>
@@ -85,17 +84,17 @@ export default function CompareMoveworksPage() {
             <Card
               variant="feature"
               title="IT helpdesk automation"
-              body="Moveworks resolves IT tickets autonomously — password resets, software access, hardware requests. If your primary AI use case is deflecting IT service volume, Moveworks is purpose-built for that."
+              body="Moveworks resolves IT tickets autonomously: password resets, software access, hardware requests. If your primary AI use case is deflecting IT service volume, Moveworks is purpose-built for that."
             />
             <Card
               variant="feature"
               title="HR service delivery"
-              body="Deep integrations with Workday, ServiceNow, and HRIS systems. Moveworks handles onboarding, benefits queries, and PTO requests without human intervention. The employee experience layer is polished."
+              body="Deep integrations with Workday, ServiceNow and HRIS systems. Moveworks handles onboarding, benefits queries and PTO requests without human intervention. The employee experience layer is polished."
             />
             <Card
               variant="feature"
               title="Agentic workflow orchestration"
-              body="Moveworks can chain multi-step IT workflows — provision access, spin up environments, notify stakeholders — without a human in the loop. For IT automation at scale, the orchestration depth is real."
+              body="Moveworks can chain multi-step IT workflows (provision access, spin up environments, notify stakeholders) without a human in the loop. For IT automation at scale, the orchestration depth is real."
             />
           </Grid>
         </Container>
@@ -106,29 +105,29 @@ export default function CompareMoveworksPage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter for regulated, cross-functional decisions.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="Cross-functional moderation vs single-domain automation"
-              body="Moveworks operates in IT and HR. Thursdai simultaneously routes questions to Legal, Finance, and Engineering — reconciles their answers, and applies cross-role policies. If a decision touches more than one domain, Moveworks has no answer for that."
+              body="Moveworks operates in IT and HR. Thursdai simultaneously routes questions to Legal, Finance and Engineering, reconciles their answers and applies cross-role policies. If a decision touches more than one domain, Moveworks has no answer for that."
             />
             <Card
               variant="feature"
               title="Decision replay vs stateless responses"
-              body="Every Thursdai decision is recorded with the knowledge and policies active at that moment. You can replay any decision from two years ago with full provenance. Moveworks has no decision replay capability — responses are stateless."
+              body="Every Thursdai decision is recorded with the knowledge and policies active at that moment. You can replay any decision from two years ago with full provenance. Moveworks has no decision replay capability. Responses are stateless."
             />
             <Card
               variant="feature"
               title="Policy-as-Code vs no governance layer"
-              body="Thursdai enforces governance rules at the inference layer in YAML — the model cannot override them. Moveworks has no equivalent policy enforcement mechanism for cross-functional decisions."
+              body="Thursdai enforces governance rules at the inference layer in YAML: the model cannot override them. Moveworks has no equivalent policy enforcement mechanism for cross-functional decisions."
             />
             <Card
               variant="feature"
               title="EU AI Act readiness vs no compliance surface"
-              body="Thursdai documents Annex III obligations, provides FRIA/DPIA templates, and has audit logs meeting the Act's record-keeping requirements. Moveworks has no published EU AI Act compliance surface for high-risk AI use cases."
+              body="Thursdai documents Annex III obligations, provides FRIA/DPIA templates and has audit logs meeting the Act's record-keeping requirements. Moveworks has no published EU AI Act compliance surface for high-risk AI use cases."
             />
           </Grid>
         </Container>
@@ -194,7 +193,7 @@ export default function CompareMoveworksPage() {
           <Callout variant="info" title="Bottom line">
             Moveworks automates IT and HR service delivery. Thursdai governs cross-functional
             decisions in regulated workflows. If your AI decisions touch Legal, Finance, or
-            Engineering — and you need to audit them — Moveworks alone isn&apos;t the answer.
+            Engineering, and you need to audit them, Moveworks alone isn&apos;t the answer.
           </Callout>
         </Container>
       </Section>

@@ -13,7 +13,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Writer — Thursdai',
+  title: 'Thursdai vs Writer',
   description:
     'Where Writer is strong and where Thursdai differs. Content generation with brand guardrails vs. governed decisions with full audit trail.',
 };
@@ -39,7 +39,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Tenant knowledge isolation', writer: 'yes', thursdai: 'yes' },
   { feature: 'EU AI Act Annex III documentation', writer: 'no', thursdai: 'yes' },
   { feature: 'FRIA/DPIA templates', writer: 'no', thursdai: 'yes' },
-  { feature: 'Published pricing', writer: 'yes', thursdai: 'yes' },
   { feature: 'MCP server (agent-to-agent)', writer: 'no', thursdai: 'yes' },
   { feature: 'Ambient case management', writer: 'no', thursdai: 'yes' },
   { feature: 'Audit log API', writer: 'partial', thursdai: 'yes' },
@@ -53,7 +52,7 @@ function StatusCell({ value }: { value: MatrixStatus | string }) {
   if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
   if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>;
   if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">In progress</Badge></td>;
+  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
   return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
 }
 
@@ -65,10 +64,10 @@ export default function CompareWriterPage() {
         <Container>
           <Label>Thursdai vs Writer</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Brand guardrails aren&apos;t audit trails.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Writer is a strong enterprise content generation platform with brand guardrails.
             Thursdai is a governed agent substrate for regulated decisions. These solve different
-            problems — but compliance teams often ask both questions in the same AI governance review.
+            problems, but compliance teams often ask both questions in the same AI governance review.
           </Body>
         </Container>
       </Section>
@@ -85,17 +84,17 @@ export default function CompareWriterPage() {
             <Card
               variant="feature"
               title="Enterprise content generation"
-              body="Writer is built for high-volume enterprise content — marketing copy, internal communications, product descriptions. If your AI use case is generating consistent, on-brand text at scale, Writer's generation quality is strong."
+              body="Writer is built for high-volume enterprise content: marketing copy, internal communications, product descriptions. If your AI use case is generating consistent, on-brand text at scale, Writer's generation quality is strong."
             />
             <Card
               variant="feature"
               title="Brand voice and style enforcement"
-              body="Writer's brand voice and style guide features are mature. If your primary governance concern is content consistency — not decision auditability — Writer's guardrails are purpose-built for that problem."
+              body="Writer's brand voice and style guide features are mature. If your primary governance concern is content consistency (not decision auditability), Writer's guardrails are purpose-built for that problem."
             />
             <Card
               variant="feature"
               title="Broad team accessibility"
-              body="Writer is designed for non-technical users — marketing, communications, and HR teams. If your priority is giving a broad internal audience access to AI with guardrails, Writer's UX is built for that."
+              body="Writer is designed for non-technical users: marketing, communications and HR teams. If your priority is giving a broad internal audience access to AI with guardrails, Writer's UX is built for that."
             />
           </Grid>
         </Container>
@@ -106,19 +105,19 @@ export default function CompareWriterPage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter for regulated, high-stakes decisions.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="Decision governance vs content generation"
-              body="Writer helps teams produce content. Thursdai governs decisions — pricing calls, contract approvals, compliance determinations. If the output has regulatory, legal, or financial consequence, you need the audit trail and policy enforcement that Writer doesn't provide."
+              body="Writer helps teams produce content. Thursdai governs decisions: pricing calls, contract approvals, compliance determinations. If the output has regulatory, legal or financial consequence, you need the audit trail and policy enforcement that Writer doesn't provide."
             />
             <Card
               variant="feature"
               title="Cross-functional moderation vs single model"
-              body="Thursdai routes every question to Legal, Finance, and Engineering simultaneously and reconciles their answers. Writer returns a single AI-generated response. For decisions that require multi-domain sign-off, Writer has no equivalent."
+              body="Thursdai routes every question to Legal, Finance and Engineering simultaneously and reconciles their answers. Writer returns a single AI-generated response. For decisions that require multi-domain sign-off, Writer has no equivalent."
             />
             <Card
               variant="feature"
@@ -128,7 +127,7 @@ export default function CompareWriterPage() {
             <Card
               variant="feature"
               title="Inference-layer enforcement vs prompt-level rules"
-              body="Thursdai enforces policy in YAML at the inference layer — the model cannot override it. Writer's 'Rules' feature operates at the prompt level and can be worked around by the model or by rephrasing the request."
+              body="Thursdai enforces policy in YAML at the inference layer: the model cannot override it. Writer's 'Rules' feature operates at the prompt level and can be worked around by the model or by rephrasing the request."
             />
           </Grid>
         </Container>
@@ -170,7 +169,7 @@ export default function CompareWriterPage() {
             <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
               <li>
                 <strong>Your primary need is content, not decisions.</strong> If the AI output
-                is copy — blog posts, emails, internal comms — and it doesn&apos;t require a
+                is copy (blog posts, emails, internal comms) and it doesn&apos;t require a
                 legal or compliance audit trail, Writer is purpose-built for that workflow.
               </li>
               <li>
@@ -194,7 +193,7 @@ export default function CompareWriterPage() {
         <Container>
           <Callout variant="info" title="Bottom line">
             Writer generates content. Thursdai governs decisions. If the AI output has legal,
-            financial, or regulatory consequence — and you need to prove what happened and why —
+            financial, or regulatory consequence, and you need to prove what happened and why,
             Writer alone isn&apos;t enough.
           </Callout>
         </Container>

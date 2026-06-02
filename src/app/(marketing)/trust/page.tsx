@@ -12,9 +12,9 @@ import { CertBadge } from '@/components/content/CertBadge';
 import { SecurityPackForm } from '@/components/content/SecurityPackForm';
 
 export const metadata: Metadata = {
-  title: 'Trust & Security — Thursdai',
+  title: 'Trust & Security: Thursdai',
   description:
-    'SOC 2 Type II, ISO 27001, EU AI Act Annex III readiness, and full deployment transparency. Built for procurement, compliance, and engineering to all say yes.',
+    'SOC 2 Type II, ISO 27001, EU AI Act Annex III readiness and full deployment transparency. Built for procurement, compliance and engineering to all say yes.',
 };
 
 // ── Icons ─────────────────────────────────────────────────────
@@ -74,12 +74,12 @@ function IconDatabase() {
 // ── Cert badges ────────────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II planned' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 planned' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 planned' },
   { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate planned' },
 ];
 
 // ── Page ───────────────────────────────────────────────────────
@@ -92,20 +92,20 @@ export default function TrustPage() {
         <Container>
           <Label>Trust &amp; Security</Label>
           <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
-            Built so your team, your clients, and your auditors all feel confident.
+            Built so your team, your clients and your auditors all feel confident.
           </Display>
           <p style={{
             fontSize: '1.25rem', color: 'var(--color-text-secondary)',
             maxWidth: '560px', margin: '0.75rem auto 0',
             fontStyle: 'italic',
           }}>
-            &ldquo;We show our work — so your auditors don&apos;t have to.&rdquo;
+            &ldquo;We show our work; so your auditors don&apos;t have to.&rdquo;
           </p>
           <Body
             variant="large"
-            style={{ maxWidth: '700px', marginTop: '1.5rem' }}
+            style={{ marginTop: '1.5rem' }}
           >
-            Whether you&apos;re a 10-person team or a Fortune 500, Thursdai was built with security and accountability as its foundation — not bolted on later.
+            Whether you&apos;re a 10-person team or a Fortune 500, Thursdai was built with security and accountability as its foundation. It was not bolted on later.
           </Body>
         </Container>
       </Section>
@@ -125,21 +125,21 @@ export default function TrustPage() {
               variant="feature"
               icon={<IconCertificate />}
               title="ISO 42001 Certification"
-              body="Our AI management system certification roadmap. Current stage and timeline."
+              body="Our AI management system certification plan."
               href="/trust/iso-42001"
             />
             <Card
               variant="feature"
               icon={<IconServer />}
               title="Deployment Options"
-              body="SaaS, dedicated single-tenant, VPC, and on-premises. Data residency and CMEK for every tier."
+              body="SaaS, dedicated single-tenant, VPC and on-premises. Data residency and CMEK for every tier."
               href="/trust/deployment"
             />
             <Card
               variant="feature"
               icon={<IconDatabase />}
               title="Data Handling"
-              body="Retention windows, PII handling, encryption, tenant isolation, and our training policy."
+              body="Retention windows, PII handling, encryption, tenant isolation and our training policy."
               href="/trust/data"
             />
           </Grid>
@@ -208,8 +208,8 @@ export default function TrustPage() {
           >
             <Heading3>Download the security pack</Heading3>
             <Body style={{ maxWidth: '500px', margin: '0 auto 1.5rem' }}>
-              Get our Security Overview — architecture summary, current controls, and our SOC 2 audit
-              timeline — delivered to your inbox.
+              Get our Security Overview: architecture summary, current controls and our certification
+              plans, delivered to your inbox.
             </Body>
             <SecurityPackForm />
           </div>

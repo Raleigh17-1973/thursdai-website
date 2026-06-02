@@ -6,17 +6,17 @@ const STEPS = [
   {
     step: '01',
     title: 'You ask a question',
-    body: 'Type your question \u2014 or connect Thursdai to your existing tools and let it surface decisions automatically.',
+    body: 'Type your question, or connect Thursdai to your existing tools and let it surface decisions automatically.',
   },
   {
     step: '02',
     title: 'Your whole team weighs in',
-    body: 'Thursdai consults your Legal, Finance, and Operations knowledge simultaneously \u2014 each role applies its own rules.',
+    body: 'Thursdai consults your Legal, Finance and Operations knowledge simultaneously: each role applies its own rules.',
   },
   {
     step: '03',
     title: 'One sourced, policy-checked answer',
-    body: 'You get one clear answer, with citations, a full audit trail, and the confidence that it followed every rule you set.',
+    body: 'You get one clear answer, with citations, a full audit trail and the confidence that it followed every rule you set.',
   },
 ];
 

@@ -4,7 +4,7 @@ import { Heading1, Body } from '@/components/typography';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Research — Thursdai',
+  title: 'Research: Thursdai',
   description: 'Long-form research on governed AI agents for regulated enterprises.',
 };
 

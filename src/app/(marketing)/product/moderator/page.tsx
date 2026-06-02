@@ -17,9 +17,9 @@ import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 
 export const metadata: Metadata = {
-  title: 'Moderator — Thursdai',
+  title: 'Moderator: Thursdai',
   description:
-    'Role-based answer panels that reconcile across Legal, Finance, and Engineering. Every AI question answered by every relevant role — simultaneously.',
+    'Role-based answer panels that reconcile across Legal, Finance and Engineering. Every AI question answered by every relevant role. Simultaneously.',
 };
 
 function IconRoute() {
@@ -67,8 +67,8 @@ export default function ModeratorPage() {
             <Label>Moderator</Label>
             <Display>Three roles. One reconciled answer.</Display>
             <Body variant="large">
-              Ask once. Legal, Finance, and Engineering respond simultaneously. The Moderator
-              reconciles, flags disagreements, and applies your policies before any answer reaches
+              Ask once. Legal, Finance and Engineering respond simultaneously. The Moderator
+              reconciles, flags disagreements and applies your policies before any answer reaches
               your team.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -102,7 +102,7 @@ export default function ModeratorPage() {
               variant="feature"
               icon={<IconRoute />}
               title="1. Route"
-              body="Every question is routed to all configured roles simultaneously. No sequential processing — Legal, Finance, and Engineering all see the same question at the same time."
+              body="Every question is routed to all configured roles simultaneously. No sequential processing: Legal, Finance and Engineering all see the same question at the same time."
             />
             <Card
               variant="feature"
@@ -114,7 +114,7 @@ export default function ModeratorPage() {
               variant="feature"
               icon={<IconReconcile />}
               title="3. Reconcile"
-              body="The Moderator synthesises all role answers, flags disagreements for human review, applies cross-role policies, and produces a single attributed response."
+              body="The Moderator synthesises all role answers, flags disagreements for human review, applies cross-role policies and produces a single attributed response."
             />
           </Grid>
         </Container>
@@ -133,8 +133,8 @@ export default function ModeratorPage() {
                 <Heading2>Every sentence. Every source.</Heading2>
                 <Body>
                   The Moderator tracks which sentence came from which source in which role&apos;s
-                  knowledge base. Hover any sentence in the answer to see its citation — document
-                  name, section, date indexed, and confidence score.
+                  knowledge base. Hover any sentence in the answer to see its citation: document
+                  name, section, date indexed and confidence score.
                 </Body>
                 <Body>
                   Audit logs record the full provenance chain for every decision. Available via
@@ -144,7 +144,7 @@ export default function ModeratorPage() {
             }
             right={
               <Callout variant="info" title="Provenance in the API">
-                Every invoke_role() response includes a provenance array — one entry per sentence,
+                Every invoke_role() response includes a provenance array: one entry per sentence,
                 with source_id, section, confidence, and role_attribution fields. See{' '}
                 <Link href="/developers/api" style={{ color: 'var(--color-accent)' }}>
                   /developers/api
@@ -169,7 +169,7 @@ export default function ModeratorPage() {
           >
             <Badge variant="amber">Coming Q3 2026</Badge>
             <Heading3 style={{ marginTop: '1rem' }}>
-              Role Bench — see how Thursdai&apos;s roles compare
+              Role Bench: see how Thursdai&apos;s roles compare
             </Heading3>
             <Body style={{ marginTop: '0.75rem', maxWidth: '520px', margin: '0.75rem auto 0' }}>
               We&apos;re benchmarking Thursdai&apos;s role-based answers against single-model responses
@@ -206,7 +206,7 @@ export default function ModeratorPage() {
           }}>
             <Heading2 style={{ color: '#fff' }}>See the full role library</Heading2>
             <Body style={{ color: 'rgba(255,255,255,0.85)', marginTop: '0.75rem' }}>
-              Configure roles for Legal, Finance, Engineering, HR, and more — or define custom roles
+              Configure roles for Legal, Finance, Engineering, HR and more, or define custom roles
               for your domain.
             </Body>
             <div style={{ marginTop: '1.5rem' }}>

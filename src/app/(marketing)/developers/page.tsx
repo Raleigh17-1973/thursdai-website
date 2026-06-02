@@ -13,9 +13,9 @@ import { Callout } from '@/components/ui/Callout';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 
 export const metadata: Metadata = {
-  title: 'Developers — Thursdai',
+  title: 'Developers: Thursdai',
   description:
-    'Thursdai is infrastructure other agents call. REST API, MCP server, TypeScript and Python SDKs, and full documentation.',
+    'Thursdai is infrastructure other agents call. REST API, MCP server, TypeScript and Python SDKs and full documentation.',
 };
 
 // ── Code snippets ──────────────────────────────────────────────
@@ -134,9 +134,9 @@ export default function DevelopersPage() {
           <Display style={{ color: '#e4e4e7', marginTop: '1rem', marginBottom: '1.5rem' }}>
             Thursdai is infrastructure other agents call.
           </Display>
-          <Body variant="large" style={{ color: '#a1a1aa', maxWidth: '700px', marginBottom: '2rem' }}>
-            invoke_role(), replay_case(), dry_run_policy() — seven MCP tools and a full REST API
-            built for the agent-to-agent layer. Works with Claude Desktop, Cursor, and any
+          <Body variant="large" style={{ color: '#a1a1aa', marginBottom: '2rem' }}>
+            invoke_role(), replay_case(), dry_run_policy(): seven MCP tools and a full REST API
+            built for the agent-to-agent layer. Works with Claude Desktop, Cursor and any
             MCP-compatible client.
           </Body>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -229,12 +229,12 @@ export default function DevelopersPage() {
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Developer resources</Heading2>
           <Grid cols={3} gap="md">
-            <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="Seven MCP tools for governed agent orchestration. Works with Claude Desktop, Cursor, and any MCP-compatible client." href="/developers/mcp" />
+            <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="Seven MCP tools for governed agent orchestration. Works with Claude Desktop, Cursor and any MCP-compatible client." href="/developers/mcp" />
             <Card variant="feature" icon={<IconAPI />} title="API Reference" body="Full REST API reference. Authenticate with a bearer token and start routing questions in minutes." href="/developers/api" />
             <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design." href="/developers/sdk" />
-            <Card variant="feature" icon={<IconDocs />} title="Documentation" body="Architecture overview, deployment guides, and integration tutorials." href="/developers/docs" />
-            <Card variant="feature" icon={<IconChangelog />} title="Changelog" body="API versioning policy, breaking change notices, and release notes." href="/developers/changelog" />
-            <Card variant="feature" icon={<IconBench />} title="Role Bench" body="Open benchmark measuring answer quality across roles, domains, and policy configurations." href="/resources/role-bench" />
+            <Card variant="feature" icon={<IconDocs />} title="Documentation" body="Architecture overview, deployment guides and integration tutorials." href="/developers/docs" />
+            <Card variant="feature" icon={<IconChangelog />} title="Changelog" body="API versioning policy, breaking change notices and release notes." href="/developers/changelog" />
+            <Card variant="feature" icon={<IconBench />} title="Role Bench" body="Open benchmark measuring answer quality across roles, domains and policy configurations." href="/resources/role-bench" />
           </Grid>
         </Container>
       </Section>
@@ -265,8 +265,8 @@ export default function DevelopersPage() {
                   { scope: 'invoke:write', permits: 'Create new role invocations' },
                   { scope: 'replay:read', permits: 'Replay past decisions and time-travel queries' },
                   { scope: 'policy:read', permits: 'Read policy sets and dry-run results' },
-                  { scope: 'policy:write', permits: 'Create, update, and publish policy sets' },
-                  { scope: 'admin', permits: 'Tenant management, user provisioning, and audit log export' },
+                  { scope: 'policy:write', permits: 'Create, update and publish policy sets' },
+                  { scope: 'admin', permits: 'Tenant management, user provisioning and audit log export' },
                 ].map((row, i) => (
                   <tr key={i} style={{ background: i % 2 === 0 ? 'var(--color-surface-primary)' : undefined }}>
                     <td style={{ padding: '10px 14px', fontSize: '13px', fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', borderBottom: '1px solid var(--color-border-default)' }}>{row.scope}</td>

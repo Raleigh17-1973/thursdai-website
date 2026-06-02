@@ -26,7 +26,7 @@ export function SecurityPackForm() {
   if (status === 'success') {
     return (
       <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '15px' }}>
-        Check your inbox — the security pack is on its way.
+        Check your inbox: the security pack is on its way.
       </p>
     );
   }

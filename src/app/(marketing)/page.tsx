@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
@@ -15,23 +15,21 @@ import { ReplayDemo } from '@/components/demos/ReplayDemo';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
-import { DealDesigner } from '@/components/demos/DealDesigner';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { getHeroVariant } from '@/lib/posthog';
-import { HomeStatCards } from '@/components/ui/HomeStatCards';
 import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
 
 // ── Cert badges data ──────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II in audit' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 in progress' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 in progress' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II planned' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 planned' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 planned' },
   { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate in progress' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate planned' },
 ];
 
 // ── invoke_role code snippet ───────────────────────────────────
@@ -58,33 +56,6 @@ print(result.moderator.answer)
 print(f"Consensus: {result.moderator.consensus}")`;
 
 // ── Inline SVG icons ─────────────────────────────────────────
-
-function IconBuilding() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M9 21V9h6v12" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <rect x="10.5" y="12" width="3" height="3" fill="var(--color-accent)" opacity="0.6" />
-    </svg>
-  );
-}
-
-function IconLightning() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconCheckCircle() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="9 12 11 14 15 10" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 function IconPanel() {
   return (
@@ -191,7 +162,7 @@ export default async function HomePage() {
         <Container>
           <Split
             ratio="60/40"
-            alignItems="center"
+            alignItems="start"
             gap="xl"
             left={
               <div
@@ -209,8 +180,8 @@ export default async function HomePage() {
                       AI governance infrastructure for teams that <span className="dawn-gradient-text">can&apos;t afford to be wrong.</span>
                     </Display>
                     <Body variant="large">
-                      Multi-role deliberation, decision replay, and policy enforcement at the model
-                      layer — not bolted on after.
+                      Multi-role deliberation, decision replay and policy enforcement at the model
+                      layer. Not bolted on after.
                     </Body>
                   </>
                 ) : (
@@ -235,10 +206,8 @@ export default async function HomePage() {
                 }}>
                   {[
                     '✓ EU AI Act ready',
-                    '✓ Published pricing',
                     '✓ Role-based moderation',
                     '✓ Full decision audit trail',
-                    '✓ SOC 2 in audit',
                   ].map((item) => (
                     <span key={item}>{item}</span>
                   ))}
@@ -306,7 +275,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconPanel />}
               title="A panel, not a chatbot"
-              body="Ask once and get perspectives from all your business areas — Legal, Finance, Operations — at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
+              body="Ask once and get perspectives from all your business areas, Legal, Finance, Operations, at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
             <Card
@@ -320,7 +289,7 @@ export default async function HomePage() {
               variant="feature"
               icon={<IconShield />}
               title="Policies the model cannot break"
-              body="Set rules your AI must follow — and it literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
+              body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
           </Grid>
@@ -336,9 +305,9 @@ export default async function HomePage() {
           </Heading2>
           <Body
             variant="large"
-            style={{ color: '#a1a1aa', maxWidth: '640px', marginTop: '1rem' }}
+            style={{ color: '#a1a1aa', marginTop: '1rem' }}
           >
-            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance, and Operations knowledge — flags where they disagree, cites every source, and applies your rules before the answer reaches you.
+            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules before the answer reaches you.
           </Body>
           <ModeratorPanel />
           <div style={{ marginTop: '2rem' }}>
@@ -364,9 +333,9 @@ export default async function HomePage() {
                 <Label>Time-Travel</Label>
                 <Heading2>Every AI decision, period-accurate.</Heading2>
                 <Body>
-                  Thursdai records every agent decision with the knowledge base, policies, and role
+                  Thursdai records every agent decision with the knowledge base, policies and role
                   definitions that were active at the time. Move the slider to any point in the
-                  past — see the answer that would have been given then, and what has changed since.
+                  past: see the answer that would have been given then, and what has changed since.
                 </Body>
                 <Link
                   href="/product/time-travel"
@@ -394,7 +363,7 @@ export default async function HomePage() {
                 <Label>Policy-as-Code</Label>
                 <Heading2>Rules your AI must follow. No exceptions.</Heading2>
                 <Body>
-                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer — automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
+                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer, automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
                 </Body>
                 <Body>Three policy primitives:</Body>
                 <ul
@@ -411,20 +380,20 @@ export default async function HomePage() {
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       allowed_sources
-                    </strong>{' '}
-                    — restrict citations to approved knowledge sources
+                    </strong>{': '}
+                    restrict citations to approved knowledge sources
                   </li>
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       required_attribution
-                    </strong>{' '}
-                    — mandate source citation on specified claim types
+                    </strong>{': '}
+                    mandate source citation on specified claim types
                   </li>
                   <li>
                     <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
                       pricing_floor
-                    </strong>{' '}
-                    — prevent the system from quoting below contract minimums
+                    </strong>{': '}
+                    prevent the system from quoting below contract minimums
                   </li>
                 </ul>
                 <Link
@@ -477,27 +446,6 @@ export default async function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Section 7: Customer logos + stats ────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
-            Customers
-          </Label>
-          <Heading2 style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            Governed AI in production
-          </Heading2>
-          <HomeStatCards />
-          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <Link
-              href="/customers"
-              style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
-            >
-              See deployment context + apply to be featured →
-            </Link>
-          </p>
-        </Container>
-      </Section>
-
       {/* ── Section 8: Developers band ───────────────────────── */}
       <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '5rem 0' }}>
         <Container>
@@ -512,7 +460,7 @@ export default async function HomePage() {
                   <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
-                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK, and MCP server. Connect to your existing systems, automate workflows, and build on top of Thursdai&apos;s roles and policies.
+                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK and MCP server. Connect to your existing systems, automate workflows and build on top of Thursdai&apos;s roles and policies.
                 </Body>
                 <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →
@@ -537,30 +485,30 @@ export default async function HomePage() {
             <Label>HOW WE COMPARE</Label>
             <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Most AI tools weren&apos;t built for accountability.</span></Heading2>
             <Body style={{ marginTop: '0.75rem', color: 'var(--color-text-secondary)', maxWidth: '640px', margin: '0.75rem auto 0' }}>
-              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited, and traced.
+              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited and traced.
             </Body>
           </div>
           <Grid cols={3} gap="lg">
             {[
               {
                 competitor: 'Microsoft Copilot',
-                theyGive: 'AI embedded in Office 365 — excellent for drafting and writing',
-                thursdaiAdds: 'The audit trail, policy enforcement, and decision replay that Copilot cannot provide',
+                theyGive: 'AI embedded in Office 365: excellent for drafting and writing',
+                thursdaiAdds: 'The audit trail, policy enforcement and decision replay that Copilot cannot provide',
                 keyDifference: 'No policy layer. No moderation. No audit trail.',
                 href: '/compare/microsoft-copilot',
               },
               {
                 competitor: 'ChatGPT Enterprise',
                 theyGive: 'A private, powerful instance of the world\'s best language model',
-                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies, and replayable decisions',
+                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies and replayable decisions',
                 keyDifference: 'No governance. No roles. No replay.',
                 href: '/compare/chatgpt-enterprise',
               },
               {
                 competitor: 'Glean',
-                theyGive: 'Best-in-class enterprise search — finds the document that says X',
-                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X — with proof',
-                keyDifference: 'Knowledge retrieval only — no decisions, no compliance.',
+                theyGive: 'Best-in-class enterprise search: finds the document that says X',
+                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X (with proof)',
+                keyDifference: 'Knowledge retrieval only. No decisions, no compliance.',
                 href: '/compare/glean',
               },
             ].map(({ competitor, theyGive, thursdaiAdds, keyDifference, href }) => (
@@ -606,75 +554,6 @@ export default async function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Section 9: Pricing wedge ─────────────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Label style={{ textAlign: 'center', display: 'block' }}>Pricing</Label>
-          <Heading2 style={{ textAlign: 'center' }}>
-            <span className="font-display">Published pricing. Tuned to outcome.</span>
-          </Heading2>
-          <Body
-            variant="large"
-            style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto 3rem' }}
-          >
-            Three components. All published. No &ldquo;contact us for pricing.&rdquo;
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              icon={<IconBuilding />}
-              title="Platform"
-              body="Annual platform fee based on seat count. Covers all roles, all policies, all deployment models. Starting at $60K/year."
-            />
-            <Card
-              variant="feature"
-              icon={<IconLightning />}
-              title="Credits"
-              body="Per 1,000 inference tokens across all roles. Pay for what you use, nothing more. $0.018 per 1K tokens."
-            />
-            <Card
-              variant="feature"
-              icon={<IconCheckCircle />}
-              title="Outcome"
-              body="Optional per-closed-case fee for outcome-based deployments. $2.20 per resolved case. Only pay when the system delivers."
-            />
-          </Grid>
-          <p style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/pricing#deal-designer">
-              <button
-                className="inline-flex items-center justify-center font-semibold rounded-lg transition-colors px-6 py-3 text-[17px] bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
-              >
-                Build Your Deal
-              </button>
-            </Link>
-          </p>
-          <Body
-            variant="small"
-            style={{ textAlign: 'center', color: 'var(--color-text-tertiary)', marginTop: '1rem' }}
-          >
-            Illustrative pricing.{' '}
-            <Link href="/pricing" style={{ color: 'var(--color-accent)' }}>
-              See the full Deal Designer →
-            </Link>
-          </Body>
-
-          {/* Deal Designer inline preview */}
-          <div
-            style={{
-              marginTop: '3rem',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '16px',
-              padding: '2rem',
-              background: 'var(--color-surface-primary)',
-            }}
-          >
-            <Suspense>
-              <DealDesigner />
-            </Suspense>
-          </div>
-        </Container>
-      </Section>
-
       {/* ── Section 10: Closing CTA band ─────────────────────── */}
       <section
         style={{
@@ -695,7 +574,7 @@ export default async function HomePage() {
               margin: '0 auto 2rem',
             }}
           >
-            Try the replay demo — no login required — or talk to us about a pilot.
+            Try the replay demo (no login required) or talk to us about a pilot.
           </Body>
           <ClosingCTAs />
         </Container>

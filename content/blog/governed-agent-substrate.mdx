@@ -2,10 +2,10 @@
 title: "Why regulated enterprises need a governed agent substrate, not a chatbot"
 date: "2026-04-15"
 category: "company"
-summary: "The case for purpose-built AI governance infrastructure over chatbot wrappers — and what it means for Legal, Finance, and Engineering teams."
+summary: "The case for purpose-built AI governance infrastructure over chatbot wrappers, and what it means for Legal, Finance and Engineering teams."
 ---
 
-*Draft — Content Lead review required before publication.*
+*Draft. Content Lead review required before publication.*
 
 The most common question we get from enterprise AI teams is: "Can't we just put a guardrails layer on top of GPT-4?"
 
@@ -13,11 +13,11 @@ The answer is: you can, and it will work until it doesn't.
 
 ## The problem with prompt-layer governance
 
-When you add governance as a system prompt — "always cite your sources," "never mention competitors," "follow our data handling policy" — you're asking the model to self-police. Models are good at many things. Self-policing under adversarial conditions is not one of them.
+When you add governance as a system prompt ("always cite your sources," "never mention competitors," "follow our data handling policy") you're asking the model to self-police. Models are good at many things. Self-policing under adversarial conditions is not one of them.
 
 A sufficiently clever prompt can work around any system prompt. A sufficiently tired engineer will forget to update the guardrails when the policy changes. A sufficiently complex question will produce an answer that technically follows the prompt while violating the intent.
 
-Regulated industries — financial services, healthcare, legal — cannot accept "technically follows the prompt." They need provable, auditable compliance.
+Regulated industries (financial services, healthcare, legal) cannot accept "technically follows the prompt." They need provable, auditable compliance.
 
 ## What a governed substrate actually means
 
@@ -32,21 +32,21 @@ This isn't a wrapper. It's a different architectural layer.
 
 ## Why roles matter for regulated answers
 
-Legal, Finance, and Engineering don't just have different opinions — they have different knowledge bases, different risk tolerances, and different obligations.
+Legal, Finance and Engineering don't just have different opinions. They have different knowledge bases, different risk tolerances and different obligations.
 
 When a financial services firm asks "should we deploy this AI model to tier-1 clients?", Legal needs to answer from the contract and regulatory corpus. Finance needs to answer from the budget and vendor terms. Engineering needs to answer from the technical risk assessment.
 
-A single model answer blends these perspectives without attribution. You can't tell which constraint drove the recommendation, which domain flagged the risk, or which knowledge source is out of date.
+A single model answer blends these perspectives without attribution. You can't tell which constraint drove the recommendation, which domain flagged the risk or which knowledge source is out of date.
 
-The Moderator panel solves this by routing to each role separately, recording each answer with its sources, and reconciling — explicitly marking where roles agreed, where they differed, and why.
+The Moderator panel solves this by routing to each role separately, recording each answer with its sources, and reconciling: explicitly marking where roles agreed, where they differed and why.
 
 ## The audit trail problem
 
 Every EU AI Act compliance conversation eventually arrives at the same question: "Can you show me what your AI system decided in March 2025, with the exact knowledge and policies that were active at the time?"
 
-A chatbot wrapper cannot answer that question. The conversation history shows what was said. It does not show what knowledge version, what policy set, or what role configuration was active.
+A chatbot wrapper cannot answer that question. The conversation history shows what was said. It does not show what knowledge version, what policy set or what role configuration was active.
 
-Thursdai records all of this as a first-class data structure on every inference. Time-Travel is not a feature bolted on — it's a consequence of treating every decision as an auditable event.
+Thursdai records all of this as a first-class data structure on every inference. Time-Travel is not a feature bolted on. It's a consequence of treating every decision as an auditable event.
 
 ## The path forward
 
@@ -54,4 +54,4 @@ The enterprises getting this right are the ones that stopped asking "how do we a
 
 The answer involves roles, not a single model. Policies enforced at the infrastructure layer, not the prompt. An audit trail that treats every decision as a durable record. And published commitments to customers about what happens to their data.
 
-*[Content Lead: expand section 3 with customer anecdote, add conclusion paragraph — target 1,600 words total]*
+*[Content Lead: expand section 3 with customer anecdote, add conclusion paragraph; target 1,600 words total]*

@@ -1,29 +1,29 @@
 ---
-title: "Introducing the Thursdai MCP server: invoke_role, replay_case, and the primitives other agents need"
+title: "Introducing the Thursdai MCP server: invoke_role, replay_case and the primitives other agents need"
 date: "2026-05-08"
 category: "technical"
-summary: "Governed AI infrastructure for any MCP client. Seven tools: invoke_role, replay_case, dry_run_policy, and more."
+summary: "Governed AI infrastructure for any MCP client. Seven tools: invoke_role, replay_case, dry_run_policy and more."
 ---
 
-*Draft — Tech Lead review required before publication.*
+*Draft. Tech Lead review required before publication.*
 
-The Model Context Protocol has changed how AI agents call other services. With MCP, an agent running in Claude Desktop or Cursor can invoke external tools with structured input/output — no glue code required.
+The Model Context Protocol has changed how AI agents call other services. With MCP, an agent running in Claude Desktop or Cursor can invoke external tools with structured input/output; no glue code required.
 
-Thursdai's MCP server makes governed AI infrastructure available to any MCP-compatible client. Install it once; every agent in your environment can call invoke_role(), replay_case(), and dry_run_policy().
+Thursdai's MCP server makes governed AI infrastructure available to any MCP-compatible client. Install it once; every agent in your environment can call invoke_role(), replay_case() and dry_run_policy().
 
 ## The seven tools
 
-**invoke_role** is the core tool. It routes a question through one or more configured roles (Legal, Finance, Engineering, or any custom role) and returns the Moderator's reconciled answer along with each role's individual response. Every invocation is logged, attributed, and stored for replay.
+**invoke_role** is the core tool. It routes a question through one or more configured roles (Legal, Finance, Engineering or any custom role) and returns the Moderator's reconciled answer along with each role's individual response. Every invocation is logged, attributed and stored for replay.
 
 **replay_case** retrieves a past decision and re-runs it with the knowledge and policies that were active at the time you specify. The `replay_at` parameter accepts any ISO 8601 timestamp.
 
-**check_tenant_vs_standard** compares how an answer differs between the standard corpus and your tenant corpus — useful for understanding how much your proprietary knowledge is influencing recommendations.
+**check_tenant_vs_standard** compares how an answer differs between the standard corpus and your tenant corpus, useful for understanding how much your proprietary knowledge is influencing recommendations.
 
-**dry_run_policy** runs a policy YAML against a set of test queries and returns what would have been blocked, transformed, or flagged. The safest way to test a policy before deploying it to production.
+**dry_run_policy** runs a policy YAML against a set of test queries and returns what would have been blocked, transformed or flagged. The safest way to test a policy before deploying it to production.
 
 **list_roles** returns all configured roles for your tenant, with their corpus scope and policy constraints. Useful for orchestrators that need to know which roles are available before routing a question.
 
-**get_case_history** returns the full decision history for a case ID — all versions, all policy states, all role responses. The complete audit trail in one call.
+**get_case_history** returns the full decision history for a case ID: all versions, all policy states, all role responses. The complete audit trail in one call.
 
 **stream_moderator_response** streams the Moderator's reconciliation in real time as role answers arrive. Useful for user-facing applications where latency matters.
 
@@ -48,4 +48,4 @@ Thursdai's MCP server makes governed AI infrastructure available to any MCP-comp
 
 Full installation instructions and all seven tool schemas are at /developers/mcp.
 
-*[Tech Lead: add real benchmark numbers, add 'building an agent with Thursdai MCP' walkthrough — target 1,000 words]*
+*[Tech Lead: add real benchmark numbers, add 'building an agent with Thursdai MCP' walkthrough; target 1,000 words]*

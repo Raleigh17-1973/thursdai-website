@@ -9,9 +9,9 @@ import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Security Overview — Thursdai',
+  title: 'Security Overview: Thursdai',
   description:
-    'Technical and procedural security controls for Thursdai. Architecture, data handling, subprocessors, certifications, and incident response for procurement and compliance teams.',
+    'Technical and procedural security controls for Thursdai. Architecture, data handling, subprocessors, certifications and incident response for procurement and compliance teams.',
 };
 
 // ── Styles ─────────────────────────────────────────────────────
@@ -40,7 +40,7 @@ const tdStyle: React.CSSProperties = {
 const ARCHITECTURE_ROWS = [
   {
     component: 'API Server',
-    description: 'Fastify-based HTTP API; handles authentication, request routing, and approval workflows',
+    description: 'Fastify-based HTTP API; handles authentication, request routing and approval workflows',
   },
   {
     component: 'Temporal Worker',
@@ -49,7 +49,7 @@ const ARCHITECTURE_ROWS = [
   {
     component: 'Database',
     description:
-      'PostgreSQL (production) or SQLite (single-node/dev); stores audit events, identities, cases, and compliance artifacts',
+      'PostgreSQL (production) or SQLite (single-node/dev); stores audit events, identities, cases and compliance artifacts',
   },
   {
     component: 'Compliance Engine',
@@ -59,7 +59,7 @@ const ARCHITECTURE_ROWS = [
 ];
 
 const DATA_CLASSIFICATION_ROWS = [
-  { category: 'HR decisions', description: 'Approval requests, case outcomes, policy evaluations' },
+  { category: 'Governed decisions', description: 'Approval requests, case outcomes, policy evaluations' },
   { category: 'Identity data', description: 'Employee names, email addresses, departments, roles' },
   {
     category: 'Compliance artifacts',
@@ -67,7 +67,7 @@ const DATA_CLASSIFICATION_ROWS = [
   },
   {
     category: 'Audit events',
-    description: 'Immutable log of all agent actions, human approvals, and system events',
+    description: 'Immutable log of all agent actions, human approvals and system events',
   },
   { category: 'Workflow metadata', description: 'Case status, SLA tracking, assignee history' },
 ];
@@ -80,7 +80,7 @@ const SUBPROCESSOR_ROWS = [
   },
   {
     name: 'Anthropic',
-    purpose: 'LLM inference (AI-powered HR guidance and compliance analysis)',
+    purpose: 'LLM inference (governed AI decisions and compliance analysis)',
     dpaStatus: 'DPA on file',
   },
   {
@@ -108,19 +108,19 @@ const SUBPROCESSOR_ROWS = [
 const CERTIFICATION_ROWS = [
   {
     framework: 'SOC 2 Type II',
-    status: 'In progress',
-    notes: 'Observation period underway; third-party audit in progress. Contact security@thursdai.com for current status.',
+    status: 'Planned',
+    notes: 'Planned. The SOC 2 observation period and third-party audit require production customers and operational history; we will begin once those are in place. Contact security@thursdai.com for status.',
   },
   {
     framework: 'ISO 42001',
     status: 'Planned',
-    notes: 'Scoped for 2026. AI management system controls align with current architecture.',
+    notes: 'Planned, no date yet. AI management system controls align with our current architecture.',
   },
   {
     framework: 'EU AI Act Annex III',
-    status: 'In progress',
+    status: 'Planned',
     notes:
-      'High-risk system classification assessment complete. Technical documentation and conformity controls in active implementation.',
+      'High-risk system classification self-assessment complete and technical documentation prepared. Third-party conformity assessment is planned; we have no date yet.',
   },
 ];
 
@@ -142,8 +142,8 @@ export default function SecurityPage() {
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1rem' }}>
             Security Overview
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '700px', marginBottom: '1.5rem' }}>
-            For security, compliance, and procurement teams evaluating Thursdai as a vendor.
+          <Body variant="large" style={{ marginBottom: '1.5rem' }}>
+            For security, compliance and procurement teams evaluating Thursdai as a vendor.
           </Body>
           <div
             style={{
@@ -176,19 +176,21 @@ export default function SecurityPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Executive Summary</Heading2>
-          <div style={{ maxWidth: '700px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Body>
-              Thursdai is an AI-powered HR operations platform that helps enterprise teams manage
-              approvals, compliance artifacts, and audit trails for workforce decisions. Security and
-              compliance are load-bearing requirements of the product — Thursdai processes HR
-              decisions that affect employees and must satisfy the same audit standards as the
-              workflows it supports.
+              Thursdai is AI governance infrastructure for regulated enterprises. It sits between AI
+              models and the teams that rely on them, enforcing role-based moderation, decision
+              replay and policy-as-code so every AI decision is auditable. Security and compliance
+              are load-bearing requirements of the product. Thursdai governs decisions that carry
+              legal, financial and regulatory consequence, and it must satisfy the same audit
+              standards as the workflows it supports.
             </Body>
             <Body>
               Thursdai applies defense-in-depth across cryptographic controls, access management,
-              audit integrity, and operational resilience. Engineering controls for SOC 2 CC-series
-              requirements are implemented and in active use. An observation period for third-party
-              SOC 2 Type II certification is in progress.
+              audit integrity and operational resilience. Engineering controls for SOC 2 CC-series
+              requirements are implemented and in active use. Third-party SOC 2 Type II
+              certification is planned; the observation period requires production customers and
+              operational history before it can begin.
             </Body>
           </div>
         </Container>
@@ -198,7 +200,7 @@ export default function SecurityPage() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Architecture Overview</Heading2>
-          <Body style={{ maxWidth: '700px', marginBottom: '1.5rem' }}>
+          <Body style={{ marginBottom: '1.5rem' }}>
             Thursdai is deployed on Railway, a managed cloud platform. The application runs in
             Docker containers with strict container isolation. There is no shared hosting; each
             customer deployment is a dedicated tenant.
@@ -288,10 +290,10 @@ export default function SecurityPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Data Classification</Heading2>
-          <Body style={{ maxWidth: '700px', marginBottom: '1.5rem' }}>
+          <Body style={{ marginBottom: '1.5rem' }}>
             Thursdai processes the following data categories in the course of its operation. Raw LLM
             conversation content is not persisted beyond the active session. Thursdai does not ingest
-            or store payroll data, bank account information, or health records.
+            or store payroll data, bank account information or health records.
           </Body>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
@@ -320,7 +322,7 @@ export default function SecurityPage() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Subprocessors</Heading2>
-          <Body style={{ maxWidth: '700px', marginBottom: '1.5rem' }}>
+          <Body style={{ marginBottom: '1.5rem' }}>
             Thursdai maintains a complete and up-to-date subprocessor registry. Customers who have
             signed a DPA are notified of material subprocessor changes with at least 30 days advance
             notice.
@@ -378,11 +380,11 @@ export default function SecurityPage() {
                           fontSize: '12px',
                           fontWeight: 600,
                           background:
-                            row.status === 'In progress'
+                            row.status === 'Planned'
                               ? 'rgba(62,79,184,0.12)'
                               : 'rgba(0,0,0,0.06)',
                           color:
-                            row.status === 'In progress'
+                            row.status === 'Planned'
                               ? 'var(--color-accent)'
                               : 'var(--color-text-tertiary)',
                         }}
@@ -403,7 +405,7 @@ export default function SecurityPage() {
       <Section variant="compact">
         <Container>
           <Callout variant="info" title="Security contact">
-            For security inquiries, vulnerability reports, DPA requests, or SOC 2 documentation,
+            For security inquiries, vulnerability reports, DPA requests or SOC 2 documentation,
             contact{' '}
             <a
               href="mailto:security@thursdai.com"

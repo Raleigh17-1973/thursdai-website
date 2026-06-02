@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Thursdai — Coming Soon',
+  title: 'Thursdai: Coming Soon',
   description:
-    'Thursdai is AI governance infrastructure for regulated enterprises. Decision replay, role-based moderation, and policy-as-code. Launching soon.',
+    'Thursdai is AI governance infrastructure for regulated enterprises. Decision replay, role-based moderation and policy-as-code. Launching soon.',
   robots: { index: false, follow: false },
 };
 
@@ -123,7 +123,7 @@ export default function ComingSoonPage() {
           maxWidth: '520px',
         }}>
           Thursdai gives regulated enterprises an AI layer that can explain every
-          decision, enforce policy automatically, and pass any audit. We&apos;re
+          decision, enforce policy automatically and pass any audit. We&apos;re
           putting the finishing touches on the full site.
         </p>
 
@@ -145,11 +145,10 @@ export default function ComingSoonPage() {
             What&apos;s coming
           </p>
           {[
-            ['Role-based moderation', 'Legal, Finance, and Engineering weigh in on every AI decision — automatically.'],
-            ['Decision replay', 'Rewind any AI answer to see exactly which sources, policies, and roles shaped it.'],
+            ['Role-based moderation', 'Legal, Finance and Engineering weigh in on every AI decision, automatically.'],
+            ['Decision replay', 'Rewind any AI answer to see exactly which sources, policies and roles shaped it.'],
             ['Policy-as-code', 'Enforce your company\'s AI rules in YAML. No vendor calls required.'],
-            ['Published pricing', 'No "contact sales." Real numbers, online, right now.'],
-            ['EU AI Act readiness', 'Built-in Annex III documentation, FRIA templates, and human-override controls.'],
+            ['EU AI Act readiness', 'Built-in Annex III documentation, FRIA templates and human-override controls.'],
           ].map(([title, desc]) => (
             <div key={title} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
               <span style={{
@@ -159,7 +158,7 @@ export default function ComingSoonPage() {
               }} />
               <div>
                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#e4e4e9' }}>{title}</span>
-                <span style={{ fontSize: '14px', color: '#a1a1b0' }}> — {desc}</span>
+                <span style={{ fontSize: '14px', color: '#a1a1b0' }}>: {desc}</span>
               </div>
             </div>
           ))}

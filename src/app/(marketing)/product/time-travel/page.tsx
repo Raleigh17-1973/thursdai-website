@@ -14,7 +14,7 @@ import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 
 export const metadata: Metadata = {
-  title: 'Time-Travel — Thursdai',
+  title: 'Time-Travel: Thursdai',
   description:
     'Replay any AI decision with the knowledge and policies that were active at the time. Full audit trail for every agent output.',
 };
@@ -92,7 +92,7 @@ export default function TimeTravelPage() {
             <Display>Replay any decision. Exactly as it happened.</Display>
             <Body variant="large">
               Every agent decision is recorded with a snapshot of the active knowledge base, role
-              definitions, and policy set. Go back to any point — not a summary, the actual
+              definitions and policy set. Go back to any point. Not a summary, but the actual
               decision with full provenance.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -132,13 +132,13 @@ export default function TimeTravelPage() {
               variant="feature"
               icon={<IconPolicy />}
               title="Policy state"
-              body="The policy YAML that governed the response is stored alongside the output. You can see exactly which rules applied — and run the same question with the current policy set to see what would change."
+              body="The policy YAML that governed the response is stored alongside the output. You can see exactly which rules applied. Run the same question with the current policy set to see what would change."
             />
             <Card
               variant="feature"
               icon={<IconRoles />}
               title="Role definitions"
-              body="Which roles were active, what their scope was, and which corpus sections they could cite are all part of the snapshot. Role changes are versioned and auditable."
+              body="Which roles were active, what their scope was and which corpus sections they could cite are all part of the snapshot. Role changes are versioned and auditable."
             />
           </Grid>
         </Container>
@@ -156,13 +156,13 @@ export default function TimeTravelPage() {
               variant="feature"
               icon={<IconAudit />}
               title="Regulatory audit"
-              body="When a regulator asks 'what did your AI recommend in March 2025?', you can produce the exact answer with full source attribution — not a reconstruction."
+              body="When a regulator asks 'what did your AI recommend in March 2025?', you can produce the exact answer with full source attribution (not a reconstruction)."
             />
             <Card
               variant="feature"
               icon={<IconInvestigate />}
               title="Incident investigation"
-              body="Trace an AI-influenced decision back through the decision chain. See what knowledge was active, which role drove the recommendation, and what policy applied."
+              body="Trace an AI-influenced decision back through the decision chain. See what knowledge was active, which role drove the recommendation and what policy applied."
             />
             <Card
               variant="feature"

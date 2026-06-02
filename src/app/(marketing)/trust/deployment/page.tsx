@@ -10,9 +10,9 @@ import { EnterpriseCTA } from '@/components/ui/EnterpriseCTA';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Deployment Options — Thursdai',
+  title: 'Deployment Options: Thursdai',
   description:
-    'SaaS multi-tenant, dedicated single-tenant, VPC, and on-premises. Data residency, CMEK support, and deployment timelines for every tier.',
+    'SaaS multi-tenant, dedicated single-tenant, VPC and on-premises. Data residency, CMEK support and deployment timelines for every tier.',
 };
 
 // ── Data ───────────────────────────────────────────────────────
@@ -28,9 +28,9 @@ const MATRIX_ROWS = [
   {
     label: 'CMEK support',
     saas: 'No',
-    dedicated: 'Yes — customer-managed encryption keys',
+    dedicated: 'Yes: customer-managed encryption keys',
     vpc: 'Yes',
-    onprem: 'Yes — bring your own HSM',
+    onprem: 'Yes: bring your own HSM',
   },
   {
     label: 'Deployment time',
@@ -47,11 +47,11 @@ const MATRIX_ROWS = [
     onprem: 'Customer-managed, Thursdai support',
   },
   {
-    label: 'Pricing implication',
-    saas: 'Platform fee + credits + outcome',
-    dedicated: '+$40K/yr dedicated infrastructure',
-    vpc: '+$80K/yr VPC setup + running costs',
-    onprem: 'Custom quote; typically +$150K/yr',
+    label: 'Cost implication',
+    saas: 'Standard plan, no infrastructure add-on',
+    dedicated: 'Dedicated infrastructure add-on',
+    vpc: 'VPC setup and running costs add-on',
+    onprem: 'Custom quote',
   },
 ];
 
@@ -106,8 +106,8 @@ export default function DeploymentPage() {
           <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Deploy where your data needs to live.
           </Heading1>
-          <Body variant="large" style={{ maxWidth: '700px' }}>
-            Four deployment models — from fully managed SaaS to on-premises air-gapped. Every tier
+          <Body variant="large">
+            Four deployment models, from fully managed SaaS to on-premises air-gapped. Every tier
             supports your data residency requirements; CMEK is available from dedicated
             single-tenant upward.
           </Body>
@@ -166,13 +166,13 @@ export default function DeploymentPage() {
             </Callout>
             <Callout variant="info">
               <strong>Dedicated single-tenant is right for you if:</strong> you need logical data
-              isolation, CMEK, or a dedicated endpoint for compliance reasons, but don&apos;t want
+              isolation, CMEK or a dedicated endpoint for compliance reasons, but don&apos;t want
               to manage infrastructure.
             </Callout>
             <Callout variant="warning">
               <strong>VPC or on-premises is right for you if:</strong> regulations prohibit data
               leaving your environment, you need air-gap capability, or you have specific network
-              topology requirements. Engage our enterprise team early — these deployments have lead
+              topology requirements. Engage our enterprise team early; these deployments have lead
               times.
             </Callout>
           </div>

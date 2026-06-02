@@ -13,7 +13,7 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Harvey — Thursdai',
+  title: 'Thursdai vs Harvey',
   description:
     'Where Harvey is strong and where Thursdai differs. Legal AI for lawyers vs. cross-functional AI governance infrastructure.',
 };
@@ -40,7 +40,6 @@ const MATRIX: MatrixRow[] = [
   { feature: 'Tenant knowledge isolation', harvey: 'yes', thursdai: 'yes' },
   { feature: 'EU AI Act Annex III documentation', harvey: 'no', thursdai: 'yes' },
   { feature: 'FRIA/DPIA templates', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Published pricing', harvey: 'no', thursdai: 'yes' },
   { feature: 'MCP server (agent-to-agent)', harvey: 'no', thursdai: 'yes' },
   { feature: 'Ambient case management', harvey: 'partial', thursdai: 'yes' },
   { feature: 'Audit log API', harvey: 'partial', thursdai: 'yes' },
@@ -54,7 +53,7 @@ function StatusCell({ value }: { value: MatrixStatus | string }) {
   if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
   if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>;
   if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">In progress</Badge></td>;
+  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
   return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
 }
 
@@ -66,10 +65,10 @@ export default function CompareHarveyPage() {
         <Container>
           <Label>Thursdai vs Harvey</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Legal AI for lawyers. Governance infrastructure for the whole enterprise.</Heading1>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Harvey is a strong AI platform purpose-built for legal professionals. Thursdai is
             governance infrastructure for cross-functional enterprise AI decisions. These operate
-            at different layers — but legal and compliance teams often evaluate both.
+            at different layers, but legal and compliance teams often evaluate both.
           </Body>
         </Container>
       </Section>
@@ -86,17 +85,17 @@ export default function CompareHarveyPage() {
             <Card
               variant="feature"
               title="Legal document drafting"
-              body="Harvey is purpose-built for lawyers drafting contracts, briefs, and memos. The model is trained on legal corpora and understands legal language, structure, and risk in ways general models don't. For legal drafting at scale, Harvey's quality is real."
+              body="Harvey is purpose-built for lawyers drafting contracts, briefs and memos. The model is trained on legal corpora and understands legal language, structure and risk in ways general models don't. For legal drafting at scale, Harvey's quality is real."
             />
             <Card
               variant="feature"
               title="Contract review and redlining"
-              body="Harvey can review contracts, flag non-standard clauses, and suggest redlines in context. If your primary workflow is contract review — especially in volume — Harvey's legal specialization gives it an edge over general AI tools."
+              body="Harvey can review contracts, flag non-standard clauses and suggest redlines in context. If your primary workflow is contract review, especially in volume, Harvey's legal specialization gives it an edge over general AI tools."
             />
             <Card
               variant="feature"
               title="Legal research depth"
-              body="Harvey integrates with legal research platforms and understands case law, precedent, and statute in ways that matter to attorneys. For lawyers doing deep legal research, Harvey's domain specialization is valuable."
+              body="Harvey integrates with legal research platforms and understands case law, precedent and statute in ways that matter to attorneys. For lawyers doing deep legal research, Harvey's domain specialization is valuable."
             />
           </Grid>
         </Container>
@@ -107,29 +106,29 @@ export default function CompareHarveyPage() {
         <Container>
           <Heading2>Where Thursdai differs</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons — they&apos;re architectural differences that
+            These aren&apos;t feature comparisons. They&apos;re architectural differences that
             matter when decisions cross domain lines.
           </Body>
           <Grid cols={2} gap="lg">
             <Card
               variant="feature"
               title="Cross-functional governance vs single-domain AI"
-              body="Harvey is built for legal professionals doing legal work. Thursdai governs decisions that simultaneously require Legal, Finance, and Engineering input — and reconciles them. If a decision crosses domain lines, Harvey has no answer for Finance or Engineering."
+              body="Harvey is built for legal professionals doing legal work. Thursdai governs decisions that simultaneously require Legal, Finance and Engineering input, and reconciles them. If a decision crosses domain lines, Harvey has no answer for Finance or Engineering."
             />
             <Card
               variant="feature"
               title="Decision replay vs no audit trail"
-              body="Every Thursdai decision is recorded with the knowledge and policies active at that exact moment. You can replay any decision from two years ago with full provenance. Harvey has no decision replay capability — decisions are stateless."
+              body="Every Thursdai decision is recorded with the knowledge and policies active at that exact moment. You can replay any decision from two years ago with full provenance. Harvey has no decision replay capability. Decisions are stateless."
             />
             <Card
               variant="feature"
               title="Policy-as-Code vs no enforcement layer"
-              body="Thursdai enforces governance rules at the inference layer in YAML — pricing floors, PII blocks, role scope constraints — before any answer reaches a user. Harvey has no equivalent policy enforcement mechanism across domains."
+              body="Thursdai enforces governance rules at the inference layer in YAML (pricing floors, PII blocks, role scope constraints) before any answer reaches a user. Harvey has no equivalent policy enforcement mechanism across domains."
             />
             <Card
               variant="feature"
               title="Infrastructure vs application"
-              body="Harvey is a legal work application. Thursdai is infrastructure that other applications and agents call. If you need governed AI across your entire enterprise stack — not just your legal team — Thursdai operates at a different layer."
+              body="Harvey is a legal work application. Thursdai is infrastructure that other applications and agents call. If you need governed AI across your entire enterprise stack, not just your legal team, Thursdai operates at a different layer."
             />
           </Grid>
         </Container>
@@ -171,14 +170,14 @@ export default function CompareHarveyPage() {
             <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
               <li>
                 <strong>Your primary users are attorneys doing legal work.</strong> Harvey&apos;s
-                domain specialization — legal drafting, contract review, legal research — is
+                domain specialization (legal drafting, contract review, legal research) is
                 purpose-built for lawyers. If the user is an attorney and the work is legal,
                 Harvey&apos;s depth in that domain is ahead of general-purpose governance infrastructure.
               </li>
               <li>
                 <strong>Your AI use case stays within the legal department.</strong> If the
-                decisions you need to govern are entirely legal in nature — no Finance or
-                Engineering input required — Harvey&apos;s legal specialization may be more
+                decisions you need to govern are entirely legal in nature, with no Finance or
+                Engineering input required, Harvey&apos;s legal specialization may be more
                 valuable than cross-functional governance.
               </li>
               <li>
@@ -196,7 +195,7 @@ export default function CompareHarveyPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Callout variant="info" title="Bottom line">
-            Harvey makes lawyers faster. Thursdai governs decisions across Legal, Finance, and
+            Harvey makes lawyers faster. Thursdai governs decisions across Legal, Finance and
             Engineering simultaneously. If a decision requires more than one domain and you need
             to audit it, Harvey alone isn&apos;t the answer.
           </Callout>

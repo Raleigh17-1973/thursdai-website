@@ -12,9 +12,9 @@ import { Card } from '@/components/ui/Card';
 import { DealDesigner } from '@/components/demos/DealDesigner';
 
 export const metadata: Metadata = {
-  title: 'Pricing — Thursdai',
+  title: 'Pricing: Thursdai',
   description:
-    'Published pricing for Thursdai. Platform fee, credit units, and outcome-based pricing. No "contact us" — design your deal and see the math.',
+    'Published pricing for Thursdai. Platform fee, credit units and outcome-based pricing. No "contact us": design your deal and see the math.',
 };
 
 const PRICING_FAQ = [
@@ -24,15 +24,15 @@ const PRICING_FAQ = [
   },
   {
     q: 'Can we negotiate?',
-    a: "Enterprise and Fortune 100 tiers have flexibility on multi-year commitments, bundled professional services, and custom SLAs. The published platform fee and per-unit rates are our standard terms — we don't discount those for early-stage customers.",
+    a: "Enterprise and Fortune 100 tiers have flexibility on multi-year commitments, bundled professional services and custom SLAs. The published platform fee and per-unit rates are our standard terms. We don't discount those for early-stage customers.",
   },
   {
     q: 'What if our usage is unpredictable?',
-    a: "Credits are billed monthly in arrears based on actual usage. You can set a monthly credit cap — if you hit the cap, inference pauses rather than running up an unexpected bill. No surprises.",
+    a: "Credits are billed monthly in arrears based on actual usage. You can set a monthly credit cap. If you hit the cap, inference pauses rather than running up an unexpected bill. No surprises.",
   },
   {
     q: 'How does the outcome unit get measured?',
-    a: "A \"closed case\" is a case that transitions to a terminal state (resolved, closed, or archived) in Thursdai's Ambient Cases system. Only cases that Thursdai actively processed count — cases imported for record-keeping without inference do not.",
+    a: "A \"closed case\" is a case that transitions to a terminal state (resolved, closed or archived) in Thursdai's Ambient Cases system. Only cases that Thursdai actively processed count. Cases imported for record-keeping without inference do not.",
   },
   {
     q: 'Is there a free trial or proof-of-concept tier?',
@@ -40,11 +40,11 @@ const PRICING_FAQ = [
   },
   {
     q: 'What does the platform fee cover?',
-    a: 'The platform fee covers: unlimited role configurations, unlimited policy rules, all deployment models (SaaS through VPC), standard corpus access, support (SLA depends on tier), and SSO/SCIM provisioning.',
+    a: 'The platform fee covers: unlimited role configurations, unlimited policy rules, all deployment models (SaaS through VPC), standard corpus access, support (SLA depends on tier) and SSO/SCIM provisioning.',
   },
   {
     q: 'Are credits shared across departments?',
-    a: 'Yes — credits are pooled at the tenant level. You can configure per-department budgets and alerts via the admin API, but the underlying credit pool is shared.',
+    a: 'Yes, credits are pooled at the tenant level. You can configure per-department budgets and alerts via the admin API, but the underlying credit pool is shared.',
   },
   {
     q: 'What happens at overage?',
@@ -75,9 +75,9 @@ export default function PricingPage() {
         <Container>
           <Label>Pricing</Label>
           <Display style={{ marginTop: '0.75rem' }}>Published pricing. Tuned to outcome.</Display>
-          <Body variant="large" style={{ maxWidth: '640px', marginTop: '1rem' }}>
+          <Body variant="large" style={{ marginTop: '1rem' }}>
             Three components. All published. No &ldquo;contact us for pricing.&rdquo; Design your
-            deal below — the math is transparent and the formula is shown.
+            deal below. The math is transparent and the formula is shown.
           </Body>
         </Container>
       </Section>
@@ -94,7 +94,7 @@ export default function PricingPage() {
               textAlign: 'center',
             }}
           >
-            Example deals — click to load in the calculator below
+            Example deals: click to load in the calculator below
           </p>
           <Grid cols={3} gap="md">
             <div
@@ -216,12 +216,12 @@ export default function PricingPage() {
             {[
               {
                 name: 'Platform fee',
-                desc: 'Annual fee based on seat count. Covers all roles, all policies, all deployment models, and unlimited policy rules. No per-seat overage.',
+                desc: 'Annual fee based on seat count. Covers all roles, all policies, all deployment models and unlimited policy rules. No per-seat overage.',
                 when: 'From day one of your subscription.',
               },
               {
                 name: 'Credits',
-                desc: 'Per 1,000 inference tokens across all role invocations. Pooled across your entire tenant — not per-user or per-role.',
+                desc: 'Per 1,000 inference tokens across all role invocations. Pooled across your entire tenant, not per-user or per-role.',
                 when: 'Each time invoke_role() or replay_case() is called.',
               },
               {
