@@ -16,13 +16,16 @@ export function getPostHogClient(): PostHog {
   return _client;
 }
 
-export type HeroVariant = 'option-a' | 'option-b';
+export type HeroVariant = 'option-a' | 'option-b' | 'option-c';
 
 export async function getHeroVariant(distinctId: string): Promise<HeroVariant> {
   try {
     const client = getPostHogClient();
     const flag = await client.getFeatureFlag('hero-variant', distinctId);
+    // option-c is the dashboard-forward hero. Add 'option-c' as a variant key on the
+    // 'hero-variant' flag in PostHog to roll it into the A/B test; until then it stays dormant.
     if (flag === 'option-b') return 'option-b';
+    if (flag === 'option-c') return 'option-c';
   } catch {
     // Fall back to option-a if PostHog is unavailable
   }

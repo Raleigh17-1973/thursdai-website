@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'Product: Thursdai',
   description:
-    'Five capabilities that let regulated enterprises actually deploy AI: role-based moderation, decision replay, policy enforcement, ambient case assembly and isolated knowledge.',
+    'The capabilities that let regulated enterprises actually deploy AI: role-based moderation, decision replay, policy enforcement, ambient case assembly, isolated knowledge and signed compliance packs.',
 };
 
 const PILLARS = [
@@ -57,6 +57,14 @@ const PILLARS = [
       'A shared standard corpus of regulatory frameworks and best practices, plus a cryptographically isolated tenant layer for your proprietary policies and precedents. Never mixed.',
     callout: 'Knowledge isolation',
   },
+  {
+    label: 'Capability',
+    title: 'Compliance Packs',
+    href: '/product/compliance-packs',
+    description:
+      'Every recorded decision can be rendered into a signed, framework-shaped evidence bundle on demand. The exportable, auditor-ready form of the audit trail.',
+    callout: 'Signed evidence',
+  },
 ];
 
 export default function ProductPage() {
@@ -70,8 +78,8 @@ export default function ProductPage() {
             The governed agent substrate.
           </Heading1>
           <Body variant="large" style={{ marginTop: '1rem' }}>
-            Five capabilities designed together so regulated enterprises can deploy AI that
-            explains every decision, enforces policy automatically and passes any audit.
+            Capabilities designed together so regulated enterprises can deploy AI that explains
+            every decision, enforces policy automatically and produces audit-ready evidence.
           </Body>
         </Container>
       </Section>
@@ -79,8 +87,8 @@ export default function ProductPage() {
       {/* ── Five pillars ── */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
-          <Grid cols={2} gap="lg">
-            {PILLARS.slice(0, 4).map((pillar) => (
+          <Grid cols={3} gap="lg">
+            {PILLARS.map((pillar) => (
               <Card
                 key={pillar.href}
                 variant="feature"
@@ -91,17 +99,6 @@ export default function ProductPage() {
               />
             ))}
           </Grid>
-          {/* Fifth pillar centered */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1.5rem' }}>
-            <div style={{ maxWidth: '480px', width: '100%' }}>
-              <Card
-                variant="feature"
-                title={PILLARS[4].title}
-                body={PILLARS[4].description}
-                href={PILLARS[4].href}
-              />
-            </div>
-          </div>
         </Container>
       </Section>
 
@@ -113,7 +110,8 @@ export default function ProductPage() {
             Each pillar is useful on its own. Together, they form a complete governance
             layer: the Moderator deliberates, Policy-as-Code constrains, Two-Tier Knowledge
             grounds every response, Time-Travel records the outcome and Ambient Cases
-            ensures nothing falls through.
+            ensures nothing falls through. A signed compliance pack turns that record into
+            evidence.
           </Body>
           <Body style={{ marginTop: '0.75rem' }}>
             Every answer is traceable. Every policy is provable. Every audit is answerable.
