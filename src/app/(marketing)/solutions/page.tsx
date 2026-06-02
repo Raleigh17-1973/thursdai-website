@@ -51,7 +51,7 @@ export default function SolutionsPage() {
       <Section variant="compact">
         <Container>
           <Heading2>Built on the same substrate.</Heading2>
-          <Body style={{ maxWidth: '680px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Every space inherits role-based moderation, decision replay, policy-as-code, isolated
             tenant knowledge and signed compliance packs. The substrate does not change from one
             space to the next. What changes is the domain: the roles that deliberate, the policies

@@ -48,7 +48,7 @@ export default function PeopleSolutionPage() {
           <Display style={{ marginTop: '0.75rem' }}>
             Your hiring AI is now a regulated system. Prove it behaves.
           </Display>
-          <Body variant="large" style={{ marginTop: '1.5rem', maxWidth: '720px' }}>
+          <Body variant="large" style={{ marginTop: '1.5rem' }}>
             If an automated tool touches a hiring decision, you owe an independent bias audit, a
             public summary and candidate notice under NYC Local Law 144, and deployer obligations
             under the EU AI Act. The People space governs those decisions and produces the evidence
@@ -93,7 +93,7 @@ export default function PeopleSolutionPage() {
       <Section variant="compact">
         <Container>
           <Heading2>What the People space governs.</Heading2>
-          <Body style={{ maxWidth: '720px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Every AI-assisted decision in the hiring funnel runs through the same governed
             substrate: role-based deliberation, policy-as-code constraints and a recorded,
             replayable decision. On top of that, the People space adds the views a workforce team
@@ -123,7 +123,7 @@ export default function PeopleSolutionPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2>Shaped to the frameworks you answer to.</Heading2>
-          <Body style={{ maxWidth: '680px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Thursdai does not perform your independent audit. It produces the evidence and
             documentation that audit, and your regulators, expect, shaped to each framework.
           </Body>
@@ -154,7 +154,7 @@ export default function PeopleSolutionPage() {
       <Section variant="compact">
         <Container>
           <Heading2>Every decision becomes evidence.</Heading2>
-          <Body style={{ maxWidth: '720px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Because each decision is recorded with its sources, roles and policy state, the People
             space can produce a signed compliance pack on demand: methodology, population, selection
             and impact ratios, findings and provenance, in a format an auditor accepts.
