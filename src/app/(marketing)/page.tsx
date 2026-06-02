@@ -15,6 +15,7 @@ import { ReplayDemo } from '@/components/demos/ReplayDemo';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
+import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
@@ -184,6 +185,16 @@ export default async function HomePage() {
                       layer. Not bolted on after.
                     </Body>
                   </>
+                ) : variant === 'option-c' ? (
+                  <>
+                    <Display>
+                      Every AI decision your business makes, <span className="dawn-gradient-text">in one place you can answer for.</span>
+                    </Display>
+                    <Body variant="large">
+                      Governed decisions, signed evidence and an executive view of it all. Built
+                      for teams where AI outputs have real consequences.
+                    </Body>
+                  </>
                 ) : (
                   <>
                     <Display>
@@ -214,7 +225,7 @@ export default async function HomePage() {
                 </div>
               </div>
             }
-            right={<ReplayDemo />}
+            right={variant === 'option-c' ? <ExecutiveDashboard /> : <ReplayDemo />}
           />
         </Container>
         <ScrollCue />
@@ -443,6 +454,31 @@ export default async function HomePage() {
               <CertBadge key={badge.name} {...badge} />
             ))}
           </div>
+        </Container>
+      </Section>
+
+      {/* ── Section 7: Solutions / People + executive dashboard ── */}
+      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
+            Solutions
+          </Label>
+          <Heading2 style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <span className="font-display">Put it to work where the stakes are highest.</span>
+          </Heading2>
+          <Body
+            style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 2.5rem', color: 'var(--color-text-secondary)' }}
+          >
+            The People space governs hiring and workforce AI: bias-audit evidence, an AI system
+            register and a compliance pack for every framework an HR team answers to. Leaders see
+            it all at a glance.
+          </Body>
+          <ExecutiveDashboard />
+          <p style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <Link href="/solutions/people" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}>
+              Explore the People space →
+            </Link>
+          </p>
         </Container>
       </Section>
 

@@ -51,6 +51,12 @@ export function middleware(request: NextRequest) {
     }
   }
 
+  // ── Retired coming-soon page ───────────────────────────────────
+  // The full site is live. Redirect any bookmarked /coming-soon links to home.
+  if (!COMING_SOON && pathname === '/coming-soon') {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
   // ── PostHog distinct-ID cookie ─────────────────────────────────
   const response = NextResponse.next();
   if (!request.cookies.get(DISTINCT_ID_COOKIE)) {
