@@ -43,7 +43,7 @@ export default function CompliancePacksPage() {
           />
           <Label style={{ marginTop: '1.5rem', display: 'block' }}>Compliance Packs</Label>
           <Display style={{ marginTop: '0.75rem' }}>Evidence on demand.</Display>
-          <Body variant="large" style={{ marginTop: '1.5rem', maxWidth: '720px' }}>
+          <Body variant="large" style={{ marginTop: '1.5rem' }}>
             A compliance pack is a signed, framework-shaped evidence bundle generated on demand from
             the AI Decision Ledger. It is the exportable, auditor-ready form of the decisions
             Thursdai already records, not a report you assemble by hand the week before an audit.
@@ -60,7 +60,7 @@ export default function CompliancePacksPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2>From audit trail to signed evidence.</Heading2>
-          <Body style={{ maxWidth: '720px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Time-Travel records every decision with the knowledge, roles and policy state active at
             the time. A pack is that record, selected for a framework, rendered into a document and
             cryptographically signed so it cannot be altered after the fact.
@@ -89,7 +89,7 @@ export default function CompliancePacksPage() {
       <Section variant="compact">
         <Container>
           <Heading2>What is inside a pack.</Heading2>
-          <Body style={{ maxWidth: '720px', marginTop: '1rem' }}>
+          <Body style={{ marginTop: '1rem' }}>
             Packs are shaped to the framework they serve. A bias-audit pack, for example, is
             structured so an independent auditor or a regulator can read it without translation.
           </Body>
