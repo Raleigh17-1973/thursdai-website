@@ -32,26 +32,26 @@ const CERT_BADGES = [
 
 // ── invoke_role code snippet ───────────────────────────────────
 
-const INVOKE_ROLE_SNIPPET = `from thursdai import ThursdaiClient
+const RECORD_RECEIPT_SNIPPET = `from thursdai import ThursdaiClient
 
 client = ThursdaiClient(api_key="thy_live_...")
 
-# Route a question through three roles
-result = client.invoke_role(
-    question="Should we deploy GPT-4o to tier-1 clients?",
-    roles=["legal", "finance", "engineering"],
-    tenant_id="acme-financial",
-    policy_set="production-v2",
+# Record a decision made by any AI system
+receipt = client.receipts.record(
+    source="greenhouse-screening-agent",
+    model="gpt-4o",
+    decision="Advanced applicant 4821 to interview stage",
+    context={
+        "job_req": "JR-204",
+        "rubric_version": "v3",
+        "tenant_id": "acme-financial",
+    },
 )
 
-# Access role-specific answers
-for role in result.panel:
-    print(f"{role.name}: {role.answer}")
-    print(f"  Sources: {[s.name for s in role.sources]}")
-
-# Get the Moderator's reconciled answer
-print(result.moderator.answer)
-print(f"Consensus: {result.moderator.consensus}")`;
+# The receipt is signed and compliance-checked immediately
+print(f"Receipt:  {receipt.id}")
+print(f"Signed:   {receipt.signed_at}")
+print(f"Checks:   {receipt.compliance_results}")`;
 
 // ── Inline SVG icons ─────────────────────────────────────────
 
@@ -501,10 +501,10 @@ export default function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <Label style={{ color: '#8b9ef0' }}>Developers</Label>
                 <Heading2 style={{ color: '#e4e4e7' }}>
-                  <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
+                  <span className="font-display">Any AI system. One call. A signed receipt.</span>
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
-                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK and MCP server. Connect to your existing systems, automate workflows and build on top of Thursdai&apos;s roles and policies.
+                  Wherever a decision happens in your stack — your own model, a vendor&apos;s agent or a third-party tool — record it to Thursdai with a single API call. The receipt is signed, compliance-checked and stored against your tenant the moment it lands.
                 </Body>
                 <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →
@@ -514,8 +514,8 @@ export default function HomePage() {
             right={
               <CodeBlock
                 language="python"
-                filename="example.py"
-                code={INVOKE_ROLE_SNIPPET}
+                filename="record_receipt.py"
+                code={RECORD_RECEIPT_SNIPPET}
               />
             }
           />
