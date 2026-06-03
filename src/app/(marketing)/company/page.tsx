@@ -23,7 +23,7 @@ export default function CompanyPage() {
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Label>Our Story</Label>
-          <Display style={{ marginTop: '1rem' }}>
+          <Display style={{ marginTop: '1rem', fontFamily: 'var(--font-display)' }}>
             Built because I couldn&apos;t see what my own agents were doing.
           </Display>
           <Body variant="large" style={{ marginTop: '1.5rem' }}>
@@ -60,7 +60,7 @@ export default function CompanyPage() {
       {/* ── Section 2: What we're building ── */}
       <Section variant="compact">
         <Container>
-          <Heading2>What we&apos;re building</Heading2>
+          <Heading2><span className="font-display">What we&apos;re building</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
             Thursdai is a governed agent substrate: a thin, specialized layer that sits between
             AI models and regulated enterprise workflows. Every answer is role-moderated, every
@@ -77,7 +77,7 @@ export default function CompanyPage() {
       {/* ── Section 3: Why now ── */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
-          <Heading2>Why now</Heading2>
+          <Heading2><span className="font-display">Why now</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
             The EU AI Act binding date, SEC AI disclosure rules and three years of enterprises
             deploying AI without governance have created a forcing function. Every major financial
@@ -94,7 +94,7 @@ export default function CompanyPage() {
       {/* ── Section 4: Why Thursdai wins ── */}
       <Section variant="compact">
         <Container>
-          <Heading2>Why Thursdai wins</Heading2>
+          <Heading2><span className="font-display">Why Thursdai wins</span></Heading2>
           <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
             <Card
               variant="feature"
@@ -118,7 +118,7 @@ export default function CompanyPage() {
       {/* ── Section 5: Design partners ── */}
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
-          <Heading2>Early design partners</Heading2>
+          <Heading2><span className="font-display">Early design partners</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
             We&apos;re working with a small group of design partners in financial services,
             healthcare and legal: industries where the cost of an unauditable AI decision is
@@ -141,7 +141,7 @@ export default function CompanyPage() {
       {/* ── Section 6: For investors ── */}
       <Section variant="compact">
         <Container>
-          <Heading2>For investors</Heading2>
+          <Heading2><span className="font-display">For investors</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
             We&apos;re building Thursdai with a small group of design partners and early customers.
             If you&apos;re an investor who sees the AI governance opportunity, I&apos;d like to talk.
@@ -160,7 +160,7 @@ export default function CompanyPage() {
       {/* ── Section 7: Press & Media ── */}
       <Section variant="compact">
         <Container>
-          <Heading2>Press &amp; Media</Heading2>
+          <Heading2><span className="font-display">Press &amp; Media</span></Heading2>
           <Body style={{ marginTop: '1rem', color: 'var(--color-text-secondary)' }}>
             For press inquiries, interview requests or the media kit, email{' '}
             <a href="mailto:press@thursdai.com" style={{ color: 'var(--color-accent)' }}>
