@@ -178,11 +178,12 @@ export default async function HomePage() {
                 {variant === 'option-a' ? (
                   <>
                     <Display>
-                      AI governance infrastructure for teams that <span className="dawn-gradient-text">can&apos;t afford to be wrong.</span>
+                      Every AI decision, <span className="dawn-gradient-text">on the record.</span>
                     </Display>
                     <Body variant="large">
-                      Multi-role deliberation, decision replay and policy enforcement at the model
-                      layer. Not bolted on after.
+                      Thursdai is AI governance infrastructure that writes an AI Receipt for every
+                      decision your AI makes: the answer, the roles, the policies and the sources.
+                      Audit-ready evidence, not bolted on after.
                     </Body>
                   </>
                 ) : variant === 'option-c' ? (
@@ -216,9 +217,9 @@ export default async function HomePage() {
                   letterSpacing: '0.04em', textTransform: 'uppercase',
                 }}>
                   {[
+                    '✓ A receipt for every decision',
+                    '✓ Audit-ready evidence',
                     '✓ EU AI Act ready',
-                    '✓ Role-based moderation',
-                    '✓ Full decision audit trail',
                   ].map((item) => (
                     <span key={item}>{item}</span>
                   ))}
@@ -284,16 +285,9 @@ export default async function HomePage() {
           <Grid cols={3} gap="md" data-animate="stagger">
             <Card
               variant="feature"
-              icon={<IconPanel />}
-              title="A panel, not a chatbot"
-              body="Ask once and get perspectives from all your business areas, Legal, Finance, Operations, at the same time. Thursdai combines them into one clear answer, and shows you exactly where each part came from."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-            <Card
-              variant="feature"
               icon={<IconReplay />}
-              title="Replay any decision"
-              body="Every agent decision is recorded with the knowledge and policies that were active at the time. Go back to any point and see exactly what happened and why."
+              title="An AI Receipt for every decision"
+              body="Every decision your AI makes is recorded as a signed AI Receipt: the answer, the roles that weighed in, the policies that applied and the sources cited. The provable record behind every answer, ready to replay or bundle into an audit pack."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
             <Card
@@ -303,6 +297,13 @@ export default async function HomePage() {
               body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
               className="hover:-translate-y-1 transition-transform duration-200"
             />
+            <Card
+              variant="feature"
+              icon={<IconPanel />}
+              title="A panel behind every answer"
+              body="Roles deliberate before any answer reaches you, and that deliberation is captured on the receipt. The substance behind the record, not the headline."
+              className="hover:-translate-y-1 transition-transform duration-200"
+            />
           </Grid>
         </Container>
       </Section>
@@ -310,15 +311,15 @@ export default async function HomePage() {
       {/* ── Section 3: Moderator Demo ────────────────────────── */}
       <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
         <Container>
-          <Label style={{ color: '#8b9ef0' }}>Moderator</Label>
+          <Label style={{ color: '#8b9ef0' }}>Behind the receipt</Label>
           <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
-            <span className="font-display">Your whole team, asked at once. One clear answer.</span>
+            <span className="font-display">What makes a receipt worth reading.</span>
           </Heading2>
           <Body
             variant="large"
             style={{ color: '#a1a1aa', marginTop: '1rem' }}
           >
-            One question. Every relevant perspective. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules before the answer reaches you.
+            Behind every AI Receipt is a panel, not a single model. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules. That deliberation is what each receipt records.
           </Body>
           <ModeratorPanel />
           <div style={{ marginTop: '2rem' }}>

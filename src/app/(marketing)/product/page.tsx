@@ -18,39 +18,39 @@ export const metadata: Metadata = {
 
 const PILLARS = [
   {
-    label: 'Pillar 1',
-    title: 'Moderator',
-    href: '/product/moderator',
+    label: 'The record',
+    title: 'AI Receipts',
+    href: '/product/ai-receipts',
     description:
-      'Legal, Finance and Engineering respond simultaneously. The Moderator reconciles their answers, flags disagreements and applies your policies before anything reaches a user.',
-    callout: 'Role-based answer panels',
+      'Every AI decision is recorded as a signed AI Receipt: the answer, the roles, the policies and the sources. The provable record behind every answer.',
+    callout: 'Provable record',
   },
   {
-    label: 'Pillar 2',
+    label: 'Replay',
     title: 'Time-Travel',
     href: '/product/time-travel',
     description:
-      'Every decision is recorded with a snapshot of the active knowledge base, role definitions and policy set at that exact moment. Replay any answer, exactly as it happened.',
+      'Reopen any AI Receipt exactly as it was, with the knowledge base, role definitions and policy set that were live at that moment.',
     callout: 'Decision replay',
   },
   {
-    label: 'Pillar 3',
+    label: 'Evidence',
+    title: 'Compliance Packs',
+    href: '/product/compliance-packs',
+    description:
+      'Bundle the relevant receipts into a signed, framework-shaped evidence pack on demand. The auditor-ready form of the record.',
+    callout: 'Signed audit packs',
+  },
+  {
+    label: 'Constraints',
     title: 'Policy-as-Code',
     href: '/product/policy-as-code',
     description:
-      'Express governance rules in plain YAML. Thursdai enforces them at the inference layer, before any answer reaches a user. The model cannot override them.',
+      'Express governance rules in plain YAML. Thursdai enforces them at the inference layer, before any answer reaches a user, and records them on every receipt.',
     callout: 'Hard constraint enforcement',
   },
   {
-    label: 'Pillar 4',
-    title: 'Ambient Cases',
-    href: '/product/ambient-cases',
-    description:
-      'Thursdai monitors your event streams and assembles structured case files in the background. By the time an investigator opens a case, the evidence is already there.',
-    callout: 'Background case assembly',
-  },
-  {
-    label: 'Pillar 5',
+    label: 'Knowledge',
     title: 'Two-Tier Knowledge',
     href: '/product/two-tier-knowledge',
     description:
@@ -58,12 +58,20 @@ const PILLARS = [
     callout: 'Knowledge isolation',
   },
   {
-    label: 'Capability',
-    title: 'Compliance Packs',
-    href: '/product/compliance-packs',
+    label: 'Cases',
+    title: 'Ambient Cases',
+    href: '/product/ambient-cases',
     description:
-      'Every recorded decision can be rendered into a signed, framework-shaped evidence bundle on demand. The exportable, auditor-ready form of the audit trail.',
-    callout: 'Signed evidence',
+      'Thursdai monitors your event streams and assembles structured case files in the background. By the time an investigator opens a case, the evidence is already there.',
+    callout: 'Background case assembly',
+  },
+  {
+    label: 'The panel',
+    title: 'Moderator',
+    href: '/product/moderator',
+    description:
+      'Legal, Finance and Engineering deliberate before any answer reaches a user. The panel behind every answer, and the substance each receipt records.',
+    callout: 'Multi-role deliberation',
   },
 ];
 
@@ -78,8 +86,9 @@ export default function ProductPage() {
             The governed agent substrate.
           </Heading1>
           <Body variant="large" style={{ marginTop: '1rem' }}>
-            Capabilities designed together so regulated enterprises can deploy AI that explains
-            every decision, enforces policy automatically and produces audit-ready evidence.
+            Every AI decision becomes a provable record. These capabilities, designed together, let
+            regulated enterprises deploy AI that documents every decision, enforces policy
+            automatically and produces audit-ready evidence.
           </Body>
         </Container>
       </Section>
@@ -108,10 +117,9 @@ export default function ProductPage() {
           <Heading2>Designed to work together.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
             Each pillar is useful on its own. Together, they form a complete governance
-            layer: the Moderator deliberates, Policy-as-Code constrains, Two-Tier Knowledge
-            grounds every response, Time-Travel records the outcome and Ambient Cases
-            ensures nothing falls through. A signed compliance pack turns that record into
-            evidence.
+            layer: every decision becomes an AI Receipt, Policy-as-Code constrains it, Two-Tier
+            Knowledge grounds it, Time-Travel replays it and a signed audit pack turns the receipts
+            into evidence. The Moderator is the panel behind each answer.
           </Body>
           <Body style={{ marginTop: '0.75rem' }}>
             Every answer is traceable. Every policy is provable. Every audit is answerable.
