@@ -191,6 +191,15 @@ a:hover { text-decoration: underline; }
   }
 }
 
+/* Always-dark variant: forces the periwinkle→amber gradient for marks that sit
+   on a dark panel (e.g. the footer) regardless of the active theme. */
+.dawn-gradient-text-dark {
+  background: linear-gradient(135deg, #8b9ef0 0%, #c084fc 55%, #e8a34a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* ── Display font utility ─────────────────────────────────────── */
 .font-display {
   font-family: var(--font-display);
@@ -349,4 +358,54 @@ a:hover { text-decoration: underline; }
   background: linear-gradient(90deg, transparent 0%, rgba(62,79,184,0.3) 30%, rgba(91,58,122,0.3) 70%, transparent 100%);
   border: none;
   margin: 0;
+}
+
+/* ── Hero dawn backdrop (theme-aware) ───────────────────────────
+   The "a new day for regulated AI" sunrise behind the homepage hero.
+   Light: warm paper with an amber sunrise welling up from the base.
+   Dark:  a deep night sky with the sunrise glowing at the horizon.
+   Pure CSS gradients so it is full-bleed, responsive and zero-weight. */
+.hero-dawn {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-dawn__sky,
+.hero-dawn__sun {
+  position: absolute;
+  inset: 0;
+}
+/* Light theme (default) */
+.hero-dawn__sky {
+  background:
+    radial-gradient(120% 74% at 50% 116%, rgba(232,163,74,0.42) 0%, rgba(232,163,74,0.16) 34%, transparent 66%),
+    radial-gradient(72% 58% at 10% -8%, rgba(62,79,184,0.16) 0%, transparent 60%),
+    radial-gradient(64% 52% at 92% -6%, rgba(91,58,122,0.14) 0%, transparent 60%);
+}
+.hero-dawn__sun {
+  background: radial-gradient(50% 46% at 50% 112%, rgba(246,200,120,0.58) 0%, rgba(246,200,120,0) 72%);
+}
+/* Dark theme */
+:root[data-theme="dark"] .hero-dawn__sky {
+  background:
+    radial-gradient(120% 78% at 50% 120%, rgba(232,163,74,0.30) 0%, rgba(184,105,60,0.14) 30%, transparent 60%),
+    radial-gradient(85% 60% at 78% 116%, rgba(192,132,252,0.16) 0%, transparent 56%),
+    linear-gradient(180deg, #0a0a0e 0%, #0d1030 46%, #161141 74%, #221a46 100%);
+}
+:root[data-theme="dark"] .hero-dawn__sun {
+  background: radial-gradient(44% 40% at 50% 114%, rgba(246,200,120,0.40) 0%, rgba(246,200,120,0) 72%);
+}
+/* Auto dark (system preference, no explicit data-theme) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .hero-dawn__sky {
+    background:
+      radial-gradient(120% 78% at 50% 120%, rgba(232,163,74,0.30) 0%, rgba(184,105,60,0.14) 30%, transparent 60%),
+      radial-gradient(85% 60% at 78% 116%, rgba(192,132,252,0.16) 0%, transparent 56%),
+      linear-gradient(180deg, #0a0a0e 0%, #0d1030 46%, #161141 74%, #221a46 100%);
+  }
+  :root:not([data-theme="light"]):not([data-theme="dark"]) .hero-dawn__sun {
+    background: radial-gradient(44% 40% at 50% 114%, rgba(246,200,120,0.40) 0%, rgba(246,200,120,0) 72%);
+  }
 }

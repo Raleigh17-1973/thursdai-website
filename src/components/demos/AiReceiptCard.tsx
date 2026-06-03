@@ -122,8 +122,8 @@ export function AiReceiptCard() {
         }}
       >
         <span style={{ fontSize: '11px', color: 'var(--color-text-tertiary)' }}>Illustrative data</span>
-        <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-accent)' }}>
-          Replay this receipt →
+        <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>
+          Recorded and signed
         </span>
       </div>
     </div>
