@@ -351,6 +351,134 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* ── Thursdai Agent ───────────────────────────────────── */}
+      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
+        <Container>
+          <Label style={{ color: '#8b9ef0' }}>Thursdai Agent</Label>
+          <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1rem' }}>
+            <span className="font-display">Governed answers for every question your team asks.</span>
+          </Heading2>
+          <Body variant="large" style={{ color: '#a1a1aa', maxWidth: '680px', marginBottom: '3rem' }}>
+            When your employees use the Thursdai Agent, every answer is grounded in your business&apos;s own knowledge base — your policies, procedures, contracts and guidelines. The agent cannot answer outside what you have approved. Every response is an AI Receipt showing exactly what knowledge was used, which policies applied and what alternatives were considered.
+          </Body>
+
+          {/* Split: example agent session left, use cases right */}
+          <Split
+            ratio="50/50"
+            alignItems="start"
+            gap="xl"
+            left={
+              <div>
+                {/* Example agent session */}
+                <div style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                }}>
+                  {/* Question bubble */}
+                  <div style={{ padding: '1rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0', margin: '0 0 0.5rem' }}>Employee question</p>
+                    <p style={{ fontSize: '14px', color: '#e4e4e7', margin: 0, lineHeight: 1.5 }}>
+                      &ldquo;Can we reject a candidate based on a three-year employment gap?&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Internal receipt */}
+                  <div style={{ padding: '1rem 1.25rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                      <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8b9ef0' }}>AI Receipt — Internal</span>
+                      <span style={{ fontSize: '10px', fontWeight: 600, color: '#8b9ef0' }}>✓ Signed</span>
+                    </div>
+
+                    <p style={{ fontSize: '13px', color: '#e4e4e7', lineHeight: 1.5, margin: '0 0 1rem', fontWeight: 500 }}>
+                      No. Under Fair Hiring Policy §4.2, employment gaps cannot be used as a disqualifying factor without documented evidence of role-relevant impact. Document your reasoning if this affects a decision.
+                    </p>
+
+                    {/* Knowledge used */}
+                    <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#71717a', margin: '0 0 0.4rem' }}>Knowledge consulted</p>
+                    {[
+                      'Fair Hiring Policy v2.3 — §4.2 Employment Gaps',
+                      'HR Handbook v3.2 — Chapter 7: Screening',
+                      'EEOC Guidance 2025 — Background Checks',
+                    ].map((source) => (
+                      <div key={source} style={{ display: 'flex', gap: '0.5rem', padding: '0.3rem 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                        <span style={{ fontSize: '10px', color: '#8b9ef0', flexShrink: 0 }}>·</span>
+                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono,monospace)', color: '#a1a1aa' }}>{source}</span>
+                      </div>
+                    ))}
+
+                    {/* Policies applied */}
+                    <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#71717a', margin: '0.75rem 0 0.4rem' }}>Policies applied</p>
+                    {[
+                      { label: 'fair-hiring-v2', status: 'passed' },
+                      { label: 'equal-opportunity-v1', status: 'passed' },
+                      { label: 'pii-block', status: 'passed' },
+                    ].map(({ label, status }) => (
+                      <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.3rem 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono,monospace)', color: '#a1a1aa' }}>{label}</span>
+                        <span style={{ fontSize: '10px', fontWeight: 600, color: '#8b9ef0' }}>✓ {status}</span>
+                      </div>
+                    ))}
+
+                    {/* Footer */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.875rem', paddingTop: '0.625rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                      <span style={{ fontSize: '10px', color: '#71717a' }}>Confidence: 94% · Alternatives: 2</span>
+                      <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono,monospace)', color: '#52525b' }}>sha256 f3d9…</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+            right={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <p style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#8b9ef0', margin: 0 }}>More use cases</p>
+                {[
+                  {
+                    team: 'Legal',
+                    question: 'Can we share this contract excerpt with a prospective vendor?',
+                    answer: 'No. The NDA signed with Acme Corp on 2024-03-15 covers this section under §3.1 (Confidential Business Terms). Sharing requires written consent from your legal team.',
+                    knowledge: ['Acme Corp NDA v1 — §3.1', 'Data Classification Policy — Tier 2', 'Vendor Engagement Guidelines'],
+                  },
+                  {
+                    team: 'Finance',
+                    question: 'What is the approval threshold for this software purchase at $42,000?',
+                    answer: 'Purchases between $25,000 and $75,000 require VP-level approval plus a security review. This purchase also triggers a SOC 2 vendor check under your procurement policy.',
+                    knowledge: ['Procurement Policy v4 — §2.3 Thresholds', 'Security Review Requirements', 'Vendor Risk Framework'],
+                  },
+                  {
+                    team: 'Operations',
+                    question: 'Do we need a bias audit before rolling out this screening tool?',
+                    answer: 'Yes. Under your AI System Register policy and New York Local Law 144, any AEDT used in hiring requires a bias audit before deployment and annually thereafter.',
+                    knowledge: ['AI System Register Policy v1', 'NYC Local Law 144 Compliance Pack', 'HR Technology Approval Process'],
+                  },
+                ].map(({ team, question, answer, knowledge }) => (
+                  <div key={team} style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '10px',
+                    padding: '1rem 1.125rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.625rem',
+                  }}>
+                    <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0' }}>{team}</span>
+                    <p style={{ fontSize: '13px', color: '#c4c4cf', margin: 0, fontStyle: 'italic' }}>&ldquo;{question}&rdquo;</p>
+                    <p style={{ fontSize: '12px', color: '#a1a1aa', margin: 0, lineHeight: 1.5 }}>{answer}</p>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '0.5rem' }}>
+                      <p style={{ fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#52525b', margin: '0 0 0.3rem' }}>Knowledge consulted</p>
+                      {knowledge.map((k) => (
+                        <p key={k} style={{ fontSize: '10px', fontFamily: 'var(--font-mono,monospace)', color: '#71717a', margin: '0.1rem 0' }}>· {k}</p>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            }
+          />
+        </Container>
+      </section>
+
       {/* ── How we compare ────────────────────────────────────── */}
       <Section variant="compact">
         <Container>
