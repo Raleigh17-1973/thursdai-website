@@ -189,6 +189,81 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* ── How it works ──────────────────────────────────────── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <Label>How it works</Label>
+            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
+          </div>
+          <HowItWorksSteps />
+        </Container>
+      </Section>
+
+      {/* ── AI Receipts ──────────────────────────────────────── */}
+      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
+        <Container>
+          <Label style={{ color: '#8b9ef0' }}>AI Receipts</Label>
+          <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
+            <span className="font-display">A signed record for every AI decision.</span>
+          </Heading2>
+          <Body
+            variant="large"
+            style={{ color: '#a1a1aa', marginTop: '1rem', maxWidth: '680px' }}
+          >
+            Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature — written at the moment it occurs, never reconstructed after the fact.
+          </Body>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '1.25rem',
+            marginTop: '3rem',
+          }}>
+            {[
+              {
+                title: 'Tamper-evident signature',
+                body: 'Every receipt is sha256-signed at the moment of decision. The record cannot be altered or backdated.',
+              },
+              {
+                title: 'Policy compliance status',
+                body: 'Each receipt records which of your policies ran against the decision and whether they passed or flagged.',
+              },
+              {
+                title: 'Bundled into compliance packs',
+                body: 'Group receipts by framework, time window or AI system and export them as signed evidence for auditors and regulators.',
+              },
+            ].map(({ title, body }) => (
+              <div
+                key={title}
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: '12px',
+                  padding: '1.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                }}
+              >
+                <span style={{ fontSize: '13px', fontWeight: 700, color: '#8b9ef0', letterSpacing: '0.04em', textTransform: 'uppercase' }}>✓ Included</span>
+                <p style={{ fontSize: '15px', fontWeight: 700, color: '#e4e4e7', margin: 0 }}>{title}</p>
+                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#a1a1aa', margin: 0 }}>{body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: '2.5rem' }}>
+            <Link href="/product/ai-receipts" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
+              See AI Receipts in depth →
+            </Link>
+          </div>
+          <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
+            or <a href="#request-demo" style={{ color: '#8b9ef0' }}>book a live walk-through →</a>
+          </Body>
+        </Container>
+      </section>
+
       {/* ── Solutions / People + executive dashboard ─────────── */}
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
@@ -289,81 +364,6 @@ export default function HomePage() {
           </Grid>
         </Container>
       </Section>
-
-      {/* ── How it works ──────────────────────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <Label>How it works</Label>
-            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
-          </div>
-          <HowItWorksSteps />
-        </Container>
-      </Section>
-
-      {/* ── AI Receipts ──────────────────────────────────────── */}
-      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
-        <Container>
-          <Label style={{ color: '#8b9ef0' }}>AI Receipts</Label>
-          <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
-            <span className="font-display">A signed record for every AI decision.</span>
-          </Heading2>
-          <Body
-            variant="large"
-            style={{ color: '#a1a1aa', marginTop: '1rem', maxWidth: '680px' }}
-          >
-            Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature — written at the moment it occurs, never reconstructed after the fact.
-          </Body>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '1.25rem',
-            marginTop: '3rem',
-          }}>
-            {[
-              {
-                title: 'Tamper-evident signature',
-                body: 'Every receipt is sha256-signed at the moment of decision. The record cannot be altered or backdated.',
-              },
-              {
-                title: 'Policy compliance status',
-                body: 'Each receipt records which of your policies ran against the decision and whether they passed or flagged.',
-              },
-              {
-                title: 'Bundled into compliance packs',
-                body: 'Group receipts by framework, time window or AI system and export them as signed evidence for auditors and regulators.',
-              },
-            ].map(({ title, body }) => (
-              <div
-                key={title}
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '12px',
-                  padding: '1.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.75rem',
-                }}
-              >
-                <span style={{ fontSize: '13px', fontWeight: 700, color: '#8b9ef0', letterSpacing: '0.04em', textTransform: 'uppercase' }}>✓ Included</span>
-                <p style={{ fontSize: '15px', fontWeight: 700, color: '#e4e4e7', margin: 0 }}>{title}</p>
-                <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#a1a1aa', margin: 0 }}>{body}</p>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: '2.5rem' }}>
-            <Link href="/product/ai-receipts" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
-              See AI Receipts in depth →
-            </Link>
-          </div>
-          <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
-            or <a href="#request-demo" style={{ color: '#8b9ef0' }}>book a live walk-through →</a>
-          </Body>
-        </Container>
-      </section>
 
       {/* ── Time-Travel ──────────────────────────────────────── */}
       <Section variant="default" id="replay-demo">
