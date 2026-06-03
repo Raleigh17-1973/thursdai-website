@@ -198,7 +198,7 @@ export default function HomePage() {
           </Heading2>
           <Body
             variant="large"
-            style={{ color: '#a1a1aa', marginTop: '1rem', maxWidth: '680px' }}
+            style={{ color: '#a1a1aa', marginTop: '1rem' }}
           >
             Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature — written at the moment it occurs, never reconstructed after the fact.
           </Body>
