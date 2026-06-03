@@ -264,6 +264,68 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* ── Investigation bridge ─────────────────────────────── */}
+      <Section variant="default">
+        <Container>
+          <Split
+            ratio="50/50"
+            alignItems="center"
+            gap="xl"
+            left={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <Label>Decision Intelligence</Label>
+                <Heading2>
+                  <span className="font-display">Ask questions of your entire decision record.</span>
+                </Heading2>
+                <Body>
+                  Every receipt Thursdai captures becomes part of a queryable record. Use Thursdai&apos;s agents to investigate patterns, surface anomalies and answer regulators — in plain language, with the receipts as evidence.
+                </Body>
+                <Body style={{ color: 'var(--color-text-secondary)' }}>
+                  The more decisions are recorded, the more powerful the investigation. Your receipt history becomes the source of truth your compliance team, legal team and auditors can all query independently.
+                </Body>
+              </div>
+            }
+            right={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {[
+                  'Which AI systems generated the most compliance flags last quarter?',
+                  'Show me all hiring decisions where confidence was below 80%.',
+                  'Compare override rates across departments for this year.',
+                  'Which decisions were flagged by ll144-bias-audit but still followed?',
+                ].map((query) => (
+                  <div
+                    key={query}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '0.75rem',
+                      padding: '0.875rem 1rem',
+                      background: 'var(--color-surface-secondary)',
+                      border: '1px solid var(--color-border-default)',
+                      borderRadius: '10px',
+                    }}
+                  >
+                    <span style={{
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      color: 'var(--color-accent)',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      flexShrink: 0,
+                      marginTop: '1px',
+                    }}>›</span>
+                    <span style={{
+                      fontSize: '14px',
+                      color: 'var(--color-text-secondary)',
+                      lineHeight: 1.5,
+                    }}>{query}</span>
+                  </div>
+                ))}
+              </div>
+            }
+          />
+        </Container>
+      </Section>
+
       {/* ── Solutions / People + executive dashboard ─────────── */}
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
