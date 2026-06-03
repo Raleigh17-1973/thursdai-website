@@ -1,30 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-
-function FooterLogo() {
-  return (
-    <svg
-      width="140"
-      height="28"
-      viewBox="0 0 140 28"
-      fill="none"
-      aria-label="Thursdai"
-      role="img"
-    >
-      <text
-        x="0"
-        y="22"
-        fontFamily="var(--font-sans)"
-        fontSize="22"
-        fontWeight="700"
-        letterSpacing="-0.03em"
-        fill="#ffffff"
-      >
-        Thursdai
-      </text>
-    </svg>
-  );
-}
+import { ThursdaiWordmark } from './ThursdaiWordmark';
 
 function LinkedInIcon() {
   return (
@@ -97,7 +73,7 @@ export function Footer() {
           {/* Column 1 — Company */}
           <div className="md:col-span-1">
             <div className="mb-4">
-              <FooterLogo />
+              <ThursdaiWordmark onDark fontSize={30} />
             </div>
             <p className="footer-link text-[14px] leading-relaxed mb-6" style={{ color: '#a1a1aa' }}>
               Your team&apos;s AI: controlled, auditable and safe to use.

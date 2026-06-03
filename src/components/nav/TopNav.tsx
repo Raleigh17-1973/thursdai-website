@@ -6,32 +6,7 @@ import { NAV_ITEMS } from '@/config/nav';
 import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
 import { Toggle } from '@/components/ui/Toggle';
-
-function ThursdaiLogo({ light = false }: { light?: boolean }) {
-  const fill = light ? '#ffffff' : 'var(--color-accent)';
-  return (
-    <svg
-      width="140"
-      height="28"
-      viewBox="0 0 140 28"
-      fill="none"
-      aria-label="Thursdai"
-      role="img"
-    >
-      <text
-        x="0"
-        y="22"
-        fontFamily="var(--font-sans)"
-        fontSize="22"
-        fontWeight="700"
-        letterSpacing="-0.03em"
-        fill={fill}
-      >
-        Thursdai
-      </text>
-    </svg>
-  );
-}
+import { ThursdaiWordmark } from './ThursdaiWordmark';
 
 function HamburgerIcon() {
   return (
@@ -87,7 +62,7 @@ export function TopNav() {
       <div className="relative h-full max-w-[1200px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" aria-label="Thursdai home" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-          <ThursdaiLogo />
+          <ThursdaiWordmark />
         </Link>
 
         {/* Desktop nav */}

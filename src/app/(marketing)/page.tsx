@@ -137,28 +137,10 @@ export default async function HomePage() {
           background: 'var(--color-bg)',
         }}
       >
-        {/* Dawn ambient glow */}
-        <div aria-hidden="true" style={{
-          position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
-        }}>
-          <div style={{
-            position: 'absolute', top: '-20%', left: '-10%',
-            width: '60%', height: '70%',
-            background: 'radial-gradient(ellipse at center, rgba(62,79,184,0.18) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-          }} />
-          <div style={{
-            position: 'absolute', top: '10%', right: '-5%',
-            width: '45%', height: '55%',
-            background: 'radial-gradient(ellipse at center, rgba(91,58,122,0.14) 0%, transparent 70%)',
-            filter: 'blur(50px)',
-          }} />
-          <div style={{
-            position: 'absolute', bottom: '-10%', right: '20%',
-            width: '35%', height: '40%',
-            background: 'radial-gradient(ellipse at center, rgba(232,163,74,0.08) 0%, transparent 70%)',
-            filter: 'blur(60px)',
-          }} />
+        {/* Dawn horizon backdrop — "a new day for regulated AI" (theme-aware, see .hero-dawn in globals.css) */}
+        <div aria-hidden="true" className="hero-dawn">
+          <div className="hero-dawn__sky" />
+          <div className="hero-dawn__sun" />
         </div>
         <Container>
           <Split
