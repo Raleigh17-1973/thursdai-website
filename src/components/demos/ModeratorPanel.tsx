@@ -72,12 +72,12 @@ function PanelCard({
       }}
       aria-label={`View full ${panel.role} response`}
     >
-      <Label style={{ color: 'var(--color-accent)' }}>{panel.role}</Label>
+      <Label style={{ color: '#8b9ef0' }}>{panel.role}</Label>
       <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-      <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'var(--color-text-secondary, #9CA3AF)', margin: 0 }}>
+      <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#c4c4cf', margin: 0 }}>
         {panel.text}
       </p>
-      <span style={{ fontSize: '12px', color: 'var(--color-accent)', marginTop: 'auto' }}>
+      <span style={{ fontSize: '12px', color: '#8b9ef0', marginTop: 'auto' }}>
         View full response →
       </span>
     </button>
