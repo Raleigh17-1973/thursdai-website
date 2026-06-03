@@ -189,17 +189,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── How it works ──────────────────────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <Label>How it works</Label>
-            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
-          </div>
-          <HowItWorksSteps />
-        </Container>
-      </Section>
-
       {/* ── AI Receipts ──────────────────────────────────────── */}
       <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
         <Container>
@@ -263,6 +252,17 @@ export default function HomePage() {
           </Body>
         </Container>
       </section>
+
+      {/* ── How it works ──────────────────────────────────────── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <Label>How it works</Label>
+            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
+          </div>
+          <HowItWorksSteps />
+        </Container>
+      </Section>
 
       {/* ── Investigation bridge ─────────────────────────────── */}
       <Section variant="default">
