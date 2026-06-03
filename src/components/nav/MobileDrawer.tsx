@@ -53,8 +53,6 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  const productItem = NAV_ITEMS.find((item) => item.label === 'Product');
-  const productItems = productItem && 'items' in productItem ? productItem.items : [];
   const otherItems = NAV_ITEMS.filter((item) => item.label !== 'Product');
 
   return (
@@ -116,39 +114,22 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
         {/* Nav links */}
         <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-4 py-6">
-          {/* Product sub-list */}
-          <div className="mb-6">
-            <div
-              className="text-[11px] font-semibold uppercase tracking-[0.08em] px-2 mb-3"
-              style={{ color: 'var(--color-text-tertiary)' }}
+          {/* Product — single link on mobile */}
+          <div className="mb-2">
+            <Link
+              href="/product"
+              onClick={onClose}
+              className="block px-2 py-2.5 rounded-md text-[15px] font-medium"
+              style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = 'var(--color-surface-secondary)')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = 'transparent')
+              }
             >
               Product
-            </div>
-            <ul className="space-y-1 list-none p-0 m-0">
-              {productItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className="flex items-center gap-2 px-2 py-2.5 rounded-md text-[15px]"
-                    style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = 'var(--color-surface-secondary)')
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = 'transparent')
-                    }
-                  >
-                    <span
-                      className="h-1.5 w-1.5 rounded-full flex-shrink-0"
-                      style={{ background: 'var(--color-accent)' }}
-                      aria-hidden="true"
-                    />
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            </Link>
           </div>
 
           {/* Other nav items */}

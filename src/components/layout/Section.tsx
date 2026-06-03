@@ -12,7 +12,7 @@ interface SectionProps {
 }
 
 const paddingMap: Record<SectionVariant, string> = {
-  default: 'py-16 md:py-24',
+  default: 'py-16 md:py-[7.5rem]',
   compact: 'py-10 md:py-16',
   flush: '',
 };

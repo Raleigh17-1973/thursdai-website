@@ -62,6 +62,7 @@ const bottomLinks = [
   { label: 'Privacy', href: '/privacy', external: false },
   { label: 'Terms', href: '/terms', external: false },
   { label: 'Security', href: '/security', external: false },
+  { label: 'Compare', href: '/compare', external: false },
 ];
 
 export function Footer() {
