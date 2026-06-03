@@ -8,7 +8,6 @@ import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { AiReceiptCard } from '@/components/demos/AiReceiptCard';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
@@ -55,36 +54,6 @@ print(result.moderator.answer)
 print(f"Consensus: {result.moderator.consensus}")`;
 
 // ── Inline SVG icons ─────────────────────────────────────────
-
-function IconPanel() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="3" width="5" height="18" rx="1.5" fill="var(--color-accent)" opacity="0.8" />
-      <rect x="9.5" y="3" width="5" height="18" rx="1.5" fill="var(--color-accent)" />
-      <rect x="17" y="3" width="5" height="18" rx="1.5" fill="var(--color-accent)" opacity="0.6" />
-    </svg>
-  );
-}
-
-function IconReplay() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="12 7 12 12 15 15" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6.5 6.5 A7.5 7.5 0 0 0 4.5 12" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-      <polyline points="4 8 4.5 12 8.5 11" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <polyline points="9 12 11 14 15 10" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 // ── ScrollCue — pure CSS animation, no client needed ──────────
 
@@ -329,35 +298,6 @@ export default function HomePage() {
             <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
           </div>
           <HowItWorksSteps />
-        </Container>
-      </Section>
-
-      {/* ── Three Promises ───────────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <Grid cols={3} gap="md" data-animate="stagger">
-            <Card
-              variant="feature"
-              icon={<IconReplay />}
-              title="An AI Receipt for every decision"
-              body="Every decision your AI makes is recorded as a signed AI Receipt: the answer, the roles that weighed in, the policies that applied and the sources cited. The provable record behind every answer, ready to replay or bundle into an audit pack."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-            <Card
-              variant="feature"
-              icon={<IconShield />}
-              title="Policies the model cannot break"
-              body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-            <Card
-              variant="feature"
-              icon={<IconPanel />}
-              title="A panel behind every answer"
-              body="Roles deliberate before any answer reaches you, and that deliberation is captured on the receipt. The substance behind the record, not the headline."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-          </Grid>
         </Container>
       </Section>
 
