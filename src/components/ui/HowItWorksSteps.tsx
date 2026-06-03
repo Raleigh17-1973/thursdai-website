@@ -10,8 +10,8 @@ const STEPS = [
   },
   {
     step: '02',
-    title: 'Thursdai validates and records it',
-    body: 'The decision is policy-checked against your rules, sources are verified and a tamper-evident AI Receipt is signed at the moment it occurs. Nothing reconstructed after the fact.',
+    title: 'Thursdai documents and checks it',
+    body: 'Thursdai records the decision and runs it against the regulatory and legal standards that apply to your industry. Which checks ran, what they found and the original decision are all signed into the AI Receipt at the moment it occurs.',
   },
   {
     step: '03',
