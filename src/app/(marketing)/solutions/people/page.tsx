@@ -17,7 +17,7 @@ import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 export const metadata: Metadata = {
   title: 'People: Thursdai',
   description:
-    'AI governance for hiring and workforce decisions. Thursdai produces the bias-audit evidence, AI system register and compliance documentation that regulated employers need under NYC Local Law 144 and the EU AI Act.',
+    'AI governance for hiring and workforce decisions. Thursdai writes an AI Receipt for every hiring decision and produces the bias-audit evidence, AI system register and compliance documentation regulated employers need under NYC Local Law 144 and the EU AI Act.',
 };
 
 // Frameworks the People space shapes evidence to. These are the real frameworks
@@ -51,8 +51,8 @@ export default function PeopleSolutionPage() {
           <Body variant="large" style={{ marginTop: '1.5rem' }}>
             If an automated tool touches a hiring decision, you owe an independent bias audit, a
             public summary and candidate notice under NYC Local Law 144, and deployer obligations
-            under the EU AI Act. The People space governs those decisions and produces the evidence
-            you need to answer for them.
+            under the EU AI Act. The People space governs those decisions, writes an AI Receipt for
+            each one and bundles them into the audit-ready packs you need to answer for them.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Link href="mailto:thursdai@getthursdai.com">
@@ -96,7 +96,7 @@ export default function PeopleSolutionPage() {
           <Body style={{ marginTop: '1rem' }}>
             Every AI-assisted decision in the hiring funnel runs through the same governed
             substrate: role-based deliberation, policy-as-code constraints and a recorded,
-            replayable decision. On top of that, the People space adds the views a workforce team
+            replayable AI Receipt. On top of that, the People space adds the views a workforce team
             actually works in.
           </Body>
           <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
@@ -113,7 +113,7 @@ export default function PeopleSolutionPage() {
             <Card
               variant="feature"
               title="People records"
-              body="For any person, the AI decisions and cases that touched them, with full provenance: which sources, roles and policies shaped each one."
+              body="For any person, the AI Receipts and cases that touched them, with full provenance: which sources, roles and policies shaped each one."
             />
           </Grid>
         </Container>
@@ -153,11 +153,12 @@ export default function PeopleSolutionPage() {
       {/* The evidence */}
       <Section variant="compact">
         <Container>
-          <Heading2>Every decision becomes evidence.</Heading2>
+          <Heading2>Every decision becomes an AI Receipt.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
-            Because each decision is recorded with its sources, roles and policy state, the People
-            space can produce a signed compliance pack on demand: methodology, population, selection
-            and impact ratios, findings and provenance, in a format an auditor accepts.
+            Because each decision is recorded as a signed AI Receipt, with its sources, roles and
+            policy state, the People space can bundle those receipts into a compliance pack on
+            demand: methodology, population, selection and impact ratios, findings and provenance,
+            in a format an auditor accepts.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
             <Link href="/product/compliance-packs" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}>
