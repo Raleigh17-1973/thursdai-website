@@ -11,7 +11,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { CodeBlock } from '@/components/ui/CodeBlock';
-import { ReplayDemo } from '@/components/demos/ReplayDemo';
+import { AiReceiptCard } from '@/components/demos/AiReceiptCard';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
@@ -226,7 +226,7 @@ export default async function HomePage() {
                 </div>
               </div>
             }
-            right={variant === 'option-c' ? <ExecutiveDashboard /> : <ReplayDemo />}
+            right={variant === 'option-c' ? <ExecutiveDashboard /> : <AiReceiptCard />}
           />
         </Container>
         <ScrollCue />
