@@ -358,7 +358,7 @@ export default function HomePage() {
           <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1rem' }}>
             <span className="font-display">Governed answers for every question your team asks.</span>
           </Heading2>
-          <Body variant="large" style={{ color: '#a1a1aa', maxWidth: '680px', marginBottom: '3rem' }}>
+          <Body variant="large" style={{ color: '#a1a1aa', marginBottom: '3rem' }}>
             When your employees use the Thursdai Agent, every answer is grounded in your business&apos;s own knowledge base — your policies, procedures, contracts and guidelines. The agent cannot answer outside what you have approved. Every response is an AI Receipt showing exactly what knowledge was used, which policies applied and what alternatives were considered.
           </Body>
 
