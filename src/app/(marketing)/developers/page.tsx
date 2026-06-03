@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
 import { Grid } from '@/components/layout/Grid';
-import { Split } from '@/components/layout/Split';
 import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
