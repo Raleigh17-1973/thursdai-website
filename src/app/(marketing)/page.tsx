@@ -1,5 +1,4 @@
 import React from 'react';
-import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
@@ -19,8 +18,8 @@ import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { getHeroVariant } from '@/lib/posthog';
 import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
+
 
 // ── Cert badges data ──────────────────────────────────────────
 
@@ -121,11 +120,7 @@ function ScrollCue() {
 
 // ── Page ───────────────────────────────────────────────────────
 
-export default async function HomePage() {
-  const cookieStore = await cookies();
-  const distinctId = cookieStore.get('__thursdai_id')?.value ?? 'anon';
-  const variant = await getHeroVariant(distinctId);
-
+export default function HomePage() {
   return (
     <>
       {/* ── Section 1: Hero ──────────────────────────────────── */}
@@ -156,39 +151,14 @@ export default async function HomePage() {
                   position: 'relative',
                 }}
               >
-                <Label>FOR TEAMS WHERE AI DECISIONS HAVE REAL CONSEQUENCES</Label>
-                {variant === 'option-a' ? (
-                  <>
-                    <Display>
-                      Every AI decision, <span className="dawn-gradient-text">on the record.</span>
-                    </Display>
-                    <Body variant="large">
-                      Thursdai is AI governance infrastructure that writes an AI Receipt for every
-                      decision your AI makes: the answer, the roles, the policies and the sources.
-                      Audit-ready evidence, not bolted on after.
-                    </Body>
-                  </>
-                ) : variant === 'option-c' ? (
-                  <>
-                    <Display>
-                      Every AI decision your business makes, <span className="dawn-gradient-text">in one place you can answer for.</span>
-                    </Display>
-                    <Body variant="large">
-                      Governed decisions, signed evidence and an executive view of it all. Built
-                      for teams where AI outputs have real consequences.
-                    </Body>
-                  </>
-                ) : (
-                  <>
-                    <Display>
-                      The AI that <span className="dawn-gradient-text">shows its work.</span>
-                    </Display>
-                    <Body variant="large">
-                      Role-based answers. Decision replay. Policies the model cannot break. Built
-                      for teams where AI outputs have real consequences.
-                    </Body>
-                  </>
-                )}
+                <Display>
+                  Every AI decision, <span className="dawn-gradient-text">on the record.</span>
+                </Display>
+                <Body variant="large">
+                  Thursdai is AI governance infrastructure that writes an AI Receipt for every
+                  decision your AI makes: the answer, the roles, the policies and the sources.
+                  Audit-ready evidence, not bolted on after.
+                </Body>
                 <HeroCTAs />
                 <div style={{
                   display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1.5rem',
@@ -208,30 +178,29 @@ export default async function HomePage() {
                 </div>
               </div>
             }
-            right={variant === 'option-c' ? <ExecutiveDashboard /> : <AiReceiptCard />}
+            right={<AiReceiptCard />}
           />
         </Container>
         <ScrollCue />
       </section>
 
-      {/* ── Industry band ────────────────────────────────────── */}
+      {/* ── Trust band ───────────────────────────────────────── */}
       <div style={{
         borderTop: '1px solid var(--color-border-default)',
         borderBottom: '1px solid var(--color-border-default)',
         padding: '1.25rem 0',
-        textAlign: 'center',
       }}>
-        <p style={{
-          fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em',
-          textTransform: 'uppercase', color: 'var(--color-text-tertiary)',
-          marginBottom: '1rem',
-        }}>
-          Built for teams in highly-regulated industries
-        </p>
         <div style={{
-          display: 'flex', flexWrap: 'wrap', gap: '0.5rem 3rem',
+          display: 'flex', flexWrap: 'wrap', gap: '0.5rem 2rem',
           justifyContent: 'center', alignItems: 'center',
+          padding: '0 1.5rem',
         }}>
+          <span style={{
+            fontSize: '12px', fontWeight: 700, letterSpacing: '0.04em',
+            color: 'var(--color-text-secondary)', whiteSpace: 'nowrap',
+          }}>
+            Trusted by compliance teams in
+          </span>
           {[
             'Financial Services',
             'Healthcare & Life Sciences',
@@ -243,6 +212,7 @@ export default async function HomePage() {
               fontSize: '13px', fontWeight: 600,
               color: 'var(--color-text-tertiary)',
               opacity: 0.7,
+              whiteSpace: 'nowrap',
             }}>
               {industry}
             </span>
@@ -576,19 +546,29 @@ export default async function HomePage() {
       {/* ── Section 10: Closing CTA band ─────────────────────── */}
       <section
         style={{
-          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
+          background: '#0a0a0e',
           padding: '5rem 0',
           textAlign: 'center',
         }}
       >
         <Container>
-          <Heading2 style={{ color: '#ffffff', marginBottom: '1rem' }}>
-            <span className="font-display">Ready to use AI you can actually trust?</span>
+          <Heading2 style={{ marginBottom: '1rem' }}>
+            <span
+              className="font-display"
+              style={{
+                background: 'linear-gradient(135deg, #8b9ef0 0%, #c084fc 50%, #e8a34a 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              Ready to use AI you can actually trust?
+            </span>
           </Heading2>
           <Body
             variant="large"
             style={{
-              color: 'rgba(255,255,255,0.85)',
+              color: 'rgba(255,255,255,0.7)',
               maxWidth: '500px',
               margin: '0 auto 2rem',
             }}
