@@ -221,197 +221,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── How it works ──────────────────────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <Label>How it works</Label>
-            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
-          </div>
-          <HowItWorksSteps />
-        </Container>
-      </Section>
-
-      {/* ── Section 2: Three Promises ────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <Grid cols={3} gap="md" data-animate="stagger">
-            <Card
-              variant="feature"
-              icon={<IconReplay />}
-              title="An AI Receipt for every decision"
-              body="Every decision your AI makes is recorded as a signed AI Receipt: the answer, the roles that weighed in, the policies that applied and the sources cited. The provable record behind every answer, ready to replay or bundle into an audit pack."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-            <Card
-              variant="feature"
-              icon={<IconShield />}
-              title="Policies the model cannot break"
-              body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-            <Card
-              variant="feature"
-              icon={<IconPanel />}
-              title="A panel behind every answer"
-              body="Roles deliberate before any answer reaches you, and that deliberation is captured on the receipt. The substance behind the record, not the headline."
-              className="hover:-translate-y-1 transition-transform duration-200"
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Section 3: Moderator Demo ────────────────────────── */}
-      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
-        <Container>
-          <Label style={{ color: '#8b9ef0' }}>Behind the receipt</Label>
-          <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
-            <span className="font-display">What makes a receipt worth reading.</span>
-          </Heading2>
-          <Body
-            variant="large"
-            style={{ color: '#a1a1aa', marginTop: '1rem' }}
-          >
-            Behind every AI Receipt is a panel, not a single model. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules. That deliberation is what each receipt records.
-          </Body>
-          <ModeratorPanel />
-          <div style={{ marginTop: '2rem' }}>
-            <Link href="/product/moderator" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
-              See Moderator in depth →
-            </Link>
-          </div>
-          <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
-            or <a href="#request-demo" style={{ color: '#8b9ef0' }}>book a live walk-through →</a>
-          </Body>
-        </Container>
-      </section>
-
-      {/* ── Section 4: Time-Travel ───────────────────────────── */}
-      <Section variant="default" id="replay-demo">
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <Label>Time-Travel</Label>
-                <Heading2>Every AI decision, period-accurate.</Heading2>
-                <Body>
-                  Thursdai records every agent decision with the knowledge base, policies and role
-                  definitions that were active at the time. Move the slider to any point in the
-                  past: see the answer that would have been given then, and what has changed since.
-                </Body>
-                <Link
-                  href="/product/time-travel"
-                  style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
-                >
-                  See Time-Travel in depth →
-                </Link>
-              </div>
-            }
-            right={<TimeTravelScrubber />}
-          />
-        </Container>
-      </Section>
-
-      {/* ── Section 5: Policy-as-Code ────────────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="start"
-            gap="xl"
-            left={<PolicyEditor />}
-            right={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <Label>Policy-as-Code</Label>
-                <Heading2>Rules your AI must follow. No exceptions.</Heading2>
-                <Body>
-                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer, automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
-                </Body>
-                <Body>Three policy primitives:</Body>
-                <ul
-                  style={{
-                    color: 'var(--color-text-secondary)',
-                    fontSize: '17px',
-                    lineHeight: 1.6,
-                    paddingLeft: '1.25rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '0.5rem',
-                  }}
-                >
-                  <li>
-                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
-                      allowed_sources
-                    </strong>{': '}
-                    restrict citations to approved knowledge sources
-                  </li>
-                  <li>
-                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
-                      required_attribution
-                    </strong>{': '}
-                    mandate source citation on specified claim types
-                  </li>
-                  <li>
-                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
-                      pricing_floor
-                    </strong>{': '}
-                    prevent the system from quoting below contract minimums
-                  </li>
-                </ul>
-                <Link
-                  href="/product/policy-as-code"
-                  style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
-                >
-                  Read the policy language spec →
-                </Link>
-              </div>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* ── Section 6: Trust banner ───────────────────────────── */}
-      <Section
-        variant="compact"
-        style={{
-          borderTop: '1px solid var(--color-border-default)',
-          borderBottom: '1px solid var(--color-border-default)',
-        }}
-      >
-        <Container>
-          <p
-            style={{
-              textAlign: 'center',
-              fontSize: '11px',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              color: 'var(--color-text-tertiary)',
-              marginBottom: '1.5rem',
-            }}
-          >
-            Security &amp; compliance
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '1rem',
-              alignItems: 'center',
-            }}
-          >
-            {CERT_BADGES.map((badge) => (
-              <CertBadge key={badge.name} {...badge} />
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── Section 7: Solutions / People + executive dashboard ── */}
+      {/* ── Solutions / People + executive dashboard ─────────── */}
       <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Label style={{ textAlign: 'center', display: 'block', marginBottom: '0.5rem' }}>
@@ -436,40 +246,8 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Section 8: Developers band ───────────────────────── */}
-      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '5rem 0' }}>
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <Label style={{ color: '#8b9ef0' }}>Developers</Label>
-                <Heading2 style={{ color: '#e4e4e7' }}>
-                  <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
-                </Heading2>
-                <Body style={{ color: '#a1a1aa' }}>
-                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK and MCP server. Connect to your existing systems, automate workflows and build on top of Thursdai&apos;s roles and policies.
-                </Body>
-                <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
-                  Explore the developer surface →
-                </Link>
-              </div>
-            }
-            right={
-              <CodeBlock
-                language="python"
-                filename="example.py"
-                code={INVOKE_ROLE_SNIPPET}
-              />
-            }
-          />
-        </Container>
-      </section>
-
-      {/* ── Why Thursdai vs. competitors ──────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      {/* ── How we compare ────────────────────────────────────── */}
+      <Section variant="compact">
         <Container>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <Label>HOW WE COMPARE</Label>
@@ -543,6 +321,228 @@ export default function HomePage() {
           </Grid>
         </Container>
       </Section>
+
+      {/* ── How it works ──────────────────────────────────────── */}
+      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <Label>How it works</Label>
+            <Heading2 style={{ marginTop: '0.5rem' }}><span className="font-display">Three steps. One trusted answer.</span></Heading2>
+          </div>
+          <HowItWorksSteps />
+        </Container>
+      </Section>
+
+      {/* ── Three Promises ───────────────────────────────────── */}
+      <Section variant="compact">
+        <Container>
+          <Grid cols={3} gap="md" data-animate="stagger">
+            <Card
+              variant="feature"
+              icon={<IconReplay />}
+              title="An AI Receipt for every decision"
+              body="Every decision your AI makes is recorded as a signed AI Receipt: the answer, the roles that weighed in, the policies that applied and the sources cited. The provable record behind every answer, ready to replay or bundle into an audit pack."
+              className="hover:-translate-y-1 transition-transform duration-200"
+            />
+            <Card
+              variant="feature"
+              icon={<IconShield />}
+              title="Policies the model cannot break"
+              body="Set rules your AI must follow. It literally cannot break them. Block sensitive data from outputs. Enforce your pricing floors. Require citations on legal claims. No coding needed for the essentials."
+              className="hover:-translate-y-1 transition-transform duration-200"
+            />
+            <Card
+              variant="feature"
+              icon={<IconPanel />}
+              title="A panel behind every answer"
+              body="Roles deliberate before any answer reaches you, and that deliberation is captured on the receipt. The substance behind the record, not the headline."
+              className="hover:-translate-y-1 transition-transform duration-200"
+            />
+          </Grid>
+        </Container>
+      </Section>
+
+      {/* ── Moderator Demo ───────────────────────────────────── */}
+      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '6rem 0' }}>
+        <Container>
+          <Label style={{ color: '#8b9ef0' }}>Behind the receipt</Label>
+          <Heading2 style={{ color: '#e4e4e7', marginTop: '0.75rem' }}>
+            <span className="font-display">What makes a receipt worth reading.</span>
+          </Heading2>
+          <Body
+            variant="large"
+            style={{ color: '#a1a1aa', marginTop: '1rem' }}
+          >
+            Behind every AI Receipt is a panel, not a single model. Thursdai brings together your business&apos;s Legal, Finance and Operations knowledge, flags where they disagree, cites every source and applies your rules. That deliberation is what each receipt records.
+          </Body>
+          <ModeratorPanel />
+          <div style={{ marginTop: '2rem' }}>
+            <Link href="/product/moderator" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
+              See Moderator in depth →
+            </Link>
+          </div>
+          <Body variant="small" style={{ color: 'rgba(161,161,170,0.9)', marginTop: '0.5rem' }}>
+            or <a href="#request-demo" style={{ color: '#8b9ef0' }}>book a live walk-through →</a>
+          </Body>
+        </Container>
+      </section>
+
+      {/* ── Time-Travel ──────────────────────────────────────── */}
+      <Section variant="default" id="replay-demo">
+        <Container>
+          <Split
+            ratio="50/50"
+            alignItems="center"
+            gap="xl"
+            left={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <Label>Time-Travel</Label>
+                <Heading2>Every AI decision, period-accurate.</Heading2>
+                <Body>
+                  Thursdai records every agent decision with the knowledge base, policies and role
+                  definitions that were active at the time. Move the slider to any point in the
+                  past: see the answer that would have been given then, and what has changed since.
+                </Body>
+                <Link
+                  href="/product/time-travel"
+                  style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
+                >
+                  See Time-Travel in depth →
+                </Link>
+              </div>
+            }
+            right={<TimeTravelScrubber />}
+          />
+        </Container>
+      </Section>
+
+      {/* ── Policy-as-Code ───────────────────────────────────── */}
+      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+        <Container>
+          <Split
+            ratio="50/50"
+            alignItems="start"
+            gap="xl"
+            left={<PolicyEditor />}
+            right={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <Label>Policy-as-Code</Label>
+                <Heading2>Rules your AI must follow. No exceptions.</Heading2>
+                <Body>
+                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer, automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
+                </Body>
+                <Body>Three policy primitives:</Body>
+                <ul
+                  style={{
+                    color: 'var(--color-text-secondary)',
+                    fontSize: '17px',
+                    lineHeight: 1.6,
+                    paddingLeft: '1.25rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <li>
+                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      allowed_sources
+                    </strong>{': '}
+                    restrict citations to approved knowledge sources
+                  </li>
+                  <li>
+                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      required_attribution
+                    </strong>{': '}
+                    mandate source citation on specified claim types
+                  </li>
+                  <li>
+                    <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)' }}>
+                      pricing_floor
+                    </strong>{': '}
+                    prevent the system from quoting below contract minimums
+                  </li>
+                </ul>
+                <Link
+                  href="/product/policy-as-code"
+                  style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}
+                >
+                  Read the policy language spec →
+                </Link>
+              </div>
+            }
+          />
+        </Container>
+      </Section>
+
+      {/* ── Security & compliance ─────────────────────────────── */}
+      <Section
+        variant="compact"
+        style={{
+          borderTop: '1px solid var(--color-border-default)',
+          borderBottom: '1px solid var(--color-border-default)',
+        }}
+      >
+        <Container>
+          <p
+            style={{
+              textAlign: 'center',
+              fontSize: '11px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
+              color: 'var(--color-text-tertiary)',
+              marginBottom: '1.5rem',
+            }}
+          >
+            Security &amp; compliance
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: '1rem',
+              alignItems: 'center',
+            }}
+          >
+            {CERT_BADGES.map((badge) => (
+              <CertBadge key={badge.name} {...badge} />
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Developers band ──────────────────────────────────── */}
+      <section style={{ background: '#0b0f19', color: '#e4e4e7', padding: '5rem 0' }}>
+        <Container>
+          <Split
+            ratio="50/50"
+            alignItems="center"
+            gap="xl"
+            left={
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <Label style={{ color: '#8b9ef0' }}>Developers</Label>
+                <Heading2 style={{ color: '#e4e4e7' }}>
+                  <span className="font-display">Built to connect to your existing tools. With an open API for technical teams.</span>
+                </Heading2>
+                <Body style={{ color: '#a1a1aa' }}>
+                  Thursdai works out of the box for most teams. For developers and IT: a full API, SDK and MCP server. Connect to your existing systems, automate workflows and build on top of Thursdai&apos;s roles and policies.
+                </Body>
+                <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
+                  Explore the developer surface →
+                </Link>
+              </div>
+            }
+            right={
+              <CodeBlock
+                language="python"
+                filename="example.py"
+                code={INVOKE_ROLE_SNIPPET}
+              />
+            }
+          />
+        </Container>
+      </section>
 
       {/* ── Section 10: Closing CTA band ─────────────────────── */}
       <section
