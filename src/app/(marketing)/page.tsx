@@ -204,6 +204,7 @@ export default function HomePage() {
           {[
             'Financial Services',
             'Healthcare & Life Sciences',
+            'Human Resources & Workforce',
             'Legal & Professional Services',
             'Insurance',
             'Government Contracting',
