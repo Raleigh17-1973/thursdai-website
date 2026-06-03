@@ -137,7 +137,7 @@ export default function HomePage() {
           <div className="hero-dawn__sky" />
           <div className="hero-dawn__sun" />
         </div>
-        <Container>
+        <Container className="relative z-[1]">
           <Split
             ratio="60/40"
             alignItems="start"
