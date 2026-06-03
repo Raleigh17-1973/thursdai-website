@@ -5,18 +5,18 @@ import { motion } from 'framer-motion';
 const STEPS = [
   {
     step: '01',
-    title: 'You ask a question',
-    body: 'Type your question, or connect Thursdai to your existing tools and let it surface decisions automatically.',
+    title: 'An AI system makes a decision',
+    body: 'Any AI tool in your business — your own or a vendor\'s — makes a decision. Thursdai captures it: what was decided, which system made it, which model ran and when.',
   },
   {
     step: '02',
-    title: 'Your whole team weighs in',
-    body: 'Thursdai consults your Legal, Finance and Operations knowledge simultaneously: each role applies its own rules.',
+    title: 'Thursdai validates and records it',
+    body: 'The decision is policy-checked against your rules, sources are verified and a tamper-evident AI Receipt is signed at the moment it occurs. Nothing reconstructed after the fact.',
   },
   {
     step: '03',
-    title: 'One sourced, policy-checked answer',
-    body: 'You get one clear answer, with citations, a full audit trail and the confidence that it followed every rule you set.',
+    title: 'You review, report and prove it',
+    body: 'Browse every receipt in the app, surface live compliance metrics on your dashboard or bundle decisions into audit packs for regulators and internal teams.',
   },
 ];
 
