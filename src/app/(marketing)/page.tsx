@@ -556,7 +556,7 @@ export default function HomePage() {
       </Section>
 
       {/* ── Time-Travel ──────────────────────────────────────── */}
-      <Section variant="default" id="replay-demo">
+      <Section variant="default" id="replay-demo" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Split
             ratio="50/50"
@@ -585,7 +585,7 @@ export default function HomePage() {
       </Section>
 
       {/* ── Policy-as-Code ───────────────────────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="default">
         <Container>
           <Split
             ratio="50/50"
@@ -646,6 +646,7 @@ export default function HomePage() {
       <Section
         variant="compact"
         style={{
+          background: 'var(--color-surface-secondary)',
           borderTop: '1px solid var(--color-border-default)',
           borderBottom: '1px solid var(--color-border-default)',
         }}
