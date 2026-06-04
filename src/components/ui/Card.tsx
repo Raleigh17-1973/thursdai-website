@@ -105,8 +105,8 @@ export function Card(props: CardProps) {
 
   if (variant === 'feature') {
     const { icon, title, body, href, className = '' } = props as FeatureCardProps;
-    const inner = (
-      <div className={[baseClass, 'p-6 flex flex-col gap-3', className].filter(Boolean).join(' ')}>
+    const cardDiv = (
+      <div className={[baseClass, 'p-6 flex flex-col gap-3 flex-1', className].filter(Boolean).join(' ')}>
         {icon && (
           <div
             className="w-10 h-10 flex items-center justify-center rounded-lg"
@@ -125,12 +125,12 @@ export function Card(props: CardProps) {
     );
     if (href) {
       return (
-        <Link href={href} style={{ textDecoration: 'none' }}>
-          {inner}
+        <Link href={href} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
+          {cardDiv}
         </Link>
       );
     }
-    return inner;
+    return cardDiv;
   }
 
   // base
