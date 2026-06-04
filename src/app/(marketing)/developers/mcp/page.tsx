@@ -203,48 +203,40 @@ export default function McpPage() {
             <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@thursdai/mcp-server</code> is available to design partners. Contact{' '}
             <a href="mailto:dev@thursdai.com" style={{ color: 'var(--color-accent)' }}>dev@thursdai.com</a> for access.
           </p>
-          <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--color-border-default)', marginBottom: '1.5rem' }}>
-            {['Claude Desktop', 'Cursor', 'Generic MCP client'].map((label, i) => (
-              <span
-                key={label}
-                style={{
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: i === 0 ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                  borderBottom: i === 0 ? '2px solid var(--color-accent)' : '2px solid transparent',
-                  marginBottom: '-1px',
-                }}
-              >
-                {label}
-              </span>
-            ))}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <details open style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
+                <span>▶</span> Claude Desktop
+              </summary>
+              <div style={{ padding: '1rem' }}>
+                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
+                  Add to your <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>~/.claude/claude_desktop_config.json</code>:
+                </p>
+                <pre style={codeStyle}>{CLAUDE_DESKTOP_CONFIG}</pre>
+              </div>
+            </details>
+
+            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
+                <span>▶</span> Cursor
+              </summary>
+              <div style={{ padding: '1rem' }}>
+                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
+                  Add to <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>.cursor/mcp.json</code> in your project root:
+                </p>
+                <pre style={codeStyle}>{CURSOR_CONFIG}</pre>
+              </div>
+            </details>
+
+            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
+                <span>▶</span> Generic MCP client
+              </summary>
+              <div style={{ padding: '1rem' }}>
+                <pre style={codeStyle}>{GENERIC_INSTALL}</pre>
+              </div>
+            </details>
           </div>
-
-          {/* Claude Desktop shown by default */}
-          <div>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
-              Add to your <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>~/.claude/claude_desktop_config.json</code>:
-            </p>
-            <pre style={codeStyle}>{CLAUDE_DESKTOP_CONFIG}</pre>
-          </div>
-
-          <details style={{ marginTop: '1.5rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.75rem', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>▶</span> Cursor configuration
-            </summary>
-            <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', margin: '0.75rem 0' }}>
-              Add to <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>.cursor/mcp.json</code> in your project root:
-            </p>
-            <pre style={codeStyle}>{CURSOR_CONFIG}</pre>
-          </details>
-
-          <details style={{ marginTop: '1rem' }}>
-            <summary style={{ cursor: 'pointer', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.75rem', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>▶</span> Generic MCP client
-            </summary>
-            <pre style={{ ...codeStyle, marginTop: '0.75rem' }}>{GENERIC_INSTALL}</pre>
-          </details>
         </Container>
       </Section>
 

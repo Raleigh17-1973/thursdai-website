@@ -294,31 +294,28 @@ export default function DevelopersPage() {
           <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0', margin: '0 0 0.75rem' }}>
             Submit a receipt
           </p>
-          <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-            {(['Python', 'TypeScript', 'cURL'] as const).map((lang, i) => (
-              <span key={lang} style={{
-                padding: '8px 16px',
-                fontSize: '14px',
-                fontWeight: 600,
-                color: i === 0 ? '#8b9ef0' : 'rgba(255,255,255,0.4)',
-                borderBottom: i === 0 ? '2px solid #8b9ef0' : '2px solid transparent',
-                marginBottom: '-1px',
-              }}>
-                {lang}
-              </span>
-            ))}
-          </div>
-          <CodeBlock code={PYTHON_RECEIPT} language="python" filename="record_receipt.py" />
-          <div style={{ display: 'flex', gap: '2rem', marginTop: '1rem' }}>
-            <details style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>
-              <summary style={{ cursor: 'pointer' }}>TypeScript</summary>
-              <div style={{ marginTop: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <details open style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: '#8b9ef0', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+                <span>▶</span> Python
+              </summary>
+              <div style={{ padding: '0.75rem' }}>
+                <CodeBlock code={PYTHON_RECEIPT} language="python" filename="record_receipt.py" />
+              </div>
+            </details>
+            <details style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+                <span>▶</span> TypeScript
+              </summary>
+              <div style={{ padding: '0.75rem' }}>
                 <CodeBlock code={TS_RECEIPT} language="typescript" filename="record_receipt.ts" />
               </div>
             </details>
-            <details style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px' }}>
-              <summary style={{ cursor: 'pointer' }}>cURL</summary>
-              <div style={{ marginTop: '0.75rem' }}>
+            <details style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
+              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+                <span>▶</span> cURL
+              </summary>
+              <div style={{ padding: '0.75rem' }}>
                 <CodeBlock code={CURL_RECEIPT} language="bash" filename="record_receipt.sh" />
               </div>
             </details>
