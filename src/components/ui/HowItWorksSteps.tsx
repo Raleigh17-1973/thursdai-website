@@ -6,7 +6,7 @@ const STEPS = [
   {
     step: '01',
     title: 'An AI system makes a decision',
-    body: 'Any AI tool in your business — your own or a vendor\'s — makes a decision. Thursdai captures it: what was decided, which system made it, which model ran and when.',
+    body: 'Any AI tool in your business, whether your own or a vendor\'s, makes a decision. Thursdai captures it: what was decided, which system made it, which model ran and when.',
   },
   {
     step: '02',

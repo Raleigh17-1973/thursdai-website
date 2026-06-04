@@ -200,7 +200,7 @@ export default function HomePage() {
             variant="large"
             style={{ color: '#a1a1aa', marginTop: '1rem' }}
           >
-            Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature — written at the moment it occurs, never reconstructed after the fact.
+            Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature, written at the moment it occurs, never reconstructed after the fact.
           </Body>
 
           <div style={{
@@ -278,7 +278,7 @@ export default function HomePage() {
                   <span className="font-display">Ask questions of your entire decision record.</span>
                 </Heading2>
                 <Body>
-                  Every receipt Thursdai captures becomes part of a queryable record. Use Thursdai&apos;s agents to investigate patterns, surface anomalies and answer regulators — in plain language, with the receipts as evidence.
+                  Every receipt Thursdai captures becomes part of a queryable record. Use Thursdai&apos;s agents to investigate patterns, surface anomalies and answer regulators, in plain language, with the receipts as evidence.
                 </Body>
                 <Body style={{ color: 'var(--color-text-secondary)' }}>
                   The more decisions are recorded, the more powerful the investigation. Your receipt history becomes the source of truth your compliance team, legal team and auditors can all query independently.
@@ -359,7 +359,7 @@ export default function HomePage() {
             <span className="font-display">Governed answers for every question your team asks.</span>
           </Heading2>
           <Body variant="large" style={{ color: '#a1a1aa', marginBottom: '3rem' }}>
-            When your employees use the Thursdai Agent, every answer is grounded in your business&apos;s own knowledge base — your policies, procedures, contracts and guidelines. The agent cannot answer outside what you have approved. Every response is an AI Receipt showing exactly what knowledge was used, which policies applied and what alternatives were considered.
+            When your employees use the Thursdai Agent, every answer is grounded in your business&apos;s own knowledge base: your policies, procedures, contracts and guidelines. The agent cannot answer outside what you have approved. Every response is an AI Receipt showing exactly what knowledge was used, which policies applied and what alternatives were considered.
           </Body>
 
           {/* Split: example agent session left, use cases right */}
@@ -695,7 +695,7 @@ export default function HomePage() {
                   <span className="font-display">Any AI system. One call. A signed receipt.</span>
                 </Heading2>
                 <Body style={{ color: '#a1a1aa' }}>
-                  Wherever a decision happens in your stack — your own model, a vendor&apos;s agent or a third-party tool — record it to Thursdai with a single API call. The receipt is signed, compliance-checked and stored against your tenant the moment it lands.
+                  Wherever a decision happens in your stack, whether your own model, a vendor&apos;s agent or a third-party tool, record it to Thursdai with a single API call. The receipt is signed, compliance-checked and stored against your tenant the moment it lands.
                 </Body>
                 <Link href="/developers" style={{ color: '#8b9ef0', fontSize: '15px', fontWeight: 600 }}>
                   Explore the developer surface →

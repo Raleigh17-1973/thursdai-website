@@ -15,7 +15,7 @@ import { CodeBlock } from '@/components/ui/CodeBlock';
 export const metadata: Metadata = {
   title: 'Developers: Thursdai',
   description:
-    'Submit AI Receipts from any system, query your decision record and use the Thursdai agent — REST API, MCP server, TypeScript and Python SDKs.',
+    'Submit AI Receipts from any system, query your decision record and use the Thursdai agent: REST API, MCP server, TypeScript and Python SDKs.',
 };
 
 // ── Receipt API snippets ────────────────────────────────────────
@@ -250,7 +250,7 @@ export default function DevelopersPage() {
                 icon: <IconReceipt />,
                 label: 'POST /v1/receipts',
                 title: 'Receipt API',
-                body: 'Submit a signed AI Receipt from any system — your own model, a vendor\'s agent or a third-party tool. Returns a receipt ID, compliance results and tamper-evident signature.',
+                body: 'Submit a signed AI Receipt from any system, whether your own model, a vendor\'s agent or a third-party tool. Returns a receipt ID, compliance results and tamper-evident signature.',
               },
               {
                 icon: <IconQuery />,
@@ -262,7 +262,7 @@ export default function DevelopersPage() {
                 icon: <IconAgent />,
                 label: 'POST /v1/agent/ask',
                 title: 'Agent API',
-                body: 'Use the Thursdai Agent grounded in your knowledge base and policies. Every answer is a signed AI Receipt — knowledge consulted, policies applied, confidence score.',
+                body: 'Use the Thursdai Agent grounded in your knowledge base and policies. Every answer is a signed AI Receipt: knowledge consulted, policies applied, confidence score.',
               },
             ].map(({ icon, label, title, body }) => (
               <div key={title} style={{
@@ -352,7 +352,7 @@ export default function DevelopersPage() {
             <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design for receipts, queries and agent calls." href="/developers/sdk" />
             <Card variant="feature" icon={<IconDocs />} title="Documentation" body="Architecture overview, receipt schema reference, deployment guides and integration tutorials." href="/developers/docs" />
             <Card variant="feature" icon={<IconChangelog />} title="Changelog" body="API versioning policy, breaking change notices and release notes for the receipt schema and endpoints." href="/developers/changelog" />
-            <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference — all fields, agent types, evidence formats, compliance classifications and extension points." href="/developers/docs" />
+            <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference: all fields, agent types, evidence formats, compliance classifications and extension points." href="/developers/docs" />
           </Grid>
         </Container>
       </Section>
