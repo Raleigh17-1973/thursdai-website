@@ -26,7 +26,7 @@ export default function CompanyPage() {
           <Display style={{ marginTop: '1rem' }}>
             Built because I couldn&apos;t see what my own agents were doing.
           </Display>
-          <Body variant="large" style={{ marginTop: '1.5rem' }}>
+          <Body style={{ marginTop: '1.5rem' }}>
             I&apos;m Jeffrey Hoyt. In February 2026 I was laid off, and for the first time in years I
             had the time to actually build something I&apos;d been thinking about for a long time: a
             business operations agent. I started with Program and Project Management (the domain I
