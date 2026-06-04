@@ -212,7 +212,7 @@ export default function HomePage() {
             {[
               {
                 title: 'Tamper-evident signature',
-                body: 'Every receipt is sha256-signed at the moment of decision. The record cannot be altered or backdated.',
+                body: 'Every receipt is anchored in a tamper-evident Merkle chain at the moment it occurs. The record cannot be altered or backdated.',
               },
               {
                 title: 'Policy compliance status',

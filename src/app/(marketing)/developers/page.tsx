@@ -414,9 +414,9 @@ export default function DevelopersPage() {
               </thead>
               <tbody>
                 {[
-                  { tier: 'SMB', rpm: '120', apm: '60', burst: '240' },
-                  { tier: 'Mid-market', rpm: '600', apm: '300', burst: '1,200' },
-                  { tier: 'Enterprise', rpm: '2,000', apm: '1,000', burst: '4,000' },
+                  { tier: 'SMB', rpm: 'See dashboard', apm: 'See dashboard', burst: 'See dashboard' },
+                  { tier: 'Mid-market', rpm: 'See dashboard', apm: 'See dashboard', burst: 'See dashboard' },
+                  { tier: 'Enterprise', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
                   { tier: 'Fortune 100', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
                 ].map((row, i) => (
                   <tr key={i} style={{ background: i % 2 === 1 ? 'var(--color-surface-secondary)' : undefined }}>

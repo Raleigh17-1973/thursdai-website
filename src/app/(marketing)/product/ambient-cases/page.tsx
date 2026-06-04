@@ -9,8 +9,8 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
 export const metadata: Metadata = {
@@ -78,15 +78,6 @@ function IconAudit() {
   );
 }
 
-const INTEGRATIONS = [
-  'ServiceNow',
-  'Jira',
-  'Salesforce',
-  'Workday',
-  'Microsoft 365',
-  'Slack',
-];
-
 export default function AmbientCasesPage() {
   return (
     <>
@@ -100,7 +91,17 @@ export default function AmbientCasesPage() {
               { label: 'Ambient Cases' },
             ]}
           />
-          <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+            <Callout variant="info" title="Early access">
+              Ambient Cases is available to design partners. Capabilities and integrations
+              expand as the product ships. Reach out at{' '}
+              <a href="mailto:hello@thursdai.com" style={{ color: 'var(--color-accent)' }}>
+                hello@thursdai.com
+              </a>{' '}
+              to join the program.
+            </Callout>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <Label>Ambient Cases</Label>
             <Display>Cases that build themselves.</Display>
             <Body variant="large">
@@ -186,30 +187,7 @@ export default function AmbientCasesPage() {
         </Container>
       </Section>
 
-      {/* ── 4. Export integrations ──────────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
-        <Container>
-          <Label style={{ textAlign: 'center', display: 'block', marginBottom: '1.25rem' }}>
-            Export integrations
-          </Label>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '0.75rem',
-            }}
-          >
-            {INTEGRATIONS.map((name) => (
-              <Badge key={name} variant="muted">
-                {name}
-              </Badge>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── 5. CTA ──────────────────────────────────────────── */}
+      {/* ── 4. CTA ──────────────────────────────────────────── */}
       <section
         style={{
           background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',

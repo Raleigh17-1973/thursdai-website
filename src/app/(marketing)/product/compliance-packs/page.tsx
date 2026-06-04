@@ -68,8 +68,8 @@ export default function CompliancePacksPage() {
           <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
             <Card
               variant="feature"
-              title="Two formats"
-              body="A human-readable PDF for auditors and boards, and machine-readable JSON-LD for systems that ingest evidence directly."
+              title="Portable evidence"
+              body="Packs are designed for export to your GRC systems and direct submission to regulators. Export formats are finalised as frameworks ship."
             />
             <Card
               variant="feature"

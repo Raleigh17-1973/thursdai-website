@@ -12,135 +12,102 @@ import { Breadcrumb } from '@/components/nav/Breadcrumb';
 export const metadata: Metadata = {
   title: 'MCP Server: Thursdai',
   description:
-    'The Thursdai MCP server: invoke_role, replay_case, dry_run_policy and four more tools for governed AI agent orchestration.',
+    'The Thursdai MCP server: five read-only audit tools for querying your AI Receipt record from any MCP-compatible client.',
 };
 
 // ── Tool definitions ────────────────────────────────────────────
 
 const MCP_TOOLS = [
   {
-    name: 'invoke_role',
+    name: 'get_decision_record',
     description:
-      'Route a question through one or more roles. Returns panel answers + Moderator reconciliation.',
+      'Retrieve a specific AI Receipt by ID, with full TCDS schema fields and anchor proof.',
     schema: {
-      question: 'string (required)',
-      roles: 'string[] (optional, defaults to all configured roles)',
+      receipt_id: 'string (required)',
       tenant_id: 'string (required)',
-      policy_set: 'string (optional, defaults to active policy set)',
-      replay_at: 'ISO8601 timestamp (optional, for time-travel)',
+      include_anchor_proof: 'boolean (optional, default false)',
     },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/invoke-role \\
-  -H "Authorization: Bearer thy_live_..." \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "question": "Should we deploy GPT-4o to tier-1 clients?",
-    "roles": ["legal", "finance", "engineering"],
-    "tenant_id": "acme-financial",
-    "policy_set": "production-v2"
-  }'`,
-  },
-  {
-    name: 'replay_case',
-    description:
-      'Replay a past decision with the knowledge and policies active at a specific timestamp.',
-    schema: {
-      case_id: 'string (required)',
-      replay_at: 'ISO8601 timestamp (required)',
-      tenant_id: 'string (required)',
-      include_diff: 'boolean (optional, default false)',
-    },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/replay-case \\
-  -H "Authorization: Bearer thy_live_..." \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "case_id": "case_01HXYZ...",
-    "replay_at": "2025-12-01T00:00:00Z",
-    "tenant_id": "acme-financial",
-    "include_diff": true
-  }'`,
-  },
-  {
-    name: 'check_tenant_vs_standard',
-    description:
-      'Compare how an answer changes between the standard corpus and your tenant corpus.',
-    schema: {
-      question: 'string (required)',
-      tenant_id: 'string (required)',
-      roles: 'string[] (optional)',
-      format: "'summary' | 'full' (optional, default 'summary')",
-    },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/corpus-compare \\
-  -H "Authorization: Bearer thy_live_..." \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "question": "What is our policy on AI vendor selection?",
-    "tenant_id": "acme-financial",
-    "format": "full"
-  }'`,
-  },
-  {
-    name: 'dry_run_policy',
-    description:
-      'Test a policy YAML against a set of queries without affecting production.',
-    schema: {
-      policy_yaml: 'string (required)',
-      test_questions: 'string[] (required)',
-      tenant_id: 'string (required)',
-      roles: 'string[] (optional)',
-    },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/policy/dry-run \\
-  -H "Authorization: Bearer thy_live_..." \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "policy_yaml": "allowed_sources:\\n  - internal-legal\\nrequired_attribution: true",
-    "test_questions": ["Can we cite competitor pricing?"],
-    "tenant_id": "acme-financial"
-  }'`,
-  },
-  {
-    name: 'list_roles',
-    description:
-      'List all configured roles for a tenant, with scope and corpus access details.',
-    schema: {
-      tenant_id: 'string (required)',
-      include_disabled: 'boolean (optional, default false)',
-    },
-    curlExample: `curl https://api.thursdai.com/v1/roles \\
+    curlExample: `curl "https://api.thursdai.com/v1/receipts/rec_01HXYZ..." \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "X-Tenant-ID: acme-financial"`,
   },
   {
-    name: 'get_case_history',
+    name: 'search_decisions',
     description:
-      'Retrieve the full decision history for a case ID, with all versions and policy states.',
+      'Search the decision record by source system, date range, outcome, policy flag or compliance status.',
     schema: {
-      case_id: 'string (required)',
       tenant_id: 'string (required)',
+      source: 'string (optional)',
+      from: 'ISO8601 timestamp (optional)',
+      to: 'ISO8601 timestamp (optional)',
+      compliance_status: "'pass' | 'flag' | 'block' (optional)",
       limit: 'number (optional, default 20)',
       cursor: 'string (optional, for pagination)',
     },
-    curlExample: `curl "https://api.thursdai.com/v1/cases/case_01HXYZ.../history" \\
+    curlExample: `curl -X POST https://api.thursdai.com/v1/receipts/search \\
   -H "Authorization: Bearer thy_live_..." \\
-  -H "X-Tenant-ID: acme-financial"`,
+  -H "Content-Type: application/json" \\
+  -d '{
+    "tenant_id": "acme-financial",
+    "source": "greenhouse-screening-agent",
+    "from": "2026-01-01T00:00:00Z",
+    "compliance_status": "flag"
+  }'`,
+  },
+  {
+    name: 'verify_anchor',
+    description:
+      'Verify the Merkle chain anchor for one or more receipts, confirming the record has not been altered.',
+    schema: {
+      receipt_ids: 'string[] (required)',
+      tenant_id: 'string (required)',
+    },
+    curlExample: `curl -X POST https://api.thursdai.com/v1/receipts/verify \\
+  -H "Authorization: Bearer thy_live_..." \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "receipt_ids": ["rec_01HXYZ...", "rec_01HABC..."],
+    "tenant_id": "acme-financial"
+  }'`,
+  },
+  {
+    name: 'get_coverage_summary',
+    description:
+      'Return a governance coverage summary: total decision count, compliance pass/fail rates and framework status across a tenant.',
+    schema: {
+      tenant_id: 'string (required)',
+      from: 'ISO8601 timestamp (optional)',
+      to: 'ISO8601 timestamp (optional)',
+    },
+    curlExample: `curl "https://api.thursdai.com/v1/coverage?tenant_id=acme-financial&from=2026-01-01T00:00:00Z" \\
+  -H "Authorization: Bearer thy_live_..."`,
+  },
+  {
+    name: 'list_frameworks',
+    description:
+      'List the compliance frameworks active for a tenant with their status, last audit date and coverage metrics.',
+    schema: {
+      tenant_id: 'string (required)',
+    },
+    curlExample: `curl "https://api.thursdai.com/v1/frameworks?tenant_id=acme-financial" \\
+  -H "Authorization: Bearer thy_live_..."`,
+  },
+];
+
+// ── Coming-soon action tools ────────────────────────────────────
+
+const COMING_TOOLS = [
+  {
+    name: 'record_receipt',
+    description: 'Submit a signed AI Receipt from any external system. Ships with the Receipt API.',
+  },
+  {
+    name: 'invoke_role',
+    description: 'Route a question through the Moderator panel. Ships with the Agent API.',
   },
   {
     name: 'stream_moderator_response',
-    description:
-      'Stream the Moderator\'s reconciliation in real time as role answers arrive.',
-    schema: {
-      question: 'string (required)',
-      roles: 'string[] (optional)',
-      tenant_id: 'string (required)',
-      policy_set: 'string (optional)',
-    },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/stream/moderator \\
-  -H "Authorization: Bearer thy_live_..." \\
-  -H "Content-Type: application/json" \\
-  -H "Accept: text/event-stream" \\
-  -d '{
-    "question": "What is our GDPR exposure for this feature?",
-    "tenant_id": "acme-financial"
-  }'`,
+    description: 'Stream the Moderator reconciliation in real time as role answers arrive.',
   },
 ];
 
@@ -219,9 +186,10 @@ export default function McpPage() {
             Thursdai speaks MCP natively.
           </Display>
           <Body variant="large" style={{ color: '#a1a1aa' }}>
-            Seven MCP tools for governed agent orchestration. Works with Claude Desktop, Cursor,
-            and any Model Context Protocol-compatible client. invoke_role() brings Thursdai&apos;s
-            Moderator into any agent workflow.
+            Five read-only audit tools for querying your AI Receipt record from any
+            MCP-compatible client, including Claude Desktop and Cursor. Action tools for
+            recording decisions and routing through the Moderator panel ship as the Receipt
+            and Agent APIs come online.
           </Body>
         </Container>
       </Section>
@@ -229,7 +197,12 @@ export default function McpPage() {
       {/* Installation */}
       <Section variant="compact">
         <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Installation</Heading2>
+          <Heading2 style={{ marginBottom: '1rem' }}>Installation</Heading2>
+          <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', padding: '0.75rem 1rem', background: 'var(--color-surface-secondary)', border: '1px solid var(--color-border-default)', borderRadius: '8px' }}>
+            <strong style={{ color: 'var(--color-text-primary)' }}>Private beta:</strong>{' '}
+            <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@thursdai/mcp-server</code> is available to design partners. Contact{' '}
+            <a href="mailto:dev@thursdai.com" style={{ color: 'var(--color-accent)' }}>dev@thursdai.com</a> for access.
+          </p>
           <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--color-border-default)', marginBottom: '1.5rem' }}>
             {['Claude Desktop', 'Cursor', 'Generic MCP client'].map((label, i) => (
               <span
@@ -279,7 +252,7 @@ export default function McpPage() {
       <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
         <Container>
           <Heading2 style={{ marginBottom: '0.5rem' }}>Tool reference</Heading2>
-          <Body style={{ marginBottom: '2rem' }}>Seven tools for governed agent orchestration.</Body>
+          <Body style={{ marginBottom: '2rem' }}>Five read-only audit tools, with three action tools coming.</Body>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {MCP_TOOLS.map((tool) => (
@@ -367,6 +340,65 @@ export default function McpPage() {
                   </div>
                 </div>
               </details>
+            ))}
+          </div>
+
+          {/* Coming-soon action tools */}
+          <Heading2 style={{ marginTop: '2.5rem', marginBottom: '0.5rem' }}>Coming soon</Heading2>
+          <Body style={{ marginBottom: '1.5rem' }}>
+            Action tools shipping with the Receipt and Agent APIs.
+          </Body>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {COMING_TOOLS.map((tool) => (
+              <div
+                key={tool.name}
+                style={{
+                  border: '1px solid var(--color-border-default)',
+                  borderRadius: '10px',
+                  background: 'var(--color-surface-primary)',
+                  padding: '1rem 1.25rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  opacity: 0.65,
+                }}
+              >
+                <code
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    color: 'var(--color-text-secondary)',
+                  }}
+                >
+                  {tool.name}
+                </code>
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: 'var(--color-text-tertiary)',
+                    background: 'var(--color-surface-secondary)',
+                    border: '1px solid var(--color-border-default)',
+                    borderRadius: '4px',
+                    padding: '2px 8px',
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Coming soon
+                </span>
+                <span
+                  style={{
+                    fontSize: '14px',
+                    color: 'var(--color-text-secondary)',
+                    flex: 1,
+                  }}
+                >
+                  {tool.description}
+                </span>
+              </div>
             ))}
           </div>
         </Container>
