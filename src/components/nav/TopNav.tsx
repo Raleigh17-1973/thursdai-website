@@ -74,7 +74,7 @@ export function TopNav() {
             aria-expanded={megaOpen}
             aria-haspopup="menu"
             className="flex items-center gap-1 px-3 py-2 rounded-md text-[14px] font-medium"
-            style={{ color: 'var(--color-text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+            style={{ color: 'var(--color-text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', fontWeight: 500, lineHeight: 'inherit' }}
           >
             Product
             <ChevronDownIcon open={megaOpen} />
