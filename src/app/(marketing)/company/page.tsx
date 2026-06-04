@@ -23,7 +23,7 @@ export default function CompanyPage() {
       <Section variant="default">
         <Container>
           <Label>Our Story</Label>
-          <Display style={{ marginTop: '1rem', fontFamily: 'var(--font-display)' }}>
+          <Display style={{ marginTop: '1rem' }}>
             Built because I couldn&apos;t see what my own agents were doing.
           </Display>
           <Body variant="large" style={{ marginTop: '1.5rem' }}>
