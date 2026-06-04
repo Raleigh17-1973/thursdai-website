@@ -7,9 +7,10 @@ import { NAV_ITEMS } from '@/config/nav';
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  onRequestDemo?: () => void;
 }
 
-export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
+export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -162,14 +163,13 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           className="px-4 py-6 border-t flex-shrink-0"
           style={{ borderColor: 'var(--color-border-default)' }}
         >
-          <Link
-            href="/demo"
-            onClick={onClose}
-            className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold text-white"
-            style={{ background: 'var(--color-accent)', color: '#ffffff', textDecoration: 'none' }}
+          <button
+            onClick={onRequestDemo ?? onClose}
+            className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold"
+            style={{ background: 'var(--color-accent)', color: '#ffffff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', fontWeight: 600 }}
           >
             Request demo
-          </Link>
+          </button>
         </div>
       </div>
     </>

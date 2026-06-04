@@ -7,6 +7,7 @@ import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
 import { Toggle } from '@/components/ui/Toggle';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
+import { DemoRequestModal } from '@/components/ui/DemoRequestModal';
 
 function HamburgerIcon() {
   return (
@@ -37,6 +38,7 @@ function ChevronDownIcon({ open }: { open: boolean }) {
 export function TopNav() {
   const [megaOpen, setMegaOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
   const productButtonRef = useRef<HTMLButtonElement>(null);
 
   const otherNavItems = NAV_ITEMS.filter((item) => item.label !== 'Product');
@@ -100,13 +102,13 @@ export function TopNav() {
           <Toggle />
 
           {/* Request demo — hidden on mobile */}
-          <Link
-            href="/demo"
+          <button
+            onClick={() => setDemoOpen(true)}
             className="hidden md:inline-flex items-center px-4 py-2 rounded-lg text-[14px] font-semibold"
-            style={{ background: 'var(--color-accent)', textDecoration: 'none', color: '#ffffff' }}
+            style={{ background: 'var(--color-accent)', border: 'none', cursor: 'pointer', color: '#ffffff', fontFamily: 'inherit', fontSize: '14px', fontWeight: 600 }}
           >
             Get a Demo
-          </Link>
+          </button>
 
           {/* Hamburger — mobile only */}
           <button
@@ -131,7 +133,10 @@ export function TopNav() {
       </div>
 
       {/* Mobile drawer */}
-      <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} onRequestDemo={() => { setMobileOpen(false); setDemoOpen(true); }} />
+
+      {/* Demo request modal */}
+      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </header>
   );
 }
