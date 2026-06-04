@@ -20,7 +20,7 @@ export default function CompanyPage() {
   return (
     <>
       {/* ── Section 1: Founder story ── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="default">
         <Container>
           <Label>Our Story</Label>
           <Display style={{ marginTop: '1rem', fontFamily: 'var(--font-display)' }}>
