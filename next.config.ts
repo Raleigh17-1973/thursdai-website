@@ -22,11 +22,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://app.posthog.com https://js.hs-scripts.com",
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://app.posthog.com https://js.hs-scripts.com https://www.clarity.ms https://va.vercel-scripts.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self'",
-      "connect-src 'self' https://app.posthog.com https://api.hubapi.com",
+      "connect-src 'self' https://app.posthog.com https://api.hubapi.com https://c.clarity.ms https://vitals.vercel-insights.com",
       "frame-ancestors 'none'",
     ].join('; '),
   },
