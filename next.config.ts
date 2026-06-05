@@ -26,7 +26,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self'",
-      "connect-src 'self' https://app.posthog.com https://api.hubapi.com https://c.clarity.ms https://vitals.vercel-insights.com",
+      "connect-src 'self' https://app.posthog.com https://api.hubapi.com https://c.clarity.ms https://f.clarity.ms https://vitals.vercel-insights.com",
       "frame-ancestors 'none'",
     ].join('; '),
   },
