@@ -48,8 +48,7 @@
     ],
     "risk": {
       "tier": "high",
-      "framework": "EU AI Act Annex III",
-      "legal_basis": "EU AI Act Article 27"
+      "framework": "EU AI Act Annex III"
     },
     "human_oversight": {
       "reviewer_role": "Recruiting coordinator",
@@ -58,9 +57,9 @@
     "recorded_at": "2026-09-16T14:32:07Z",
     "scope_note": "This receipt proves what was recorded and when. It does not claim the decision was correct or fair."
   },
-  "sha256": "c25024f7f1a57e668941a431fecc0d34090b36178c9da341cb80341d5d9f5fca",
-  "signature": "aqIDTF/To04CHfdhWY00nPbQ99DCpGDA3VMLW07uaftndr0XFaxma/lJohIX7S40YgfhahWuOrQYLhA2cdFQAg==",
+  "sha256": "9c455f3f611903634fd20b85674033671e6d47e5f234c2235055e21a56eb2f30",
+  "signature": "TG5p+TUiUQj1Eq8+VNnKNdK9Jq+ERn+jQqPR7vCTf8fDkEyRfOmqvOXmidc32ZF6TUPvaA7L4t+Rh61uoMc6BA==",
   "signature_algorithm": "ed25519",
-  "signed_at": "2026-10-02T19:32:43Z",
-  "key_id": "key_b2b188c336ed"
+  "signed_at": "2026-10-02T19:35:12Z",
+  "key_id": "key_ddff902f519b"
 }

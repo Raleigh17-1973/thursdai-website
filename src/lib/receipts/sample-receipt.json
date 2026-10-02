@@ -38,8 +38,7 @@
   ],
   "risk": {
     "tier": "high",
-    "framework": "EU AI Act Annex III",
-    "legal_basis": "EU AI Act Article 27"
+    "framework": "EU AI Act Annex III"
   },
   "human_oversight": {
     "reviewer_role": "Recruiting coordinator",

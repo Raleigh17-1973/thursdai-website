@@ -84,12 +84,16 @@ class Doc {
     const size = 9.5, lw = 150;
     const font = mono ? this.f.mono : this.f.reg;
     const lines = wrap(value, font, mono ? 8.5 : size, CW - lw);
+    // Wrap long labels within the label column, measured with the embedded font.
+    const labelLines = wrap(label.toUpperCase(), this.f.mono, 7.5, lw - 14);
+    const count = Math.max(lines.length, labelLines.length);
     this.rule(this.y);
     const top = this.y - 14;
-    this.page.drawText(label.toUpperCase(), { x: M, y: top, size: 7.5, font: this.f.mono, color: SECOND });
+    labelLines.forEach((l, i) =>
+      this.page.drawText(l, { x: M, y: top - i * 11, size: 7.5, font: this.f.mono, color: SECOND }));
     lines.forEach((l, i) =>
       this.page.drawText(l, { x: M + lw, y: top - i * 13, size: mono ? 8.5 : size, font, color: INK }));
-    this.y -= 12 + lines.length * 13 + 4;
+    this.y -= 12 + count * 13 + 4;
   }
   seal(y) {
     // The only amber element in the document.
@@ -186,7 +190,7 @@ async function auditPack() {
   d.y -= 8;
   for (const e of receipt.evidence) d.row(labelize(e.kind), e.ref);
   d.y -= 18;
-  d.row('Risk classification', `${receipt.risk.tier} risk under ${receipt.risk.framework}; legal basis ${receipt.risk.legal_basis}`);
+  d.row('Risk classification', `${receipt.risk.tier} risk under ${receipt.risk.framework}`);
   d.row('Human oversight', `${receipt.human_oversight.reviewer_role} followed the recommendation`);
 
   // 4 signature + verification
