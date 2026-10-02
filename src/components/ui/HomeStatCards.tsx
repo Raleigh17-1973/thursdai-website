@@ -44,7 +44,7 @@ export function HomeStatCards() {
         <div key={s.label} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {/* Stat card */}
           <div
-            className="border border-[var(--color-border-default)] rounded-xl bg-[var(--color-surface-primary)] hover:shadow-md transition-shadow p-6 flex flex-col gap-1"
+            className="border border-[var(--color-border-default)] rounded-[2px] bg-[var(--color-surface-primary)] hover:shadow-md transition-shadow p-6 flex flex-col gap-1"
           >
             <span className="text-4xl font-bold" style={{ color: 'var(--color-accent)' }}>
               <CountUp

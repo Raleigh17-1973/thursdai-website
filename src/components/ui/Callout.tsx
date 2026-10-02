@@ -10,46 +10,39 @@ interface CalloutProps {
   style?: React.CSSProperties;
 }
 
-const variantStyles: Record<
-  CalloutVariant,
-  { borderColor: string; background: string; titleColor: string }
-> = {
-  info: {
-    borderColor: 'var(--color-accent)',
-    background: 'color-mix(in srgb, var(--color-accent) 8%, transparent)',
-    titleColor: 'var(--color-accent)',
-  },
-  warning: {
-    borderColor: 'rgb(245,158,11)',
-    background: 'rgba(245,158,11,0.08)',
-    titleColor: 'rgb(217,119,6)',
-  },
-  danger: {
-    borderColor: 'rgb(239,68,68)',
-    background: 'rgba(239,68,68,0.08)',
-    titleColor: 'rgb(220,38,38)',
-  },
+// A ruled note: a 2px rule on the left, no tint. info rules in indigo, warning and
+// danger in ink (status colours are retired outside the receipt). Reads like an
+// annotation in the margin of a document.
+const ruleColor: Record<CalloutVariant, string> = {
+  info: 'var(--color-accent)',
+  warning: 'var(--color-text-primary)',
+  danger: 'var(--color-text-primary)',
 };
 
 export function Callout({ variant = 'info', title, children, className = '', style }: CalloutProps) {
-  const { borderColor, background, titleColor } = variantStyles[variant];
-
   return (
     <div
-      className={['rounded-r-lg px-4 py-3', className].filter(Boolean).join(' ')}
+      className={['py-1 pl-5', className].filter(Boolean).join(' ')}
       style={{
-        borderLeft: `4px solid ${borderColor}`,
-        background,
+        borderLeft: `2px solid ${ruleColor[variant]}`,
         ...style,
       }}
       role={variant === 'danger' ? 'alert' : undefined}
     >
       {title && (
-        <p className="text-[13px] font-semibold mb-1" style={{ color: titleColor }}>
+        <p
+          className="m-0 mb-2"
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '15px',
+            fontWeight: 600,
+            color: 'var(--color-text-primary)',
+          }}
+        >
           {title}
         </p>
       )}
-      <div className="text-[14px] leading-relaxed" style={{ color: 'var(--color-text-primary)' }}>
+      <div className="text-[15px] leading-[1.6]" style={{ color: 'var(--color-text-secondary)' }}>
         {children}
       </div>
     </div>

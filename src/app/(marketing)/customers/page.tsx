@@ -18,7 +18,7 @@ export default function CustomersPage() {
   return (
     <>
       {/* ── Hero ── */}
-      <Section style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
+      <Section>
         <Container>
           <Label>Customers</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>Our first design partners.</Heading1>
@@ -34,9 +34,9 @@ export default function CustomersPage() {
         <Container>
           <div
             style={{
-              background: 'var(--color-surface-secondary)',
+              background: 'var(--color-surface-primary)',
               border: '1px solid var(--color-border-default)',
-              borderRadius: '16px',
+              borderRadius: '2px',
               padding: '3rem',
               textAlign: 'center',
               marginTop: '1rem',
@@ -54,7 +54,7 @@ export default function CustomersPage() {
             </Body>
             <Body
               variant="small"
-              style={{ color: 'var(--color-text-tertiary)', marginBottom: '1.5rem' }}
+              style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}
             >
               Requirements: named customer, one measurable outcome, approval for the &lsquo;What we
               deployed&rsquo; technical section. We write the case study; you approve it before

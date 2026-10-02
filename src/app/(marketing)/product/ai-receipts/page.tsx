@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -9,7 +8,7 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -50,18 +49,14 @@ export default function AiReceiptsPage() {
             receipt.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="mailto:thursdai@getthursdai.com">
-              <Button variant="primary" size="lg">Talk to us about a pilot</Button>
-            </Link>
-            <Link href="/product/compliance-packs">
-              <Button variant="secondary" size="lg">Bundle receipts into audit packs</Button>
-            </Link>
+            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="lg">Talk to us about a pilot</ButtonLink>
+            <ButtonLink href="/product/compliance-packs" variant="secondary" size="lg">Bundle receipts into audit packs</ButtonLink>
           </div>
         </Container>
       </Section>
 
       {/* What's on a receipt */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>What is on an AI Receipt.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -74,12 +69,12 @@ export default function AiReceiptsPage() {
                 key={r.title}
                 style={{
                   border: '1px solid var(--color-border-default)',
-                  borderRadius: '12px',
+                  borderRadius: '2px',
                   background: 'var(--color-surface-primary)',
                   padding: '1.1rem 1.25rem',
                 }}
               >
-                <p style={{ fontWeight: 700, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
+                <p style={{ fontWeight: 500, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
                   {r.title}
                 </p>
                 <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', margin: '0.35rem 0 0 0' }}>
@@ -118,7 +113,7 @@ export default function AiReceiptsPage() {
       </Section>
 
       {/* Honesty */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="What a receipt proves, and what it does not.">
             An AI Receipt proves what happened: what the AI decided and on what basis. It does not
@@ -129,16 +124,14 @@ export default function AiReceiptsPage() {
       </Section>
 
       {/* CTA */}
-      <Section variant="compact">
+      <Section variant="compact" tone="ink">
         <Container>
           <Heading2>See receipts in a space.</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>
             The People space puts AI Receipts to work on hiring and workforce decisions.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/solutions/people">
-              <Button variant="primary" size="md">Explore the People space →</Button>
-            </Link>
+            <ButtonLink href="/solutions/people" variant="primary" size="md">Explore the People space →</ButtonLink>
           </div>
         </Container>
       </Section>

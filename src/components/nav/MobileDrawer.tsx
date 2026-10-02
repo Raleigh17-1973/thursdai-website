@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { NAV_ITEMS } from '@/config/nav';
+import { Button } from '@/components/ui/Button';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -55,17 +56,20 @@ export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerPro
   }, [isOpen, onClose]);
 
   const otherItems = NAV_ITEMS.filter((item) => item.label !== 'Product');
+  const linkClass =
+    'block px-3 py-3 rounded-[2px] text-[17px] no-underline hover:no-underline hover:bg-[var(--sunk)]';
 
   return (
     <>
       {/* Backdrop */}
       <div
         aria-hidden="true"
-        className="fixed inset-0 z-[199] transition-opacity duration-250"
+        className="fixed inset-0 z-[199]"
         style={{
-          background: 'rgba(0,0,0,0.5)',
+          background: 'rgba(20, 18, 15, 0.45)',
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
+          transition: 'opacity 180ms ease',
         }}
         onClick={onClose}
       />
@@ -76,100 +80,68 @@ export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerPro
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className="fixed top-0 right-0 h-full w-[280px] z-[200] flex flex-col"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+        className="fixed top-0 right-0 h-full w-[300px] max-w-[85vw] z-[200] flex flex-col"
         style={{
-          background: 'var(--color-surface-primary)',
-          boxShadow: 'var(--shadow-lg)',
+          background: 'var(--paper)',
+          borderLeft: '1px solid var(--ink)',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 250ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 180ms cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        {/* Header */}
         <div
-          className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0"
-          style={{ borderColor: 'var(--color-border-default)', height: '64px' }}
+          className="flex items-center justify-between px-6 flex-shrink-0"
+          style={{ borderBottom: '1px solid var(--rule)', height: '64px' }}
         >
           <span
-            className="text-[15px] font-semibold"
-            style={{ color: 'var(--color-text-primary)' }}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              color: 'var(--ink-2)',
+            }}
           >
             Menu
           </span>
           <button
             ref={closeButtonRef}
+            type="button"
             onClick={onClose}
             aria-label="Close menu"
-            className="flex items-center justify-center w-8 h-8 rounded-md"
-            style={{ color: 'var(--color-text-secondary)' }}
+            className="flex items-center justify-center w-10 h-10 rounded-[2px]"
+            style={{ color: 'var(--ink)', background: 'transparent', border: 'none', cursor: 'pointer' }}
           >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path
-                d="M1 1l16 16M17 1L1 17"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           </button>
         </div>
 
-        {/* Nav links */}
-        <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-4 py-6">
-          {/* Product — single link on mobile */}
-          <div className="mb-2">
-            <Link
-              href="/product"
-              onClick={onClose}
-              className="block px-2 py-2.5 rounded-md text-[15px] font-medium"
-              style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = 'var(--color-surface-secondary)')
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = 'transparent')
-              }
-            >
-              Product
-            </Link>
-          </div>
-
-          {/* Other nav items */}
-          <ul className="space-y-1 list-none p-0 m-0">
-            {otherItems.map((item) => (
-              'href' in item && (
+        <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto px-3 py-4">
+          <ul className="list-none p-0 m-0">
+            <li>
+              <Link href="/product" onClick={onClose} className={linkClass} style={{ color: 'var(--ink)' }}>
+                Product
+              </Link>
+            </li>
+            {otherItems.map((item) =>
+              'href' in item ? (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className="block px-2 py-2.5 rounded-md text-[15px] font-medium"
-                    style={{ color: 'var(--color-text-primary)', textDecoration: 'none' }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = 'var(--color-surface-secondary)')
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = 'transparent')
-                    }
-                  >
+                  <Link href={item.href} onClick={onClose} className={linkClass} style={{ color: 'var(--ink)' }}>
                     {item.label}
                   </Link>
                 </li>
-              )
-            ))}
+              ) : null,
+            )}
           </ul>
         </nav>
 
-        {/* CTA */}
-        <div
-          className="px-4 py-6 border-t flex-shrink-0"
-          style={{ borderColor: 'var(--color-border-default)' }}
-        >
-          <button
-            onClick={onRequestDemo ?? onClose}
-            className="flex items-center justify-center w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold"
-            style={{ background: 'var(--color-accent)', color: '#ffffff', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', fontWeight: 600 }}
-          >
+        <div className="px-6 py-6 flex-shrink-0" style={{ borderTop: '1px solid var(--rule)' }}>
+          <Button onClick={onRequestDemo ?? onClose} className="w-full">
             Request a pilot
-          </button>
+          </Button>
         </div>
       </div>
     </>

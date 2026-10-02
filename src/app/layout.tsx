@@ -1,17 +1,43 @@
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-import { Instrument_Serif } from 'next/font/google';
+import { Geist, Geist_Mono, Instrument_Serif, Newsreader } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SITE_URL } from '@/config/site';
 import './globals.css';
 
-const instrumentSerif = Instrument_Serif({
-  weight: '400',
-  style: ['normal', 'italic'],
+// Geist for text and UI, Latin subset (a fraction of the full variable files the geist
+// package ships: about 54KB together instead of 142KB). Geist Mono stays preloaded because
+// the hero receipt is set in it and a late swap shifts the hero (CLS).
+const geistSans = Geist({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-display',
+  variable: '--font-geist-sans',
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist-mono',
+});
+
+// Display face (The Record). Variable with the optical-size axis so H1 can sit at
+// opsz 72 and H2 at opsz 36. next/font self-hosts the files at build, so the CSP's
+// font-src 'self' holds. The design uses weights 400 and 500 only.
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  style: ['normal'],
+  axes: ['opsz'],
+  display: 'swap',
+  adjustFontFallback: true,
+  variable: '--font-newsreader',
+});
+
+// Instrument Serif survives only in the wordmark (italic).
+const instrumentSerif = Instrument_Serif({
+  weight: '400',
+  style: ['italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-instrument-serif',
 });
 
 const SITE_TITLE = 'Thursdai: a signed record for every AI decision';
@@ -66,25 +92,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable} ${instrumentSerif.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${instrumentSerif.variable}`}
     >
       <head>
-        {/* Dark mode script — runs before React hydrates to prevent flash */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var stored = localStorage.getItem('thursdai-color-mode');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var theme = stored || (prefersDark ? 'dark' : 'light');
-                  document.documentElement.setAttribute('data-theme', theme);
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
         {/* Structured data */}
         <script
           type="application/ld+json"

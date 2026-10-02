@@ -1,13 +1,9 @@
 import React from 'react';
 
 /**
- * Brand wordmark. Instrument Serif italic "thursdai" with only the trailing
- * "ai" carrying the dawn gradient. The gradient is CSS background-clip (not a
- * baked SVG), so the mark scales with font-size and never rasterizes.
- *
- * Use `onDark` in the always-dark footer: it lightens "thursd" and forces the
- * periwinkle to amber dark gradient, which reads on a dark panel regardless of
- * the active light/dark theme.
+ * Brand wordmark: Instrument Serif italic "thursdai" (the only surviving use of
+ * Instrument Serif). Only "ai" is coloured, solid indigo on paper and #9DA8F0 on ink.
+ * Live text, so it scales with font-size and never rasterizes.
  */
 export function ThursdaiWordmark({
   onDark = false,
@@ -18,21 +14,23 @@ export function ThursdaiWordmark({
 }) {
   return (
     <span
-      className="font-display"
       role="img"
       aria-label="Thursdai"
       style={{
         display: 'inline-block',
+        fontFamily: 'var(--font-wordmark)',
+        fontStyle: 'italic',
         fontWeight: 400,
         fontSize: `${fontSize}px`,
         lineHeight: 1,
-        color: onDark ? '#f4f4f6' : 'var(--color-text-primary)',
+        letterSpacing: '-0.01em',
+        color: onDark ? '#F7F5F0' : 'var(--ink)',
         whiteSpace: 'nowrap',
         userSelect: 'none',
       }}
     >
       thursd
-      <span className={onDark ? 'dawn-gradient-text-dark' : 'dawn-gradient-text'}>ai</span>
+      <span style={{ color: onDark ? '#9DA8F0' : 'var(--indigo)' }}>ai</span>
     </span>
   );
 }

@@ -37,7 +37,7 @@ export function SecurityPackForm() {
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}
     >
       {status === 'error' && (
-        <p style={{ color: 'rgb(239,68,68)', fontSize: '14px' }}>
+        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>
           Something went wrong. Please try again or email{' '}
           <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
             thursdai@getthursdai.com
@@ -57,7 +57,7 @@ export function SecurityPackForm() {
             padding: '10px 14px',
             background: 'var(--color-surface-primary)',
             border: '1px solid var(--color-border-default)',
-            borderRadius: '8px',
+            borderRadius: '2px',
             color: 'var(--color-text-primary)',
             fontSize: '15px',
             outline: 'none',

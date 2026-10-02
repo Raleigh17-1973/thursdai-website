@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -10,7 +9,7 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Callout } from '@/components/ui/Callout';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Thursdai vs Glean',
@@ -68,7 +67,7 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'glean' | 'thursdai' })
 
   if (isGleanSearch2) {
     return (
-      <td style={{ padding: '0.75rem 1rem', color: 'var(--color-text-tertiary)', fontSize: '14px' }}>
+      <td style={{ padding: '0.75rem 1rem', color: 'var(--color-text-secondary)', fontSize: '14px' }}>
         ✗ Not the use case
       </td>
     );
@@ -97,7 +96,7 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'glean' | 'thursdai' })
   if (isPolicyThursdai) {
     return (
       <td style={{ padding: '0.75rem 1rem' }}>
-        <span style={{ fontSize: '15px' }}>✅</span>
+        <span style={{ fontSize: '15px' }}>✓</span>
         <span style={{ fontSize: '13px', color: 'var(--color-text-secondary)', marginLeft: '0.4rem' }}>
           (inference-layer)
         </span>
@@ -114,7 +113,7 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'glean' | 'thursdai' })
   if (isThursdaiCMEK) {
     return (
       <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        ✅ dedicated+
+        ✓ dedicated+
       </td>
     );
   }
@@ -128,12 +127,12 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'glean' | 'thursdai' })
 
   if (value === 'yes') {
     return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>
+      <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>
     );
   }
   if (value === 'no') {
     return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>
+      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>✗</td>
     );
   }
   if (value === 'partial') {
@@ -174,7 +173,7 @@ export default function CompareGleanPage() {
       </Section>
 
       {/* ── Where Glean is strong ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Where Glean is strong</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
@@ -235,90 +234,54 @@ export default function CompareGleanPage() {
       </Section>
 
       {/* ── Feature matrix ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                fontSize: '14px',
-              }}
-            >
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr
-                  style={{
-                    background: 'var(--color-accent)',
-                    color: '#fff',
-                    position: 'sticky',
-                    top: 0,
-                  }}
-                >
+                <tr>
                   <th
+                    scope="col"
                     style={{
                       padding: '0.75rem 1rem',
                       textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
                       position: 'sticky',
                       left: 0,
-                      background: 'var(--color-accent)',
+                      background: 'var(--sunk)',
                     }}
                   >
                     Feature
                   </th>
-                  <th
-                    style={{
-                      padding: '0.75rem 1rem',
-                      textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      minWidth: '140px',
-                    }}
-                  >
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
                     Glean
                   </th>
-                  <th
-                    style={{
-                      padding: '0.75rem 1rem',
-                      textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      minWidth: '160px',
-                    }}
-                  >
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
                     Thursdai
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {MATRIX.map((row, i) => (
-                  <tr
-                    key={row.feature}
-                    style={{
-                      background:
-                        i % 2 === 0
-                          ? 'var(--color-surface-primary)'
-                          : 'var(--color-surface-secondary)',
-                    }}
-                  >
-                    <td
+                {MATRIX.map((row) => (
+                  <tr key={row.feature}>
+                    <th
+                      scope="row"
                       style={{
                         padding: '0.75rem 1rem',
+                        textAlign: 'left',
                         fontWeight: 500,
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '14px',
+                        textTransform: 'none',
+                        letterSpacing: 'normal',
                         color: 'var(--color-text-primary)',
                         position: 'sticky',
                         left: 0,
-                        background:
-                          i % 2 === 0
-                            ? 'var(--color-surface-primary)'
-                            : 'var(--color-surface-secondary)',
-                        fontSize: '14px',
+                        background: 'var(--color-surface-primary)',
                       }}
                     >
                       {row.feature}
-                    </td>
+                    </th>
                     <MatrixCell row={row} col="glean" />
                     <MatrixCell row={row} col="thursdai" />
                   </tr>
@@ -330,7 +293,7 @@ export default function CompareGleanPage() {
       </Section>
 
       {/* ── When Glean is the right choice ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="When Glean is the right choice">
             <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
@@ -355,7 +318,7 @@ export default function CompareGleanPage() {
       </Section>
 
       {/* ── Bottom line ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="Bottom line">
             Glean finds information. Thursdai governs decisions. If your team needs AI that surfaces knowledge AND answers for it, Glean alone isn&apos;t enough.
@@ -364,23 +327,14 @@ export default function CompareGleanPage() {
       </Section>
 
       {/* ── CTA ── */}
-      <section
-        style={{
-          background: 'var(--color-surface-secondary)',
-          padding: '3rem 0',
-          textAlign: 'center',
-        }}
-      >
+      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
         <Container>
           <Heading2>See Thursdai for yourself</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
-          <Link href="/?ref=compare-glean#replay-demo">
-            <Button variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-              Try the replay demo →
-            </Button>
-          </Link>
+          <ButtonLink href="/?ref=compare-glean#replay-demo" variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
+            Try the replay demo →
+          </ButtonLink>
         </Container>
-      </section>
-    </>
+      </Section>    </>
   );
 }

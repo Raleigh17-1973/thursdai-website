@@ -8,7 +8,7 @@ import { Display } from '@/components/typography/Display';
 import { Heading2, Heading3 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
@@ -80,19 +80,15 @@ export default function PolicyAsCodePage() {
               A hard constraint.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/#policy-demo">
-                <Button variant="primary">See the demo</Button>
-              </Link>
-              <Link href="/developers">
-                <Button variant="secondary">Read the spec</Button>
-              </Link>
+              <ButtonLink href="/#policy-demo" variant="primary">See the demo</ButtonLink>
+              <ButtonLink href="/developers" variant="secondary">Read the spec</ButtonLink>
             </div>
           </div>
         </Container>
       </Section>
 
       {/* ── 2. PolicyEditor ─────────────────────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="default">
         <Container>
           <PolicyEditor />
         </Container>
@@ -107,6 +103,7 @@ export default function PolicyAsCodePage() {
           </Heading2>
           <div style={{ overflowX: 'auto' }}>
             <table
+              className="rec-table"
               style={{
                 width: '100%',
                 borderCollapse: 'collapse',
@@ -116,15 +113,14 @@ export default function PolicyAsCodePage() {
               <thead>
                 <tr
                   style={{
-                    borderBottom: '2px solid var(--color-border-default)',
+                    borderBottom: '1px solid var(--color-border-default)',
                   }}
                 >
                   <th
                     style={{
                       textAlign: 'left',
                       padding: '0.75rem 1rem',
-                      fontWeight: 700,
-                      color: 'var(--color-text-primary)',
+                      fontWeight: 500,
                       fontFamily: 'var(--font-mono)',
                       fontSize: '13px',
                     }}
@@ -135,8 +131,7 @@ export default function PolicyAsCodePage() {
                     style={{
                       textAlign: 'left',
                       padding: '0.75rem 1rem',
-                      fontWeight: 700,
-                      color: 'var(--color-text-primary)',
+                      fontWeight: 500,
                     }}
                   >
                     Purpose
@@ -145,8 +140,7 @@ export default function PolicyAsCodePage() {
                     style={{
                       textAlign: 'left',
                       padding: '0.75rem 1rem',
-                      fontWeight: 700,
-                      color: 'var(--color-text-primary)',
+                      fontWeight: 500,
                     }}
                   >
                     Example
@@ -154,13 +148,11 @@ export default function PolicyAsCodePage() {
                 </tr>
               </thead>
               <tbody>
-                {PRIMITIVES.map((row, i) => (
+                {PRIMITIVES.map((row) => (
                   <tr
                     key={row.primitive}
                     style={{
                       borderBottom: '1px solid var(--color-border-default)',
-                      background:
-                        i % 2 === 0 ? 'transparent' : 'var(--color-surface-secondary)',
                     }}
                   >
                     <td
@@ -169,7 +161,7 @@ export default function PolicyAsCodePage() {
                         fontFamily: 'var(--font-mono)',
                         fontSize: '13px',
                         color: 'var(--color-accent)',
-                        fontWeight: 600,
+                        fontWeight: 500,
                         whiteSpace: 'nowrap',
                       }}
                     >
@@ -200,7 +192,7 @@ export default function PolicyAsCodePage() {
       </Section>
 
       {/* ── 4. Dry-run section ──────────────────────────────── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Split
             ratio="50/50"
@@ -234,44 +226,20 @@ export default function PolicyAsCodePage() {
       </Section>
 
       {/* ── 5. CTA ──────────────────────────────────────────── */}
-      <section
-        style={{
-          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
-          padding: '4rem 0',
-          textAlign: 'center',
-        }}
-      >
+      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <div style={{
-            background: 'rgba(255,255,255,0.08)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: '20px',
-            padding: '3rem',
-            maxWidth: '640px',
-            margin: '0 auto',
-            textAlign: 'center',
-          }}>
-            <Heading2 style={{ color: '#fff' }}>Read the policy language spec</Heading2>
-            <Body
-              variant="large"
-              style={{ color: 'rgba(255,255,255,0.85)', maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
-            >
-              Full reference for every primitive, operator and dry-run flag.
-            </Body>
-            <Link href="/developers">
-              <Button
-                variant="primary"
-                size="lg"
-                style={{ background: '#ffffff', color: '#3e4fb8' }}
-              >
-                Policy language docs →
-              </Button>
-            </Link>
-          </div>
+          <Heading2>Read the policy language spec</Heading2>
+          <Body
+            variant="large"
+            style={{ maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
+          >
+            Full reference for every primitive, operator and dry-run flag.
+          </Body>
+          <ButtonLink href="/developers" variant="primary" size="lg">
+            Policy language docs →
+          </ButtonLink>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

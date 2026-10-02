@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { NAV_ITEMS } from '@/config/nav';
 import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
-import { Toggle } from '@/components/ui/Toggle';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
 import { DemoRequestModal } from '@/components/ui/DemoRequestModal';
+import { Button } from '@/components/ui/Button';
 
 function HamburgerIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <path d="M2 6h16M2 14h16" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -48,18 +48,10 @@ export function TopNav() {
       className="sticky top-0 z-[10]"
       style={{
         height: '64px',
-        borderBottom: '1px solid var(--color-border-default)',
+        background: 'var(--paper)',
+        borderBottom: '1px solid var(--rule)',
       }}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'color-mix(in srgb, var(--color-surface-primary) 80%, transparent)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-        }}
-        aria-hidden="true"
-      />
 
       <div className="relative h-full max-w-[1200px] mx-auto px-6 md:px-10 flex items-center justify-between">
         {/* Logo */}
@@ -68,15 +60,15 @@ export function TopNav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
+        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-2">
           {/* Product with megamenu */}
           <button
             ref={productButtonRef}
             onClick={() => setMegaOpen((v) => !v)}
             aria-expanded={megaOpen}
             aria-haspopup="menu"
-            className="flex items-center gap-1 px-3 py-2 rounded-md text-[14px] font-medium"
-            style={{ color: 'var(--color-text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '14px', fontWeight: 500, lineHeight: 'inherit' }}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-[2px] text-[15px] hover:text-[var(--ink)]"
+            style={{ color: megaOpen ? 'var(--ink)' : 'var(--ink-2)', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 400, lineHeight: 'inherit' }}
           >
             Product
             <ChevronDownIcon open={megaOpen} />
@@ -87,8 +79,7 @@ export function TopNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 rounded-md text-[14px] font-medium"
-                style={{ color: 'var(--color-text-secondary)', textDecoration: 'none' }}
+                className="px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline"
               >
                 {item.label}
               </Link>
@@ -98,25 +89,20 @@ export function TopNav() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Theme toggle */}
-          <Toggle ariaLabel="Toggle colour theme" />
-
-          {/* Request demo — hidden on mobile */}
-          <button
-            onClick={() => setDemoOpen(true)}
-            className="hidden md:inline-flex items-center px-4 py-2 rounded-lg text-[14px] font-semibold"
-            style={{ background: 'var(--color-accent)', border: 'none', cursor: 'pointer', color: '#ffffff', fontFamily: 'inherit', fontSize: '14px', fontWeight: 600 }}
-          >
-            Request a pilot
-          </button>
+          {/* Request a pilot: hidden on mobile (it lives in the drawer) */}
+          <div className="hidden md:block">
+            <Button size="sm" onClick={() => setDemoOpen(true)}>
+              Request a pilot
+            </Button>
+          </div>
 
           {/* Hamburger — mobile only */}
           <button
-            className="flex md:hidden items-center justify-center w-9 h-9 rounded-md"
+            className="flex md:hidden items-center justify-center w-10 h-10 rounded-[2px]"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}
-            style={{ color: 'var(--color-text-secondary)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+            style={{ color: 'var(--ink)', background: 'transparent', border: 'none', cursor: 'pointer' }}
           >
             <HamburgerIcon />
           </button>

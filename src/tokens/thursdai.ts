@@ -1,100 +1,110 @@
-// Design tokens — Thursdai Design System (Horizon Brand, April 2026)
-// Palette: indigo (#3e4fb8) + periwinkle (#8b9ef0) + dawn gradient
-// DO NOT use old teal (#0d9488 / #2dd4bf / #0f766e) — see brand guide.
+// Design tokens: "The Record" (October 2026). Binding spec: docs/design/the-record.md
+//
+// The marketing site is light only: paper, ink, one indigo accent and one amber seal.
+// Amber means "signed" and appears only on the receipt signature rule and the seal; it
+// never carries text. The `dark` set below is kept for the app; marketing never uses it.
+//
+// Contrast (WCAG, against paper #F7F5F0 unless stated):
+//   ink 17.2:1 · ink2 8.1:1 (7.5:1 on sunk) · ink3 5.2:1 (4.8:1 on sunk) · indigo 6.4:1
+//   on the ink band: paper 17.2:1 · inkBandText2 10.7:1 · inkBandText3 6.9:1 · indigoOnInk 8.3:1
 
 export const tokens = {
   colors: {
-    // Brand palette — Horizon
-    indigoDeep:   '#1e2a5a',   // deep navy — dawn gradient start
-    indigo:       '#3e4fb8',   // primary accent on light bg
-    periwinkle:   '#8b9ef0',   // primary accent on dark bg
-    plum:         '#5b3a7a',   // dawn gradient mid
-    amber:        '#e8a34a',   // dawn gradient end / warm highlight
+    // Surfaces
+    paper: '#F7F5F0', // the one base surface
+    sunk: '#EFECE4', // code, table headers, receipt field wells. Never a section background.
+    ink: '#14120F', // text and the single contrast surface (closing CTA band)
 
-    // Semantic accent (resolved per theme in CSS)
-    accentLight:      '#3e4fb8',  // indigo — used on light bg
-    accentDark:       '#8b9ef0',  // periwinkle — used on dark bg
-    accentHoverLight: '#2d3d9e',
-    accentHoverDark:  '#a8b6f5',
+    // Text on paper
+    ink2: '#4E4A44', // secondary
+    ink3: '#6B665E', // tertiary: metadata only, never body copy
 
-    // Surfaces (light) — warm paper tone, not pure white
-    bgLight:               '#fafaf9',
-    surfacePrimaryLight:   '#ffffff',
-    surfaceSecondaryLight: '#f5f5f4',
-    surfaceTertiaryLight:  '#efefed',
+    // Text on the ink band
+    inkBandText: '#F7F5F0',
+    inkBandText2: '#C9C3B7',
+    inkBandText3: '#A39D92',
 
-    // Surfaces (dark)
-    bgDark:               '#0a0a0e',
-    surfacePrimaryDark:   '#141418',
-    surfaceSecondaryDark: '#1a1a20',
-    surfaceTertiaryDark:  '#222228',
+    // Rules
+    rule: 'rgba(20,18,15,0.14)', // hairline
+    ruleStrong: '#14120F', // 1px rules that carry meaning (receipt, section dividers)
+    ruleOnInk: 'rgba(247,245,240,0.16)',
 
-    // Text (light)
-    textPrimaryLight:   '#171717',
-    textSecondaryLight: '#525252',
-    textTertiaryLight:  '#6b6b6b',
+    // Accent: links, primary buttons and focus rings only
+    indigo: '#3e4fb8',
+    indigoHover: '#2d3d9e',
+    indigoOnInk: '#9DA8F0',
 
-    // Text (dark)
-    textPrimaryDark:   '#e4e4e9',
-    textSecondaryDark: '#a1a1b0',
-    textTertiaryDark:  '#8a8a96',
+    // Seal: receipt signature rule and the "Signed" seal only. 1.97:1 on paper, never text.
+    amber: '#e8a34a',
+    amberText: '#9A5B12', // 5.0:1 on paper, only if amber text is ever unavoidable
 
-    // Borders (light)
-    borderDefaultLight: '#e5e5e3',
-    borderStrongLight:  '#d4d4d1',
-    borderFocusLight:   '#3e4fb8',
-
-    // Borders (dark)
-    borderDefaultDark: '#2a2a32',
-    borderStrongDark:  '#3a3a46',
-    borderFocusDark:   '#8b9ef0',
-
-    // Status
-    success:     '#16a34a',
-    successDark: '#22c55e',
-    warning:     '#d97706',
-    warningDark: '#f59e0b',
-    danger:      '#dc2626',
-    dangerDark:  '#ef4444',
-    info:        '#2563eb',
-    infoDark:    '#3b82f6',
+    // Receipt-only status inks (inside ReceiptFrame and demo panes, never as page colour)
+    statusPass: '#2f6b3a', // 5.9:1 on paper
+    statusFlag: '#b42318', // 6.0:1 on paper
   },
 
-  gradients: {
-    dawn: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
-    dawnText: 'linear-gradient(135deg, #3e4fb8 0%, #5b3a7a 55%, #e8a34a 100%)',
-    dawnTextDark: 'linear-gradient(135deg, #8b9ef0 0%, #c084fc 55%, #e8a34a 100%)',
+  // App-only dark set. Not used by (marketing).
+  dark: {
+    bg: '#0a0a0e',
+    surfacePrimary: '#141418',
+    surfaceSecondary: '#1a1a20',
+    surfaceTertiary: '#222228',
+    textPrimary: '#e4e4e9',
+    textSecondary: '#a1a1b0',
+    textTertiary: '#8a8a96',
+    borderDefault: '#2a2a32',
+    borderStrong: '#3a3a46',
+    borderFocus: '#8b9ef0',
+    accent: '#8b9ef0',
+    accentHover: '#a8b6f5',
   },
 
   fonts: {
-    sans:    ['Geist', 'Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
-    display: ['Instrument Serif', 'Georgia', 'ui-serif', 'serif'],
-    mono:    ['Geist Mono', 'SF Mono', 'Menlo', 'Consolas', 'monospace'],
+    // Newsreader is loaded by next/font/google in app/layout.tsx and exposed as --font-display.
+    display: ['Newsreader', 'Georgia', 'ui-serif', 'serif'],
+    sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+    mono: ['Geist Mono', 'SF Mono', 'Menlo', 'Consolas', 'monospace'],
+    // Instrument Serif survives only in the wordmark.
+    wordmark: ['Instrument Serif', 'Georgia', 'serif'],
+  },
+
+  // Type scale: exactly three sizes above body. Mobile → desktop, interpolated with clamp().
+  type: {
+    h1: { mobile: 40, desktop: 72, lineHeight: 1.05, tracking: '-0.02em', opsz: 72 },
+    h2: { mobile: 30, desktop: 44, lineHeight: 1.15, tracking: '-0.015em', opsz: 36 },
+    h3: { mobile: 22, desktop: 26, lineHeight: 1.25, tracking: '-0.01em', weight: 500 },
+    body: { size: 17, lineHeight: 1.6 },
+    ui: { size: 15 },
+    label: { size: 12, tracking: '0.04em' },
+  },
+
+  space: {
+    base: 8,
+    sectionDesktop: 128,
+    sectionMobile: 80,
+    headingToBody: 24,
+    cardPadding: 32,
+  },
+
+  layout: {
+    container: 1200,
+    containerNarrow: 760,
   },
 
   radii: {
-    xs: '4px',
-    sm: '6px',
-    md: '8px',
-    lg: '12px',
-    xl: '16px',
-    '2xl': '20px',
-    full: '9999px',
+    frame: '2px', // buttons, inputs, cards, frames
+    receipt: '0px',
   },
 
   shadows: {
-    xs: '0 1px 2px rgba(0,0,0,0.04)',
-    sm: '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
-    md: '0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04)',
-    lg: '0 12px 32px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.04)',
-    xl: '0 24px 48px rgba(0,0,0,0.12)',
+    // The only shadow on the site: a printed-card offset rule under the receipt.
+    receipt: '4px 4px 0 0 #14120F',
   },
 
   transitions: {
-    fast:  '100ms ease',
-    base:  '150ms ease',
-    slow:  '250ms ease',
-    panel: '250ms cubic-bezier(0.16, 1, 0.3, 1)',
+    fast: '100ms ease',
+    base: '150ms ease',
+    menu: '180ms cubic-bezier(0.16, 1, 0.3, 1)',
   },
 } as const;
 

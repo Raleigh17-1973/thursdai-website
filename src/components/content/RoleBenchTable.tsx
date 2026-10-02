@@ -45,12 +45,16 @@ export function RoleBenchTable() {
   const thStyle: React.CSSProperties = {
     padding: '0.75rem 1rem',
     textAlign: 'left',
-    fontWeight: 600,
-    fontSize: '13px',
+    fontWeight: 400,
+    fontFamily: 'var(--font-mono)',
+    fontSize: '12px',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
     cursor: 'pointer',
     userSelect: 'none',
-    background: 'var(--color-accent)',
-    color: '#fff',
+    background: 'var(--sunk)',
+    color: 'var(--ink-2)',
+    borderBottom: '1px solid var(--ink)',
     whiteSpace: 'nowrap',
   };
 
@@ -152,7 +156,7 @@ export function RoleBenchSubmitForm() {
     padding: '10px 14px',
     background: 'var(--color-surface-primary)',
     border: '1px solid var(--color-border-default)',
-    borderRadius: '8px',
+    borderRadius: '2px',
     color: 'var(--color-text-primary)',
     fontSize: '15px',
     outline: 'none',
@@ -162,7 +166,7 @@ export function RoleBenchSubmitForm() {
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       {status === 'error' && (
-        <p style={{ color: 'rgb(239,68,68)', fontSize: '14px' }}>Something went wrong. Please try again.</p>
+        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>Something went wrong. Please try again.</p>
       )}
       <input
         type="text"
@@ -232,7 +236,7 @@ export function RoleBenchNotifyForm() {
       style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}
     >
       {status === 'error' && (
-        <p style={{ width: '100%', color: 'rgb(239,68,68)', fontSize: '14px', textAlign: 'center' }}>
+        <p style={{ width: '100%', color: 'var(--status-flag)', fontSize: '14px', textAlign: 'center' }}>
           Something went wrong. Please try again.
         </p>
       )}
@@ -248,7 +252,7 @@ export function RoleBenchNotifyForm() {
           padding: '10px 14px',
           background: 'var(--color-surface-primary)',
           border: '1px solid var(--color-border-default)',
-          borderRadius: '8px',
+          borderRadius: '2px',
           color: 'var(--color-text-primary)',
           fontSize: '15px',
           outline: 'none',

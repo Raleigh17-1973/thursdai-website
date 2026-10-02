@@ -38,7 +38,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <Label>{study.industry}</Label>
         <Display as="h1">{study.customer}</Display>
         <Body variant="large">{study.stat_number}: {study.stat_headline}</Body>
-        <blockquote style={{ borderLeft: '4px solid var(--color-accent)', paddingLeft: '1.5rem', margin: '2rem 0' }}>
+        <blockquote style={{ borderLeft: '1px solid var(--color-border-strong)', paddingLeft: '1.5rem', margin: '2rem 0' }}>
           <Body>&quot;{study.quote}&quot;</Body>
           <Body variant="small">{study.quote_author}</Body>
         </blockquote>

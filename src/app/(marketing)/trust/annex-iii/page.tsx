@@ -78,8 +78,6 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'var(--color-text-primary)',
-  borderBottom: '1px solid var(--color-border-default)',
 };
 
 const tdStyle: React.CSSProperties = {
@@ -87,7 +85,6 @@ const tdStyle: React.CSSProperties = {
   fontSize: '14px',
   lineHeight: 1.5,
   color: 'var(--color-text-secondary)',
-  borderBottom: '1px solid var(--color-border-default)',
   verticalAlign: 'top',
 };
 
@@ -134,7 +131,7 @@ export default function AnnexIiiPage() {
       </Section>
 
       {/* What Annex III requires */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>What Annex III requires</Heading2>
           <ol
@@ -164,19 +161,16 @@ export default function AnnexIiiPage() {
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>How Thursdai maps</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
-                <tr style={{ background: 'var(--color-surface-secondary)' }}>
+                <tr>
                   <th style={thStyle}>Annex III Obligation</th>
                   <th style={thStyle}>Thursdai Control / Feature</th>
                 </tr>
               </thead>
               <tbody>
                 {OBLIGATION_MAPPINGS.map((row, i) => (
-                  <tr
-                    key={i}
-                    style={{ background: i % 2 === 1 ? 'var(--color-surface-secondary)' : undefined }}
-                  >
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
                       {row.obligation}
                     </td>
@@ -190,7 +184,7 @@ export default function AnnexIiiPage() {
       </Section>
 
       {/* Downloadable templates */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Compliance templates</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>
@@ -226,8 +220,8 @@ export default function AnnexIiiPage() {
               <div key={i}>
                 <p
                   style={{
-                    fontSize: '16px',
-                    fontWeight: 600,
+                    fontSize: '17px',
+                    fontWeight: 500,
                     color: 'var(--color-text-primary)',
                     marginBottom: '0.5rem',
                   }}

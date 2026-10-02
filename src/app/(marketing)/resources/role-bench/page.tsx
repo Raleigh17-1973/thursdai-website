@@ -52,7 +52,7 @@ export default function RoleBenchPage() {
       </Section>
 
       {/* ── Leaderboard shell ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Leaderboard</Heading2>
           <RoleBenchTable />
@@ -84,7 +84,7 @@ export default function RoleBenchPage() {
       </Section>
 
       {/* ── Download raw data (disabled) ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <p style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
@@ -96,14 +96,13 @@ export default function RoleBenchPage() {
               title="Available Q3 2026"
               style={{
                 padding: '8px 16px',
-                borderRadius: '8px',
+                borderRadius: '2px',
                 border: '1px solid var(--color-border-default)',
                 background: 'var(--color-surface-primary)',
                 color: 'var(--color-text-tertiary)',
                 fontSize: '14px',
                 fontWeight: 500,
                 cursor: 'not-allowed',
-                opacity: 0.6,
               }}
             >
               Download CSV: Available Q3 2026
@@ -115,19 +114,21 @@ export default function RoleBenchPage() {
       {/* ── Submit a role ── */}
       <Section>
         <Container>
-          <div style={{ maxWidth: '560px' }}>
+          <div>
             <Heading2 style={{ marginBottom: '0.5rem' }}>Submit a role for evaluation</Heading2>
             <Body style={{ marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>
               Have a role configuration you&apos;d like included in the v1 benchmark? Submit it
               below and we&apos;ll be in touch if it&apos;s selected.
             </Body>
-            <RoleBenchSubmitForm />
+            <div style={{ maxWidth: '560px' }}>
+              <RoleBenchSubmitForm />
+            </div>
           </div>
         </Container>
       </Section>
 
       {/* ── Email notification signup ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)', textAlign: 'center' }}>
+      <Section variant="compact" style={{ textAlign: 'center' }}>
         <Container>
           <Heading2 style={{ marginBottom: '0.5rem' }}>Get notified when results are live</Heading2>
           <Body style={{ marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>

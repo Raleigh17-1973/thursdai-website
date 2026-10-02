@@ -78,7 +78,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
     <div
       style={{
         border: '1px solid var(--color-border-default)',
-        borderRadius: '16px',
+        borderRadius: '2px',
         background: 'var(--color-surface-primary)',
         overflow: 'hidden',
         display: 'flex',
@@ -95,7 +95,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
               borderRadius: '50%',
               background: 'var(--color-accent)',
               display: 'inline-block',
-              animation: 'pulse-dot 2s ease-in-out infinite',
+              
             }}
           />
           <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
@@ -310,7 +310,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
                         height: '20px',
                         borderRadius: '50%',
                         background: 'var(--color-accent)',
-                        color: '#fff',
+                        color: 'var(--paper)',
                         fontSize: '11px',
                         fontWeight: 700,
                         display: 'flex',

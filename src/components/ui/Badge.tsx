@@ -1,6 +1,8 @@
 import React from 'react';
 
-// 'teal' kept as alias for 'indigo' — backward compat; colors are now brand-correct.
+// Mono tag with a hairline frame. Text is always ink-family or indigo so every variant
+// passes AA on paper and sunk; amber never carries text (it frames instead).
+// 'teal' is kept as an alias for 'indigo' for older call sites.
 type BadgeVariant = 'teal' | 'indigo' | 'green' | 'amber' | 'muted' | 'red';
 
 interface BadgeProps {
@@ -11,21 +13,33 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<BadgeVariant, React.CSSProperties> = {
-  indigo: { background: 'color-mix(in srgb, var(--color-accent) 15%, transparent)', color: 'var(--color-accent)' },
-  teal:   { background: 'color-mix(in srgb, var(--color-accent) 15%, transparent)', color: 'var(--color-accent)' },
-  green:  { background: 'rgba(34,197,94,0.15)', color: 'rgb(22,163,74)' },
-  amber:  { background: 'rgba(232,163,74,0.18)', color: 'rgb(180,120,30)' },
-  muted:  { background: 'var(--color-surface-secondary)', color: 'var(--color-text-secondary)' },
-  red:    { background: 'rgba(239,68,68,0.15)', color: 'rgb(220,38,38)' },
+  indigo: { color: 'var(--color-accent)', borderColor: 'currentColor' },
+  teal: { color: 'var(--color-accent)', borderColor: 'currentColor' },
+  // Status colours are retired outside the receipt: state reads from the frame, not hue.
+  green: { color: 'var(--color-text-primary)', borderColor: 'currentColor' },
+  amber: { color: 'var(--color-text-secondary)', borderColor: 'var(--color-border-strong)', borderStyle: 'dashed' },
+  muted: { color: 'var(--color-text-secondary)', borderColor: 'var(--color-border-strong)' },
+  red: { color: 'var(--color-text-primary)', borderColor: 'currentColor' },
 };
 
 export function Badge({ variant = 'muted', children, className = '', style }: BadgeProps) {
   return (
     <span
-      className={['inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold', className]
-        .filter(Boolean)
-        .join(' ')}
-      style={{ ...variantStyles[variant], ...style }}
+      className={['inline-flex items-center whitespace-nowrap', className].filter(Boolean).join(' ')}
+      style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '12px',
+        lineHeight: 1.4,
+        letterSpacing: '0.04em',
+        textTransform: 'uppercase',
+        padding: '1px 6px',
+        borderRadius: '2px',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        background: 'transparent',
+        ...variantStyles[variant],
+        ...style,
+      }}
     >
       {children}
     </span>

@@ -45,14 +45,14 @@ const CURL_SEARCH = `curl -X POST https://api.getthursdai.com/v1/receipts/search
 
 const codeStyle: React.CSSProperties = {
   display: 'block',
-  background: '#0b0f19',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '8px',
+  background: 'var(--sunk)',
+  border: '1px solid var(--rule)',
+  borderRadius: '2px',
   padding: '1rem',
   fontFamily: 'var(--font-mono, monospace)',
   fontSize: '13px',
   lineHeight: 1.6,
-  color: 'rgba(255,255,255,0.85)',
+  color: 'var(--ink)',
   overflowX: 'auto',
   whiteSpace: 'pre',
   margin: '0',
@@ -62,7 +62,7 @@ export default function SdkPage() {
   return (
     <>
       {/* Hero */}
-      <Section variant="default" style={{ background: '#0b0f19' }}>
+      <Section variant="default">
         <Container>
           <Breadcrumb
             items={[
@@ -71,11 +71,11 @@ export default function SdkPage() {
               { label: 'SDK' },
             ]}
           />
-          <Label style={{ color: '#8b9ef0', marginTop: '1.5rem', display: 'block' }}>SDK</Label>
-          <Display style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1.5rem' }}>
+          <Label style={{ marginTop: '1.5rem' }}>SDK</Label>
+          <Display style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Integrate via REST today.
           </Display>
-          <Body variant="large" style={{ color: '#a1a1aa' }}>
+          <Body variant="large">
             TypeScript and Python SDKs are in private beta. While the SDKs ship, the REST API
             gives you full access to every Thursdai capability.
           </Body>
@@ -97,7 +97,7 @@ export default function SdkPage() {
       </Section>
 
       {/* Write a receipt */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>Write a receipt</Heading2>
           <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
@@ -123,7 +123,7 @@ export default function SdkPage() {
       </Section>
 
       {/* Search receipts */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>Search receipts</Heading2>
           <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>

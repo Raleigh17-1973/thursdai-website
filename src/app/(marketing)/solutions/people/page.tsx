@@ -9,7 +9,7 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
@@ -34,7 +34,7 @@ const FRAMEWORKS = [
 export default function PeopleSolutionPage() {
   return (
     <>
-      {/* Hero — lead with the obligation, not the feature */}
+      {/* Hero: lead with the obligation, not the feature */}
       <Section>
         <Container>
           <Breadcrumb
@@ -55,18 +55,14 @@ export default function PeopleSolutionPage() {
             each one and bundles them into the audit-ready packs you need to answer for them.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="mailto:thursdai@getthursdai.com">
-              <Button variant="primary" size="lg">Talk to us about a pilot</Button>
-            </Link>
-            <Link href="/product/compliance-packs">
-              <Button variant="secondary" size="lg">See the evidence it produces</Button>
-            </Link>
+            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="lg">Talk to us about a pilot</ButtonLink>
+            <ButtonLink href="/product/compliance-packs" variant="secondary" size="lg">See the evidence it produces</ButtonLink>
           </div>
         </Container>
       </Section>
 
       {/* The problem */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>The rules already changed.</Heading2>
           <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
@@ -120,7 +116,7 @@ export default function PeopleSolutionPage() {
       </Section>
 
       {/* Frameworks covered */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Shaped to the frameworks you answer to.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -133,12 +129,12 @@ export default function PeopleSolutionPage() {
                 key={f.name}
                 style={{
                   border: '1px solid var(--color-border-default)',
-                  borderRadius: '12px',
+                  borderRadius: '2px',
                   background: 'var(--color-surface-primary)',
                   padding: '1rem 1.25rem',
                 }}
               >
-                <p style={{ fontWeight: 700, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
+                <p style={{ fontWeight: 500, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
                   {f.name}
                 </p>
                 <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', margin: '0.35rem 0 0 0' }}>
@@ -161,7 +157,7 @@ export default function PeopleSolutionPage() {
             in a format an auditor accepts.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/product/compliance-packs" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}>
+            <Link href="/product/compliance-packs" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 500 }}>
               How compliance packs work →
             </Link>
           </div>
@@ -169,7 +165,7 @@ export default function PeopleSolutionPage() {
       </Section>
 
       {/* Executive visibility */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Visibility at the executive altitude.</Heading2>
           <ExecutiveDashboard />

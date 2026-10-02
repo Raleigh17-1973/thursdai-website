@@ -68,15 +68,14 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
       ref={menuRef}
       role="menu"
       aria-label="Product features"
-      className="absolute top-full left-0 right-0 z-50 border-b"
+      className="absolute top-full left-0 right-0 z-50"
       style={{
-        background: 'var(--color-surface-primary)',
-        borderColor: 'var(--color-border-default)',
-        boxShadow: 'var(--shadow-lg)',
+        background: 'var(--paper)',
+        borderBottom: '1px solid var(--ink)',
       }}
     >
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 pt-8 pb-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-1 mb-6">
           {productItems.map((item, idx) => (
             <Link
               key={item.href}
@@ -84,32 +83,26 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
               role="menuitem"
               ref={(el) => { itemRefs.current[idx] = el; }}
               onClick={onClose}
-              className="flex items-start gap-3 p-4 rounded-lg transition-colors group"
-              style={{ color: 'inherit', textDecoration: 'none' }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = 'var(--color-surface-secondary)')
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = 'transparent')
-              }
+              className="flex items-start gap-4 p-4 rounded-[2px] no-underline hover:no-underline hover:bg-[var(--sunk)] transition-colors"
+              style={{ color: 'inherit' }}
             >
-              {/* Icon placeholder */}
               <span
-                className="mt-0.5 h-2 w-2 rounded-full flex-shrink-0"
-                style={{ background: 'var(--color-accent)', marginTop: '6px' }}
                 aria-hidden="true"
-              />
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '12px',
+                  lineHeight: '22px',
+                  color: 'var(--ink-3)',
+                  flexShrink: 0,
+                }}
+              >
+                {String(idx + 1).padStart(2, '0')}
+              </span>
               <div>
-                <div
-                  className="text-[14px] font-semibold mb-1"
-                  style={{ color: 'var(--color-text-primary)' }}
-                >
+                <div className="text-[15px] font-medium mb-1" style={{ color: 'var(--ink)' }}>
                   {item.label}
                 </div>
-                <div
-                  className="text-[13px] leading-snug"
-                  style={{ color: 'var(--color-text-secondary)' }}
-                >
+                <div className="text-[14px] leading-snug" style={{ color: 'var(--ink-2)' }}>
                   {item.description}
                 </div>
               </div>
@@ -117,24 +110,24 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
           ))}
         </div>
 
-        {/* Featured callout */}
-        <div
-          className="border-t pt-4"
-          style={{ borderColor: 'var(--color-border-default)' }}
-        >
+        <div className="pt-4" style={{ borderTop: '1px solid var(--rule)' }}>
           <Link
             href="/resources/role-bench"
             role="menuitem"
             ref={(el) => { itemRefs.current[productItems.length] = el; }}
             onClick={onClose}
-            className="inline-flex items-center gap-2 text-[13px] font-medium"
-            style={{ color: 'var(--color-accent)', textDecoration: 'none' }}
+            className="inline-flex items-center gap-3 text-[15px]"
           >
             <span
-              className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded"
               style={{
-                background: 'var(--color-accent-subtle)',
-                color: 'var(--color-accent)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: 'var(--ink-2)',
+                border: '1px solid var(--color-border-strong)',
+                borderRadius: '2px',
+                padding: '1px 6px',
               }}
             >
               New

@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -9,7 +8,7 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -49,15 +48,13 @@ export default function CompliancePacksPage() {
             Thursdai already records, not a report you assemble by hand the week before an audit.
           </Body>
           <div style={{ marginTop: '2rem' }}>
-            <Link href="/product/time-travel">
-              <Button variant="secondary" size="md">See where the record comes from →</Button>
-            </Link>
+            <ButtonLink href="/product/time-travel" variant="secondary" size="md">See where the record comes from →</ButtonLink>
           </div>
         </Container>
       </Section>
 
       {/* From audit trail to signed evidence */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>From audit trail to signed evidence.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -99,13 +96,13 @@ export default function CompliancePacksPage() {
                 key={s.n}
                 style={{
                   border: '1px solid var(--color-border-default)',
-                  borderRadius: '12px',
+                  borderRadius: '2px',
                   background: 'var(--color-surface-primary)',
                   padding: '1.1rem 1.25rem',
                 }}
               >
-                <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-accent)' }}>{s.n}</span>
-                <p style={{ fontWeight: 700, fontSize: '15px', color: 'var(--color-text-primary)', margin: '0.25rem 0 0 0' }}>
+                <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--color-accent)' }}>{s.n}</span>
+                <p style={{ fontWeight: 500, fontSize: '15px', color: 'var(--color-text-primary)', margin: '0.25rem 0 0 0' }}>
                   {s.title}
                 </p>
                 <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', margin: '0.35rem 0 0 0' }}>
@@ -118,7 +115,7 @@ export default function CompliancePacksPage() {
       </Section>
 
       {/* The honesty line */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="What a pack is, and is not.">
             A compliance pack is the evidence and documentation that supports an audit. It is not
@@ -130,16 +127,14 @@ export default function CompliancePacksPage() {
       </Section>
 
       {/* CTA */}
-      <Section variant="compact">
+      <Section variant="compact" tone="ink">
         <Container>
           <Heading2>See packs in a space.</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>
             The People space is the first to ship packs across a full set of workforce frameworks.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/solutions/people">
-              <Button variant="primary" size="md">Explore the People space →</Button>
-            </Link>
+            <ButtonLink href="/solutions/people" variant="primary" size="md">Explore the People space →</ButtonLink>
           </div>
         </Container>
       </Section>

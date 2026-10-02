@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -10,7 +9,7 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Callout } from '@/components/ui/Callout';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   // Not reviewed to the Glean page standard yet; keep out of the index until it is.
@@ -52,8 +51,8 @@ const MATRIX: MatrixRow[] = [
 ];
 
 function StatusCell({ value }: { value: MatrixStatus | string }) {
-  if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
-  if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>✗</td>;
+  if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
+  if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>✗</td>;
   if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
   if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
   return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
@@ -76,7 +75,7 @@ export default function CompareHarveyPage() {
       </Section>
 
       {/* ── Where Harvey is strong ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Where Harvey is strong</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
@@ -137,24 +136,48 @@ export default function CompareHarveyPage() {
       </Section>
 
       {/* ── Feature matrix ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: 'var(--color-accent)', color: '#fff', position: 'sticky', top: 0 }}>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'left', fontWeight: 600, fontSize: '13px', position: 'sticky', left: 0, background: 'var(--color-accent)' }}>Feature</th>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'left', fontWeight: 600, fontSize: '13px', minWidth: '140px' }}>Harvey</th>
-                  <th style={{ padding: '0.75rem 1rem', textAlign: 'left', fontWeight: 600, fontSize: '13px', minWidth: '160px' }}>Thursdai</th>
+                <tr>
+                  <th
+                    scope="col"
+                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
+                  >
+                    Feature
+                  </th>
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
+                    Harvey
+                  </th>
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
+                    Thursdai
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {MATRIX.map((row, i) => (
-                  <tr key={row.feature} style={{ background: i % 2 === 0 ? 'var(--color-surface-primary)' : 'var(--color-surface-secondary)' }}>
-                    <td style={{ padding: '0.75rem 1rem', fontWeight: 500, color: 'var(--color-text-primary)', position: 'sticky', left: 0, background: i % 2 === 0 ? 'var(--color-surface-primary)' : 'var(--color-surface-secondary)', fontSize: '14px' }}>
+                {MATRIX.map((row) => (
+                  <tr key={row.feature}>
+                    <th
+                      scope="row"
+                      style={{
+                        padding: '0.75rem 1rem',
+                        textAlign: 'left',
+                        fontWeight: 500,
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '14px',
+                        textTransform: 'none',
+                        letterSpacing: 'normal',
+                        color: 'var(--color-text-primary)',
+                        position: 'sticky',
+                        left: 0,
+                        background: 'var(--color-surface-primary)',
+                      }}
+                    >
                       {row.feature}
-                    </td>
+                    </th>
                     <StatusCell value={row.harvey} />
                     <StatusCell value={row.thursdai} />
                   </tr>
@@ -166,7 +189,7 @@ export default function CompareHarveyPage() {
       </Section>
 
       {/* ── When Harvey is the right choice ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="When Harvey is the right choice">
             <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
@@ -194,7 +217,7 @@ export default function CompareHarveyPage() {
       </Section>
 
       {/* ── Bottom line ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="Bottom line">
             Harvey makes lawyers faster. Thursdai governs decisions across Legal, Finance and
@@ -205,17 +228,15 @@ export default function CompareHarveyPage() {
       </Section>
 
       {/* ── CTA ── */}
-      <section style={{ background: 'var(--color-surface-secondary)', padding: '3rem 0', textAlign: 'center' }}>
+      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
         <Container>
           <Heading2>See Thursdai for yourself</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
-          <Link href="/?ref=compare-harvey#replay-demo">
-            <Button variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-              Try the replay demo →
-            </Button>
-          </Link>
+          <ButtonLink href="/?ref=compare-harvey#replay-demo" variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
+            Try the replay demo →
+          </ButtonLink>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

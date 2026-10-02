@@ -22,9 +22,6 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'var(--color-text-primary)',
-  borderBottom: '1px solid var(--color-border-default)',
-  background: 'var(--color-surface-secondary)',
 };
 
 const tdStyle: React.CSSProperties = {
@@ -32,7 +29,6 @@ const tdStyle: React.CSSProperties = {
   fontSize: '14px',
   lineHeight: 1.5,
   color: 'var(--color-text-secondary)',
-  borderBottom: '1px solid var(--color-border-default)',
   verticalAlign: 'top',
 };
 
@@ -83,9 +79,10 @@ export default function DataPage() {
           </Callout>
           <div
             style={{
-              background: 'linear-gradient(135deg, rgba(62,79,184,0.13), rgba(91,58,122,0.13))',
-              border: '2px solid var(--color-accent)',
-              borderRadius: '16px',
+              background: 'var(--color-surface-primary)',
+              border: '1px solid var(--color-border-default)',
+              borderTop: '1px solid var(--color-text-primary)',
+              borderRadius: '2px',
               padding: '2rem',
               margin: '2rem 0',
               textAlign: 'center',
@@ -102,11 +99,11 @@ export default function DataPage() {
       </Section>
 
       {/* Retention windows */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Retention windows</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Data type</th>
@@ -117,7 +114,7 @@ export default function DataPage() {
               </thead>
               <tbody>
                 {RETENTION_ROWS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)' }}>{row.type}</td>
                     <td style={tdStyle}>{row.defaultRetention}</td>
                     <td style={tdStyle}>{row.maxRetention}</td>
@@ -144,23 +141,12 @@ export default function DataPage() {
             <div
               style={{
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.5rem',
                 background: 'var(--color-surface-primary)',
               }}
             >
-              <p
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text-tertiary)',
-                  marginBottom: '0.75rem',
-                }}
-              >
-                At rest
-              </p>
+              <Label style={{ marginBottom: '0.75rem' }}>At rest</Label>
               <Body>
                 AES-256-GCM. Tenant corpus encrypted with tenant-specific key. CMEK available on
                 dedicated and above tiers.
@@ -169,23 +155,12 @@ export default function DataPage() {
             <div
               style={{
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.5rem',
                 background: 'var(--color-surface-primary)',
               }}
             >
-              <p
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text-tertiary)',
-                  marginBottom: '0.75rem',
-                }}
-              >
-                In transit
-              </p>
+              <Label style={{ marginBottom: '0.75rem' }}>In transit</Label>
               <Body>
                 TLS 1.3 minimum. Certificate pinning available for dedicated deployments. mTLS
                 supported for VPC and on-premises.
@@ -196,7 +171,7 @@ export default function DataPage() {
       </Section>
 
       {/* Tenant isolation */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Tenant isolation</Heading2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -247,7 +222,7 @@ export default function DataPage() {
                     fontFamily: 'var(--font-mono)',
                     background: 'var(--color-surface-secondary)',
                     padding: '1px 4px',
-                    borderRadius: '3px',
+                    borderRadius: '2px',
                     fontSize: '13px',
                   }}
                 >
@@ -279,12 +254,12 @@ export default function DataPage() {
       </Section>
 
       {/* Subprocessors */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="Subprocessors">
             Thursdai uses a small number of carefully vetted subprocessors for infrastructure and
             security services.{' '}
-            <Link href="/trust/subprocessors" style={{ color: 'var(--color-accent)' }}>
+            <Link href="/trust/subprocessors">
               View the full subprocessors list →
             </Link>
           </Callout>
