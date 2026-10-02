@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
-import { Button } from '@/components/ui/Button';
+import { FOOTER_COLUMNS, type FooterColumn } from '@/config/nav';
+import { CONTACT_EMAIL } from '@/config/site';
+import { getAllChangelog, getAllPosts } from '@/lib/velite';
 
 function LinkedInIcon() {
   return (
@@ -9,11 +11,11 @@ function LinkedInIcon() {
       <path
         d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="2" />
+      <circle cx="4" cy="4" r="2" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
 }
@@ -24,7 +26,7 @@ function GitHubIcon() {
       <path
         d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -34,175 +36,101 @@ function GitHubIcon() {
 
 function XIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
 }
 
-const productLinks = [
-  { label: 'Moderator', href: '/product/moderator' },
-  { label: 'Time-Travel', href: '/product/time-travel' },
-  { label: 'Policy-as-Code', href: '/product/policy-as-code' },
-  { label: 'Auto-built case files', href: '/product/ambient-cases' },
-  { label: 'Your data, kept separate', href: '/product/two-tier-knowledge' },
-  { label: 'Role Bench', href: '/resources/role-bench' },
+const SOCIAL = [
+  { href: 'https://linkedin.com/company/thursdai', label: 'Thursdai on LinkedIn', icon: <LinkedInIcon /> },
+  { href: 'https://github.com/thursdai', label: 'Thursdai on GitHub', icon: <GitHubIcon /> },
+  { href: 'https://x.com/thursdai', label: 'Thursdai on X', icon: <XIcon /> },
 ];
 
-const developerLinks = [
-  { label: 'Overview', href: '/developers' },
-  { label: 'MCP Server', href: '/developers/mcp' },
-  { label: 'SDK', href: '/developers/sdk' },
-];
+// The blog and changelog join their columns only while they have published entries, the
+// same rule the sitemap follows, so the footer never links an index that would 404.
+async function columns(): Promise<FooterColumn[]> {
+  const [posts, changelog] = await Promise.all([getAllPosts(), getAllChangelog()]);
+  return FOOTER_COLUMNS.map((col) => {
+    if (col.heading === 'Developers' && changelog.length) {
+      return { ...col, links: [...col.links, { label: 'Changelog', href: '/developers/changelog' }] };
+    }
+    if (col.heading === 'Company' && posts.length) {
+      return { ...col, links: [...col.links, { label: 'Blog', href: '/resources/blog' }] };
+    }
+    return col;
+  });
+}
 
-const bottomLinks = [
-  { label: 'Privacy', href: '/privacy', external: false },
-  { label: 'Terms', href: '/terms', external: false },
-  { label: 'Security', href: '/security', external: false },
-  { label: 'Compare', href: '/compare', external: false },
-];
-
-export function Footer() {
+// Paper, a hairline top rule, the wordmark and one column per nav section. No newsletter:
+// the old form posted nowhere, and a form that silently drops an address is worse than none.
+export async function Footer() {
+  const cols = await columns();
   return (
     <footer style={{ background: 'var(--paper)', borderTop: '1px solid var(--rule)' }}>
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-16 md:py-20">
-        {/* Four-column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
-          {/* Column 1 — Company */}
-          <div className="md:col-span-1">
-            <div className="mb-4">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 pt-16 pb-10 md:pt-20">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+            <Link href="/" aria-label="Thursdai home" className="inline-block no-underline hover:no-underline">
               <ThursdaiWordmark fontSize={30} />
-            </div>
-            <p className="text-[15px] leading-relaxed mb-6" style={{ color: 'var(--ink-2)' }}>
-              Your team&apos;s AI: controlled, auditable and safe to use.
+            </Link>
+            <p
+              className="m-0"
+              style={{
+                marginTop: '1rem',
+                fontFamily: 'var(--font-display)',
+                fontSize: '17px',
+                lineHeight: 1.4,
+                color: 'var(--ink)',
+              }}
+            >
+              Every AI decision, on the record.
             </p>
-            <div className="flex items-center gap-3">
-              <a
-                href="https://linkedin.com/company/thursdai"
-                aria-label="Thursdai on LinkedIn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
-              >
-                <LinkedInIcon />
-              </a>
-              <a
-                href="https://github.com/thursdai"
-                aria-label="Thursdai on GitHub"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
-              >
-                <GitHubIcon />
-              </a>
-              <a
-                href="https://x.com/thursdai"
-                aria-label="Thursdai on X (Twitter)"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
-              >
-                <XIcon />
-              </a>
-            </div>
           </div>
 
-          {/* Column 2 — Product */}
-          <div>
-            <h2 className="rec-label mb-4 mt-0">
-              Product
-            </h2>
-            <ul className="space-y-3 list-none p-0 m-0">
-              {productLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="footer-link text-[15px]">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3 — Developers */}
-          <div>
-            <h2 className="rec-label mb-4 mt-0">
-              Developers
-            </h2>
-            <ul className="space-y-3 list-none p-0 m-0">
-              {developerLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="footer-link text-[15px]">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 4 — Stay informed */}
-          <div>
-            <h2 className="rec-label mb-4 mt-0">
-              Stay informed
-            </h2>
-            <p className="text-[15px] mb-4" style={{ color: 'var(--ink-2)' }}>
-              Product updates, no noise.
-            </p>
-            {/* Email subscription form — UI only, not wired */}
-            <div className="space-y-2">
-              <div>
-                <label htmlFor="footer-email" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="footer-email"
-                  type="email"
-                  placeholder="your@email.com"
-                  aria-label="Email address"
-                  className="w-full px-3.5 py-2.5 rounded-[2px] text-[15px] placeholder:text-[var(--ink-3)]"
-                  style={{
-                    background: 'var(--paper)',
-                    border: '1px solid var(--color-border-strong)',
-                    color: 'var(--ink)',
-                  }}
-                />
-              </div>
-              <Button variant="secondary" className="w-full">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6"
-          style={{ borderTop: '1px solid var(--rule)' }}
-        >
-          <p className="text-[14px] m-0" style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.04em' }}>
-            © 2026 Thursdai, Inc.
-          </p>
-          <nav aria-label="Legal links">
-            <ul className="flex flex-wrap items-center gap-6 list-none p-0 m-0">
-              {bottomLinks.map((link) => (
-                <li key={link.href}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      className="footer-link text-[14px]"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link href={link.href} className="footer-link text-[14px]">
+          {cols.map((col) => (
+            <div key={col.heading}>
+              <h2 className="rec-label mb-4 mt-0">{col.heading}</h2>
+              <ul className="space-y-3 list-none p-0 m-0">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="footer-link text-[15px]">
                       {link.label}
                     </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-4 pt-6 mt-14"
+          style={{ borderTop: '1px solid var(--rule)' }}
+        >
+          <p className="m-0" style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.04em' }}>
+            © 2026 Thursdai, Inc.
+            <span aria-hidden="true" style={{ margin: '0 0.75rem', color: 'var(--ink-3)' }}>·</span>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">
+              {CONTACT_EMAIL}
+            </a>
+          </p>
+          <ul className="flex items-center gap-1 list-none p-0 m-0 -ml-2 md:ml-0 md:-mr-2">
+            {SOCIAL.map((s) => (
+              <li key={s.href}>
+                <a
+                  href={s.href}
+                  aria-label={s.label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link flex items-center justify-center w-10 h-10 rounded-[2px]"
+                >
+                  {s.icon}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

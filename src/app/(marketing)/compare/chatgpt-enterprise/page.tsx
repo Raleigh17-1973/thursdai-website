@@ -1,283 +1,69 @@
-import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { Callout } from '@/components/ui/Callout';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { CompareTemplate, type CompareTemplateProps } from '@/components/templates/CompareTemplate';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs ChatGPT Enterprise: Governance vs Capability',
+  title: 'Thursdai and ChatGPT Enterprise',
   description:
-    "ChatGPT Enterprise gives you a powerful private AI. It gives you no audit trail, no role-based deliberation and no policy enforcement. Here's where they diverge.",
+    'Where ChatGPT Enterprise is strong and where Thursdai differs: a general-purpose AI assistant versus a signed record of every AI decision. An honest table and a sample receipt you can verify.',
 };
 
-type MatrixStatus = 'yes' | 'no' | 'partial' | 'text';
-
-interface MatrixRow {
-  feature: string;
-  chatgpt: MatrixStatus | string;
-  thursdai: MatrixStatus | string;
-}
-
-const MATRIX: MatrixRow[] = [
-  { feature: 'Language model quality', chatgpt: 'text', thursdai: 'text' },
-  { feature: 'Data privacy', chatgpt: 'yes', thursdai: 'yes' },
-  { feature: 'Decision audit trail', chatgpt: 'no', thursdai: 'yes' },
-  { feature: 'Role-based deliberation', chatgpt: 'no', thursdai: 'yes' },
-  { feature: 'Policy enforcement (hard constraints)', chatgpt: 'no', thursdai: 'yes' },
-  { feature: 'Decision replay / time-travel', chatgpt: 'no', thursdai: 'yes' },
-  { feature: 'Foundation-model choice', chatgpt: 'text', thursdai: 'text' },
-  { feature: 'EU AI Act compliance tooling', chatgpt: 'partial', thursdai: 'yes' },
-];
-
-function MatrixCell({ row, col }: { row: MatrixRow; col: 'chatgpt' | 'thursdai' }) {
-  const value = row[col];
-
-  if (row.feature === 'Language model quality') {
-    if (col === 'chatgpt') {
-      return (
-        <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-primary)' }}>
-          ✓ GPT-4o (excellent)
-        </td>
-      );
-    }
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Via API (Claude, GPT-4o, Gemini)
-      </td>
-    );
-  }
-
-  if (row.feature === 'Foundation-model choice') {
-    if (col === 'chatgpt') {
-      return (
-        <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-          OpenAI only
-        </td>
-      );
-    }
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Claude, GPT-4o, Gemini
-      </td>
-    );
-  }
-
-  if (row.feature === 'EU AI Act compliance tooling' && col === 'chatgpt') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Limited
-      </td>
-    );
-  }
-
-  if (row.feature === 'EU AI Act compliance tooling' && col === 'thursdai') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-primary)' }}>
-        ✓ Full Annex III mapping
-      </td>
-    );
-  }
-
-  if (value === 'yes') {
-    return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
-  }
-  if (value === 'no') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>
-        ✗
-      </td>
-    );
-  }
-  if (value === 'partial') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Limited
-      </td>
-    );
-  }
-  return (
-    <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-      {String(value)}
-    </td>
-  );
-}
+const DATA: CompareTemplateProps = {
+  competitor: 'ChatGPT Enterprise',
+  slug: 'chatgpt-enterprise',
+  title: 'An assistant is not a record.',
+  lead: 'ChatGPT Enterprise is a capable general-purpose assistant for work. Thursdai records the decisions AI systems make and signs each one. They solve different problems and can run together.',
+  summary: {
+    line: 'ChatGPT Enterprise helps people think and write. Thursdai records what AI systems decided.',
+    theyAreFor: 'A general-purpose AI assistant for analysis, drafting and coding across your organisation.',
+    thursdaiIsFor: 'A signed, verifiable record of each AI decision, including vendor tools.',
+    chooseThem: 'You need a capable general assistant for your people.',
+    chooseThursdai: 'You must show an auditor what an AI system decided and why.',
+  },
+  strengths: [
+    {
+      title: 'Capable general-purpose models',
+      body: 'For open-ended reasoning, analysis, coding and drafting, it gives people a strong assistant with little setup.',
+    },
+    {
+      title: 'Enterprise controls',
+      body: 'It offers administration controls and a published security programme, and OpenAI states that business data is not used for training by default.',
+    },
+    {
+      title: 'A broad ecosystem',
+      body: 'A mature API, extensive documentation and a large developer community mean most teams can build on it quickly.',
+    },
+  ],
+  differences: [
+    {
+      title: 'A record, not an answer',
+      body: "Thursdai's output is a signed receipt of a decision made by any AI system, your own or a vendor's. That can include decisions made with an assistant like ChatGPT.",
+    },
+    {
+      title: 'Verifiable without trusting us',
+      body: 'Each receipt carries an Ed25519 signature and a sha256 fingerprint. Anyone can check it against the public key, without an account.',
+    },
+    {
+      title: 'Replay as of the decision',
+      body: 'What the system knew, the policies that applied and the model version are kept as they were at the moment of the decision, so a later change does not rewrite the past.',
+    },
+    {
+      title: 'Policy results on the record',
+      body: 'Every policy checked, its version and its result are part of the signed receipt, which is what an examiner asks for.',
+    },
+  ],
+  rows: [
+    { capability: 'Primary job', them: 'A general-purpose AI assistant for work', thursdai: 'Recording and signing the decisions AI systems make' },
+    { capability: 'Model access', them: "OpenAI's models", thursdai: 'Model-agnostic; records decisions from whichever model made them' },
+    { capability: 'Records decisions made by other AI systems', them: 'Not its purpose', thursdai: 'Yes, one signed receipt per decision, including vendor tools' },
+    { capability: 'Signed record anyone can verify', them: 'Not confirmed', thursdai: 'Yes, Ed25519 signature and sha256 fingerprint' },
+    { capability: 'Replay a decision as of its date', them: 'Not confirmed', thursdai: 'Yes, knowledge, policies and model version at the time' },
+    { capability: 'Policy results per decision', them: 'Not confirmed', thursdai: 'Yes, each policy, its version and result on the receipt' },
+    { capability: 'EU AI Act mapping', them: 'Not confirmed', thursdai: 'Published, article by article, on the trust pages' },
+    { capability: 'Security certifications', them: 'SOC 2 Type II, per its trust center', thursdai: 'None held yet; roadmap on the trust page' },
+    { capability: 'HIPAA workloads', them: 'Not confirmed; check its trust center', thursdai: 'Architecture designed for HIPAA workloads; no attestation held' },
+  ],
+};
 
 export default function CompareChatGPTEnterprisePage() {
-  return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <Label>Thursdai vs ChatGPT Enterprise</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>
-            ChatGPT Enterprise gives you a private, powerful AI. It gives you no record of what it
-            said.
-          </Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            For teams where AI outputs have legal or compliance implications, that gap costs money.
-            Thursdai adds the governance layer that no raw AI platform provides.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Where ChatGPT Enterprise is strong ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Where ChatGPT Enterprise is strong</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These are genuine strengths. If your primary need is one of these, ChatGPT Enterprise
-            may be the right choice.
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              title="World's most capable model"
-              body="GPT-4o is the most capable general-purpose language model available. For open-ended reasoning, coding, analysis and drafting, it is the strongest tool in the market."
-            />
-            <Card
-              variant="feature"
-              title="Private, secure instance"
-              body="ChatGPT Enterprise provides data isolation, SOC 2 certification and no training on your data. It clears most enterprise security requirements."
-            />
-            <Card
-              variant="feature"
-              title="Broad ecosystem"
-              body="OpenAI's plugin and tools ecosystem is the largest in the industry. Thousands of integrations, a mature API and extensive documentation."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Where Thursdai differs ── */}
-      <Section variant="default">
-        <Container>
-          <Heading2>Where Thursdai differs</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons. They&apos;re architectural differences that
-            matter for regulated use cases.
-          </Body>
-          <Grid cols={2} gap="lg">
-            <Card
-              variant="feature"
-              title="No audit trail in ChatGPT"
-              body="ChatGPT Enterprise has no decision audit trail. Conversations are logged but there is no structured record of what knowledge was active, what rules applied or what policy governed an answer."
-            />
-            <Card
-              variant="feature"
-              title="Prompt-level guardrails only"
-              body="ChatGPT's system prompt is your only governance tool, and a sophisticated user or adversarial input can reason around it. Thursdai enforces constraints at the inference layer before any answer is formed."
-            />
-            <Card
-              variant="feature"
-              title="No role-based synthesis"
-              body="ChatGPT gives you one model's perspective. Thursdai gives you Legal, Finance and Operations simultaneously, with the Moderator synthesising disagreements and citing sources."
-            />
-            <Card
-              variant="feature"
-              title="No decision replay"
-              body="You cannot go back 18 months and reconstruct what ChatGPT knew, what it said and what rules were active at that moment. Thursdai's replay engine makes every decision replayable indefinitely."
-            />
-            <Card
-              variant="feature"
-              title="Model lock-in"
-              body="ChatGPT Enterprise is OpenAI-only. Thursdai runs on Claude, GPT-4o, or Gemini, and you can switch models without changing your governance layer."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Feature matrix ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
-                  >
-                    Feature
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
-                    ChatGPT Enterprise
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
-                    Thursdai
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {MATRIX.map((row) => (
-                  <tr key={row.feature}>
-                    <th
-                      scope="row"
-                      style={{
-                        padding: '0.75rem 1rem',
-                        textAlign: 'left',
-                        fontWeight: 500,
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '14px',
-                        textTransform: 'none',
-                        letterSpacing: 'normal',
-                        color: 'var(--color-text-primary)',
-                        position: 'sticky',
-                        left: 0,
-                        background: 'var(--color-surface-primary)',
-                      }}
-                    >
-                      {row.feature}
-                    </th>
-                    <MatrixCell row={row} col="chatgpt" />
-                    <MatrixCell row={row} col="thursdai" />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── When ChatGPT Enterprise is the right choice ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="When ChatGPT Enterprise is the right choice">
-            <p style={{ marginTop: '0.5rem', lineHeight: 1.7 }}>
-              If your team needs a capable, private AI for general-purpose work (writing, analysis,
-              coding), ChatGPT Enterprise is excellent. Thursdai is the right choice when those
-              outputs need to be governed, audited and defensible to regulators or auditors.
-            </p>
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── Bottom line ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Bottom line">
-            ChatGPT Enterprise is a powerful general assistant. Thursdai is governance infrastructure. They solve different problems. For regulated teams, governance isn&apos;t optional.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── CTA ── */}
-      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Put your own AI decisions on the record</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            A pilot connects one of your AI systems to your own tenant. Before that, the demo shows a
-            signed sample receipt you can verify yourself, with no login.
-          </Body>
-          <ClosingCTAs primary="pilot" align="center" style={{ marginTop: '1.5rem' }} />
-        </Container>
-      </Section>
-    </>
-  );
+  return <CompareTemplate {...DATA} />;
 }

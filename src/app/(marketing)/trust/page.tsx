@@ -1,308 +1,181 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2, Heading3 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { CertStatusTag } from '@/components/content/CertBadge';
 import { LABEL_STYLE } from '@/components/typography/scale';
-import { CERT_ROADMAP, auditorText, targetText } from '@/lib/certifications';
-import { SecurityPackForm } from '@/components/content/SecurityPackForm';
+import { ButtonLink } from '@/components/ui/Button';
+import { TrustDocument, FactList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { sampleArtifacts } from '@/lib/artifacts';
+import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Trust & Security: Thursdai',
+  title: 'Trust: Thursdai',
   description:
-    'How Thursdai handles security: an honest certification roadmap, EU AI Act Annex III documentation, deployment options and data handling, written for procurement, compliance and engineering.',
+    'Where Thursdai stands on security and compliance: no certifications held yet and a dated roadmap, the EU AI Act mapping, deployment, data handling, subprocessors and signed sample artifacts you can verify.',
 };
 
-// ── Icons ─────────────────────────────────────────────────────
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-function IconShield() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-      <polyline
-        points="9 12 11 14 15 10"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconCertificate() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <circle cx="12" cy="18" r="3" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M9 21l3-3 3 3" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <path d="M6 8h12M6 12h8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconServer() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="3" width="20" height="7" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <rect x="2" y="14" width="20" height="7" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <circle cx="6" cy="6.5" r="1" fill="currentColor" />
-      <circle cx="6" cy="17.5" r="1" fill="currentColor" />
-    </svg>
-  );
-}
-
-function IconDatabase() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6" stroke="currentColor" strokeWidth="1.25" />
-    </svg>
-  );
-}
-
-// ── Certification roadmap table ────────────────────────────────
-// A plain document table: strong ink rule on top, sunk mono header, hairline rows.
-// Below md each row stacks into a block with its own mono labels, so nothing scrolls sideways.
-
-const COLUMNS = ['Control or standard', 'Status', 'Auditor engaged', 'Target'] as const;
-
-const cellPad = 'block md:table-cell md:px-4 md:py-4 md:align-top';
-
-function CellLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="block md:hidden" style={{ ...LABEL_STYLE, marginBottom: '0.25rem' }}>
-      {children}
-    </span>
-  );
-}
-
-function CertRoadmapTable() {
-  return (
-    <table
-      className="block md:table"
-      style={{
-        width: '100%',
-        borderCollapse: 'collapse',
-        marginTop: '2.5rem',
-        borderTop: '1px solid var(--ink)',
-      }}
-    >
-      <caption className="sr-only">
-        Certification roadmap: each control or standard, its status, whether an auditor is
-        engaged and the target quarter
-      </caption>
-      <thead className="hidden md:table-header-group">
-        <tr style={{ background: 'var(--sunk)', borderBottom: '1px solid var(--rule)' }}>
-          {COLUMNS.map((col) => (
-            <th
-              key={col}
-              scope="col"
-              className="px-4 py-3"
-              style={{ ...LABEL_STYLE, color: 'var(--ink-2)', textAlign: 'left' }}
-            >
-              {col}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className="block md:table-row-group">
-        {CERT_ROADMAP.map((row) => (
-          <tr
-            key={row.name}
-            className="grid grid-cols-2 gap-x-4 gap-y-4 py-5 md:table-row md:py-0"
-            style={{ borderBottom: '1px solid var(--rule)' }}
-          >
-            <th
-              scope="row"
-              className={`col-span-2 ${cellPad} md:w-[46%]`}
-              style={{ textAlign: 'left', fontWeight: 400 }}
-            >
-              <Link
-                href={row.href}
-                style={{
-                  fontSize: '17px',
-                  fontWeight: 500,
-                  color: 'var(--color-text-primary)',
-                }}
-              >
-                {row.name}
-              </Link>
-              <span
-                style={{
-                  display: 'block',
-                  marginTop: '0.375rem',
-                  fontSize: '15px',
-                  lineHeight: 1.55,
-                  color: 'var(--color-text-secondary)',
-                }}
-              >
-                {row.note}
-              </span>
-            </th>
-            <td className={cellPad}>
-              <CellLabel>Status</CellLabel>
-              <CertStatusTag status={row.status} />
-            </td>
-            <td className={cellPad} style={{ fontSize: '15px', color: 'var(--color-text-primary)' }}>
-              <CellLabel>Auditor engaged</CellLabel>
-              {auditorText(row.auditorEngaged)}
-            </td>
-            <td
-              className={`col-span-2 ${cellPad}`}
-              style={{
-                fontSize: '15px',
-                color: row.targetQuarter || row.status === 'ready'
-                  ? 'var(--color-text-primary)'
-                  : 'var(--color-text-secondary)',
-              }}
-            >
-              <CellLabel>Target</CellLabel>
-              {targetText(row)}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-// ── Page ───────────────────────────────────────────────────────
+const DOCUMENTS = [
+  { href: '/security', title: 'Security overview', covers: 'Architecture, encryption, data categories, subprocessors and the security contact. Written for vendor review.' },
+  { href: '/trust/annex-iii', title: 'EU AI Act mapping', covers: 'The obligations for high-risk systems, article by article: who owns each one and what a receipt records for it.' },
+  { href: '/trust/iso-42001', title: 'ISO/IEC 42001', covers: 'What the AI management system standard is and where Thursdai stands against it.' },
+  { href: '/trust/deployment', title: 'Deployment', covers: 'Managed, dedicated, your own cloud or your own data centre, with residency and key management for each.' },
+  { href: '/trust/data', title: 'Data handling', covers: 'Training policy, retention, encryption, tenant isolation and personal data.' },
+  { href: '/trust/subprocessors', title: 'Subprocessors', covers: 'Every third party that processes customer data and what it does.' },
+];
 
 export default function TrustPage() {
+  const artifacts = sampleArtifacts();
   return (
-    <>
-      {/* Hero */}
-      <Section variant="default">
-        <Container>
-          <Label>Trust &amp; Security</Label>
-          <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
-            Built so your team, your clients and your auditors all feel confident.
-          </Display>
-          <p style={{
-            fontFamily: 'var(--font-display)', fontSize: '22px', lineHeight: 1.35,
-            color: 'var(--color-text-primary)', margin: '0.75rem 0 0',
-          }}>
-            &ldquo;We show our work; so your auditors don&apos;t have to.&rdquo;
-          </p>
-          <Body
-            variant="large"
-            style={{ marginTop: '1.5rem' }}
-          >
-            Whether you&apos;re a 10-person team or a Fortune 500, Thursdai was built with security and accountability as its foundation. It was not bolted on later.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* Nav cards */}
-      <Section variant="compact">
-        <Container>
-          <Grid cols={2} gap="lg" style={{ marginTop: '2rem' }}>
-            <Card
-              variant="feature"
-              headingLevel={2}
-              icon={<IconShield />}
-              title="EU AI Act Annex III"
-              body="How Thursdai maps to every obligation under Annex III. Downloadable FRIA and DPIA templates."
-              href="/trust/annex-iii"
+    <TrustDocument
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Trust' }]}
+      label="Trust"
+      title="What we can show you today."
+      lead={
+        <>
+          Thursdai holds no certifications yet. This page says what is in place, what is on the
+          roadmap and where each document lives, so procurement, compliance and engineering can
+          check it rather than take our word for it.
+        </>
+      }
+      meta={[
+        { label: 'Status as of', value: 'October 2026' },
+        { label: 'Certifications held', value: 'None' },
+      ]}
+      heroActions={
+        <ButtonLink href="/security" variant="primary" size="lg">
+          Read the security overview
+        </ButtonLink>
+      }
+      sections={[
+        {
+          id: 'position',
+          title: 'Where we stand',
+          body: (
+            <FactList
+              items={[
+                {
+                  term: 'In place',
+                  body: (
+                    <>
+                      Encryption in transit and at rest, tenant isolation, configurable retention and
+                      signed, verifiable {RECEIPT_TERM}s. The{' '}
+                      <Link href="/security" style={UNDERLINED}>
+                        security overview
+                      </Link>{' '}
+                      sets out the controls.
+                    </>
+                  ),
+                },
+                {
+                  term: 'Not held',
+                  body: 'SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 42001. No auditor is engaged yet, so no date is given.',
+                },
+                {
+                  term: 'What we are',
+                  body: 'An evidence layer. Thursdai records what your AI systems decided and makes it provable. It is not an auditor and does not certify your systems.',
+                },
+              ]}
             />
-            <Card
-              variant="feature"
-              headingLevel={2}
-              icon={<IconCertificate />}
-              title="ISO/IEC 42001"
-              body="Why the AI management system standard matters and where Thursdai stands against it today."
-              href="/trust/iso-42001"
+          ),
+        },
+        {
+          id: 'certifications',
+          title: 'Certification roadmap',
+          body: (
+            <>
+              <Body>
+                The standards we intend to certify against and what is ready now. Dates appear here
+                only once an auditor is engaged.
+              </Body>
+              <CertRoadmapTable style={{ marginTop: '0.5rem' }} />
+            </>
+          ),
+        },
+        {
+          id: 'documents',
+          title: 'Trust documents',
+          body: (
+            <RecordTable
+              caption="Trust documents and what each covers"
+              columns={[
+                { key: 'title', label: 'Document', width: '34%' },
+                { key: 'covers', label: 'What it covers' },
+              ]}
+              rows={DOCUMENTS.map((d) => ({
+                id: d.href,
+                title: (
+                  <Link href={d.href} style={{ color: 'var(--ink)' }}>
+                    {d.title}
+                  </Link>
+                ),
+                covers: d.covers,
+              }))}
             />
-            <Card
-              variant="feature"
-              headingLevel={2}
-              icon={<IconServer />}
-              title="Deployment Options"
-              body="SaaS, dedicated single-tenant, VPC and on-premises. Data residency and CMEK for every tier."
-              href="/trust/deployment"
-            />
-            <Card
-              variant="feature"
-              headingLevel={2}
-              icon={<IconDatabase />}
-              title="Data Handling"
-              body="Retention windows, PII handling, encryption, tenant isolation and our training policy."
-              href="/trust/data"
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* Certification roadmap */}
-      <Section
-        id="certifications"
-        variant="compact"
-        style={{ scrollMarginTop: '80px' }}
-      >
-        <Container>
-          <Label>Certification roadmap</Label>
-          <Heading2 style={{ marginTop: '1rem' }}>No certificates yet. Here is the plan.</Heading2>
-          <Body variant="large" style={{ marginTop: '1.5rem' }}>
-            Thursdai holds no certifications today. The table below lists the standards we intend
-            to certify against and what is ready now, and it will be updated with dates when
-            auditors are engaged.
-          </Body>
-          <CertRoadmapTable />
-          <p
-            style={{
-              ...LABEL_STYLE,
-              color: 'var(--color-text-tertiary)',
-              marginTop: '1rem',
-              marginBottom: 0,
-            }}
-          >
-            Status as of October 2026
-          </p>
-          <Body style={{ marginTop: '1.5rem' }}>
-            Running a vendor review now? The{' '}
-            <a href="#security-pack">security pack</a> describes the controls in place today,
-            and the <Link href="/trust/annex-iii">Annex III mapping</Link> shows how receipts
-            line up with each record-keeping obligation.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* Security pack download */}
-      <Section id="security-pack" variant="compact" style={{ scrollMarginTop: '80px' }}>
-        <Container>
-          <div
-            style={{
-              background: 'var(--color-surface-primary)',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '2px',
-              padding: '2rem',
-              textAlign: 'center',
-              marginTop: '1rem',
-            }}
-          >
-            <Heading3>Download the security pack</Heading3>
-            <Body style={{ margin: '0 auto 1.5rem', maxWidth: '500px' }}>
-              Get our Security Overview: architecture summary, current controls and our certification
-              plans, delivered to your inbox.
-            </Body>
-            <SecurityPackForm />
-          </div>
-        </Container>
-      </Section>
-    </>
+          ),
+        },
+        {
+          id: 'artifacts',
+          title: 'Sample artifacts you can verify',
+          body: (
+            <>
+              <Body>
+                Signed from the fictional Northwind Financial sample tenant with the same key the{' '}
+                <Link href="/demo#receipt" style={UNDERLINED}>
+                  demo verifier
+                </Link>{' '}
+                checks. Download them and verify the signature yourself.
+              </Body>
+              <ul className="list-none p-0 m-0" style={{ borderTop: '1px solid var(--ink)' }}>
+                {artifacts.map((a) => (
+                  <li
+                    key={a.href}
+                    className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] gap-x-6 gap-y-1"
+                    style={{ padding: '1rem 0', borderBottom: '1px solid var(--rule)' }}
+                  >
+                    <div>
+                      <a href={a.href} download style={{ fontWeight: 500 }}>
+                        {a.title}
+                      </a>
+                      <Body variant="small" style={{ marginTop: '0.25rem' }}>
+                        {a.note}
+                      </Body>
+                    </div>
+                    <span style={{ ...LABEL_STYLE, color: 'var(--ink-3)', paddingTop: '0.25rem' }}>
+                      {a.meta.join(' · ')}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ),
+        },
+      ]}
+      close={
+        <ClosingBand
+          heading="Running a vendor review?"
+          body={
+            <>
+              Start with the security overview. For a questionnaire, a DPA or anything the documents
+              do not answer, email {CONTACT_EMAIL} and a person will reply.
+            </>
+          }
+          actions={
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <ButtonLink href="/security" variant="primary" size="lg">
+                Read the security overview
+              </ButtonLink>
+              <ButtonLink href={`mailto:${CONTACT_EMAIL}?subject=Vendor%20review`} variant="secondary" size="lg">
+                Email the team
+              </ButtonLink>
+            </div>
+          }
+        />
+      }
+    />
   );
 }
