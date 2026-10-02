@@ -29,14 +29,6 @@ export const metadata: Metadata = {
     siteName: 'Thursdai',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [
-      {
-        url: '/og-backgrounds/default.png',
-        width: 1200,
-        height: 630,
-        alt: 'Thursdai: The Governed Agent Substrate',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -44,7 +36,6 @@ export const metadata: Metadata = {
     creator: '@thursdai',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ['/og-backgrounds/default.png'],
   },
 };
 
