@@ -16,7 +16,7 @@ interface Preset {
 const PRESETS: Preset[] = [
   {
     id: 'block-pii',
-    label: 'Block PII in output',
+    label: 'Block PII',
     yaml: `# Block PII in output
 rule: block_pii
 applies_to: all_roles
@@ -33,7 +33,7 @@ on_violation: redact_and_flag`,
   },
   {
     id: 'legal-gate',
-    label: 'Legal gate > $500K',
+    label: 'Legal review gate',
     yaml: `# Require legal review for large contracts
 rule: legal_review_gate
 applies_to: finance_role
@@ -50,7 +50,7 @@ message: "Legal review required before proceeding."`,
   },
   {
     id: 'citation',
-    label: 'Enforce regulatory citation',
+    label: 'Require citations',
     yaml: `# Require citations on regulatory claims
 rule: regulatory_citation
 applies_to: legal_role

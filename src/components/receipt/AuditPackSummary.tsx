@@ -39,7 +39,15 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 
 const CONTENTS = ['Cover', RECEIPT_TERM, 'Policy evaluation and evidence', 'Signature and verification'];
 
-export function AuditPackSummary() {
+interface AuditPackSummaryProps {
+  /**
+   * Compact drops the rows a neighbouring receipt or replay already shows (evidence and
+   * oversight), so the sheet can sit beside the replay on the home page at a matching height.
+   */
+  compact?: boolean;
+}
+
+export function AuditPackSummary({ compact = false }: AuditPackSummaryProps = {}) {
   const frameworks = [R.risk.framework, ...R.policies_evaluated.filter((p) => /ll144/.test(p.id)).map(() => 'NYC Local Law 144')];
 
   return (
@@ -88,8 +96,12 @@ export function AuditPackSummary() {
               </span>
             ))}
           </Row>
-          <Row label="Evidence">{S.evidence}</Row>
-          <Row label="Oversight">{S.oversight}</Row>
+          {compact ? null : (
+            <>
+              <Row label="Evidence">{S.evidence}</Row>
+              <Row label="Oversight">{S.oversight}</Row>
+            </>
+          )}
           <Row label="Receipt sha256">{S.sha256}</Row>
           <Row label="Contents">
             {CONTENTS.map((c, i) => (

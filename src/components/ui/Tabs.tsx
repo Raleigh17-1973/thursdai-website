@@ -46,7 +46,7 @@ export function Tabs({ tabs, defaultTab, className = '', onChange }: TabsProps) 
 
   return (
     <div className={className}>
-      <div role="tablist" className="flex border-b overflow-x-auto" style={{ borderColor: 'var(--color-border-default)' }}>
+      <div role="tablist" className="flex border-b overflow-x-auto overflow-y-hidden [scrollbar-width:none]" style={{ borderColor: 'var(--color-border-default)' }}>
         {tabs.map((tab, i) => {
           const isActive = tab.id === activeId;
           const tabId = `${uid}-tab-${tab.id}`;
