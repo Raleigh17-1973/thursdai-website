@@ -1,0 +1,66 @@
+{
+  "receipt": {
+    "id": "rcpt_7f3a9c21b84e",
+    "schema": "thursdai.ai-receipt/1",
+    "tenant": "Sample tenant: Northwind Financial (fictional).",
+    "decision": {
+      "summary": "Advanced applicant 4821 to the interview stage",
+      "type": "hiring_screening",
+      "outcome": "advance_to_interview",
+      "subject_ref": "applicant-4821",
+      "confidence": 0.87
+    },
+    "source": {
+      "role": "recommender",
+      "system": "Greenhouse screening agent",
+      "operator": "External vendor system, not operated by Thursdai",
+      "model": "GPT-4o",
+      "model_host": "Azure",
+      "version": "2025-04-01"
+    },
+    "policies_evaluated": [
+      {
+        "id": "nyc-ll144-notice",
+        "name": "NYC Local Law 144 candidate notice",
+        "result": "pass",
+        "detail": "Notice of automated employment decision tool use was on file for the requisition."
+      },
+      {
+        "id": "pii-block",
+        "name": "Personal data block",
+        "result": "pass",
+        "detail": "No direct identifiers were present in the material passed to the model."
+      }
+    ],
+    "evidence": [
+      {
+        "kind": "job_requisition",
+        "ref": "JR-204"
+      },
+      {
+        "kind": "scoring_rubric",
+        "ref": "Hiring rubric v3"
+      },
+      {
+        "kind": "application_snapshot",
+        "ref": "Application snapshot 2026-09-16"
+      }
+    ],
+    "risk": {
+      "tier": "high",
+      "framework": "EU AI Act Annex III",
+      "legal_basis": "EU AI Act Article 27"
+    },
+    "human_oversight": {
+      "reviewer_role": "Recruiting coordinator",
+      "action": "recommendation_followed"
+    },
+    "recorded_at": "2026-09-16T14:32:07Z",
+    "scope_note": "This receipt proves what was recorded and when. It does not claim the decision was correct or fair."
+  },
+  "sha256": "c25024f7f1a57e668941a431fecc0d34090b36178c9da341cb80341d5d9f5fca",
+  "signature": "aqIDTF/To04CHfdhWY00nPbQ99DCpGDA3VMLW07uaftndr0XFaxma/lJohIX7S40YgfhahWuOrQYLhA2cdFQAg==",
+  "signature_algorithm": "ed25519",
+  "signed_at": "2026-10-02T19:32:43Z",
+  "key_id": "key_b2b188c336ed"
+}
