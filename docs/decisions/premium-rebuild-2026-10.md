@@ -181,9 +181,52 @@ Stash `stash@{0}` ("WIP copy edits (pre site/integrity-week1)"), left in place. 
 | W4-11 | Screenshots (6.1) left to the quality-gates agent, who owns Playwright. | Ownership split for this wave. | 95% |
 | W4-12 | The remaining CLS (about 0.005 on / and 0.0001 on /demo in Lighthouse) is the web-font swap at about 130ms (nav, wordmark, mono receipt id), identical before and after this wave. Not fixed here. | Out of this wave's files (font loading lives in the root layout); motion itself adds none. | 85% |
 
+### Orchestration (added at close)
+
+| # | Decision | Why | Confidence |
+|---|---|---|---|
+| D10 | CI runs on Node 24 (npm 11), matching local dev (#17). | npm 10 on Node 20 rejected the npm 11 lockfile after vitest landed (#16 was merged before its checks finished because `main` has no branch protection; GitHub auto-merge had nothing to wait for). | 95% |
+| D11 | Ran the cascade (Wave 5) before visuals and motion (Wave 4) and moved the linework diagrams into Wave 5b. | Visuals drop into finished templates instead of being reworked twice. | 85% |
+| D12 | Lighthouse stays report-only; thresholds unchanged. | Everything passes except LCP (about 2.5s simulated vs the 2.0s budget). The perf pass measured a floor of about 2.07s on home with every web font removed, so 2.0s needs either a budget change or fallback fonts on first visit (a design call for Jeff). | 85% |
+| D13 | Did not re-score motion upward after Wave 4 merged; the re-score stays a self-estimate (66.7) pending an independent re-score. | Self-scoring is biased. | 90% |
+
+### Decisions recorded in PR bodies (Waves 2a, 3a, 5b, 6 and the perf pass)
+
+| # | Decision | Confidence |
+|---|---|---|
+| W2a-1 | Sample receipt `signed_at` is the real signing date while `recorded_at` is a fictional date. | 75% |
+| W2a-2 | `/api/verify` rate limit is per instance, keyed on `x-forwarded-for` (a Vercel Firewall rule is the durable control and is not configured). | 80% |
+| W2a-3 | Source-reported confidence 87% shown as the source system's figure. | 80% |
+| W2a-4 | Canonicalisation duplicated in the signing script; public key embedded as TS next to the PEM. | 80% |
+| W2a-5 | Audit pack period and cover details are illustrative for the fictional tenant. | 85% |
+| W3a-1 | Apply form still posts `case-study-application` so lead routing does not break. | 80% |
+| W3a-2 | Founder named "Jeff Hoyt" everywhere (was "Jeffrey" on /company). | 75% |
+| W3a-3 | Certification table dated "Status as of October 2026"; typographic name plate instead of a headshot. | 85% |
+| P-1 | Newsreader is not preloaded: on a first visit headings briefly show the size-matched fallback before Newsreader swaps in. | 80% |
+| P-2 | Production builds use webpack instead of Turbopack (102KB shared JS vs 125KB; unused-JS audit passes). | 85% |
+| W5b-1 | Signed sample receipt used as the hero visual on Two-Tier Knowledge and Ambient Cases (no real screens exist). | 80% |
+| W5b-2 | Dropped the policy primitives table and dry-run section (nothing documents them). | 75% |
+| W5b-3 | Role Bench leaderboard removed (no results exist); submit and notify forms kept. | 85% |
+| W6-1 | Visual baselines are Linux-only, generated in CI; checks job pinned to `ubuntu-24.04` because `ubuntu-latest` moves to Ubuntu 26 on October 19 and would invalidate every baseline. | 80% |
+| W6-2 | Snapshot tolerance 0.1% of pixels, no retries. | 80% |
+| W6-3 | Copy gate matches "Planned" only as a capitalised label and skips draft posts. | 80% |
+
 ## For review (confidence under 90%)
 
-(Collected at the end.)
+### Priority: needs Jeff (facts only he has, or legal exposure)
+
+1. No privacy policy or terms pages exist. The footer links 404ed and were removed (W5a-4). The pilot form collects names and work emails, so a privacy policy is the most urgent missing page.
+2. Design partners: /company used to say "a small group of design partners in financial services, healthcare and legal". With no evidence in the repo, it now says the program is open to those sectors (W5a-25, 70%). Restore if partners exist.
+3. Subprocessors: two lists disagreed; the /security list was kept and Datadog and Sentry were dropped (W5a-16, 65%). Confirm the real list.
+4. Tenancy: /security says every customer gets a dedicated tenant while /trust/deployment offers a shared multi-tenant option. Unresolved; pick one.
+5. Social links: LinkedIn, GitHub and X links for "thursdai" were kept without confirming the accounts are ours (W5a-5, 70%).
+6. SSO is listed under "What the real thing adds" on /demo (W2, 80%). Confirm it is in pilot scope.
+7. LCP budget: accept about 2.5s, or accept fallback fonts on first visit to reach 2.0s (D12).
+8. Branch protection: require "Type check, lint, build" on `main` so a PR cannot merge before its checks finish (repository setting; Jeff's call).
+9. Analytics: PostHog is not initialised in the browser, so the hero to /demo to pilot funnel (Item 8.6) cannot report until it is.
+10. Wordmark "ai" in solid indigo instead of the retired gradient (D3, 80%); "AI Receipt" kept as the name (D6, 85%).
+
+### Design and implementation choices (full reasons in the wave tables above)
 
 Wave 1: W1-3 (85%), W1-6 (70%), W1-7 (80%), W1-8 (75%), W1-9 (85%), W1-10 (80%), W1-11 (80%), W1-12 (85%), W1-13 (85%), W1-14 (85%), W1-20 (80%), W1-21 (80%), W1-23 (85%), W1-25 (85%), W1-27 (85%), W1-29 (85%), W1-30 (85%).
 
