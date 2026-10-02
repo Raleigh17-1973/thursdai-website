@@ -30,6 +30,43 @@ jobs:
         run: npm run check:origin
       - name: Check empty pages
         run: npm run check:pages
+      - name: Check copy
+        run: npm run check:copy
+      - name: Unit tests
+        run: npm run test
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Accessibility (axe, serious and critical fail)
+        run: npm run test:a11y
+      - name: Visual regression
+        id: visual
+        run: |
+          if ls tests/e2e/__screenshots__/visual.spec.ts/*-linux.png >/dev/null 2>&1; then
+            npm run test:visual
+          else
+            # One-time bootstrap: no Linux baselines are committed yet. Generate
+            # them here and upload them; commit them (or run the "Update visual
+            # baselines" workflow) to turn the comparison on.
+            echo "::warning title=Visual baselines missing::No Linux baselines committed; generated them as the visual-baselines artifact instead of comparing."
+            npm run test:visual -- --update-snapshots=all
+          fi
+      - name: Upload visual baselines
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: tests/e2e/__screenshots__/
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
 
   lighthouse:
     name: Lighthouse CI

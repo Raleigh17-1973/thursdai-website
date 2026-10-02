@@ -12,7 +12,8 @@
         "http://localhost:3000/developers",
         "http://localhost:3000/demo",
         "http://localhost:3000/product/ai-receipts",
-        "http://localhost:3000/solutions/people"
+        "http://localhost:3000/solutions/people",
+        "http://localhost:3000/solutions/compliance"
       ],
       "settings": {
         "chromeFlags": "--no-sandbox --disable-dev-shm-usage"

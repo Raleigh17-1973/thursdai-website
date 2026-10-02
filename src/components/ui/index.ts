@@ -5,7 +5,6 @@ export { Card } from './Card';
 export { Callout } from './Callout';
 export { Badge } from './Badge';
 export { CodeBlock } from './CodeBlock';
-export { Timeline } from './Timeline';
 export { DemoRequestModal } from './DemoRequestModal';
 export type { DemoRequestModalProps } from './DemoRequestModal';
 export { HeroCTAs } from './HeroCTAs';

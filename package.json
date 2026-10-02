@@ -13,6 +13,10 @@
     "type-check": "tsc --noEmit",
     "check:origin": "node scripts/check-origin.mjs",
     "check:pages": "node scripts/check-empty-pages.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
+    "test:a11y": "playwright test tests/e2e/a11y.spec.ts",
+    "test:visual": "playwright test tests/e2e/visual.spec.ts",
+    "test:e2e": "playwright test",
     "test": "vitest run",
     "sign:fixture": "node scripts/sign-fixture.mjs",
     "build:artifacts": "node scripts/build-artifacts.mjs"
@@ -34,7 +38,9 @@
     "velite": "^0.3.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@pdf-lib/fontkit": "^1.1.1",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
