@@ -27,7 +27,8 @@
 
   --font-sans:     var(--font-geist-sans), 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono:     var(--font-geist-mono), 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace;
-  --font-display:  var(--font-newsreader), 'Newsreader', Georgia, ui-serif, serif;
+  /* --font-newsreader is set after first paint (see DISPLAY_FONT_GATE in app/layout.tsx). */
+  --font-display:  var(--font-newsreader, var(--font-newsreader-fallback)), Georgia, ui-serif, serif;
   --font-wordmark: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
 }
 

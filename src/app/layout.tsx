@@ -28,8 +28,17 @@ const newsreader = Newsreader({
   axes: ['opsz'],
   display: 'swap',
   adjustFontFallback: true,
+  preload: false,
   variable: '--font-newsreader',
 });
+
+// The Newsreader file is 130KB (wght 200-800 x opsz 6-72). Fetched alongside the framework
+// JS it pushed simulated mobile LCP past 3s, though first paint never waited for it (swap).
+// So on the first page view of a session headings paint in the metric-matched fallback and
+// the face is requested after first contentful paint; later views in the session apply it at once
+// from cache. The class carries the --font-newsreader declaration from next/font.
+const NEWSREADER_FALLBACK = newsreader.style.fontFamily.split(',').slice(1).join(',').trim();
+const DISPLAY_FONT_GATE = `(function(){var d=document.documentElement,c=${JSON.stringify(newsreader.variable)},k='thursdai-fd';function on(){d.classList.add(c);try{sessionStorage.setItem(k,'1')}catch(e){}}try{if(sessionStorage.getItem(k)){on();return}}catch(e){}var P=window.PerformanceObserver;if(P&&P.supportedEntryTypes&&P.supportedEntryTypes.indexOf('paint')>-1){new P(function(l,o){if(l.getEntriesByName('first-contentful-paint').length){o.disconnect();setTimeout(on,0)}}).observe({type:'paint',buffered:true})}else{addEventListener('load',on)}})();`;
 
 // Instrument Serif survives only in the wordmark (italic).
 const instrumentSerif = Instrument_Serif({
@@ -92,9 +101,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${instrumentSerif.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+      style={{ '--font-newsreader-fallback': NEWSREADER_FALLBACK } as React.CSSProperties}
+      suppressHydrationWarning
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: DISPLAY_FONT_GATE }} />
+        <noscript>
+          <style>{`html{--font-newsreader:${newsreader.style.fontFamily}}`}</style>
+        </noscript>
         {/* Structured data */}
         <script
           type="application/ld+json"
