@@ -4,6 +4,7 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import { Button } from './Button';
 import { H3_STYLE } from '@/components/typography/scale';
 import { CONTACT_EMAIL } from '@/config/site';
+import { MOTION_CLASS } from '@/lib/motion';
 
 export type CtaLocation = 'hero' | 'closing' | 'nav';
 
@@ -119,6 +120,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
 
   return (
     <div
+      className={MOTION_CLASS.scrim}
       style={{
         position: 'fixed',
         inset: 0,
@@ -134,6 +136,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
       <div
         role="dialog"
         aria-modal="true"
+        className={MOTION_CLASS.panelUp}
         aria-labelledby={titleId}
         style={{
           background: 'var(--color-surface-primary)',

@@ -11,6 +11,7 @@ import { ButtonLink } from '@/components/ui/Button';
 import { RequestPilotButton } from '@/components/ui/RequestPilotButton';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { Reveal } from '@/components/motion/Reveal';
 import { SAMPLE_DISPLAY as S } from '@/lib/receipts/display';
 
 // Product pillar template (docs/design/the-record.md, "Page anatomy" 2):
@@ -113,7 +114,7 @@ function Hero({
           >
             <div className="lg:col-span-6">{copy}</div>
             <div className="lg:col-start-8 lg:col-span-5">
-              {visual}
+              <Reveal>{visual}</Reveal>
               {note}
             </div>
           </div>
@@ -123,7 +124,7 @@ function Hero({
               <div className="lg:col-span-8">{copy}</div>
             </div>
             <div style={{ marginTop: '4rem' }}>
-              {visual}
+              <Reveal>{visual}</Reveal>
               {note}
             </div>
           </>

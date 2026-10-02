@@ -81,6 +81,19 @@
   --transition-fast: 100ms ease;
   --transition-base: 150ms ease;
   --transition-menu: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Motion: the three behaviours. Mirrored by MOTION_CSS_VARS in src/lib/motion.ts. */
+  --motion-sign-hash: 600ms;
+  --motion-sign-rule-delay: 450ms;
+  --motion-sign-rule: 300ms;
+  --motion-sign-seal-delay: 750ms;
+  --motion-sign-seal: 150ms;
+  --motion-reveal: 240ms;
+  --motion-reveal-rise: 12px;
+  --motion-panel: 180ms;
+  --motion-panel-shift: 4px;
+  --ease-panel: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-link: 120ms;
 }
 
 @media (min-width: 768px) {
@@ -140,7 +153,7 @@ a {
   color: var(--color-accent);
   text-decoration: none;
   text-underline-offset: 2px;
-  transition: text-underline-offset var(--transition-fast), color var(--transition-fast);
+  transition: text-underline-offset var(--motion-link) ease, color var(--motion-link) ease;
 }
 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
@@ -221,6 +234,67 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-under
   text-decoration: none;
 }
 .footer-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* ── Motion: exactly three behaviours (src/lib/motion.ts) ─────────
+   Every animation sits inside `no-preference`, so with reduced motion there is no start
+   state at all: the receipt is signed, visuals are in place, panels simply appear.
+   Only opacity, transform and clip-path move, so nothing shifts layout. Nothing loops. */
+
+/* Same box with or without the animation, so the signature never reflows. */
+.rec-receipt [data-receipt-part='hash'] { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 1. Sign: the fingerprint types in, the amber rule draws, the seal fades in. CSS only, so
+     it starts with the first paint and never waits for JavaScript. */
+  .rec-receipt[data-receipt-state='signing'] [data-receipt-part='hash'] {
+    animation: rec-sign-type var(--motion-sign-hash) steps(var(--sign-steps, 11), end) both;
+  }
+  .rec-receipt[data-receipt-state='signing'] [data-receipt-part='signature-rule'] {
+    transform-origin: left center;
+    animation: rec-sign-rule var(--motion-sign-rule) var(--ease-panel) var(--motion-sign-rule-delay) both;
+  }
+  .rec-receipt[data-receipt-state='signing'] [data-receipt-part='seal'] {
+    animation: rec-fade-in var(--motion-sign-seal) linear var(--motion-sign-seal-delay) both;
+  }
+
+  /* 2. Reveal: Reveal.tsx marks a below-the-fold visual "pending" after hydration and "in" on
+     first entry. Server HTML carries neither, so nothing is hidden without JavaScript. */
+  [data-motion='reveal'][data-reveal='pending'] {
+    opacity: 0;
+    transform: translateY(var(--motion-reveal-rise));
+  }
+  [data-motion='reveal'][data-reveal='in'] {
+    transition:
+      opacity var(--motion-reveal) var(--ease-panel),
+      transform var(--motion-reveal) var(--ease-panel);
+  }
+
+  /* 3. Panel: menus drop 4px into place, dialogs rise 4px; both fade. Close is instant. */
+  .motion-panel { animation: rec-panel-down var(--motion-panel) var(--ease-panel) both; }
+  .motion-panel-up { animation: rec-panel-up var(--motion-panel) var(--ease-panel) both; }
+  .motion-scrim { animation: rec-fade-in var(--motion-panel) linear both; }
+}
+
+@keyframes rec-sign-type {
+  from { clip-path: inset(-2px 100% -2px 0); }
+  to { clip-path: inset(-2px 0 -2px 0); }
+}
+@keyframes rec-sign-rule {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes rec-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes rec-panel-down {
+  from { opacity: 0; transform: translateY(calc(-1 * var(--motion-panel-shift))); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes rec-panel-up {
+  from { opacity: 0; transform: translateY(var(--motion-panel-shift)); }
+  to { opacity: 1; transform: none; }
+}
 
 /* ── ReplayDemo citation tooltip ──────────────────────────────── */
 .replay-citation { position: relative; }

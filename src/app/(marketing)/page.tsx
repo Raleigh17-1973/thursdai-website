@@ -15,6 +15,7 @@ import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
 import { SAMPLE_HIRING_RECEIPT, SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
 import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
+import { Reveal } from '@/components/motion/Reveal';
 import { ProofBand, EU_AI_ACT_URL } from '@/components/home/ProofBand';
 import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
@@ -120,7 +121,7 @@ export default function HomePage() {
                 </div>
               </div>
             }
-            right={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} style={{ marginLeft: 'auto' }} />}
+            right={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} signing style={{ marginLeft: 'auto' }} />}
           />
         </Container>
       </Section>
@@ -196,9 +197,9 @@ export default function HomePage() {
       <Section>
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-12 items-start">
-            <div className="order-2 lg:order-1 lg:col-span-6">
+            <Reveal className="order-2 lg:order-1 lg:col-span-6">
               <ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ maxWidth: '560px' }} />
-            </div>
+            </Reveal>
             <div className="order-1 lg:order-2 lg:col-start-8 lg:col-span-5">
               <Label as="p">The receipt</Label>
               <Heading2 style={{ marginTop: '1rem' }}>One decision, one signed record.</Heading2>
@@ -245,9 +246,9 @@ export default function HomePage() {
                 footnote={SAMPLE_LABEL_SIGNED}
               />
             </div>
-            <div className="lg:col-span-5">
+            <Reveal className="lg:col-span-5">
               <AuditPackSummary compact />
-            </div>
+            </Reveal>
           </div>
         </Container>
       </Section>
