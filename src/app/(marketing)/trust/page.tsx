@@ -1,20 +1,23 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
 import { Grid } from '@/components/layout/Grid';
 import { Display } from '@/components/typography/Display';
-import { Heading3 } from '@/components/typography/Heading';
+import { Heading2, Heading3 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { CertBadge } from '@/components/content/CertBadge';
+import { CertStatusTag } from '@/components/content/CertBadge';
+import { LABEL_STYLE } from '@/components/typography/scale';
+import { CERT_ROADMAP, auditorText, targetText } from '@/lib/certifications';
 import { SecurityPackForm } from '@/components/content/SecurityPackForm';
 
 export const metadata: Metadata = {
   title: 'Trust & Security: Thursdai',
   description:
-    'SOC 2 Type II, ISO 27001, EU AI Act Annex III readiness and full deployment transparency. Built for procurement, compliance and engineering to all say yes.',
+    'How Thursdai handles security: an honest certification roadmap, EU AI Act Annex III documentation, deployment options and data handling, written for procurement, compliance and engineering.',
 };
 
 // ── Icons ─────────────────────────────────────────────────────
@@ -71,16 +74,111 @@ function IconDatabase() {
   );
 }
 
-// ── Cert badges ────────────────────────────────────────────────
+// ── Certification roadmap table ────────────────────────────────
+// A plain document table: strong ink rule on top, sunk mono header, hairline rows.
+// Below md each row stacks into a block with its own mono labels, so nothing scrolls sideways.
 
-const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust#certifications' },
-  { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust#certifications' },
-];
+const COLUMNS = ['Control or standard', 'Status', 'Auditor engaged', 'Target'] as const;
+
+const cellPad = 'block md:table-cell md:px-4 md:py-4 md:align-top';
+
+function CellLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="block md:hidden" style={{ ...LABEL_STYLE, marginBottom: '0.25rem' }}>
+      {children}
+    </span>
+  );
+}
+
+function CertRoadmapTable() {
+  return (
+    <table
+      className="block md:table"
+      style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        marginTop: '2.5rem',
+        borderTop: '1px solid var(--ink)',
+      }}
+    >
+      <caption className="sr-only">
+        Certification roadmap: each control or standard, its status, whether an auditor is
+        engaged and the target quarter
+      </caption>
+      <thead className="hidden md:table-header-group">
+        <tr style={{ background: 'var(--sunk)', borderBottom: '1px solid var(--rule)' }}>
+          {COLUMNS.map((col) => (
+            <th
+              key={col}
+              scope="col"
+              className="px-4 py-3"
+              style={{ ...LABEL_STYLE, color: 'var(--ink-2)', textAlign: 'left' }}
+            >
+              {col}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody className="block md:table-row-group">
+        {CERT_ROADMAP.map((row) => (
+          <tr
+            key={row.name}
+            className="grid grid-cols-2 gap-x-4 gap-y-4 py-5 md:table-row md:py-0"
+            style={{ borderBottom: '1px solid var(--rule)' }}
+          >
+            <th
+              scope="row"
+              className={`col-span-2 ${cellPad} md:w-[46%]`}
+              style={{ textAlign: 'left', fontWeight: 400 }}
+            >
+              <Link
+                href={row.href}
+                style={{
+                  fontSize: '17px',
+                  fontWeight: 500,
+                  color: 'var(--color-text-primary)',
+                }}
+              >
+                {row.name}
+              </Link>
+              <span
+                style={{
+                  display: 'block',
+                  marginTop: '0.375rem',
+                  fontSize: '15px',
+                  lineHeight: 1.55,
+                  color: 'var(--color-text-secondary)',
+                }}
+              >
+                {row.note}
+              </span>
+            </th>
+            <td className={cellPad}>
+              <CellLabel>Status</CellLabel>
+              <CertStatusTag status={row.status} />
+            </td>
+            <td className={cellPad} style={{ fontSize: '15px', color: 'var(--color-text-primary)' }}>
+              <CellLabel>Auditor engaged</CellLabel>
+              {auditorText(row.auditorEngaged)}
+            </td>
+            <td
+              className={`col-span-2 ${cellPad}`}
+              style={{
+                fontSize: '15px',
+                color: row.targetQuarter || row.status === 'ready'
+                  ? 'var(--color-text-primary)'
+                  : 'var(--color-text-secondary)',
+              }}
+            >
+              <CellLabel>Target</CellLabel>
+              {targetText(row)}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 // ── Page ───────────────────────────────────────────────────────
 
@@ -125,8 +223,8 @@ export default function TrustPage() {
               variant="feature"
               headingLevel={2}
               icon={<IconCertificate />}
-              title="ISO 42001 Certification"
-              body="Our AI management system certification plan."
+              title="ISO/IEC 42001"
+              body="Why the AI management system standard matters and where Thursdai stands against it today."
               href="/trust/iso-42001"
             />
             <Card
@@ -149,41 +247,42 @@ export default function TrustPage() {
         </Container>
       </Section>
 
-      {/* Certification badges row */}
+      {/* Certification roadmap */}
       <Section
         id="certifications"
         variant="compact"
         style={{ scrollMarginTop: '80px' }}
       >
         <Container>
-          <Label style={{ marginBottom: '1.5rem' }}>Security &amp; compliance</Label>
-          <div
+          <Label>Certification roadmap</Label>
+          <Heading2 style={{ marginTop: '1rem' }}>No certificates yet. Here is the plan.</Heading2>
+          <Body variant="large" style={{ marginTop: '1.5rem' }}>
+            Thursdai holds no certifications today. The table below lists the standards we intend
+            to certify against and what is ready now, and it will be updated with dates when
+            auditors are engaged.
+          </Body>
+          <CertRoadmapTable />
+          <p
             style={{
-              background: 'var(--color-surface-primary)',
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '2px',
-              padding: '1.5rem 2rem',
+              ...LABEL_STYLE,
+              color: 'var(--color-text-tertiary)',
+              marginTop: '1rem',
+              marginBottom: 0,
             }}
           >
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '1rem',
-                alignItems: 'center',
-              }}
-            >
-              {CERT_BADGES.map((badge) => (
-                <CertBadge key={badge.name} {...badge} />
-              ))}
-            </div>
-          </div>
+            Status as of October 2026
+          </p>
+          <Body style={{ marginTop: '1.5rem' }}>
+            Running a vendor review now? The{' '}
+            <a href="#security-pack">security pack</a> describes the controls in place today,
+            and the <Link href="/trust/annex-iii">Annex III mapping</Link> shows how receipts
+            line up with each record-keeping obligation.
+          </Body>
         </Container>
       </Section>
 
       {/* Security pack download */}
-      <Section variant="compact">
+      <Section id="security-pack" variant="compact" style={{ scrollMarginTop: '80px' }}>
         <Container>
           <div
             style={{
