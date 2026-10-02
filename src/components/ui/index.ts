@@ -9,3 +9,5 @@ export { Timeline } from './Timeline';
 export { DemoRequestModal } from './DemoRequestModal';
 export type { DemoRequestModalProps } from './DemoRequestModal';
 export { HeroCTAs } from './HeroCTAs';
+export { ClosingCTAs } from './ClosingCTAs';
+export { RequestPilotButton } from './RequestPilotButton';

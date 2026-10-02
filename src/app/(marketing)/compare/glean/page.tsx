@@ -9,12 +9,12 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Callout } from '@/components/ui/Callout';
-import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 
 export const metadata: Metadata = {
   title: 'Thursdai vs Glean',
   description:
-    'Where Glean is strong and where Thursdai differs. Feature matrix, real-world scenarios and a direct link to try the Thursdai replay demo.',
+    'Where Glean is strong and where Thursdai differs. Feature matrix, real-world scenarios and a signed sample receipt you can verify in the Thursdai demo.',
 };
 
 type MatrixStatus = 'yes' | 'no' | 'partial' | 'in-progress' | 'text';
@@ -329,11 +329,12 @@ export default function CompareGleanPage() {
       {/* ── CTA ── */}
       <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>See Thursdai for yourself</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
-          <ButtonLink href="/?ref=compare-glean#replay-demo" variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-            Try the replay demo →
-          </ButtonLink>
+          <Heading2>Put your own AI decisions on the record</Heading2>
+          <Body style={{ marginTop: '0.75rem' }}>
+            A pilot connects one of your AI systems to your own tenant. Before that, the demo shows a
+            signed sample receipt you can verify yourself, with no login.
+          </Body>
+          <ClosingCTAs primary="pilot" align="center" style={{ marginTop: '1.5rem' }} />
         </Container>
       </Section>    </>
   );

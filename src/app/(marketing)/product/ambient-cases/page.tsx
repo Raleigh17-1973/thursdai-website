@@ -9,6 +9,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -109,7 +110,7 @@ export default function AmbientCasesPage() {
               relevant policies are identified, and the AI panel is ready.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/customers" variant="primary">See Ambient Cases in context</ButtonLink>
+              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
               <ButtonLink href="#event-sources" variant="secondary">View event sources</ButtonLink>
             </div>
           </div>
@@ -185,17 +186,14 @@ export default function AmbientCasesPage() {
       {/* ── 4. CTA ──────────────────────────────────────────── */}
       <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>See Ambient Cases in context</Heading2>
+          <Heading2>See the record a case is built from</Heading2>
           <Body
             variant="large"
-            style={{ maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
+            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
           >
-            Read how Meridian Health and Sterling Legal use Ambient Cases to close
-            investigations faster.
+            Cases are assembled from receipts like the one in the demo. Verify a signed sample, replay it and download its audit pack. No login.
           </Body>
-          <ButtonLink href="/customers" variant="primary" size="lg">
-            Customer stories →
-          </ButtonLink>
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>

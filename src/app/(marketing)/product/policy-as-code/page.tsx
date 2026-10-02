@@ -9,6 +9,7 @@ import { Heading2, Heading3 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
@@ -80,7 +81,7 @@ export default function PolicyAsCodePage() {
               A hard constraint.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/#policy-demo" variant="primary">See the demo</ButtonLink>
+              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
               <ButtonLink href="/developers" variant="secondary">Read the spec</ButtonLink>
             </div>
           </div>
@@ -228,16 +229,14 @@ export default function PolicyAsCodePage() {
       {/* ── 5. CTA ──────────────────────────────────────────── */}
       <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>Read the policy language spec</Heading2>
+          <Heading2>See a policy check on the record</Heading2>
           <Body
             variant="large"
-            style={{ maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
+            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
           >
-            Full reference for every primitive, operator and dry-run flag.
+            In the demo, two policies run against a vendor agent's hiring decision before the receipt is signed. Verify it yourself. No login.
           </Body>
-          <ButtonLink href="/developers" variant="primary" size="lg">
-            Policy language docs →
-          </ButtonLink>
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>

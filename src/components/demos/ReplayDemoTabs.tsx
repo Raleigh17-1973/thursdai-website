@@ -244,7 +244,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
               Recorded {active.date}
             </p>
             <a
-              href="#demo-request"
+              href="/demo"
               style={{
                 fontSize: '13px',
                 color: 'var(--color-accent)',
@@ -252,7 +252,7 @@ export function ReplayDemoTabs({ decisions }: ReplayDemoTabsProps) {
                 fontWeight: 600,
               }}
             >
-              ↗ Request a live tenant demo
+              Open the demo
             </a>
           </div>
         </div>

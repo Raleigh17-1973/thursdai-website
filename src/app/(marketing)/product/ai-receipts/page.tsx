@@ -9,6 +9,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -49,7 +50,7 @@ export default function AiReceiptsPage() {
             receipt.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="lg">Talk to us about a pilot</ButtonLink>
+            <ButtonLink href="/demo" variant="primary" size="lg">Open the demo</ButtonLink>
             <ButtonLink href="/product/compliance-packs" variant="secondary" size="lg">Bundle receipts into audit packs</ButtonLink>
           </div>
         </Container>
@@ -126,13 +127,12 @@ export default function AiReceiptsPage() {
       {/* CTA */}
       <Section variant="compact" tone="ink">
         <Container>
-          <Heading2>See receipts in a space.</Heading2>
+          <Heading2>Verify a signed receipt.</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>
-            The People space puts AI Receipts to work on hiring and workforce decisions.
+            The demo holds a genuinely signed AI Receipt from a fictional tenant. Check its signature,
+            replay the decision behind it and download the audit pack. No login.
           </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <ButtonLink href="/solutions/people" variant="primary" size="md">Explore the People space →</ButtonLink>
-          </div>
+          <ClosingCTAs primary="demo" size="md" style={{ marginTop: '1.5rem' }} />
         </Container>
       </Section>
     </>

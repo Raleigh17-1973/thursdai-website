@@ -9,6 +9,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -47,7 +48,8 @@ export default function CompliancePacksPage() {
             the AI Decision Ledger. It is the exportable, auditor-ready form of the decisions
             Thursdai already records, not a report you assemble by hand the week before an audit.
           </Body>
-          <div style={{ marginTop: '2rem' }}>
+          <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <ButtonLink href="/demo#audit-pack" variant="primary" size="md">Open the demo</ButtonLink>
             <ButtonLink href="/product/time-travel" variant="secondary" size="md">See where the record comes from →</ButtonLink>
           </div>
         </Container>
@@ -129,13 +131,12 @@ export default function CompliancePacksPage() {
       {/* CTA */}
       <Section variant="compact" tone="ink">
         <Container>
-          <Heading2>See packs in a space.</Heading2>
+          <Heading2>Open a signed audit pack.</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>
-            The People space is the first to ship packs across a full set of workforce frameworks.
+            The demo ends with a sample pack that carries the hash of a receipt you can verify in the
+            page. Download it as a PDF. No login.
           </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <ButtonLink href="/solutions/people" variant="primary" size="md">Explore the People space →</ButtonLink>
-          </div>
+          <ClosingCTAs primary="demo" size="md" style={{ marginTop: '1.5rem' }} />
         </Container>
       </Section>
     </>

@@ -125,8 +125,8 @@ export default function ProductPage() {
             Every answer is traceable. Every policy is provable. Every audit is answerable.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="/developers" variant="primary" size="md">Read the API docs →</ButtonLink>
-            <ButtonLink href="/trust" variant="secondary" size="md">View trust & compliance</ButtonLink>
+            <ButtonLink href="/demo" variant="primary" size="md">Open the demo</ButtonLink>
+            <ButtonLink href="/developers" variant="secondary" size="md">Read the API docs →</ButtonLink>
           </div>
         </Container>
       </Section>

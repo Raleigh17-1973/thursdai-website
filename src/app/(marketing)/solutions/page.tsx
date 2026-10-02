@@ -8,6 +8,7 @@ import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Solutions: Thursdai',
@@ -27,6 +28,9 @@ export default function SolutionsPage() {
             the roles, the policies, the frameworks and the evidence a team in that domain actually
             needs. People is our first space.
           </Body>
+          <div style={{ marginTop: '2rem' }}>
+            <ButtonLink href="/demo" variant="primary" size="lg">Open the demo</ButtonLink>
+          </div>
         </Container>
       </Section>
 

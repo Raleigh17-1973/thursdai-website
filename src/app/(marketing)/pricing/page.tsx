@@ -36,7 +36,7 @@ const PRICING_FAQ = [
   },
   {
     q: 'Is there a free trial or proof-of-concept tier?',
-    a: 'We offer a 30-day pilot on a dedicated tenant with a $10K credit allocation. Pilots are for qualified enterprise buyers with a defined use case. Apply via the demo request form.',
+    a: 'We offer a 30-day pilot on a dedicated tenant with a $10K credit allocation. Pilots are for qualified enterprise buyers with a defined use case. Apply through the pilot request form.',
   },
   {
     q: 'What does the platform fee cover?',

@@ -89,7 +89,13 @@ export function TopNav() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Request a pilot: hidden on mobile (it lives in the drawer) */}
+          {/* Demo (plain text link) and Request a pilot: hidden on mobile (both live in the drawer) */}
+          <Link
+            href="/demo"
+            className="hidden md:block px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline"
+          >
+            Demo
+          </Link>
           <div className="hidden md:block">
             <Button size="sm" onClick={() => setDemoOpen(true)}>
               Request a pilot

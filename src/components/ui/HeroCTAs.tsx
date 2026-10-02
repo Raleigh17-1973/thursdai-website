@@ -1,32 +1,16 @@
-'use client';
+import React from 'react';
+import { ButtonLink } from './Button';
+import { RequestPilotButton } from './RequestPilotButton';
 
-import React, { useState } from 'react';
-import { Button } from './Button';
-import { DemoRequestModal } from './DemoRequestModal';
-
+// Home hero (plan Item 3.3): the fast path is real, so it is the primary. "Open the demo"
+// goes to /demo; "Request a pilot" opens the pilot modal.
 export function HeroCTAs() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  function scrollToDemo() {
-    const el = document.getElementById('replay-demo');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
-    }
-  }
-
   return (
-    <>
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-        <Button variant="primary" size="lg" onClick={scrollToDemo}>
-          See a replay
-        </Button>
-        <Button variant="secondary" size="lg" onClick={() => setModalOpen(true)}>
-          Request a pilot
-        </Button>
-      </div>
-      <DemoRequestModal open={modalOpen} onClose={() => setModalOpen(false)} source="hero" />
-    </>
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <ButtonLink href="/demo" variant="primary" size="lg">
+        Open the demo
+      </ButtonLink>
+      <RequestPilotButton source="hero" variant="secondary" size="lg" />
+    </div>
   );
 }

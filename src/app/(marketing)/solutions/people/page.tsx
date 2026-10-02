@@ -10,7 +10,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
-import { Callout } from '@/components/ui/Callout';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 
@@ -55,7 +55,7 @@ export default function PeopleSolutionPage() {
             each one and bundles them into the audit-ready packs you need to answer for them.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="lg">Talk to us about a pilot</ButtonLink>
+            <ButtonLink href="/demo" variant="primary" size="lg">Open the demo</ButtonLink>
             <ButtonLink href="/product/compliance-packs" variant="secondary" size="lg">See the evidence it produces</ButtonLink>
           </div>
         </Container>
@@ -172,17 +172,16 @@ export default function PeopleSolutionPage() {
         </Container>
       </Section>
 
-      {/* CTA */}
-      <Section variant="compact">
+      {/* CTA (the page's one ink band) */}
+      <Section variant="compact" tone="ink">
         <Container>
-          <Callout variant="info" title="Bring us your hiring AI.">
-            We are onboarding our first People design partners. If you run automated tools in hiring
-            and need to answer for them, we would like to work with you. Reach us at{' '}
-            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
-              thursdai@getthursdai.com
-            </a>
-            .
-          </Callout>
+          <Heading2>Bring us your hiring AI.</Heading2>
+          <Body style={{ marginTop: '0.75rem' }}>
+            The demo walks through one hiring decision made by a vendor screening agent: the signed
+            receipt, the replay and the audit pack. We are onboarding our first People design
+            partners; if you run automated tools in hiring and need to answer for them, request a pilot.
+          </Body>
+          <ClosingCTAs primary="demo" size="md" style={{ marginTop: '1.5rem' }} />
         </Container>
       </Section>
     </>
