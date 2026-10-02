@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation';
 import { getAllChangelog } from '@/lib/velite';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
-import { Heading1, Heading3, Body, Label } from '@/components/typography';
+import { Heading1, Body, Label } from '@/components/typography';
+import { H3_STYLE } from '@/components/typography/scale';
 import { Badge } from '@/components/ui/Badge';
 import { MDXContent } from '@/components/content/MDXContent';
 
@@ -31,7 +32,7 @@ export default async function ChangelogPage() {
               </Body>
               {entry.version && <Badge variant="teal">{entry.version}</Badge>}
             </div>
-            <Heading3>{entry.title}</Heading3>
+            <h2 style={H3_STYLE}>{entry.title}</h2>
             <div style={{ color: 'var(--color-text-secondary)' }}>
               <MDXContent code={entry.content} />
             </div>

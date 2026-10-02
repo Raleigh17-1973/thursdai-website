@@ -3,7 +3,8 @@ import { getAllPosts } from '@/lib/velite';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
 import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading3, Body, Label } from '@/components/typography';
+import { Heading1, Body, Label } from '@/components/typography';
+import { H3_STYLE } from '@/components/typography/scale';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -24,9 +25,9 @@ export default async function BlogPage() {
         <Grid cols={3}>
           {posts.map((post) => (
             <Link key={post.slug} href={`/resources/blog/${post.slug.split('/').pop()}`} style={{ textDecoration: 'none' }}>
-              <article style={{ padding: '1.5rem', border: '1px solid var(--color-border-default)', borderRadius: '12px' }}>
+              <article style={{ padding: '1.5rem', border: '1px solid var(--color-border-default)', borderRadius: '2px' }}>
                 <Label>{post.category}</Label>
-                <Heading3>{post.title}</Heading3>
+                <h2 style={H3_STYLE}>{post.title}</h2>
                 <Body variant="small">{post.summary}</Body>
                 <Body variant="small" style={{ color: 'var(--color-text-tertiary)', marginTop: '0.5rem' }}>
                   {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

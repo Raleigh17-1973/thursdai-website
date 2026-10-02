@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
 import { Grid } from '@/components/layout/Grid';
@@ -8,7 +7,7 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Company: Thursdai',
@@ -49,7 +48,7 @@ export default function CompanyPage() {
           <Body style={{ marginTop: '1.25rem' }}>
             I&apos;m building in public and looking for early design partners who have the same
             problem I had. If that&apos;s you, reach out at{' '}
-            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+            <a href="mailto:thursdai@getthursdai.com">
               thursdai@getthursdai.com
             </a>
             .
@@ -75,7 +74,7 @@ export default function CompanyPage() {
       </Section>
 
       {/* ── Section 3: Why now ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2><span className="font-display">Why now</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -116,7 +115,7 @@ export default function CompanyPage() {
       </Section>
 
       {/* ── Section 5: Design partners ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2><span className="font-display">Early design partners</span></Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -131,9 +130,9 @@ export default function CompanyPage() {
             we&apos;d like to talk.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="mailto:thursdai@getthursdai.com">
-              <Button variant="primary" size="md">Become a design partner →</Button>
-            </Link>
+            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="md">
+              Become a design partner →
+            </ButtonLink>
           </div>
         </Container>
       </Section>
@@ -149,7 +148,7 @@ export default function CompanyPage() {
           <Body style={{ marginTop: '0.75rem' }}>
             <a
               href="mailto:thursdai@getthursdai.com"
-              style={{ color: 'var(--color-accent)', fontWeight: 600 }}
+              style={{ fontWeight: 600 }}
             >
               Reach out → thursdai@getthursdai.com
             </a>
@@ -163,7 +162,7 @@ export default function CompanyPage() {
           <Heading2><span className="font-display">Press &amp; Media</span></Heading2>
           <Body style={{ marginTop: '1rem', color: 'var(--color-text-secondary)' }}>
             For press inquiries, interview requests or the media kit, email{' '}
-            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+            <a href="mailto:thursdai@getthursdai.com">
               thursdai@getthursdai.com
             </a>
             .

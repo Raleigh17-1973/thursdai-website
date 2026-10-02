@@ -11,7 +11,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
 function IconRoute() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="5" cy="12" r="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <circle cx="19" cy="6" r="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <circle cx="19" cy="18" r="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M7 12h4m4-4 4-2M11 12l8 6" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.25" />
+      <circle cx="19" cy="6" r="2" stroke="currentColor" strokeWidth="1.25" />
+      <circle cx="19" cy="18" r="2" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M7 12h4m4-4 4-2M11 12l8 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -36,7 +36,7 @@ function IconRoute() {
 function IconRespond() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
+      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -44,8 +44,8 @@ function IconRespond() {
 function IconReconcile() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="9 12 11 14 15 10" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.25" />
+      <polyline points="9 12 11 14 15 10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -72,23 +72,19 @@ export default function ModeratorPage() {
               your team.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/#moderator-demo">
-                <Button variant="primary">See the demo</Button>
-              </Link>
-              <Link href="/developers/mcp">
-                <Button variant="secondary">View API docs</Button>
-              </Link>
+              <ButtonLink href="/#moderator-demo" variant="primary">See the demo</ButtonLink>
+              <ButtonLink href="/developers/mcp" variant="secondary">View API docs</ButtonLink>
             </div>
           </div>
         </Container>
       </Section>
 
       {/* ── 2. ModeratorPanel ───────────────────────────────── */}
-      <section style={{ background: '#0b0f19', padding: '5rem 0' }}>
+      <Section variant="compact">
         <Container>
           <ModeratorPanel />
         </Container>
-      </section>
+      </Section>
 
       {/* ── 3. How it works ─────────────────────────────────── */}
       <Section variant="default">
@@ -121,7 +117,7 @@ export default function ModeratorPage() {
       </Section>
 
       {/* ── 4. Provenance at sentence level ─────────────────── */}
-      <Section variant="default" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="default">
         <Container>
           <Split
             ratio="50/50"
@@ -162,7 +158,7 @@ export default function ModeratorPage() {
           <div
             style={{
               border: '1px solid var(--color-border-default)',
-              borderRadius: '16px',
+              borderRadius: '2px',
               padding: '2rem',
               textAlign: 'center',
             }}
@@ -176,7 +172,7 @@ export default function ModeratorPage() {
               across 8 domains. Results publishing July 2026.
             </Body>
             <div style={{ marginTop: '1.25rem' }}>
-              <Link href="/resources/role-bench" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}>
+              <Link href="/resources/role-bench" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 500 }}>
                 Join the waitlist →
               </Link>
             </div>
@@ -185,43 +181,20 @@ export default function ModeratorPage() {
       </Section>
 
       {/* ── 6. CTA ──────────────────────────────────────────── */}
-      <section
-        style={{
-          background: 'linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%)',
-          padding: '4rem 0',
-          textAlign: 'center',
-        }}
-      >
+      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <div style={{
-            background: 'rgba(255,255,255,0.08)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: '20px',
-            padding: '3rem',
-            maxWidth: '640px',
-            margin: '0 auto',
-            textAlign: 'center',
-          }}>
-            <Heading2 style={{ color: '#fff' }}>See the full role library</Heading2>
-            <Body style={{ color: 'rgba(255,255,255,0.85)', marginTop: '0.75rem' }}>
-              Configure roles for Legal, Finance, Engineering, HR and more, or define custom roles
-              for your domain.
-            </Body>
-            <div style={{ marginTop: '1.5rem' }}>
-              <Link href="/developers">
-                <Button
-                  variant="secondary"
-                  style={{ borderColor: '#fff', color: '#fff' }}
-                >
-                  Read the role configuration docs
-                </Button>
-              </Link>
-            </div>
+          <Heading2>See the full role library</Heading2>
+          <Body style={{ marginTop: '0.75rem' }}>
+            Configure roles for Legal, Finance, Engineering, HR and more, or define custom roles
+            for your domain.
+          </Body>
+          <div style={{ marginTop: '1.5rem' }}>
+            <ButtonLink href="/developers" variant="secondary">
+              Read the role configuration docs
+            </ButtonLink>
           </div>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

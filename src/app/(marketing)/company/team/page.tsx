@@ -26,7 +26,7 @@ export default function TeamPage() {
       </Section>
 
       {/* ── Founder ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <div
             style={{
@@ -41,15 +41,16 @@ export default function TeamPage() {
               style={{
                 width: '96px',
                 height: '96px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, var(--color-indigo) 0%, var(--color-plum) 100%)',
+                borderRadius: '2px',
+                background: 'var(--color-surface-primary)',
+                border: '1px solid var(--color-text-primary)',
                 flexShrink: 0,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '2rem',
-                fontWeight: 700,
-                color: '#fff',
+                fontWeight: 500,
+                color: 'var(--color-text-primary)',
                 fontFamily: 'var(--font-sans)',
               }}
               aria-hidden="true"
@@ -60,7 +61,7 @@ export default function TeamPage() {
               <p
                 style={{
                   fontSize: '20px',
-                  fontWeight: 700,
+                  fontWeight: 500,
                   color: 'var(--color-text-primary)',
                   margin: 0,
                   fontFamily: 'var(--font-sans)',
@@ -68,18 +69,7 @@ export default function TeamPage() {
               >
                 Jeffrey Hoyt
               </p>
-              <p
-                style={{
-                  fontSize: '14px',
-                  color: 'var(--color-accent)',
-                  fontWeight: 600,
-                  margin: '0.25rem 0 0.75rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                }}
-              >
-                Founder
-              </p>
+              <Label style={{ margin: '0.25rem 0 0.75rem' }}>Founder</Label>
               <Body>
                 Previously at Sprout, where I spent years in Program and Project Management and
                 kept wishing someone would build a governed AI layer that could actually explain
@@ -93,8 +83,6 @@ export default function TeamPage() {
                   href="mailto:thursdai@getthursdai.com"
                   style={{
                     fontSize: '14px',
-                    color: 'var(--color-accent)',
-                    textDecoration: 'none',
                     fontWeight: 600,
                   }}
                 >

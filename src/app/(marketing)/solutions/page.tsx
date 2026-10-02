@@ -30,18 +30,19 @@ export default function SolutionsPage() {
         </Container>
       </Section>
 
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Grid cols={3} gap="md">
             <Card
               variant="feature"
+              headingLevel={2}
               title="People"
               body="AI governance for hiring and workforce decisions. Bias-audit evidence, an AI system register and a compliance pack for every framework an HR team answers to."
               href="/solutions/people"
               className="h-full"
             />
           </Grid>
-          <Body variant="small" style={{ marginTop: '1.5rem', color: 'var(--color-text-tertiary)' }}>
+          <Body variant="small" style={{ marginTop: '1.5rem', color: 'var(--color-text-secondary)' }}>
             More spaces are coming. We are building the next ones with design partners and will
             list them here as they are ready.
           </Body>
@@ -58,7 +59,7 @@ export default function SolutionsPage() {
             that apply and the frameworks the evidence is shaped to.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/product" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 600 }}>
+            <Link href="/product" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 500 }}>
               See how the substrate works →
             </Link>
           </div>

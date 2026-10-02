@@ -67,13 +67,14 @@ export default function ComparePage() {
         </Container>
       </Section>
 
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Grid cols={3} gap="md">
             {COMPARISONS.map((c) => (
               <Card
                 key={c.href}
                 variant="feature"
+                headingLevel={2}
                 title={c.title}
                 body={c.description}
                 href={c.href}

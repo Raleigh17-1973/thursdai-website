@@ -62,9 +62,6 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'var(--color-text-primary)',
-  borderBottom: '1px solid var(--color-border-default)',
-  background: 'var(--color-surface-secondary)',
   whiteSpace: 'nowrap',
 };
 
@@ -73,7 +70,6 @@ const tdStyle: React.CSSProperties = {
   fontSize: '14px',
   lineHeight: 1.5,
   color: 'var(--color-text-secondary)',
-  borderBottom: '1px solid var(--color-border-default)',
   verticalAlign: 'top',
 };
 
@@ -82,7 +78,7 @@ const rowLabelStyle: React.CSSProperties = {
   fontWeight: 600,
   color: 'var(--color-text-primary)',
   whiteSpace: 'nowrap',
-  background: 'var(--color-surface-secondary)',
+  background: 'var(--color-surface-primary)',
   position: 'sticky',
   left: 0,
 };
@@ -116,14 +112,14 @@ export default function DeploymentPage() {
 
       {/* Deployment matrix */}
       {/* LEGAL REVIEW REQUIRED */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="warning" style={{ marginBottom: '1.5rem' }}>
             Content pending legal review before launch.
           </Callout>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Deployment matrix</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={{ ...thStyle }}></th>
@@ -135,10 +131,7 @@ export default function DeploymentPage() {
               </thead>
               <tbody>
                 {MATRIX_ROWS.map((row, i) => (
-                  <tr
-                    key={i}
-                    style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}
-                  >
+                  <tr key={i}>
                     <td style={rowLabelStyle}>{row.label}</td>
                     <td style={tdStyle}>{row.saas}</td>
                     <td style={tdStyle}>{row.dedicated}</td>
@@ -156,9 +149,7 @@ export default function DeploymentPage() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Which tier is right for you?</Heading2>
-          <div
-            style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '800px' }}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Callout variant="info">
               <strong>SaaS is right for you if:</strong> you don&apos;t have strict data residency
               requirements, you want to get started in minutes, and your security team is comfortable
@@ -180,10 +171,7 @@ export default function DeploymentPage() {
       </Section>
 
       {/* CTA */}
-      <Section
-        variant="compact"
-        style={{ background: 'var(--color-surface-secondary)', textAlign: 'center' }}
-      >
+      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>Talk to our enterprise team</Heading2>
           <Body style={{ maxWidth: '500px', margin: '0 auto 1.5rem' }}>

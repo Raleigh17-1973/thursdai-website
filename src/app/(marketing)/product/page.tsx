@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -8,7 +7,7 @@ import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Everything that goes on the record: Thursdai',
@@ -94,13 +93,14 @@ export default function ProductPage() {
       </Section>
 
       {/* ── Five pillars ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Grid cols={3} gap="lg">
             {PILLARS.map((pillar) => (
               <Card
                 key={pillar.href}
                 variant="feature"
+                headingLevel={2}
                 title={pillar.title}
                 body={pillar.description}
                 href={pillar.href}
@@ -125,18 +125,14 @@ export default function ProductPage() {
             Every answer is traceable. Every policy is provable. Every audit is answerable.
           </Body>
           <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link href="/developers">
-              <Button variant="primary" size="md">Read the API docs →</Button>
-            </Link>
-            <Link href="/trust">
-              <Button variant="secondary" size="md">View trust & compliance</Button>
-            </Link>
+            <ButtonLink href="/developers" variant="primary" size="md">Read the API docs →</ButtonLink>
+            <ButtonLink href="/trust" variant="secondary" size="md">View trust & compliance</ButtonLink>
           </div>
         </Container>
       </Section>
 
       {/* ── Developers callout ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Built for your stack.</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -145,9 +141,7 @@ export default function ProductPage() {
             governance to your AI stack today.
           </Body>
           <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/developers">
-              <Button variant="secondary" size="md">Developer docs →</Button>
-            </Link>
+            <ButtonLink href="/developers" variant="secondary" size="md">Developer docs →</ButtonLink>
           </div>
         </Container>
       </Section>

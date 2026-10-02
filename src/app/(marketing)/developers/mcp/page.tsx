@@ -6,6 +6,7 @@ import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
+import { LABEL_STYLE } from '@/components/typography/scale';
 import { Badge } from '@/components/ui/Badge';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -153,14 +154,14 @@ thursdai-mcp-server --port 3333`;
 
 const codeStyle: React.CSSProperties = {
   display: 'block',
-  background: '#0b0f19',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '8px',
+  background: 'var(--sunk)',
+  border: '1px solid var(--rule)',
+  borderRadius: '2px',
   padding: '1rem',
   fontFamily: 'var(--font-mono, monospace)',
   fontSize: '13px',
   lineHeight: 1.6,
-  color: 'rgba(255,255,255,0.85)',
+  color: 'var(--ink)',
   overflowX: 'auto',
   whiteSpace: 'pre',
   margin: '0',
@@ -172,7 +173,7 @@ export default function McpPage() {
   return (
     <>
       {/* Hero */}
-      <Section variant="default" style={{ background: '#0b0f19' }}>
+      <Section variant="default">
         <Container>
           <Breadcrumb
             items={[
@@ -181,11 +182,11 @@ export default function McpPage() {
               { label: 'MCP Server' },
             ]}
           />
-          <Label style={{ color: '#8b9ef0', marginTop: '1.5rem', display: 'block' }}>MCP Server</Label>
-          <Display style={{ color: '#e4e4e7', marginTop: '0.75rem', marginBottom: '1.5rem' }}>
+          <Label style={{ marginTop: '1.5rem' }}>MCP Server</Label>
+          <Display style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
             Thursdai speaks MCP natively.
           </Display>
-          <Body variant="large" style={{ color: '#a1a1aa' }}>
+          <Body variant="large">
             Five read-only audit tools for querying your AI Receipt record from any
             MCP-compatible client, including Claude Desktop and Cursor. Action tools for
             recording decisions and routing through the Moderator panel ship as the Receipt
@@ -198,13 +199,13 @@ export default function McpPage() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>Installation</Heading2>
-          <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', padding: '0.75rem 1rem', background: 'var(--color-surface-secondary)', border: '1px solid var(--color-border-default)', borderRadius: '8px' }}>
+          <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', padding: '0.75rem 1rem', background: 'var(--color-surface-secondary)', border: '1px solid var(--color-border-default)', borderRadius: '2px' }}>
             <strong style={{ color: 'var(--color-text-primary)' }}>Private beta:</strong>{' '}
             <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@thursdai/mcp-server</code> is available to design partners. Contact{' '}
             <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>thursdai@getthursdai.com</a> for access.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <details open style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+            <details open style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
               <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
                 <span>▶</span> Claude Desktop
               </summary>
@@ -216,7 +217,7 @@ export default function McpPage() {
               </div>
             </details>
 
-            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
               <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
                 <span>▶</span> Cursor
               </summary>
@@ -228,7 +229,7 @@ export default function McpPage() {
               </div>
             </details>
 
-            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
+            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
               <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
                 <span>▶</span> Generic MCP client
               </summary>
@@ -241,7 +242,7 @@ export default function McpPage() {
       </Section>
 
       {/* Tool reference */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '0.5rem' }}>Tool reference</Heading2>
           <Body style={{ marginBottom: '2rem' }}>Five read-only audit tools, with three action tools coming.</Body>
@@ -252,7 +253,7 @@ export default function McpPage() {
                 key={tool.name}
                 style={{
                   border: '1px solid var(--color-border-default)',
-                  borderRadius: '10px',
+                  borderRadius: '2px',
                   background: 'var(--color-surface-primary)',
                   overflow: 'hidden',
                 }}
@@ -271,8 +272,8 @@ export default function McpPage() {
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '14px',
-                      fontWeight: 700,
-                      color: 'var(--color-accent)',
+                      fontWeight: 500,
+                      color: 'var(--color-text-primary)',
                     }}
                   >
                     {tool.name}
@@ -300,14 +301,7 @@ export default function McpPage() {
                 >
                   <div>
                     <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.06em',
-                        color: 'var(--color-text-tertiary)',
-                        marginBottom: '0.5rem',
-                      }}
+                      style={{ ...LABEL_STYLE, marginBottom: '0.5rem' }}
                     >
                       Input schema
                     </p>
@@ -317,14 +311,7 @@ export default function McpPage() {
                   </div>
                   <div>
                     <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.06em',
-                        color: 'var(--color-text-tertiary)',
-                        marginBottom: '0.5rem',
-                      }}
+                      style={{ ...LABEL_STYLE, marginBottom: '0.5rem' }}
                     >
                       cURL example
                     </p>
@@ -346,41 +333,25 @@ export default function McpPage() {
                 key={tool.name}
                 style={{
                   border: '1px solid var(--color-border-default)',
-                  borderRadius: '10px',
+                  borderRadius: '2px',
                   background: 'var(--color-surface-primary)',
                   padding: '1rem 1.25rem',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.75rem',
-                  opacity: 0.65,
                 }}
               >
                 <code
                   style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '14px',
-                    fontWeight: 700,
-                    color: 'var(--color-text-secondary)',
+                    fontWeight: 500,
+                    color: 'var(--color-text-primary)',
                   }}
                 >
                   {tool.name}
                 </code>
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    color: 'var(--color-text-tertiary)',
-                    background: 'var(--color-surface-secondary)',
-                    border: '1px solid var(--color-border-default)',
-                    borderRadius: '4px',
-                    padding: '2px 8px',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  Coming soon
-                </span>
+                <Badge variant="muted">Coming soon</Badge>
                 <span
                   style={{
                     fontSize: '14px',

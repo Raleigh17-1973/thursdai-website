@@ -21,9 +21,6 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'var(--color-text-primary)',
-  borderBottom: '1px solid var(--color-border-default)',
-  background: 'var(--color-surface-secondary)',
 };
 
 const tdStyle: React.CSSProperties = {
@@ -31,7 +28,6 @@ const tdStyle: React.CSSProperties = {
   fontSize: '14px',
   lineHeight: 1.5,
   color: 'var(--color-text-secondary)',
-  borderBottom: '1px solid var(--color-border-default)',
   verticalAlign: 'top',
 };
 
@@ -173,7 +169,7 @@ export default function SecurityPage() {
       </Section>
 
       {/* Executive Summary */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Executive Summary</Heading2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -206,7 +202,7 @@ export default function SecurityPage() {
             customer deployment is a dedicated tenant.
           </Body>
           <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Component</th>
@@ -215,7 +211,7 @@ export default function SecurityPage() {
               </thead>
               <tbody>
                 {ARCHITECTURE_ROWS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
                       {row.component}
                     </td>
@@ -235,23 +231,12 @@ export default function SecurityPage() {
             <div
               style={{
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.25rem',
                 background: 'var(--color-surface-primary)',
               }}
             >
-              <p
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text-tertiary)',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                Network &amp; Transport
-              </p>
+              <Label style={{ marginBottom: '0.5rem' }}>Network &amp; Transport</Label>
               <Body>
                 All traffic in transit uses TLS 1.3. HTTP connections are rejected or upgraded.
                 Internal component communication is within the private Railway network.
@@ -260,23 +245,12 @@ export default function SecurityPage() {
             <div
               style={{
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.25rem',
                 background: 'var(--color-surface-primary)',
               }}
             >
-              <p
-                style={{
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  color: 'var(--color-text-tertiary)',
-                  marginBottom: '0.5rem',
-                }}
-              >
-                Data at Rest
-              </p>
+              <Label style={{ marginBottom: '0.5rem' }}>Data at Rest</Label>
               <Body>
                 AES-256 via hosting provider storage encryption. PII fields are encrypted at the
                 application layer using a configurable key independent of the storage backend.
@@ -287,7 +261,7 @@ export default function SecurityPage() {
       </Section>
 
       {/* Data Classification */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Data Classification</Heading2>
           <Body style={{ marginBottom: '1.5rem' }}>
@@ -296,7 +270,7 @@ export default function SecurityPage() {
             or store payroll data, bank account information or health records.
           </Body>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Data Category</th>
@@ -305,7 +279,7 @@ export default function SecurityPage() {
               </thead>
               <tbody>
                 {DATA_CLASSIFICATION_ROWS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
                       {row.category}
                     </td>
@@ -328,7 +302,7 @@ export default function SecurityPage() {
             notice.
           </Body>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Subprocessor</th>
@@ -338,7 +312,7 @@ export default function SecurityPage() {
               </thead>
               <tbody>
                 {SUBPROCESSOR_ROWS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
                       {row.name}
                     </td>
@@ -353,11 +327,11 @@ export default function SecurityPage() {
       </Section>
 
       {/* Certifications */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Certifications &amp; Compliance Status</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Framework</th>
@@ -367,7 +341,7 @@ export default function SecurityPage() {
               </thead>
               <tbody>
                 {CERTIFICATION_ROWS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
                       {row.framework}
                     </td>
@@ -376,17 +350,11 @@ export default function SecurityPage() {
                         style={{
                           display: 'inline-block',
                           padding: '2px 8px',
-                          borderRadius: '4px',
+                          borderRadius: '2px',
                           fontSize: '12px',
                           fontWeight: 600,
-                          background:
-                            row.status === 'Planned'
-                              ? 'rgba(62,79,184,0.12)'
-                              : 'rgba(0,0,0,0.06)',
-                          color:
-                            row.status === 'Planned'
-                              ? 'var(--color-accent)'
-                              : 'var(--color-text-tertiary)',
+                          border: '1px solid var(--color-border-default)',
+                          color: 'var(--color-text-primary)',
                         }}
                       >
                         {row.status}
@@ -409,7 +377,7 @@ export default function SecurityPage() {
             contact{' '}
             <a
               href="mailto:thursdai@getthursdai.com"
-              style={{ color: 'var(--color-accent)', fontWeight: 600 }}
+              style={{ fontWeight: 600 }}
             >
               thursdai@getthursdai.com
             </a>

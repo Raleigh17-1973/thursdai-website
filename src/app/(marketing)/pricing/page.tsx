@@ -71,7 +71,7 @@ export default function PricingPage() {
       />
 
       {/* ── Hero ── */}
-      <Section style={{ paddingTop: '6rem', paddingBottom: '4rem' }}>
+      <Section>
         <Container>
           <Label>Pricing</Label>
           <Display style={{ marginTop: '0.75rem' }}>Published pricing. Tuned to outcome.</Display>
@@ -83,31 +83,21 @@ export default function PricingPage() {
       </Section>
 
       {/* ── Example deal cards (anchoring) ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
-          <p
-            style={{
-              fontSize: '13px',
-              fontWeight: 600,
-              color: 'var(--color-text-tertiary)',
-              marginBottom: '1.5rem',
-              textAlign: 'center',
-            }}
-          >
+          <Label style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
             Example deals: click to load in the calculator below
-          </p>
+          </Label>
           <Grid cols={3} gap="md">
             <div
-              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card
@@ -121,7 +111,6 @@ export default function PricingPage() {
                 style={{
                   display: 'block',
                   textAlign: 'center',
-                  color: 'var(--color-accent)',
                   fontSize: '13px',
                   fontWeight: 600,
                 }}
@@ -131,16 +120,14 @@ export default function PricingPage() {
             </div>
 
             <div
-              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card
@@ -154,7 +141,6 @@ export default function PricingPage() {
                 style={{
                   display: 'block',
                   textAlign: 'center',
-                  color: 'var(--color-accent)',
                   fontSize: '13px',
                   fontWeight: 600,
                 }}
@@ -164,16 +150,14 @@ export default function PricingPage() {
             </div>
 
             <div
-              className="hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
               style={{
                 background: 'var(--color-surface-primary)',
                 border: '1px solid var(--color-border-default)',
-                borderRadius: '12px',
+                borderRadius: '2px',
                 padding: '1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1rem',
-                transition: 'transform 200ms ease, border-color 200ms ease',
               }}
             >
               <Card
@@ -187,7 +171,6 @@ export default function PricingPage() {
                 style={{
                   display: 'block',
                   textAlign: 'center',
-                  color: 'var(--color-accent)',
                   fontSize: '13px',
                   fontWeight: 600,
                 }}
@@ -209,7 +192,7 @@ export default function PricingPage() {
       </Section>
 
       {/* ── How pricing works ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '2rem' }}>How pricing works</Heading2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
@@ -237,12 +220,12 @@ export default function PricingPage() {
                   gridTemplateColumns: '180px 1fr',
                   gap: '1.5rem',
                   padding: '1.5rem 0',
-                  borderTop: i === 0 ? '1px solid var(--color-border-default)' : '1px solid var(--color-border-default)',
+                  borderTop: '1px solid var(--color-border-default)',
                   borderBottom: i === 2 ? '1px solid var(--color-border-default)' : undefined,
                 }}
               >
                 <div>
-                  <p style={{ fontWeight: 700, fontSize: '15px', color: 'var(--color-text-primary)' }}>
+                  <p style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)' }}>
                     {row.name}
                   </p>
                 </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
 import { Grid } from '@/components/layout/Grid';
@@ -8,7 +7,9 @@ import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
+import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 import { Card } from '@/components/ui/Card';
+import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 
@@ -114,8 +115,8 @@ for item in results.receipts:
 function IconReceipt() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M9 8h6M9 12h6M9 16h3" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+      <path d="M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
+      <path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -123,9 +124,9 @@ function IconReceipt() {
 function IconAgent() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="8" r="4" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-      <path d="M16 3l2 2-2 2" stroke="var(--color-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+      <path d="M16 3l2 2-2 2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -133,9 +134,9 @@ function IconAgent() {
 function IconQuery() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M16.5 16.5L21 21" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-      <path d="M8 11h6M11 8v6" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+      <path d="M8 11h6M11 8v6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -143,10 +144,10 @@ function IconQuery() {
 function IconMCP() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="2" width="9" height="9" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <rect x="13" y="2" width="9" height="9" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <rect x="2" y="13" width="9" height="9" rx="2" stroke="var(--color-accent)" strokeWidth="2" />
-      <path d="M17.5 13v9M13 17.5h9" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+      <rect x="2" y="2" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
+      <rect x="13" y="2" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
+      <rect x="2" y="13" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
+      <path d="M17.5 13v9M13 17.5h9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -154,7 +155,7 @@ function IconMCP() {
 function IconAPI() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 6h16M4 10h16M4 14h10M4 18h7" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
+      <path d="M4 6h16M4 10h16M4 14h10M4 18h7" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
     </svg>
   );
 }
@@ -162,11 +163,30 @@ function IconAPI() {
 function IconSDK() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <polyline points="16 18 22 12 16 6" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <polyline points="8 6 2 12 8 18" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="16 18 22 12 16 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline points="8 6 2 12 8 18" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
+
+const detailsStyle: React.CSSProperties = {
+  border: '1px solid var(--color-border-default)',
+  borderRadius: '2px',
+  overflow: 'hidden',
+};
+
+const summaryStyle: React.CSSProperties = {
+  cursor: 'pointer',
+  padding: '0.6rem 1rem',
+  fontSize: '14px',
+  fontWeight: 500,
+  color: 'var(--color-text-primary)',
+  listStyle: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  background: 'var(--color-surface-secondary)',
+};
 
 // ── Page ───────────────────────────────────────────────────────
 
@@ -174,56 +194,30 @@ export default function DevelopersPage() {
   return (
     <>
       {/* Hero */}
-      <Section variant="default" style={{ background: '#0b0f19' }}>
+      <Section variant="default">
         <Container>
-          <Label style={{ color: '#8b9ef0' }}>Developers</Label>
-          <Display style={{ color: '#e4e4e7', marginTop: '1rem', marginBottom: '1.5rem' }}>
+          <Label>Developers</Label>
+          <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
             One API. Every AI decision on the record.
           </Display>
-          <Body variant="large" style={{ color: '#a1a1aa', marginBottom: '2rem', maxWidth: '680px' }}>
+          <Body variant="large" style={{ marginBottom: '2rem' }}>
             Submit AI Receipts from any system in a single call. Query your decision history in plain
             language. Use the Thursdai Agent for governed, knowledge-grounded answers. REST API,
             MCP server and TypeScript and Python SDKs.
           </Body>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <Link
-              href="#reference"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '10px 20px',
-                background: '#3e4fb8',
-                color: '#ffffff',
-                borderRadius: '8px',
-                fontWeight: 600,
-                fontSize: '15px',
-                textDecoration: 'none',
-              }}
-            >
+            <ButtonLink href="#reference" variant="primary" size="md">
               API reference →
-            </Link>
-            <Link
-              href="/developers/mcp"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '10px 20px',
-                border: '1px solid #8b9ef0',
-                color: '#8b9ef0',
-                borderRadius: '8px',
-                fontWeight: 600,
-                fontSize: '15px',
-                textDecoration: 'none',
-              }}
-            >
+            </ButtonLink>
+            <ButtonLink href="/developers/mcp" variant="secondary" size="md">
               View MCP docs →
-            </Link>
+            </ButtonLink>
           </div>
         </Container>
       </Section>
 
       {/* ── Three API surfaces ─────────────────────────────────── */}
-      <section id="reference" style={{ background: '#0b0f19', paddingBottom: '2rem', scrollMarginTop: '80px' }}>
+      <Section id="reference" variant="compact" style={{ scrollMarginTop: '80px' }}>
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
             {[
@@ -247,53 +241,64 @@ export default function DevelopersPage() {
               },
             ].map(({ icon, label, title, body }) => (
               <div key={title} style={{
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '12px',
-                padding: '1.25rem',
+                background: 'var(--color-surface-primary)',
+                border: '1px solid var(--color-border-default)',
+                borderRadius: '2px',
+                padding: '1.5rem',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.625rem',
+                gap: '0.75rem',
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--color-text-primary)' }}>
                   {icon}
-                  <code style={{ fontSize: '11px', color: '#8b9ef0', fontFamily: 'var(--font-mono,monospace)' }}>{label}</code>
+                  <code
+                    style={{
+                      fontSize: '12px',
+                      color: 'var(--color-text-primary)',
+                      fontFamily: 'var(--font-mono, monospace)',
+                      border: '1px solid var(--color-border-strong)',
+                      borderRadius: '2px',
+                      padding: '2px 8px',
+                    }}
+                  >
+                    {label}
+                  </code>
                 </div>
-                <p style={{ fontSize: '15px', fontWeight: 700, color: '#e4e4e7', margin: 0 }}>{title}</p>
-                <p style={{ fontSize: '13px', lineHeight: 1.6, color: '#a1a1aa', margin: 0 }}>{body}</p>
+                <h2 style={{ ...H3_STYLE, margin: 0 }}>{title}</h2>
+                <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: 0 }}>{body}</p>
               </div>
             ))}
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* ── Code snippets ──────────────────────────────────────── */}
-      <section style={{ background: '#0b0f19', paddingBottom: '4rem' }}>
+      <Section variant="compact">
         <Container>
 
           {/* Receipt — primary */}
-          <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0', margin: '0 0 0.75rem' }}>
+          <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
             Submit a receipt
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <details open style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: '#8b9ef0', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+            <details open style={detailsStyle}>
+              <summary style={summaryStyle}>
                 <span>▶</span> Python
               </summary>
               <div style={{ padding: '0.75rem' }}>
                 <CodeBlock code={PYTHON_RECEIPT} language="python" filename="record_receipt.py" />
               </div>
             </details>
-            <details style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+            <details style={detailsStyle}>
+              <summary style={summaryStyle}>
                 <span>▶</span> TypeScript
               </summary>
               <div style={{ padding: '0.75rem' }}>
                 <CodeBlock code={TS_RECEIPT} language="typescript" filename="record_receipt.ts" />
               </div>
             </details>
-            <details style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.6rem 1rem', fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.5)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.04)' }}>
+            <details style={detailsStyle}>
+              <summary style={summaryStyle}>
                 <span>▶</span> cURL
               </summary>
               <div style={{ padding: '0.75rem' }}>
@@ -303,23 +308,22 @@ export default function DevelopersPage() {
           </div>
 
           {/* Query + Agent — secondary */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginTop: '2.5rem' }}>
             <div>
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0', margin: '0 0 0.75rem' }}>
+              <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
                 Query the receipt record
               </p>
               <CodeBlock code={PYTHON_QUERY} language="python" filename="query_receipts.py" />
             </div>
             <div>
-              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8b9ef0', margin: '0 0 0.75rem' }}>
+              <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
                 Use the agent
               </p>
               <CodeBlock code={PYTHON_AGENT} language="python" filename="agent_ask.py" />
             </div>
           </div>
         </Container>
-      </section>
-
+      </Section>
       {/* Nav cards */}
       <Section variant="compact">
         <Container>
@@ -334,7 +338,7 @@ export default function DevelopersPage() {
       </Section>
 
       {/* Auth overview */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1rem' }}>Authentication</Heading2>
           <Callout variant="info" style={{ marginBottom: '1.5rem' }}>
@@ -346,11 +350,11 @@ export default function DevelopersPage() {
             body parameter.
           </Callout>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
-                <tr style={{ background: 'var(--color-surface-primary)' }}>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Scope</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Permits</th>
+                <tr>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Scope</th>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Permits</th>
                 </tr>
               </thead>
               <tbody>
@@ -363,8 +367,8 @@ export default function DevelopersPage() {
                   { scope: 'policy:write', permits: 'Create, update and publish policy sets' },
                   { scope: 'admin', permits: 'Tenant management, user provisioning and audit log export' },
                 ].map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? 'var(--color-surface-primary)' : undefined }}>
-                    <td style={{ padding: '10px 14px', fontSize: '13px', fontFamily: 'var(--font-mono)', color: 'var(--color-accent)', borderBottom: '1px solid var(--color-border-default)' }}>{row.scope}</td>
+                  <tr key={i}>
+                    <td style={{ padding: '10px 14px', fontSize: '13px', fontFamily: 'var(--font-mono)', color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.scope}</td>
                     <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.permits}</td>
                   </tr>
                 ))}
@@ -379,13 +383,13 @@ export default function DevelopersPage() {
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Rate limits</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
-                <tr style={{ background: 'var(--color-surface-secondary)' }}>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Tier</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Receipts/min</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Agent calls/min</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>Burst</th>
+                <tr>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Tier</th>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Receipts/min</th>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Agent calls/min</th>
+                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Burst</th>
                 </tr>
               </thead>
               <tbody>
@@ -395,7 +399,7 @@ export default function DevelopersPage() {
                   { tier: 'Enterprise', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
                   { tier: 'Fortune 100', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
                 ].map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'var(--color-surface-secondary)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ padding: '10px 14px', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.tier}</td>
                     <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.rpm}</td>
                     <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.apm}</td>

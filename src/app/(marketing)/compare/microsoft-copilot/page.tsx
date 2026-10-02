@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -9,7 +8,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Callout } from '@/components/ui/Callout';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Thursdai vs Microsoft Copilot: AI Governance vs AI Assistance',
@@ -89,11 +88,11 @@ function MatrixCell({ row, col }: { row: MatrixRow; col: 'copilot' | 'thursdai' 
   }
 
   if (value === 'yes') {
-    return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✅</td>;
+    return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
   }
   if (value === 'no') {
     return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-tertiary)' }}>
+      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>
         ✗
       </td>
     );
@@ -131,7 +130,7 @@ export default function CompareMicrosoftCopilotPage() {
       </Section>
 
       {/* ── Where Copilot is strong ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2>Where Copilot is strong</Heading2>
           <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
@@ -197,84 +196,48 @@ export default function CompareMicrosoftCopilotPage() {
       </Section>
 
       {/* ── Feature matrix ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr
-                  style={{
-                    background: 'var(--color-accent)',
-                    color: '#fff',
-                    position: 'sticky',
-                    top: 0,
-                  }}
-                >
+                <tr>
                   <th
-                    style={{
-                      padding: '0.75rem 1rem',
-                      textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      position: 'sticky',
-                      left: 0,
-                      background: 'var(--color-accent)',
-                    }}
+                    scope="col"
+                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
                   >
                     Feature
                   </th>
-                  <th
-                    style={{
-                      padding: '0.75rem 1rem',
-                      textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      minWidth: '180px',
-                    }}
-                  >
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
                     Microsoft Copilot
                   </th>
-                  <th
-                    style={{
-                      padding: '0.75rem 1rem',
-                      textAlign: 'left',
-                      fontWeight: 600,
-                      fontSize: '13px',
-                      minWidth: '160px',
-                    }}
-                  >
+                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
                     Thursdai
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {MATRIX.map((row, i) => (
-                  <tr
-                    key={row.feature}
-                    style={{
-                      background:
-                        i % 2 === 0
-                          ? 'var(--color-surface-primary)'
-                          : 'var(--color-surface-secondary)',
-                    }}
-                  >
-                    <td
+                {MATRIX.map((row) => (
+                  <tr key={row.feature}>
+                    <th
+                      scope="row"
                       style={{
                         padding: '0.75rem 1rem',
+                        textAlign: 'left',
                         fontWeight: 500,
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '14px',
+                        textTransform: 'none',
+                        letterSpacing: 'normal',
                         color: 'var(--color-text-primary)',
                         position: 'sticky',
                         left: 0,
-                        background:
-                          i % 2 === 0
-                            ? 'var(--color-surface-primary)'
-                            : 'var(--color-surface-secondary)',
-                        fontSize: '14px',
+                        background: 'var(--color-surface-primary)',
                       }}
                     >
                       {row.feature}
-                    </td>
+                    </th>
                     <MatrixCell row={row} col="copilot" />
                     <MatrixCell row={row} col="thursdai" />
                   </tr>
@@ -286,7 +249,7 @@ export default function CompareMicrosoftCopilotPage() {
       </Section>
 
       {/* ── When Copilot is the right choice ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="When Copilot is the right choice">
             <p style={{ marginTop: '0.5rem', lineHeight: 1.7 }}>
@@ -300,7 +263,7 @@ export default function CompareMicrosoftCopilotPage() {
       </Section>
 
       {/* ── Bottom line ── */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container>
           <Callout variant="info" title="Bottom line">
             If your team needs to explain every AI-assisted decision to a regulator, a client or a board, Copilot cannot do that. Thursdai can.
@@ -309,23 +272,15 @@ export default function CompareMicrosoftCopilotPage() {
       </Section>
 
       {/* ── CTA ── */}
-      <section
-        style={{
-          background: 'var(--color-surface-secondary)',
-          padding: '3rem 0',
-          textAlign: 'center',
-        }}
-      >
+      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
         <Container>
           <Heading2>See Thursdai for yourself</Heading2>
           <Body style={{ marginTop: '0.75rem' }}>The replay demo takes 2 minutes. No login required.</Body>
-          <Link href="/?ref=compare-copilot#replay-demo">
-            <Button variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
-              Try the replay demo →
-            </Button>
-          </Link>
+          <ButtonLink href="/?ref=compare-copilot#replay-demo" variant="primary" size="lg" style={{ marginTop: '1.5rem' }}>
+            Try the replay demo →
+          </ButtonLink>
         </Container>
-      </section>
+      </Section>
     </>
   );
 }

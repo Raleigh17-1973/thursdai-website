@@ -30,9 +30,6 @@ const thStyle: React.CSSProperties = {
   textAlign: 'left',
   fontSize: '13px',
   fontWeight: 600,
-  color: 'var(--color-text-primary)',
-  borderBottom: '1px solid var(--color-border-default)',
-  background: 'var(--color-surface-secondary)',
 };
 
 const tdStyle: React.CSSProperties = {
@@ -40,7 +37,6 @@ const tdStyle: React.CSSProperties = {
   fontSize: '14px',
   lineHeight: 1.5,
   color: 'var(--color-text-secondary)',
-  borderBottom: '1px solid var(--color-border-default)',
   verticalAlign: 'top',
 };
 
@@ -77,7 +73,7 @@ export default function SubprocessorsPage() {
             Content pending legal review before launch.
           </Callout>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
+            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
               <thead>
                 <tr>
                   <th style={thStyle}>Subprocessor</th>
@@ -88,7 +84,7 @@ export default function SubprocessorsPage() {
               </thead>
               <tbody>
                 {SUBPROCESSORS.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 1 ? 'rgba(0,0,0,0.02)' : undefined }}>
+                  <tr key={i}>
                     <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)' }}>{row.name}</td>
                     <td style={tdStyle}>{row.purpose}</td>
                     <td style={tdStyle}>{row.location}</td>
@@ -98,7 +94,7 @@ export default function SubprocessorsPage() {
               </tbody>
             </table>
           </div>
-          <Body style={{ marginTop: '1.5rem', color: 'var(--color-text-tertiary)', fontSize: '13px' }}>
+          <Body style={{ marginTop: '1.5rem', color: 'var(--color-text-secondary)', fontSize: '13px' }}>
             This list is updated when subprocessors change. Customers are notified 30 days before
             a new subprocessor is added.
           </Body>

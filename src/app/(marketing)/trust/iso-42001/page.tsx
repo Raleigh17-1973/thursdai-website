@@ -85,7 +85,7 @@ export default function Iso42001Page() {
       </Section>
 
       {/* Where we stand */}
-      <Section variant="compact" style={{ background: 'var(--color-surface-secondary)' }}>
+      <Section variant="compact">
         <Container narrow>
           <Heading2>Where we stand</Heading2>
           <Body style={{ marginTop: '1rem' }}>
@@ -134,8 +134,8 @@ export default function Iso42001Page() {
               <div key={i}>
                 <p
                   style={{
-                    fontSize: '16px',
-                    fontWeight: 600,
+                    fontSize: '17px',
+                    fontWeight: 500,
                     color: 'var(--color-text-primary)',
                     marginBottom: '0.5rem',
                   }}
