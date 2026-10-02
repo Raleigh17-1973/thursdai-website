@@ -11,6 +11,9 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   // A visual or a11y failure must be real; retries would hide flakiness.
   retries: 0,
+  // Full-page captures of long pages on a 2-core runner need more than the
+  // 30s default; settle() bounds its own waits so a real hang still fails.
+  timeout: 60_000,
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
   // Baselines carry the platform in their name (…-linux.png). Only Linux
