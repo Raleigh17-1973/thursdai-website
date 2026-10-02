@@ -22,7 +22,11 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_SITE_URL: https://thursdai.com
+          NEXT_PUBLIC_SITE_URL: https://getthursdai.com
+      - name: Check origin
+        run: npm run check:origin
+      - name: Check empty pages
+        run: npm run check:pages
 
   lighthouse:
     name: Lighthouse CI
@@ -37,7 +41,7 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          NEXT_PUBLIC_SITE_URL: https://thursdai.com
+          NEXT_PUBLIC_SITE_URL: https://getthursdai.com
       - run: npx @lhci/cli@0.14.x autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

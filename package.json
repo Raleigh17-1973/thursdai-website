@@ -10,7 +10,9 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check:origin": "node scripts/check-origin.mjs",
+    "check:pages": "node scripts/check-empty-pages.mjs"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.48.0",
