@@ -4,6 +4,7 @@ import { SITE_URL } from '@/config/site';
 
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: SITE_URL, priority: 1.0, changeFrequency: 'weekly' },
+  { url: `${SITE_URL}/demo`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/security`, priority: 0.9, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/compare/glean`, priority: 0.9, changeFrequency: 'monthly' },
