@@ -39,8 +39,8 @@ export function SecurityPackForm() {
       {status === 'error' && (
         <p style={{ color: 'rgb(239,68,68)', fontSize: '14px' }}>
           Something went wrong. Please try again or email{' '}
-          <a href="mailto:security@thursdai.com" style={{ color: 'var(--color-accent)' }}>
-            security@thursdai.com
+          <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+            thursdai@getthursdai.com
           </a>
         </p>
       )}

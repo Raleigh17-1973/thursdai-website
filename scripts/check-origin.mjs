@@ -30,12 +30,20 @@ const isAllowed = (host) => ALLOWED.some((d) => host === d || host.endsWith(`.${
 // escaped RSC/JSON payloads are cut cleanly.
 const URL_RE = /https?:\/\/[^\s"'<>\\`)]+/g;
 
+// Mail to the domain we don't own bounces today and would reach whoever buys
+// it tomorrow. Checked on every sitemap route, not just ROUTES.
+const FOREIGN_EMAIL_RE = /[\w.+-]+@(?:[\w-]+\.)*thursdai\.com\b/g;
+
 async function main() {
   const { baseUrl, stop } = await startServer();
   const offending = [];
   try {
-    for (const route of ROUTES) {
+    const sitemap = await fetchText(`${baseUrl}/sitemap.xml`);
+    const sitemapRoutes = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+    for (const route of new Set([...ROUTES, ...sitemapRoutes])) {
       const body = await fetchText(baseUrl + route);
+      for (const email of new Set(body.match(FOREIGN_EMAIL_RE) ?? [])) offending.push({ route, url: email });
+      if (!ROUTES.includes(route)) continue;
       const seen = new Set();
       for (const raw of body.match(URL_RE) ?? []) {
         let host;
@@ -54,11 +62,11 @@ async function main() {
   }
 
   if (offending.length) {
-    console.error(`check-origin: ${offending.length} URL(s) with a host other than ${OWN_HOST} or an allowed third party:`);
+    console.error(`check-origin: ${offending.length} URL(s) or email(s) not on ${OWN_HOST} or an allowed third party:`);
     for (const { route, url } of offending) console.error(`  ${route}  ${url}`);
     process.exit(1);
   }
-  console.log(`check-origin: OK (${ROUTES.length} routes, all absolute URLs on ${OWN_HOST} or allowed third parties)`);
+  console.log(`check-origin: OK (URLs on ${ROUTES.length} routes, emails on every sitemap route)`);
 }
 
 main().catch((err) => {

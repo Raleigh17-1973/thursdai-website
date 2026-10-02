@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     'TypeScript and Python SDKs for Thursdai are in private beta. Integrate today using the REST API directly.',
 };
 
-const CURL_WRITE = `curl -X POST https://api.thursdai.com/v1/receipts \\
+const CURL_WRITE = `curl -X POST https://api.getthursdai.com/v1/receipts \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -H "X-Tenant-ID: your-tenant-id" \\
@@ -28,11 +28,11 @@ const CURL_WRITE = `curl -X POST https://api.thursdai.com/v1/receipts \\
     "metadata": { "candidate_id": "c_8821", "requisition": "req_441" }
   }'`;
 
-const CURL_READ = `curl "https://api.thursdai.com/v1/receipts/rec_01HXYZ..." \\
+const CURL_READ = `curl "https://api.getthursdai.com/v1/receipts/rec_01HXYZ..." \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "X-Tenant-ID: your-tenant-id"`;
 
-const CURL_SEARCH = `curl -X POST https://api.thursdai.com/v1/receipts/search \\
+const CURL_SEARCH = `curl -X POST https://api.getthursdai.com/v1/receipts/search \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -88,8 +88,8 @@ export default function SdkPage() {
           <Callout variant="info" title="SDKs in private beta">
             TypeScript and Python SDK packages are available to design partners. If you are
             building on Thursdai and want early access, reach out at{' '}
-            <a href="mailto:dev@thursdai.com" style={{ color: 'var(--color-accent)' }}>
-              dev@thursdai.com
+            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+              thursdai@getthursdai.com
             </a>
             .
           </Callout>

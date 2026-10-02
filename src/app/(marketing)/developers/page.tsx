@@ -60,7 +60,7 @@ console.log('Receipt:', receipt.id);
 console.log('Signed:', receipt.signedAt);
 console.log('Checks:', receipt.complianceResults);`;
 
-const CURL_RECEIPT = `curl -X POST https://api.thursdai.com/v1/receipts \\
+const CURL_RECEIPT = `curl -X POST https://api.getthursdai.com/v1/receipts \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{

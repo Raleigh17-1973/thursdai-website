@@ -163,8 +163,8 @@ export default function CompanyPage() {
           <Heading2><span className="font-display">Press &amp; Media</span></Heading2>
           <Body style={{ marginTop: '1rem', color: 'var(--color-text-secondary)' }}>
             For press inquiries, interview requests or the media kit, email{' '}
-            <a href="mailto:press@thursdai.com" style={{ color: 'var(--color-accent)' }}>
-              press@thursdai.com
+            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+              thursdai@getthursdai.com
             </a>
             .
           </Body>

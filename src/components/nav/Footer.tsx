@@ -56,7 +56,6 @@ const developerLinks = [
 ];
 
 const bottomLinks = [
-  { label: 'Status', href: 'https://status.thursdai.com', external: true },
   { label: 'Privacy', href: '/privacy', external: false },
   { label: 'Terms', href: '/terms', external: false },
   { label: 'Security', href: '/security', external: false },

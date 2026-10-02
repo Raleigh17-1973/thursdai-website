@@ -95,8 +95,8 @@ export default function AmbientCasesPage() {
             <Callout variant="info" title="Early access">
               Ambient Cases is available to design partners. Capabilities and integrations
               expand as the product ships. Reach out at{' '}
-              <a href="mailto:hello@thursdai.com" style={{ color: 'var(--color-accent)' }}>
-                hello@thursdai.com
+              <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
+                thursdai@getthursdai.com
               </a>{' '}
               to join the program.
             </Callout>
