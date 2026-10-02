@@ -61,7 +61,7 @@ export function CaseStudyApplyForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '480px', margin: '0 auto' }}
+      style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '560px' }}
     >
       {status === 'error' && (
         <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>
@@ -81,7 +81,7 @@ export function CaseStudyApplyForm() {
         type="text"
         required
         aria-label="Your role"
-        placeholder="Your role (e.g. Head of Legal Technology)"
+        placeholder="Your role (e.g. Head of Model Risk)"
         value={fields.role}
         onChange={(e) => update('role', e.target.value)}
         style={inputStyle}
@@ -98,8 +98,8 @@ export function CaseStudyApplyForm() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         <textarea
           required
-          aria-label="What outcome would you highlight?"
-          placeholder="What outcome would you highlight? (max 200 characters)"
+          aria-label="Which AI decision would you put on the record first?"
+          placeholder="Which AI decision would you put on the record first? (max 200 characters)"
           maxLength={200}
           rows={3}
           value={fields.outcome}
@@ -111,7 +111,7 @@ export function CaseStudyApplyForm() {
         </p>
       </div>
       <Button type="submit" variant="primary" size="md" disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Submitting…' : 'Apply to be featured'}
+        {status === 'submitting' ? 'Submitting…' : 'Apply to the program'}
       </Button>
     </form>
   );

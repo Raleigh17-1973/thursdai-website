@@ -1,30 +1,38 @@
 import React from 'react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/Badge';
+import { statusText, type CertStatus } from '@/lib/certifications';
 
-interface CertBadgeProps {
-  name: string;
-  status: 'live' | 'in-progress' | 'ready';
-  href: string;
+export type { CertStatus };
+
+interface CertStatusTagProps {
+  status: CertStatus;
+  /** Shown only when a real quarter is confirmed, e.g. "Q3 2027". */
+  quarter?: string | null;
 }
 
+// Ready reads in indigo; in-audit in ink; scheduled in a dashed frame, so a standard that is
+// not yet under audit never looks like one that is.
 const statusVariant = {
-  live: 'green',
-  'in-progress': 'amber',
   ready: 'indigo',
+  'in-audit': 'green',
+  scheduled: 'amber',
 } as const;
 
-const statusLabel = {
-  live: 'Live',
-  'in-progress': 'Planned',
-  ready: 'Ready',
-} as const;
+export function CertStatusTag({ status, quarter }: CertStatusTagProps) {
+  return <Badge variant={statusVariant[status]}>{statusText(status, quarter)}</Badge>;
+}
+
+interface CertBadgeProps extends CertStatusTagProps {
+  name: string;
+  href: string;
+}
 
 // A ruled certificate stub: name in ink, status as a mono tag. The frame never implies a
 // certificate is held; the status tag carries that.
 // No aria-label: the visible name and status are the accessible name, so speech
 // input users can say what they see (WCAG 2.5.3).
-export function CertBadge({ name, status, href }: CertBadgeProps) {
+export function CertBadge({ name, status, quarter, href }: CertBadgeProps) {
   return (
     <Link
       href={href}
@@ -36,7 +44,7 @@ export function CertBadge({ name, status, href }: CertBadgeProps) {
       }}
     >
       <span style={{ fontSize: '15px', fontWeight: 500 }}>{name}</span>
-      <Badge variant={statusVariant[status]}>{statusLabel[status]}</Badge>
+      <CertStatusTag status={status} quarter={quarter} />
     </Link>
   );
 }
