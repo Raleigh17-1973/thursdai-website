@@ -20,7 +20,8 @@ concurrency:
 jobs:
   update:
     name: Regenerate and commit baselines
-    runs-on: ubuntu-latest
+    # Must match the PR Checks job image exactly.
+    runs-on: ubuntu-24.04
     if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
