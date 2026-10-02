@@ -1,6 +1,3 @@
-'use client';
-
-import React, { useMemo } from 'react';
 import * as runtime from 'react/jsx-runtime';
 
 interface MDXContentProps {
@@ -9,19 +6,11 @@ interface MDXContentProps {
 
 /**
  * Renders Velite-compiled MDX content strings.
- * Velite's s.mdx() produces a serialised JS bundle (not a React component).
- * We evaluate it at runtime using the react/jsx-runtime factory.
+ * Velite's s.mdx() produces a function body that reads the JSX runtime from
+ * arguments[0]. This is a server component on purpose: evaluating the body in
+ * the browser needs 'unsafe-eval', which our CSP does not allow.
  */
 export function MDXContent({ code }: MDXContentProps) {
-  const Component = useMemo(() => {
-    try {
-      const fn = new Function('arguments', code);
-      const result = fn(runtime);
-      return result?.default ?? (() => null);
-    } catch {
-      return () => null;
-    }
-  }, [code]);
-
+  const Component = new Function(code)({ ...runtime }).default as React.ComponentType;
   return <Component />;
 }

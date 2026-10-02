@@ -52,7 +52,6 @@ const developerLinks = [
   { label: 'Overview', href: '/developers' },
   { label: 'MCP Server', href: '/developers/mcp' },
   { label: 'SDK', href: '/developers/sdk' },
-  { label: 'Changelog', href: '/developers/changelog' },
 ];
 
 const bottomLinks = [

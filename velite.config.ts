@@ -19,6 +19,8 @@ export default defineConfig({
         category: s.enum(['product', 'trust', 'technical', 'company']),
         summary: s.string().max(160),
         ogImage: s.string().optional(),
+        // Drafts build but are never listed, routed, fed or put in the sitemap.
+        draft: s.boolean().default(false),
         slug: s.path(),
         content: s.mdx(),
       }),
@@ -45,6 +47,7 @@ export default defineConfig({
         title: s.string(),
         date: s.isodate(),
         version: s.string().optional(),
+        draft: s.boolean().default(false),
         slug: s.path(),
         content: s.mdx(),
       }),

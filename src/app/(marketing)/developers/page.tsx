@@ -168,15 +168,6 @@ function IconSDK() {
   );
 }
 
-function IconChangelog() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="12 7 12 12 15 15" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // ── Page ───────────────────────────────────────────────────────
 
 export default function DevelopersPage() {
@@ -337,7 +328,6 @@ export default function DevelopersPage() {
             <Card variant="feature" icon={<IconAPI />} title="Reference (on this page)" body="Full REST API reference for the Receipt, Query and Agent APIs. Authenticate with a bearer token and start submitting receipts in minutes." href="#reference" />
             <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="MCP tools for governed agent orchestration including receipt submission, decision replay and policy dry-runs. Works with Claude Desktop, Cursor and any MCP-compatible client." href="/developers/mcp" />
             <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design for receipts, queries and agent calls." href="/developers/sdk" />
-            <Card variant="feature" icon={<IconChangelog />} title="Changelog" body="API versioning policy, breaking change notices and release notes for the receipt schema and endpoints." href="/developers/changelog" />
             <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference: all fields, agent types, evidence formats, compliance classifications and extension points." href="#reference" />
           </Grid>
         </Container>

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getAllPosts, getApprovedCaseStudies } from '@/lib/velite';
+import { getAllChangelog, getAllPosts, getApprovedCaseStudies } from '@/lib/velite';
 import { SITE_URL } from '@/config/site';
 
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
@@ -23,13 +23,11 @@ const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: `${SITE_URL}/developers`, priority: 0.7, changeFrequency: 'weekly' },
   { url: `${SITE_URL}/developers/mcp`, priority: 0.7, changeFrequency: 'weekly' },
   { url: `${SITE_URL}/developers/sdk`, priority: 0.6, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/developers/changelog`, priority: 0.5, changeFrequency: 'weekly' },
   { url: `${SITE_URL}/customers`, priority: 0.7, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust/iso-42001`, priority: 0.6, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust/deployment`, priority: 0.6, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust/data`, priority: 0.6, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/trust/subprocessors`, priority: 0.5, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/resources/blog`, priority: 0.6, changeFrequency: 'daily' },
   { url: `${SITE_URL}/resources/role-bench`, priority: 0.6, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/company`, priority: 0.5, changeFrequency: 'monthly' },
   { url: `${SITE_URL}/company/team`, priority: 0.5, changeFrequency: 'monthly' },
@@ -38,6 +36,13 @@ const STATIC_ROUTES: MetadataRoute.Sitemap = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
   const studies = await getApprovedCaseStudies();
+  const changelog = await getAllChangelog();
+
+  // Index pages 404 until they have published entries, so list them only then.
+  const indexRoutes: MetadataRoute.Sitemap = [
+    ...(posts.length ? [{ url: `${SITE_URL}/resources/blog`, priority: 0.6, changeFrequency: 'daily' as const }] : []),
+    ...(changelog.length ? [{ url: `${SITE_URL}/developers/changelog`, priority: 0.5, changeFrequency: 'weekly' as const }] : []),
+  ];
 
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${SITE_URL}/resources/blog/${post.slug.split('/').pop()}`,
@@ -52,5 +57,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...STATIC_ROUTES, ...blogRoutes, ...caseStudyRoutes];
+  return [...STATIC_ROUTES, ...indexRoutes, ...blogRoutes, ...caseStudyRoutes];
 }
