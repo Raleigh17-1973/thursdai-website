@@ -13,6 +13,8 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
+  // Not reviewed to the Glean page standard yet; keep out of the index until it is.
+  robots: { index: false },
   title: 'Thursdai vs Harvey',
   description:
     'Where Harvey is strong and where Thursdai differs. Legal AI for lawyers vs. cross-functional AI governance infrastructure.',

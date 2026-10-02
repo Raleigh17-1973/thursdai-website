@@ -74,12 +74,12 @@ function IconDatabase() {
 // ── Cert badges ────────────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust/certifications#soc2', ariaLabel: 'SOC 2 Type II planned' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust/certifications#iso27001', ariaLabel: 'ISO 27001 planned' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust/certifications#iso42001', ariaLabel: 'ISO 42001 planned' },
-  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust/certifications#hipaa', ariaLabel: 'HIPAA-eligible Architecture' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'SOC 2 Type II planned' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'ISO 27001 planned' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'ISO 42001 planned' },
+  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust#certifications', ariaLabel: 'HIPAA-eligible Architecture' },
   { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust/certifications#fedramp', ariaLabel: 'FedRAMP Moderate planned' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'FedRAMP Moderate planned' },
 ];
 
 // ── Page ───────────────────────────────────────────────────────
@@ -148,10 +148,12 @@ export default function TrustPage() {
 
       {/* Certification badges row */}
       <Section
+        id="certifications"
         variant="compact"
         style={{
           borderTop: '1px solid var(--color-border-default)',
           borderBottom: '1px solid var(--color-border-default)',
+          scrollMarginTop: '80px',
         }}
       >
         <Container>

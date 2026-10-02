@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
+import { Heading1 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
   title: 'Team: Thursdai',
@@ -104,23 +102,6 @@ export default function TeamPage() {
                 </a>
               </div>
             </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── We're hiring ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>We&apos;re hiring.</Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Building a governed AI layer for regulated enterprises requires deep expertise in
-            compliance, distributed systems and product. If that sounds like you, check out
-            our open roles.
-          </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <Link href="/company/careers">
-              <Button variant="secondary" size="md">See open roles →</Button>
-            </Link>
           </div>
         </Container>
       </Section>

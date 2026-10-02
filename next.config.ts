@@ -50,6 +50,11 @@ const nextConfig: NextConfig = {
     return [
       // Pricing is not published yet; park the page so it is unreachable.
       { source: '/pricing', destination: '/', permanent: false },
+      // Empty placeholder pages retired; send old links to the nearest real page (308).
+      { source: '/developers/api', destination: '/developers', permanent: true },
+      { source: '/developers/docs', destination: '/developers', permanent: true },
+      { source: '/trust/certifications', destination: '/trust', permanent: true },
+      { source: '/resources/research', destination: '/resources/role-bench', permanent: true },
     ];
   },
   webpack: (config: import('webpack').Configuration) => {
