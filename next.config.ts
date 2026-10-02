@@ -57,6 +57,11 @@ const nextConfig: NextConfig = {
       { source: '/resources/research', destination: '/resources/role-bench', permanent: true },
     ];
   },
+  // Production builds use webpack (`next build`), dev keeps Turbopack. Turbopack's production
+  // build shipped 125KB of shared JS with about 20KB of its React DOM chunk unused on every
+  // page (Lighthouse unused-javascript); webpack ships 102KB and clears that audit.
+  // Known Next 15.5 quirk: webpack builds on Windows omit next/font preload links (the font
+  // manifest matches a POSIX path). CI and Vercel build on Linux, so they are unaffected.
   webpack: (config: import('webpack').Configuration) => {
     config.plugins = config.plugins ?? [];
     config.plugins.push(new VeliteWebpackPlugin());
