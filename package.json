@@ -12,7 +12,10 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "check:origin": "node scripts/check-origin.mjs",
-    "check:pages": "node scripts/check-empty-pages.mjs"
+    "check:pages": "node scripts/check-empty-pages.mjs",
+    "test": "vitest run",
+    "sign:fixture": "node scripts/sign-fixture.mjs",
+    "build:artifacts": "node scripts/build-artifacts.mjs"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.48.0",
@@ -31,12 +34,15 @@
     "velite": "^0.3.1"
   },
   "devDependencies": {
+    "@pdf-lib/fontkit": "^1.1.1",
     "@types/node": "^20.19.39",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.3",
+    "pdf-lib": "^1.17.1",
     "posthog-node": "^5.29.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11"
   }
 }

@@ -1,0 +1,67 @@
+{
+  "receipt": {
+    "id": "rcpt_7f3a9c21b84e",
+    "schema": "thursdai.ai-receipt/1",
+    "tenant": "Sample tenant: Northwind Financial (fictional).",
+    "decision": {
+      "summary": "Advanced applicant 4821 to the interview stage",
+      "type": "hiring_screening",
+      "outcome": "advance_to_interview",
+      "subject_ref": "applicant-4821",
+      "confidence": 0.87
+    },
+    "source": {
+      "role": "recommender",
+      "system": "Greenhouse screening agent",
+      "operator": "External vendor system, not operated by Thursdai",
+      "model": "GPT-4o",
+      "model_host": "Azure",
+      "version": "2025-04-01"
+    },
+    "policies_evaluated": [
+      {
+        "id": "nyc-ll144-notice",
+        "name": "NYC Local Law 144 candidate notice",
+        "result": "pass",
+        "detail": "Notice of automated employment decision tool use was on file for the requisition."
+      },
+      {
+        "id": "pii-block",
+        "name": "Personal data block",
+        "result": "pass",
+        "detail": "No direct identifiers were present in the material passed to the model."
+      }
+    ],
+    "evidence": [
+      {
+        "kind": "job_requisition",
+        "ref": "JR-204"
+      },
+      {
+        "kind": "scoring_rubric",
+        "ref": "Hiring rubric v3"
+      },
+      {
+        "kind": "application_snapshot",
+        "ref": "Application snapshot 2026-09-16"
+      }
+    ],
+    "risk": {
+      "tier": "high",
+      "framework": "EU AI Act Annex III"
+    },
+    "human_oversight": {
+      "reviewer_role": "Recruiting coordinator",
+      "action": "recommendation_followed"
+    },
+    "recorded_at": "2026-09-16T14:32:07Z",
+    "scope_note": "This receipt proves what was recorded and when. It does not claim the decision was correct or fair."
+  },
+  "sha256": "9c455f3f611903634fd20b85674033671e6d47e5f234c2235055e21a56eb2f30",
+  "signature": "TG5p+TUiUQj1Eq8+VNnKNdK9Jq+ERn+jQqPR7vCTf8fDkEyRfOmqvOXmidc32ZF6TUPvaA7L4t+Rh61uoMc6BA==",
+  "signature_algorithm": "ed25519",
+  "signed_at": "2026-10-02T19:35:12Z",
+  "key_id": "key_ddff902f519b",
+  "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAzsebBEuVeemRCh3AQe5NSE/jLeq9ZQ2r2DSyfndGN04=\n-----END PUBLIC KEY-----\n",
+  "verify_url": "https://getthursdai.com/api/verify?id=rcpt_7f3a9c21b84e"
+}
