@@ -1,144 +1,91 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
+import { ProductPillar, ProductPillarSection } from '@/components/templates/ProductPillar';
+import { PackAssemblyDiagram } from '@/components/diagrams/PackAssemblyDiagram';
+import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { ButtonLink } from '@/components/ui/Button';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { Callout } from '@/components/ui/Callout';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Compliance Packs: Thursdai',
   description:
-    'Signed, framework-shaped evidence bundles generated on demand from the AI Decision Ledger. The exportable, auditor-ready form of every governed decision.',
+    'A compliance pack gathers the AI Receipts for a framework, period or system into one signed document, so the evidence an auditor reads is the record itself.',
 };
-
-const PACK_SECTIONS = [
-  { n: '1', title: 'Methodology', detail: 'Audit type, engine version and date' },
-  { n: '2', title: 'Population', detail: 'Records and demographics in scope' },
-  { n: '3', title: 'Selection and impact ratios', detail: 'Rates by group and four-fifths analysis' },
-  { n: '4', title: 'Findings', detail: 'Adverse-impact flags and pass or fail status' },
-  { n: '5', title: 'Attestation', detail: 'Signed verification from the compliance engine' },
-  { n: '6', title: 'Provenance', detail: 'The decision chain showing how the pack was rendered' },
-];
 
 export default function CompliancePacksPage() {
   return (
-    <>
-      {/* Hero */}
-      <Section>
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Product', href: '/product' },
-              { label: 'Compliance Packs' },
-            ]}
-          />
-          <Label style={{ marginTop: '1.5rem', display: 'block' }}>Compliance Packs</Label>
-          <Display style={{ marginTop: '0.75rem' }}>Evidence on demand.</Display>
-          <Body variant="large" style={{ marginTop: '1.5rem' }}>
-            A compliance pack is a signed, framework-shaped evidence bundle generated on demand from
-            the AI Decision Ledger. It is the exportable, auditor-ready form of the decisions
-            Thursdai already records, not a report you assemble by hand the week before an audit.
-          </Body>
-          <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="/demo#audit-pack" variant="primary" size="md">Open the demo</ButtonLink>
-            <ButtonLink href="/product/time-travel" variant="secondary" size="md">See where the record comes from →</ButtonLink>
-          </div>
-        </Container>
-      </Section>
-
-      {/* From audit trail to signed evidence */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>From audit trail to signed evidence.</Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Time-Travel records every decision with the knowledge, roles and policy state active at
-            the time. A pack is that record, selected for a framework, rendered into a document and
-            cryptographically signed so it cannot be altered after the fact.
-          </Body>
-          <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
-            <Card
-              variant="feature"
-              title="Portable evidence"
-              body="Packs are designed for export to your GRC systems and direct submission to regulators. Export formats are finalised as frameworks ship."
-            />
-            <Card
-              variant="feature"
-              title="Signed and tamper-evident"
-              body="Each pack carries cryptographic signatures and is written to immutable storage, so a pack you produce today still verifies years from now."
-            />
-            <Card
-              variant="feature"
-              title="Traceable to source"
-              body="Every figure in a pack links back through provenance to the ledger records it was rendered from. Nothing is asserted without lineage."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* What's inside */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>What is inside a pack.</Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Packs are shaped to the framework they serve. A bias-audit pack, for example, is
-            structured so an independent auditor or a regulator can read it without translation.
-          </Body>
-          <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
-            {PACK_SECTIONS.map((s) => (
-              <div
-                key={s.n}
-                style={{
-                  border: '1px solid var(--color-border-default)',
-                  borderRadius: '2px',
-                  background: 'var(--color-surface-primary)',
-                  padding: '1.1rem 1.25rem',
-                }}
-              >
-                <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--color-accent)' }}>{s.n}</span>
-                <p style={{ fontWeight: 500, fontSize: '15px', color: 'var(--color-text-primary)', margin: '0.25rem 0 0 0' }}>
-                  {s.title}
-                </p>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', margin: '0.35rem 0 0 0' }}>
-                  {s.detail}
-                </p>
-              </div>
-            ))}
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* The honesty line */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="What a pack is, and is not.">
-            A compliance pack is the evidence and documentation that supports an audit. It is not
-            the independent audit itself, and it is not a guarantee of compliance. Thursdai produces
-            the record, shaped and signed; your independent auditor and your regulators reach the
-            conclusions.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* CTA */}
-      <Section variant="compact" tone="ink">
-        <Container>
-          <Heading2>Open a signed audit pack.</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            The demo ends with a sample pack that carries the hash of a receipt you can verify in the
-            page. Download it as a PDF. No login.
-          </Body>
-          <ClosingCTAs primary="demo" size="md" style={{ marginTop: '1.5rem' }} />
-        </Container>
-      </Section>
-    </>
+    <ProductPillar
+      crumb="Compliance Packs"
+      label="Compliance Packs"
+      title="Evidence an auditor can check."
+      demoHref="/demo#audit-pack"
+      promise={
+        <>
+          A compliance pack gathers the receipts for a framework, period or system into one signed
+          document, so the evidence an auditor reads is the record itself.
+        </>
+      }
+      visual={<AuditPackSummary />}
+      facts={{
+        label: 'In a pack',
+        title: 'What a pack carries.',
+        items: [
+          {
+            label: 'Scope',
+            body: <>The framework, the period and the systems it covers, and every receipt that falls inside them.</>,
+          },
+          {
+            label: 'Receipts',
+            body: (
+              <>
+                Each {RECEIPT_TERM} with its policy results, evidence and reviewer, and its sha256 so it can
+                be matched to the original.
+              </>
+            ),
+          },
+          {
+            label: 'Signature',
+            body: <>The pack is signed like a receipt, so a pack produced today can still be verified later.</>,
+          },
+        ],
+      }}
+      diagram={{
+        label: 'From receipts to a pack',
+        title: 'Select, bundle, sign.',
+        body: (
+          <>
+            A pack is not written for the audit. It is selected from receipts that already exist, bundled
+            into one document and signed.
+          </>
+        ),
+        figure: <PackAssemblyDiagram />,
+      }}
+      verify={
+        <>
+          The sample pack carries the full hash of the sample receipt, so you can check one against the
+          other, then check the pack&apos;s own signature.
+        </>
+      }
+      close={{
+        title: 'Open a signed audit pack.',
+        body: (
+          <>
+            The demo ends with a sample pack that carries the hash of a receipt you can verify on the page.
+            Download it as a PDF. No login.
+          </>
+        ),
+      }}
+    >
+      <ProductPillarSection label="Scope" title="What a pack is, and is not.">
+        <Body>
+          A pack is the evidence that supports an audit. It is not the audit and it is not a finding of
+          compliance: your auditor and your regulators reach the conclusions.
+        </Body>
+        <Body>
+          The sample pack is a PDF. Export formats for GRC systems are settled framework by framework, so
+          ask us what is available for yours.
+        </Body>
+      </ProductPillarSection>
+    </ProductPillar>
   );
 }

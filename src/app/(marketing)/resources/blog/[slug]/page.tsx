@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllPosts, getPostBySlug } from '@/lib/velite';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Display, Body, Label } from '@/components/typography';
+import { LongForm } from '@/components/templates/LongForm';
 import { MDXContent } from '@/components/content/MDXContent';
 
 interface Props {
@@ -19,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
   if (!post) return {};
-  return { title: `${post.title} | Thursdai`, description: post.summary };
+  return { title: `${post.title}: Thursdai`, description: post.summary };
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -27,18 +25,18 @@ export default async function BlogPostPage({ params }: Props) {
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
+  const date = new Date(post.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
   return (
-    <Section>
-      <Container narrow>
-        <Label>{post.category}</Label>
-        <Display as="h1">{post.title}</Display>
-        <Body variant="small" style={{ color: 'var(--color-text-tertiary)', marginBottom: '2rem' }}>
-          {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </Body>
-        <div style={{ color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
-          <MDXContent code={post.content} />
-        </div>
-      </Container>
-    </Section>
+    <LongForm meta={[post.category, date]} title={post.title} lead={post.summary}>
+      <article style={{ marginTop: '3rem', fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
+        <MDXContent code={post.content} />
+      </article>
+    </LongForm>
   );
 }

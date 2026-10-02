@@ -184,7 +184,6 @@ export function ModeratorPanel() {
           display: 'grid',
           gridTemplateColumns: 'repeat(1, 1fr)',
           gap: '1rem',
-          marginTop: '2rem',
         }}
         className="md:grid-cols-4"
       >
@@ -213,12 +212,6 @@ export function ModeratorPanel() {
             <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-primary)', margin: 0, fontWeight: 500 }}>
               {MODERATOR.text}
             </p>
-            <a
-              href="/product/moderator"
-              style={{ fontSize: '14px', marginTop: 'auto' }}
-            >
-              Read full →
-            </a>
           </div>
         </div>
       </div>

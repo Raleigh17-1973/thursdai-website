@@ -1,188 +1,95 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Container } from '@/components/layout/Container';
-import { Section } from '@/components/layout/Section';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { ButtonLink } from '@/components/ui/Button';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
-import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
+import dynamic from 'next/dynamic';
+import { ProductPillar } from '@/components/templates/ProductPillar';
+import { ReplayDiagram } from '@/components/diagrams/ReplayDiagram';
+import { SAMPLE_LABEL_SIGNED } from '@/config/site';
+import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
+
+// The scrubber is the product here, so it leads; it loads as its own chunk and still renders on the server.
+const TimeTravelScrubber = dynamic(() =>
+  import('@/components/demos/TimeTravelScrubber').then((m) => m.TimeTravelScrubber),
+);
 
 export const metadata: Metadata = {
   title: 'Time-Travel: Thursdai',
   description:
-    'Replay any AI decision with the knowledge and policies that were active at the time. Full audit trail for every agent output.',
+    'Replay any recorded AI decision with the knowledge, policies and roles that were live at that moment, even after all three have changed.',
 };
-
-function IconKnowledge() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconPolicy() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconRoles() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M16 11l2 2 4-4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconAudit() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconInvestigate() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconCompare() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="3" width="8" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
-      <rect x="14" y="3" width="8" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M10 12h4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 export default function TimeTravelPage() {
   return (
-    <>
-      {/* ── 1. Hero ─────────────────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Product', href: '/product' },
-              { label: 'Time-Travel' },
-            ]}
-          />
-          <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <Label>Time-Travel</Label>
-            <Display>Replay any decision. Exactly as it happened.</Display>
-            <Body variant="large">
-              Every agent decision is recorded with a snapshot of the active knowledge base, role
-              definitions and policy set. Go back to any point. Not a summary, but the actual
-              decision with full provenance.
-            </Body>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/demo#replay" variant="primary">Open the demo</ButtonLink>
-              <ButtonLink href="/developers#reference" variant="secondary">View API docs</ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── 2. TimeTravelScrubber ────────────────────────────── */}
-      <Section variant="default" id="time-travel-scrubber">
-        <Container>
-          <TimeTravelScrubber />
-        </Container>
-      </Section>
-
-      {/* ── 3. How snapshots work ────────────────────────────── */}
-      <Section variant="default">
-        <Container>
-          <Label>Architecture</Label>
-          <Heading2 style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}>
-            What gets recorded
-          </Heading2>
-          <Grid cols={3} gap="lg">
-            <Card
-              variant="feature"
-              icon={<IconKnowledge />}
-              title="Knowledge snapshot"
-              body="Every inference is tagged with the exact version of the knowledge base that was active. Standard corpus and tenant corpus are versioned independently."
-            />
-            <Card
-              variant="feature"
-              icon={<IconPolicy />}
-              title="Policy state"
-              body="The policy YAML that governed the response is stored alongside the output. You can see exactly which rules applied. Run the same question with the current policy set to see what would change."
-            />
-            <Card
-              variant="feature"
-              icon={<IconRoles />}
-              title="Role definitions"
-              body="Which roles were active, what their scope was and which corpus sections they could cite are all part of the snapshot. Role changes are versioned and auditable."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── 4. Audit use cases ──────────────────────────────── */}
-      <Section variant="default">
-        <Container>
-          <Label>Use cases</Label>
-          <Heading2 style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}>
-            Built for the audit moment
-          </Heading2>
-          <Grid cols={3} gap="lg">
-            <Card
-              variant="feature"
-              icon={<IconAudit />}
-              title="Regulatory audit"
-              body="When a regulator asks 'what did your AI recommend in March 2025?', you can produce the exact answer with full source attribution (not a reconstruction)."
-            />
-            <Card
-              variant="feature"
-              icon={<IconInvestigate />}
-              title="Incident investigation"
-              body="Trace an AI-influenced decision back through the decision chain. See what knowledge was active, which role drove the recommendation and what policy applied."
-            />
-            <Card
-              variant="feature"
-              icon={<IconCompare />}
-              title="Model comparison"
-              body="Run the same question with today's model versus the model active 12 months ago. See what changed and why."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── 5. CTA ──────────────────────────────────────────── */}
-      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Replay a signed decision</Heading2>
-          <Body
-            variant="large"
-            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
-          >
-            The demo replays one hiring decision at the moment it was made: the knowledge, policies and roles it met. No login.
-          </Body>
-          <ClosingCTAs primary="demo" align="center" />
-        </Container>
-      </Section>
-    </>
+    <ProductPillar
+      crumb="Time-Travel"
+      label="Time-Travel"
+      title="See what was known when it decided."
+      demoHref="/demo#replay"
+      promise={
+        <>
+          Time-Travel reopens any recorded decision with the knowledge, policies and roles that were live
+          at that moment, even after all three have changed.
+        </>
+      }
+      visualLayout="wide"
+      visual={
+        <TimeTravelScrubber
+          question={HIRING_REPLAY_QUESTION}
+          questionLabel="Replaying"
+          snapshots={HIRING_REPLAY}
+          initialIndex={HIRING_REPLAY_DECISION_INDEX}
+          sliderLabel="Replay requisition JR-204 at a point in time"
+          footnote={SAMPLE_LABEL_SIGNED}
+        />
+      }
+      facts={{
+        label: 'Kept with each decision',
+        title: 'What a replay restores.',
+        items: [
+          {
+            label: 'Knowledge',
+            body: (
+              <>
+                The version of every document the decision drew on. Your tenant knowledge and the standard
+                corpus are versioned separately.
+              </>
+            ),
+          },
+          {
+            label: 'Policy',
+            body: <>The policy set that was live and the result of each check, not the rules as they read today.</>,
+          },
+          {
+            label: 'Roles',
+            body: <>The system that recommended, the model version it ran and the person who reviewed the recommendation.</>,
+          },
+        ],
+      }}
+      diagram={{
+        label: 'Versions over time',
+        title: 'The record stays where the decision was.',
+        body: (
+          <>
+            The rubric, the policy set and the model all move on. A replay reads each one at the moment of
+            the decision, which is the moment an auditor asks about.
+          </>
+        ),
+        figure: <ReplayDiagram />,
+      }}
+      verify={
+        <>
+          A replay starts from the signed receipt, which names the versions the decision used, so what the
+          replay shows can be checked against what was signed.
+        </>
+      }
+      close={{
+        title: 'Replay a signed decision.',
+        body: (
+          <>
+            The demo replays one hiring decision at the moment it was made: the knowledge, policies and roles
+            it met. No login.
+          </>
+        ),
+      }}
+    />
   );
 }

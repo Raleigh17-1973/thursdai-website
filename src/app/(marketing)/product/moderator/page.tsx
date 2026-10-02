@@ -1,199 +1,92 @@
 import React from 'react';
-import Link from 'next/link';
 import type { Metadata } from 'next';
-import { Container } from '@/components/layout/Container';
-import { Section } from '@/components/layout/Section';
-import { Grid } from '@/components/layout/Grid';
-import { Split } from '@/components/layout/Split';
-import { Display } from '@/components/typography/Display';
-import { Heading2, Heading3 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { ButtonLink } from '@/components/ui/Button';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { Callout } from '@/components/ui/Callout';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
-import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
+import dynamic from 'next/dynamic';
+import { ProductPillar } from '@/components/templates/ProductPillar';
+import { ModeratorRolesDiagram } from '@/components/diagrams/ModeratorRolesDiagram';
+import { RECEIPT_TERM } from '@/config/site';
+
+const ModeratorPanel = dynamic(() => import('@/components/demos/ModeratorPanel').then((m) => m.ModeratorPanel));
 
 export const metadata: Metadata = {
   title: 'Moderator: Thursdai',
   description:
-    'Role-based answer panels that reconcile across Legal, Finance and Engineering. Every AI question answered by every relevant role. Simultaneously.',
+    'Thursdai’s own role panel: Legal, Finance and Engineering answer side by side and the Moderator reconciles them into one answer, recorded like a decision from any other AI system.',
 };
-
-function IconRoute() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="5" cy="12" r="2" stroke="currentColor" strokeWidth="1.25" />
-      <circle cx="19" cy="6" r="2" stroke="currentColor" strokeWidth="1.25" />
-      <circle cx="19" cy="18" r="2" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M7 12h4m4-4 4-2M11 12l8 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconRespond() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconReconcile() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.25" />
-      <polyline points="9 12 11 14 15 10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
 
 export default function ModeratorPage() {
   return (
-    <>
-      {/* ── 1. Hero ─────────────────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Product', href: '/product' },
-              { label: 'Moderator' },
-            ]}
-          />
-          <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <Label>Moderator</Label>
-            <Display>Three roles. One reconciled answer.</Display>
-            <Body variant="large">
-              Ask once. Legal, Finance and Engineering respond simultaneously. The Moderator
-              reconciles, flags disagreements and applies your policies before any answer reaches
-              your team.
-            </Body>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
-              <ButtonLink href="/developers/mcp" variant="secondary">View API docs</ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── 2. ModeratorPanel ───────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <ModeratorPanel />
-        </Container>
-      </Section>
-
-      {/* ── 3. How it works ─────────────────────────────────── */}
-      <Section variant="default">
-        <Container>
-          <Label>How it works</Label>
-          <Heading2 style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}>
-            Three steps. One governed answer.
-          </Heading2>
-          <Grid cols={3} gap="lg">
-            <Card
-              variant="feature"
-              icon={<IconRoute />}
-              title="1. Route"
-              body="Every question is routed to all configured roles simultaneously. No sequential processing: Legal, Finance and Engineering all see the same question at the same time."
-            />
-            <Card
-              variant="feature"
-              icon={<IconRespond />}
-              title="2. Respond"
-              body="Each role answers from its own knowledge layer and policy set. Role definitions control which corpus sections each role can cite and what constraints apply."
-            />
-            <Card
-              variant="feature"
-              icon={<IconReconcile />}
-              title="3. Reconcile"
-              body="The Moderator synthesises all role answers, flags disagreements for human review, applies cross-role policies and produces a single attributed response."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── 4. Provenance at sentence level ─────────────────── */}
-      <Section variant="default">
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <Label>Provenance</Label>
-                <Heading2>Every sentence. Every source.</Heading2>
-                <Body>
-                  The Moderator tracks which sentence came from which source in which role&apos;s
-                  knowledge base. Hover any sentence in the answer to see its citation: document
-                  name, section, date indexed and confidence score.
-                </Body>
-                <Body>
-                  Audit logs record the full provenance chain for every decision. Available via
-                  API, exportable to your SIEM.
-                </Body>
-              </div>
-            }
-            right={
-              <Callout variant="info" title="Provenance in the API">
-                Every invoke_role() response includes a provenance array: one entry per sentence,
-                with source_id, section, confidence, and role_attribution fields. See{' '}
-                <Link href="/developers#reference" style={{ color: 'var(--color-accent)' }}>
-                  /developers
-                </Link>{' '}
-                for the full schema.
-              </Callout>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* ── 5. Role Bench callout ────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <div
-            style={{
-              border: '1px solid var(--color-border-default)',
-              borderRadius: '2px',
-              padding: '2rem',
-              textAlign: 'center',
-            }}
-          >
-            <Badge variant="amber">Coming Q3 2026</Badge>
-            <Heading3 style={{ marginTop: '1rem' }}>
-              Role Bench: see how Thursdai&apos;s roles compare
-            </Heading3>
-            <Body style={{ marginTop: '0.75rem', maxWidth: '520px', margin: '0.75rem auto 0' }}>
-              We&apos;re benchmarking Thursdai&apos;s role-based answers against single-model responses
-              across 8 domains. Results publishing July 2026.
-            </Body>
-            <div style={{ marginTop: '1.25rem' }}>
-              <Link href="/resources/role-bench" style={{ color: 'var(--color-accent)', fontSize: '15px', fontWeight: 500 }}>
-                Join the waitlist →
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── 6. CTA ──────────────────────────────────────────── */}
-      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>See the record behind an answer</Heading2>
-          <Body
-            variant="large"
-            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
-          >
-            The demo follows one signed decision end to end: the receipt, the replay and the audit pack. No login.
-          </Body>
-          <ClosingCTAs primary="demo" align="center" />
-        </Container>
-      </Section>
-    </>
+    <ProductPillar
+      crumb="Moderator"
+      label="Moderator"
+      title="Three roles. One reconciled answer."
+      promise={
+        <>
+          When you ask Thursdai itself, Legal, Finance and Engineering roles answer side by side and the
+          Moderator reconciles them into one answer, recorded like any other AI decision.
+        </>
+      }
+      visualLayout="wide"
+      visual={<ModeratorPanel />}
+      visualNote="Sample answers for a fictional model-selection question. Select a role to read its full answer and sources."
+      facts={{
+        label: 'The panel',
+        title: 'How the panel works.',
+        items: [
+          {
+            label: 'Roles',
+            body: (
+              <>
+                Each role answers from its own corpus sections and policy set. Role definitions control what
+                each one may cite.
+              </>
+            ),
+          },
+          {
+            label: 'Reconcile',
+            body: (
+              <>
+                The Moderator merges the answers, flags disagreement for a person to resolve and applies the
+                policies that span roles.
+              </>
+            ),
+          },
+          {
+            label: 'Record',
+            body: (
+              <>
+                The answer gets an {RECEIPT_TERM} like a decision from any other system. The Moderator is one
+                source among many, not a special case.
+              </>
+            ),
+          },
+        ],
+      }}
+      diagram={{
+        label: 'Deliberation',
+        title: 'Three roles, one answer, one receipt.',
+        body: (
+          <>
+            The roles deliberate before anything reaches your team. What reaches the record is one answer,
+            with each sentence attributed to the role and source it came from.
+          </>
+        ),
+        figure: <ModeratorRolesDiagram />,
+      }}
+      verify={
+        <>
+          A Moderator answer is signed the same way as any receipt, so its roles and sources can be checked
+          later.
+        </>
+      }
+      close={{
+        title: 'See the record behind an answer.',
+        body: (
+          <>
+            The demo follows one signed decision end to end: the receipt, the replay and the audit pack. No
+            login.
+          </>
+        ),
+      }}
+    />
   );
 }
