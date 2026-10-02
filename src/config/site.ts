@@ -5,3 +5,6 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://getthursda
 // Label for every surface that shows the fictional sample tenant. Add "Real signatures."
 // only once the receipts it labels are signed by the real fixture (plan Item 3).
 export const SAMPLE_LABEL = 'Sample tenant: Northwind Financial (fictional).';
+
+// Where people reach us when an automated channel is unavailable.
+export const CONTACT_EMAIL = 'thursdai@getthursdai.com';

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { Button } from './Button';
+import { CONTACT_EMAIL } from '@/config/site';
 
 export type CtaLocation = 'hero' | 'closing' | 'nav';
 
@@ -17,12 +18,15 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
   const firstFocusRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  // Set when /api/lead could not deliver the request; we hand over a pre-filled email instead.
+  const [fallback, setFallback] = useState(false);
   const [form, setForm] = useState({ name: '', company: '', email: '', decision: '' });
 
   // Focus first field when opened
   useEffect(() => {
     if (open) {
       setSubmitted(false);
+      setFallback(false);
       setForm({ name: '', company: '', email: '', decision: '' });
       setTimeout(() => firstFocusRef.current?.focus(), 50);
     }
@@ -63,19 +67,39 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
+    let delivered = false;
     try {
-      await fetch('/api/lead', {
+      const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, source }),
       });
+      delivered = res.ok;
     } catch {
-      // best effort — show success regardless
+      delivered = false;
     }
     setSubmitting(false);
+    if (!delivered) {
+      setFallback(true);
+      return;
+    }
     setSubmitted(true);
     setTimeout(() => onClose(), 2000);
   }
+
+  const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    `Pilot request: ${form.company}`,
+  )}&body=${encodeURIComponent(
+    [
+      `Name: ${form.name}`,
+      `Company: ${form.company}`,
+      `Email: ${form.email}`,
+      `Decision I would most want to replay: ${form.decision || '(not given)'}`,
+      source ? `(Requested from the ${source} button)` : '',
+    ]
+      .filter(Boolean)
+      .join('\n'),
+  )}`;
 
   if (!open) return null;
 
@@ -143,7 +167,36 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
           ×
         </button>
 
-        {submitted ? (
+        {fallback ? (
+          <div style={{ padding: '0.5rem 0' }}>
+            <h2
+              id={titleId}
+              style={{ color: 'var(--color-text-primary)', fontSize: '20px', fontWeight: 700, marginBottom: '0.5rem' }}
+            >
+              One more step
+            </h2>
+            <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+              We couldn&apos;t send your request automatically. Email it to us with your details already filled in
+              and we&apos;ll reply within one business day.
+            </p>
+            <a
+              href={mailtoHref}
+              style={{
+                display: 'block',
+                textAlign: 'center',
+                padding: '12px 20px',
+                background: 'var(--color-accent)',
+                color: '#ffffff',
+                borderRadius: '8px',
+                fontWeight: 600,
+                fontSize: '15px',
+                textDecoration: 'none',
+              }}
+            >
+              Email {CONTACT_EMAIL}
+            </a>
+          </div>
+        ) : submitted ? (
           <div style={{ textAlign: 'center', padding: '2rem 0' }}>
             <div style={{ fontSize: '40px', marginBottom: '1rem' }}>✓</div>
             <p style={{ color: 'var(--color-text-primary)', fontSize: '17px', fontWeight: 600 }}>
