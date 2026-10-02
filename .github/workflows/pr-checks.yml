@@ -15,6 +15,9 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      # src/lib/velite.ts imports the generated .velite output; normally made by prebuild.
+      - name: Generate content (Velite)
+        run: npx velite build
       - name: TypeScript
         run: npx tsc --noEmit
       - name: Lint
