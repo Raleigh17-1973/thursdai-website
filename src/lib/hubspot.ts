@@ -5,6 +5,7 @@ export interface DemoRequestPayload {
   company: string;
   email: string;
   decision: string; // "What decision would you most want to replay?"
+  ctaLocation?: string; // which CTA opened the modal: hero | closing | nav
 }
 
 export async function submitDemoRequest(payload: DemoRequestPayload): Promise<void> {
@@ -24,6 +25,7 @@ export async function submitDemoRequest(payload: DemoRequestPayload): Promise<vo
       { name: 'company', value: payload.company },
       { name: 'email', value: payload.email },
       { name: 'decision_to_replay', value: payload.decision },
+      ...(payload.ctaLocation ? [{ name: 'cta_location', value: payload.ctaLocation }] : []),
     ],
   };
 

@@ -1,6 +1,7 @@
 import React from 'react';
+import { SAMPLE_LABEL } from '@/config/site';
 
-// Static, illustrative governance dashboard for marketing surfaces.
+// Static, sample-tenant governance dashboard for marketing surfaces.
 // Data is sample/seed only and is clearly labelled as such — no live product
 // API is called and no figure here represents a real customer outcome.
 
@@ -26,7 +27,7 @@ const WORKFORCE_KPIS: Kpi[] = [
   { label: 'Pay gap', value: '1.4%', sub: 'Adjusted, under reporting threshold' },
 ];
 
-function IllustrativeBanner() {
+function SampleTenantBanner() {
   return (
     <div
       role="note"
@@ -45,7 +46,7 @@ function IllustrativeBanner() {
       }}
     >
       <span aria-hidden="true">●</span>
-      Illustrative data. Sample figures shown to demonstrate the surface, not real customer results.
+      {SAMPLE_LABEL} Sample figures shown to demonstrate the surface, not real customer results.
     </div>
   );
 }
@@ -163,7 +164,7 @@ export function ExecutiveDashboard() {
           People space &middot; this quarter
         </span>
       </div>
-      <IllustrativeBanner />
+      <SampleTenantBanner />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
         <KpiGroup title="AI governance" kpis={GOVERNANCE_KPIS} />
         <KpiGroup title="Workforce" kpis={WORKFORCE_KPIS} />

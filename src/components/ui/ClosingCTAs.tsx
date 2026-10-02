@@ -20,7 +20,7 @@ export function ClosingCTAs() {
           onClick={scrollToDemo}
           style={{ background: '#111827', color: '#ffffff' }}
         >
-          Try the replay demo
+          See a replay
         </Button>
         <Button
           variant="secondary"
@@ -31,7 +31,7 @@ export function ClosingCTAs() {
           Request a pilot
         </Button>
       </div>
-      <DemoRequestModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <DemoRequestModal open={modalOpen} onClose={() => setModalOpen(false)} source="closing" />
     </>
   );
 }

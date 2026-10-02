@@ -20,13 +20,13 @@ export function HeroCTAs() {
     <>
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <Button variant="primary" size="lg" onClick={scrollToDemo}>
-          Try the replay demo
+          See a replay
         </Button>
         <Button variant="secondary" size="lg" onClick={() => setModalOpen(true)}>
-          Get a tenant pilot
+          Request a pilot
         </Button>
       </div>
-      <DemoRequestModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <DemoRequestModal open={modalOpen} onClose={() => setModalOpen(false)} source="hero" />
     </>
   );
 }
