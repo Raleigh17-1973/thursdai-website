@@ -5,6 +5,7 @@ import { Container } from '@/components/layout/Container';
 import { Grid } from '@/components/layout/Grid';
 import { Heading1, Heading3, Body, Label } from '@/components/typography';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Blog: Thursdai',
@@ -13,6 +14,8 @@ export const metadata: Metadata = {
 
 export default async function BlogPage() {
   const posts = await getAllPosts();
+  // No published posts yet: 404 rather than an empty index.
+  if (!posts.length) notFound();
   return (
     <Section>
       <Container>

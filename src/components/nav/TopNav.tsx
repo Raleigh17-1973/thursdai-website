@@ -99,7 +99,7 @@ export function TopNav() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           {/* Theme toggle */}
-          <Toggle />
+          <Toggle ariaLabel="Toggle colour theme" />
 
           {/* Request demo — hidden on mobile */}
           <button
@@ -107,7 +107,7 @@ export function TopNav() {
             className="hidden md:inline-flex items-center px-4 py-2 rounded-lg text-[14px] font-semibold"
             style={{ background: 'var(--color-accent)', border: 'none', cursor: 'pointer', color: '#ffffff', fontFamily: 'inherit', fontSize: '14px', fontWeight: 600 }}
           >
-            Get a Demo
+            Request a pilot
           </button>
 
           {/* Hamburger — mobile only */}
@@ -136,7 +136,7 @@ export function TopNav() {
       <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} onRequestDemo={() => { setMobileOpen(false); setDemoOpen(true); }} />
 
       {/* Demo request modal */}
-      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} source="nav" />
     </header>
   );
 }

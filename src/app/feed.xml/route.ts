@@ -1,6 +1,5 @@
 import { getAllPosts } from '@/lib/velite';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com';
+import { SITE_URL } from '@/config/site';
 
 export async function GET() {
   const posts = await getAllPosts();

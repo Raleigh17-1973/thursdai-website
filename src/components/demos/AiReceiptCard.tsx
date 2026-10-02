@@ -1,10 +1,11 @@
 import React from 'react';
+import { SAMPLE_LABEL } from '@/config/site';
 
 // Static hero visual: a single AI Receipt for a decision made by an EXTERNAL AI
 // system, captured and governed by Thursdai into a signed record. Fields drawn
 // from the AIDR 1.1.0 schema — agent, evidence, compliance, provenance, record.
 // Body uses a 2-column layout so the card is wide rather than tall.
-// Sample content, clearly labelled illustrative.
+// Sample content, clearly labelled as the fictional sample tenant.
 
 const SECTION_LABEL: React.CSSProperties = {
   fontSize: '9px',
@@ -180,7 +181,7 @@ export function AiReceiptCard() {
         alignItems: 'center',
         justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: '10px', color: 'var(--color-text-tertiary)' }}>Illustrative data</span>
+        <span style={{ fontSize: '10px', color: 'var(--color-text-tertiary)' }}>{SAMPLE_LABEL}</span>
         <span style={{ fontSize: '10px', fontWeight: 600, color: 'var(--color-text-secondary)' }}>
           Recorded and signed
         </span>

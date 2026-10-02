@@ -109,7 +109,7 @@ const CERTIFICATION_ROWS = [
   {
     framework: 'SOC 2 Type II',
     status: 'Planned',
-    notes: 'Planned. The SOC 2 observation period and third-party audit require production customers and operational history; we will begin once those are in place. Contact security@thursdai.com for status.',
+    notes: 'Planned. The SOC 2 observation period and third-party audit require production customers and operational history; we will begin once those are in place. Contact thursdai@getthursdai.com for status.',
   },
   {
     framework: 'ISO 42001',
@@ -408,10 +408,10 @@ export default function SecurityPage() {
             For security inquiries, vulnerability reports, DPA requests or SOC 2 documentation,
             contact{' '}
             <a
-              href="mailto:security@thursdai.com"
+              href="mailto:thursdai@getthursdai.com"
               style={{ color: 'var(--color-accent)', fontWeight: 600 }}
             >
-              security@thursdai.com
+              thursdai@getthursdai.com
             </a>
             . We acknowledge reports within 2 business days.
           </Callout>

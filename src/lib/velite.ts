@@ -5,7 +5,7 @@ import type { Post, CaseStudy, Changelog } from '../../.velite';
 
 export async function getAllPosts(): Promise<Post[]> {
   const { blog } = await import('../../.velite');
-  return blog.sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return blog.filter((p: Post) => !p.draft).sort((a: Post, b: Post) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | undefined> {
@@ -23,5 +23,5 @@ export async function getApprovedCaseStudies(): Promise<CaseStudy[]> {
 
 export async function getAllChangelog(): Promise<Changelog[]> {
   const { changelog } = await import('../../.velite');
-  return changelog.sort((a: Changelog, b: Changelog) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return changelog.filter((c: Changelog) => !c.draft).sort((a: Changelog, b: Changelog) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }

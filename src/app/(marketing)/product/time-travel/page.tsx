@@ -99,7 +99,7 @@ export default function TimeTravelPage() {
               <Link href="/#replay-demo">
                 <Button variant="primary">Try Time-Travel</Button>
               </Link>
-              <Link href="/developers/api">
+              <Link href="/developers#reference">
                 <Button variant="secondary">View API docs</Button>
               </Link>
             </div>

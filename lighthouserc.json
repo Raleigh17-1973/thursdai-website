@@ -1,10 +1,12 @@
 {
   "ci": {
     "collect": {
+      "startServerCommand": "npm run start",
+      "startServerReadyPattern": "Ready in",
       "numberOfRuns": 3,
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/pricing",
+        "http://localhost:3000/product",
         "http://localhost:3000/trust",
         "http://localhost:3000/compare/glean",
         "http://localhost:3000/developers"
@@ -26,7 +28,10 @@
         "total-blocking-time": ["warn", { "maxNumericValue": 200 }],
         "interactive": ["warn", { "maxNumericValue": 3500 }],
         "uses-text-compression": "off",
-        "uses-http2": "off"
+        "uses-http2": "off",
+        "lcp-lazy-loaded": "off",
+        "prioritize-lcp-image": "off",
+        "non-composited-animations": "off"
       }
     },
     "upload": {

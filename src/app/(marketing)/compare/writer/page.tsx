@@ -13,6 +13,8 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
+  // Not reviewed to the Glean page standard yet; keep out of the index until it is.
+  robots: { index: false },
   title: 'Thursdai vs Writer',
   description:
     'Where Writer is strong and where Thursdai differs. Content generation with brand guardrails vs. governed decisions with full audit trail.',

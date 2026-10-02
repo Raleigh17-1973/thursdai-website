@@ -60,7 +60,7 @@ console.log('Receipt:', receipt.id);
 console.log('Signed:', receipt.signedAt);
 console.log('Checks:', receipt.complianceResults);`;
 
-const CURL_RECEIPT = `curl -X POST https://api.thursdai.com/v1/receipts \\
+const CURL_RECEIPT = `curl -X POST https://api.getthursdai.com/v1/receipts \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -168,25 +168,6 @@ function IconSDK() {
   );
 }
 
-function IconDocs() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <polyline points="14 2 14 8 20 8" stroke="var(--color-accent)" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M9 13h6M9 17h4" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconChangelog() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="var(--color-accent)" strokeWidth="2" />
-      <polyline points="12 7 12 12 15 15" stroke="var(--color-accent)" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // ── Page ───────────────────────────────────────────────────────
 
 export default function DevelopersPage() {
@@ -206,7 +187,7 @@ export default function DevelopersPage() {
           </Body>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Link
-              href="/developers/api"
+              href="#reference"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -242,7 +223,7 @@ export default function DevelopersPage() {
       </Section>
 
       {/* ── Three API surfaces ─────────────────────────────────── */}
-      <section style={{ background: '#0b0f19', paddingBottom: '2rem' }}>
+      <section id="reference" style={{ background: '#0b0f19', paddingBottom: '2rem', scrollMarginTop: '80px' }}>
         <Container>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
             {[
@@ -344,12 +325,10 @@ export default function DevelopersPage() {
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Developer resources</Heading2>
           <Grid cols={3} gap="md">
-            <Card variant="feature" icon={<IconAPI />} title="API Reference" body="Full REST API reference for the Receipt, Query and Agent APIs. Authenticate with a bearer token and start submitting receipts in minutes." href="/developers/api" />
+            <Card variant="feature" icon={<IconAPI />} title="Reference (on this page)" body="Full REST API reference for the Receipt, Query and Agent APIs. Authenticate with a bearer token and start submitting receipts in minutes." href="#reference" />
             <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="MCP tools for governed agent orchestration including receipt submission, decision replay and policy dry-runs. Works with Claude Desktop, Cursor and any MCP-compatible client." href="/developers/mcp" />
             <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design for receipts, queries and agent calls." href="/developers/sdk" />
-            <Card variant="feature" icon={<IconDocs />} title="Documentation" body="Architecture overview, receipt schema reference, deployment guides and integration tutorials." href="/developers/docs" />
-            <Card variant="feature" icon={<IconChangelog />} title="Changelog" body="API versioning policy, breaking change notices and release notes for the receipt schema and endpoints." href="/developers/changelog" />
-            <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference: all fields, agent types, evidence formats, compliance classifications and extension points." href="/developers/docs" />
+            <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference: all fields, agent types, evidence formats, compliance classifications and extension points." href="#reference" />
           </Grid>
         </Container>
       </Section>

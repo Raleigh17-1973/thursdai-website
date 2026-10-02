@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 interface ToggleProps {
   className?: string;
+  ariaLabel?: string;
 }
 
 function SunIcon() {
@@ -34,7 +35,7 @@ function MoonIcon() {
   );
 }
 
-export function Toggle({ className = '' }: ToggleProps) {
+export function Toggle({ className = '', ariaLabel }: ToggleProps) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export function Toggle({ className = '' }: ToggleProps) {
   return (
     <button
       onClick={toggle}
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={ariaLabel ?? (theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode')}
       className={[
         'flex items-center justify-center w-9 h-9 rounded-md transition-colors',
         'hover:bg-[var(--color-surface-secondary)]',

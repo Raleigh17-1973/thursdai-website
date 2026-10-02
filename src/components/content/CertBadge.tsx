@@ -6,7 +6,6 @@ interface CertBadgeProps {
   name: string;
   status: 'live' | 'in-progress' | 'ready';
   href: string;
-  ariaLabel: string;
 }
 
 const statusVariant = {
@@ -21,11 +20,12 @@ const statusLabel = {
   ready: 'Ready',
 } as const;
 
-export function CertBadge({ name, status, href, ariaLabel }: CertBadgeProps) {
+// No aria-label: the visible name and status are the accessible name, so speech
+// input users can say what they see (WCAG 2.5.3).
+export function CertBadge({ name, status, href }: CertBadgeProps) {
   return (
     <Link
       href={href}
-      aria-label={ariaLabel}
       style={{ textDecoration: 'none' }}
     >
       <div
@@ -49,7 +49,7 @@ export function CertBadge({ name, status, href, ariaLabel }: CertBadgeProps) {
           }}
         >
           {name}
-        </span>
+        </span>{' '}
         <Badge variant={statusVariant[status]}>{statusLabel[status]}</Badge>
       </div>
     </Link>

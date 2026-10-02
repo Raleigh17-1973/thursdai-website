@@ -71,7 +71,7 @@ export default function TwoTierKnowledgePage() {
               attributed separately in every response.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/developers/docs">
+              <Link href="/developers">
                 <Button variant="primary">See the provenance spec</Button>
               </Link>
               <Link href="/trust/data">
@@ -260,7 +260,7 @@ export default function TwoTierKnowledgePage() {
             >
               Full API schema for source attribution, delta reporting and corpus versioning.
             </Body>
-            <Link href="/developers/docs">
+            <Link href="/developers">
               <Button
                 variant="primary"
                 size="lg"

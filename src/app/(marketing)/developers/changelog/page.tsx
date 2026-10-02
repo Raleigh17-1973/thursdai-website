@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getAllChangelog } from '@/lib/velite';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default async function ChangelogPage() {
   const entries = await getAllChangelog();
+  if (!entries.length) notFound();
   return (
     <Section>
       <Container narrow>

@@ -3,12 +3,16 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { Button } from './Button';
 
+export type CtaLocation = 'hero' | 'closing' | 'nav';
+
 export interface DemoRequestModalProps {
   open: boolean;
   onClose: () => void;
+  /** Which CTA opened the modal; sent to HubSpot as cta_location. */
+  source?: CtaLocation;
 }
 
-export function DemoRequestModal({ open, onClose }: DemoRequestModalProps) {
+export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProps) {
   const titleId = useId();
   const firstFocusRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -63,7 +67,7 @@ export function DemoRequestModal({ open, onClose }: DemoRequestModalProps) {
       await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, source }),
       });
     } catch {
       // best effort — show success regardless
@@ -157,13 +161,14 @@ export function DemoRequestModal({ open, onClose }: DemoRequestModalProps) {
                 marginBottom: '0.5rem',
               }}
             >
-              Request a demo
+              Request a pilot
             </h2>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '14px', marginBottom: '1.5rem' }}>
               We&apos;ll set up a tenant pilot tailored to your use case.
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {source && <input type="hidden" name="source" value={source} />}
               <div>
                 <label
                   htmlFor="demo-name"
@@ -237,7 +242,7 @@ export function DemoRequestModal({ open, onClose }: DemoRequestModalProps) {
               </div>
 
               <Button type="submit" variant="primary" size="lg" disabled={submitting}>
-                {submitting ? 'Sending…' : 'Request a demo'}
+                {submitting ? 'Sending…' : 'Request a pilot'}
               </Button>
             </form>
           </>

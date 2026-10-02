@@ -146,8 +146,8 @@ export default function ModeratorPage() {
               <Callout variant="info" title="Provenance in the API">
                 Every invoke_role() response includes a provenance array: one entry per sentence,
                 with source_id, section, confidence, and role_attribution fields. See{' '}
-                <Link href="/developers/api" style={{ color: 'var(--color-accent)' }}>
-                  /developers/api
+                <Link href="/developers#reference" style={{ color: 'var(--color-accent)' }}>
+                  /developers
                 </Link>{' '}
                 for the full schema.
               </Callout>
@@ -210,7 +210,7 @@ export default function ModeratorPage() {
               for your domain.
             </Body>
             <div style={{ marginTop: '1.5rem' }}>
-              <Link href="/developers/docs">
+              <Link href="/developers">
                 <Button
                   variant="secondary"
                   style={{ borderColor: '#fff', color: '#fff' }}

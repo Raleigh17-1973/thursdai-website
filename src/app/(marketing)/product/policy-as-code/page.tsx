@@ -83,7 +83,7 @@ export default function PolicyAsCodePage() {
               <Link href="/#policy-demo">
                 <Button variant="primary">See the demo</Button>
               </Link>
-              <Link href="/developers/docs">
+              <Link href="/developers">
                 <Button variant="secondary">Read the spec</Button>
               </Link>
             </div>
@@ -260,7 +260,7 @@ export default function PolicyAsCodePage() {
             >
               Full reference for every primitive, operator and dry-run flag.
             </Body>
-            <Link href="/developers/docs">
+            <Link href="/developers">
               <Button
                 variant="primary"
                 size="lg"

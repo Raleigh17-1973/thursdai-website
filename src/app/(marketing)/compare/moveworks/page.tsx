@@ -13,6 +13,8 @@ import { Callout } from '@/components/ui/Callout';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
+  // Not reviewed to the Glean page standard yet; keep out of the index until it is.
+  robots: { index: false },
   title: 'Thursdai vs Moveworks',
   description:
     'Where Moveworks is strong and where Thursdai differs. IT service automation vs. cross-functional AI governance.',

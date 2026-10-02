@@ -27,7 +27,7 @@ const MCP_TOOLS = [
       tenant_id: 'string (required)',
       include_anchor_proof: 'boolean (optional, default false)',
     },
-    curlExample: `curl "https://api.thursdai.com/v1/receipts/rec_01HXYZ..." \\
+    curlExample: `curl "https://api.getthursdai.com/v1/receipts/rec_01HXYZ..." \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "X-Tenant-ID: acme-financial"`,
   },
@@ -44,7 +44,7 @@ const MCP_TOOLS = [
       limit: 'number (optional, default 20)',
       cursor: 'string (optional, for pagination)',
     },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/receipts/search \\
+    curlExample: `curl -X POST https://api.getthursdai.com/v1/receipts/search \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -62,7 +62,7 @@ const MCP_TOOLS = [
       receipt_ids: 'string[] (required)',
       tenant_id: 'string (required)',
     },
-    curlExample: `curl -X POST https://api.thursdai.com/v1/receipts/verify \\
+    curlExample: `curl -X POST https://api.getthursdai.com/v1/receipts/verify \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -79,7 +79,7 @@ const MCP_TOOLS = [
       from: 'ISO8601 timestamp (optional)',
       to: 'ISO8601 timestamp (optional)',
     },
-    curlExample: `curl "https://api.thursdai.com/v1/coverage?tenant_id=acme-financial&from=2026-01-01T00:00:00Z" \\
+    curlExample: `curl "https://api.getthursdai.com/v1/coverage?tenant_id=acme-financial&from=2026-01-01T00:00:00Z" \\
   -H "Authorization: Bearer thy_live_..."`,
   },
   {
@@ -89,7 +89,7 @@ const MCP_TOOLS = [
     schema: {
       tenant_id: 'string (required)',
     },
-    curlExample: `curl "https://api.thursdai.com/v1/frameworks?tenant_id=acme-financial" \\
+    curlExample: `curl "https://api.getthursdai.com/v1/frameworks?tenant_id=acme-financial" \\
   -H "Authorization: Bearer thy_live_..."`,
   },
 ];
@@ -201,7 +201,7 @@ export default function McpPage() {
           <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', padding: '0.75rem 1rem', background: 'var(--color-surface-secondary)', border: '1px solid var(--color-border-default)', borderRadius: '8px' }}>
             <strong style={{ color: 'var(--color-text-primary)' }}>Private beta:</strong>{' '}
             <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@thursdai/mcp-server</code> is available to design partners. Contact{' '}
-            <a href="mailto:dev@thursdai.com" style={{ color: 'var(--color-accent)' }}>dev@thursdai.com</a> for access.
+            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>thursdai@getthursdai.com</a> for access.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <details open style={{ border: '1px solid var(--color-border-default)', borderRadius: '8px', overflow: 'hidden' }}>
