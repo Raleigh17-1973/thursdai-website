@@ -11,9 +11,12 @@ import { shortHash } from '@/lib/receipts/format';
 // The decision always comes from a named external source (a customer agent or vendor
 // tool); Thursdai adds the policy check, the record and the signature.
 //
-// Motion hook (Wave 4): the root carries data-receipt-state="signing" | "signed", and
-// the parts that animate carry data-receipt-part="hash" | "signature-rule" | "seal".
-// Nothing animates yet; with `signing` false (the default) it renders the final state.
+// Motion (src/lib/motion.ts, behaviour 1): with `signing` the root carries
+// data-receipt-state="signing" and globals.css plays the signature once on load: the
+// fingerprint (data-receipt-part="hash") types in, the amber rule ("signature-rule") draws and
+// the seal ("seal") fades in. The markup is the final, signed state either way, so no-JS
+// readers, crawlers and reduced motion all get the signed receipt at first paint. It depicts
+// the sample's existing signature; nothing is signed or verified in the browser.
 
 export interface ReceiptField {
   label: string;
@@ -42,7 +45,7 @@ export interface ReceiptFrameProps {
   label?: string;
   /** Header term. Defaults to RECEIPT_TERM. */
   term?: string;
-  /** Wave 4 sign-on-load hook: renders data-receipt-state="signing". No animation yet. */
+  /** Play the signature once on load (hero receipts only). The markup is unchanged. */
   signing?: boolean;
   /** Field grid columns at ≥ 480px. Default 2. */
   columns?: 1 | 2;
@@ -80,6 +83,7 @@ export function ReceiptFrame({
   className = '',
   style,
 }: ReceiptFrameProps) {
+  const fp = fingerprint(hash);
   return (
     <figure
       className={['rec-receipt m-0', className].filter(Boolean).join(' ')}
@@ -180,11 +184,14 @@ export function ReceiptFrame({
           >
             Signed
           </span>
-          <span
-            data-receipt-part="hash"
-            style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--ink-2)' }}
-          >
-            sha256 {fingerprint(hash)}
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--ink-2)' }}>
+            sha256{' '}
+            <span
+              data-receipt-part="hash"
+              style={signing ? ({ '--sign-steps': fp.length } as React.CSSProperties) : undefined}
+            >
+              {fp}
+            </span>
           </span>
         </div>
         {label ? (

@@ -11,6 +11,7 @@ import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
 import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
 import { VerifyReceiptButton } from '@/components/receipt/VerifyReceiptButton';
 import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
+import { Reveal } from '@/components/motion/Reveal';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
@@ -127,7 +128,7 @@ export default function DemoPage() {
             </div>
 
             <div className="md:col-start-2 md:row-start-1 md:row-span-2 md:sticky md:top-24">
-              <ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ maxWidth: '560px', marginLeft: 'auto', marginRight: 'auto' }} />
+              <ReceiptFrame {...SAMPLE_HIRING_RECEIPT} signing style={{ maxWidth: '560px', marginLeft: 'auto', marginRight: 'auto' }} />
             </div>
 
             <div className="md:col-start-1 md:row-start-2" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -200,7 +201,9 @@ export default function DemoPage() {
                 recorded.
               </Body>
             </div>
-            <AuditPackSummary />
+            <Reveal>
+              <AuditPackSummary />
+            </Reveal>
           </div>
         </Container>
       </Section>

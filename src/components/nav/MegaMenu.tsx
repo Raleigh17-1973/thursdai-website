@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { NAV_ITEMS } from '@/config/nav';
+import { MOTION_CLASS } from '@/lib/motion';
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -68,7 +69,7 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
       ref={menuRef}
       role="menu"
       aria-label="Product features"
-      className="absolute top-full left-0 right-0 z-50"
+      className={`absolute top-full left-0 right-0 z-50 ${MOTION_CLASS.panel}`}
       style={{
         background: 'var(--paper)',
         borderBottom: '1px solid var(--ink)',

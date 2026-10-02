@@ -69,7 +69,8 @@ export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerPro
           background: 'rgba(20, 18, 15, 0.45)',
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
-          transition: 'opacity 180ms ease',
+          // Motion behaviour 3 (src/lib/motion.ts): open at the panel timing, close at 120ms.
+          transition: isOpen ? 'opacity var(--motion-panel) linear' : 'opacity 120ms linear',
         }}
         onClick={onClose}
       />
@@ -87,7 +88,9 @@ export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerPro
           background: 'var(--paper)',
           borderLeft: '1px solid var(--ink)',
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 180ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: isOpen
+            ? 'transform var(--motion-panel) var(--ease-panel)'
+            : 'transform 120ms cubic-bezier(0.7, 0, 0.84, 0)',
         }}
       >
         <div
