@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts, getApprovedCaseStudies } from '@/lib/velite';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com';
+import { SITE_URL } from '@/config/site';
 
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: SITE_URL, priority: 1.0, changeFrequency: 'weekly' },

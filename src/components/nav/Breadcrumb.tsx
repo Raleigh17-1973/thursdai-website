@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Body } from '@/components/typography';
+import { SITE_URL } from '@/config/site';
 
 interface BreadcrumbItem {
   label: string;
@@ -19,7 +20,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.label,
-      ...(item.href ? { item: `https://thursdai.com${item.href}` } : {}),
+      ...(item.href ? { item: `${SITE_URL}${item.href}` } : {}),
     })),
   };
 

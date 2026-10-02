@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { Instrument_Serif } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
+import { SITE_URL } from '@/config/site';
 import './globals.css';
 
 const instrumentSerif = Instrument_Serif({
@@ -13,19 +14,21 @@ const instrumentSerif = Instrument_Serif({
   variable: '--font-display',
 });
 
+const SITE_TITLE = 'Thursdai: a signed record for every AI decision';
+const SITE_DESCRIPTION =
+  'Thursdai writes a signed AI Receipt for every decision your AI makes and bundles them into audit-ready packs for the EU AI Act, NYC Local Law 144 and ISO 42001.';
+
 export const metadata: Metadata = {
-  title: 'Thursdai: The Governed Agent Substrate for Regulated Enterprises',
-  description:
-    'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. EU AI Act ready.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://thursdai.com'),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://thursdai.com',
+    url: SITE_URL,
     siteName: 'Thursdai',
-    title: 'Thursdai: The Governed Agent Substrate for Regulated Enterprises',
-    description:
-      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code. EU AI Act ready.',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: [
       {
         url: '/og-backgrounds/default.png',
@@ -39,9 +42,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@thursdai',
     creator: '@thursdai',
-    title: 'Thursdai: The Governed Agent Substrate for Regulated Enterprises',
-    description:
-      'Thursdai gives regulated enterprises a governed AI agent substrate with role-based moderation, decision replay and policy-as-code.',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     images: ['/og-backgrounds/default.png'],
   },
 };
@@ -50,8 +52,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Thursdai',
-  url: 'https://thursdai.com',
-  logo: 'https://thursdai.com/og-backgrounds/logo.png',
+  url: SITE_URL,
   sameAs: [
     'https://linkedin.com/company/thursdai',
     'https://github.com/thursdai',
@@ -63,12 +64,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Thursdai',
-  url: 'https://thursdai.com',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: 'https://thursdai.com/search?q={search_term_string}',
-    'query-input': 'required name=search_term_string',
-  },
+  url: SITE_URL,
 };
 
 export default function RootLayout({

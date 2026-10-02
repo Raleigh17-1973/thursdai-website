@@ -11,9 +11,9 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Product: Thursdai',
+  title: 'Everything that goes on the record: Thursdai',
   description:
-    'The capabilities that let regulated enterprises actually deploy AI: role-based moderation, decision replay, policy enforcement, ambient case assembly, isolated knowledge and signed compliance packs.',
+    'Every AI decision becomes a signed AI Receipt. Replay it, bundle it into a compliance pack and see the policies, sources and roles that shaped it.',
 };
 
 const PILLARS = [
@@ -83,7 +83,7 @@ export default function ProductPage() {
         <Container>
           <Label>Product</Label>
           <Heading1 style={{ marginTop: '0.75rem' }}>
-            The governed agent substrate.
+            Everything that goes on the record.
           </Heading1>
           <Body variant="large" style={{ marginTop: '1rem' }}>
             Every AI decision becomes a provable record. These capabilities, designed together, let
