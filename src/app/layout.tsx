@@ -107,7 +107,8 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        <Analytics />
+        {/* The insights script only exists on Vercel; elsewhere it 404s into the console. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

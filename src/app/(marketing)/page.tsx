@@ -22,12 +22,12 @@ import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
 // ── Cert badges data ──────────────────────────────────────────
 
 const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'SOC 2 Type II planned' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'ISO 27001 planned' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'ISO 42001 planned' },
-  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust#certifications', ariaLabel: 'HIPAA-eligible Architecture' },
-  { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii', ariaLabel: 'EU AI Act Annex III ready' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust#certifications', ariaLabel: 'FedRAMP Moderate planned' },
+  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust#certifications' },
+  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust#certifications' },
+  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust#certifications' },
+  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust#certifications' },
+  { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii' },
+  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust#certifications' },
 ];
 
 // ── invoke_role code snippet ───────────────────────────────────
