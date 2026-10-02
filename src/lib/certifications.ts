@@ -72,12 +72,12 @@ export const CERT_ROADMAP: readonly RoadmapRow[] = [
     href: '/trust/iso-42001',
   },
   {
-    name: 'EU AI Act Annex III documentation support',
-    shortName: 'EU AI Act Annex III documentation',
+    name: 'EU AI Act mapping for Annex III systems',
+    shortName: 'EU AI Act mapping',
     status: 'ready',
     auditorEngaged: null,
     targetQuarter: null,
-    note: 'A published obligation-by-obligation mapping with FRIA and DPIA templates. It supports your conformity work; it is not a conformity assessment.',
+    note: 'A published article-by-article mapping of what receipts record against the obligations for high-risk systems. It supports your own compliance work; it is not a conformity assessment.',
     href: '/trust/annex-iii',
   },
   {

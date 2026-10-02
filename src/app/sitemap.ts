@@ -1,43 +1,18 @@
 import type { MetadataRoute } from 'next';
 import { getAllChangelog, getAllPosts, getApprovedCaseStudies } from '@/lib/velite';
 import { SITE_URL } from '@/config/site';
-
-const STATIC_ROUTES: MetadataRoute.Sitemap = [
-  { url: SITE_URL, priority: 1.0, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/demo`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/security`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/compare/glean`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/compare/microsoft-copilot`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/compare/chatgpt-enterprise`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust/annex-iii`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/moderator`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/time-travel`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/policy-as-code`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/ambient-cases`, priority: 0.7, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/two-tier-knowledge`, priority: 0.7, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product`, priority: 0.7, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/ai-receipts`, priority: 0.9, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/product/compliance-packs`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/solutions`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/solutions/people`, priority: 0.8, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/developers`, priority: 0.7, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/developers/mcp`, priority: 0.7, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/developers/sdk`, priority: 0.6, changeFrequency: 'weekly' },
-  { url: `${SITE_URL}/customers`, priority: 0.7, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust/iso-42001`, priority: 0.6, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust/deployment`, priority: 0.6, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust/data`, priority: 0.6, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/trust/subprocessors`, priority: 0.5, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/resources/role-bench`, priority: 0.6, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/company`, priority: 0.5, changeFrequency: 'monthly' },
-  { url: `${SITE_URL}/company/team`, priority: 0.5, changeFrequency: 'monthly' },
-];
+import { STATIC_ROUTES } from '@/config/routes';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllPosts();
   const studies = await getApprovedCaseStudies();
   const changelog = await getAllChangelog();
+
+  const staticRoutes: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
+    url: r.path === '/' ? SITE_URL : `${SITE_URL}${r.path}`,
+    priority: r.priority,
+    changeFrequency: r.changeFrequency,
+  }));
 
   // Index pages 404 until they have published entries, so list them only then.
   const indexRoutes: MetadataRoute.Sitemap = [
@@ -58,5 +33,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...STATIC_ROUTES, ...indexRoutes, ...blogRoutes, ...caseStudyRoutes];
+  return [...staticRoutes, ...indexRoutes, ...blogRoutes, ...caseStudyRoutes];
 }

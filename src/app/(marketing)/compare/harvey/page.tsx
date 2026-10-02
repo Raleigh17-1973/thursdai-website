@@ -1,243 +1,71 @@
-import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Callout } from '@/components/ui/Callout';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { CompareTemplate, type CompareTemplateProps } from '@/components/templates/CompareTemplate';
 
 export const metadata: Metadata = {
   // Not reviewed to the Glean page standard yet; keep out of the index until it is.
   robots: { index: false },
-  title: 'Thursdai vs Harvey',
+  title: 'Thursdai and Harvey',
   description:
-    'Where Harvey is strong and where Thursdai differs. Legal AI for lawyers vs. cross-functional AI governance infrastructure.',
+    'Where Harvey is strong and where Thursdai differs: AI for legal work versus a signed record of AI decisions across any team. An honest table and a sample receipt you can verify.',
 };
 
-type MatrixStatus = 'yes' | 'no' | 'partial' | 'in-progress';
-
-interface MatrixRow {
-  feature: string;
-  harvey: MatrixStatus | string;
-  thursdai: MatrixStatus | string;
-}
-
-const MATRIX: MatrixRow[] = [
-  { feature: 'Legal document drafting', harvey: 'yes', thursdai: 'no' },
-  { feature: 'Contract review & redlining', harvey: 'yes', thursdai: 'no' },
-  { feature: 'Legal research', harvey: 'yes', thursdai: 'no' },
-  { feature: 'Due diligence support', harvey: 'yes', thursdai: 'no' },
-  { feature: 'Matter management', harvey: 'yes', thursdai: 'no' },
-  { feature: 'Role-based answer panel', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Cross-functional moderation (Legal + Finance + Engineering)', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Decision replay / time-travel', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Policy-as-Code enforcement', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Sentence-level provenance', harvey: 'partial', thursdai: 'yes' },
-  { feature: 'Tenant knowledge isolation', harvey: 'yes', thursdai: 'yes' },
-  { feature: 'EU AI Act Annex III documentation', harvey: 'no', thursdai: 'yes' },
-  { feature: 'FRIA/DPIA templates', harvey: 'no', thursdai: 'yes' },
-  { feature: 'MCP server (agent-to-agent)', harvey: 'no', thursdai: 'yes' },
-  { feature: 'Ambient case management', harvey: 'partial', thursdai: 'yes' },
-  { feature: 'Audit log API', harvey: 'partial', thursdai: 'yes' },
-  { feature: 'SOC 2 Type II', harvey: 'yes', thursdai: 'yes' },
-  { feature: 'ISO 27001', harvey: 'yes', thursdai: 'yes' },
-  { feature: 'ISO 42001', harvey: 'no', thursdai: 'in-progress' },
-  { feature: 'HIPAA-eligible', harvey: 'partial', thursdai: 'yes' },
-];
-
-function StatusCell({ value }: { value: MatrixStatus | string }) {
-  if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
-  if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>✗</td>;
-  if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
-  return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
-}
+const DATA: CompareTemplateProps = {
+  competitor: 'Harvey',
+  slug: 'harvey',
+  title: 'Legal AI is not a record.',
+  lead: 'Harvey is AI built for legal work. Thursdai records the decisions AI systems make across any team and signs each one. Legal and compliance teams often look at both, and they can run together.',
+  summary: {
+    line: 'Harvey is AI for legal work. Thursdai is a record of AI decisions across any team.',
+    theyAreFor: 'Drafting, reviewing and researching for lawyers and legal teams.',
+    thursdaiIsFor: 'A signed, verifiable record of each AI decision, including vendor tools.',
+    chooseThem: 'Your main need is AI for attorneys doing legal work.',
+    chooseThursdai: 'You must show an auditor what an AI system decided and why.',
+  },
+  strengths: [
+    {
+      title: 'Built for legal work',
+      body: 'Harvey is designed around how lawyers draft, review and research. If the users are attorneys and the work is legal, its specialisation is the point and Thursdai is not a substitute.',
+    },
+    {
+      title: 'Contract review at volume',
+      body: 'It supports reviewing contracts and suggesting changes in context, which matters when legal teams handle many agreements.',
+    },
+    {
+      title: 'Legal research and workflows',
+      body: 'It is aimed at research, diligence and the day-to-day workflows of law firms and in-house legal teams.',
+    },
+  ],
+  differences: [
+    {
+      title: 'A record, not legal work product',
+      body: "Thursdai's output is a signed receipt of a decision made by any AI system, your own or a vendor's. That can include decisions made with a tool like Harvey.",
+    },
+    {
+      title: 'Verifiable without trusting us',
+      body: 'Each receipt carries an Ed25519 signature and a sha256 fingerprint. Anyone can check it against the public key, without an account.',
+    },
+    {
+      title: 'Replay as of the decision',
+      body: 'What the system knew, the policies that applied and the model version are kept as they were at the moment of the decision, so a later change does not rewrite the past.',
+    },
+    {
+      title: 'Policy results on the record',
+      body: 'Every policy checked, its version and its result are part of the signed receipt, which is what an examiner asks for.',
+    },
+  ],
+  rows: [
+    { capability: 'Primary job', them: 'AI for legal work, including drafting, review and research', thursdai: 'Recording and signing the decisions AI systems make' },
+    { capability: 'Legal drafting and contract review', them: 'Yes, its core purpose', thursdai: 'Not its purpose' },
+    { capability: 'Records decisions made by other AI systems', them: 'Not its purpose', thursdai: 'Yes, one signed receipt per decision, including vendor tools' },
+    { capability: 'Signed record anyone can verify', them: 'Not confirmed', thursdai: 'Yes, Ed25519 signature and sha256 fingerprint' },
+    { capability: 'Replay a decision as of its date', them: 'Not confirmed', thursdai: 'Yes, knowledge, policies and model version at the time' },
+    { capability: 'Policy results per decision', them: 'Not confirmed', thursdai: 'Yes, each policy, its version and result on the receipt' },
+    { capability: 'EU AI Act mapping', them: 'Not confirmed', thursdai: 'Published, article by article, on the trust pages' },
+    { capability: 'Security certifications', them: 'SOC 2 Type II, per its trust center', thursdai: 'None held yet; roadmap on the trust page' },
+    { capability: 'HIPAA workloads', them: 'Not confirmed; check its trust center', thursdai: 'Architecture designed for HIPAA workloads; no attestation held' },
+  ],
+};
 
 export default function CompareHarveyPage() {
-  return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <Label>Thursdai vs Harvey</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>Legal AI for lawyers. Governance infrastructure for the whole enterprise.</Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            Harvey is a strong AI platform purpose-built for legal professionals. Thursdai is
-            governance infrastructure for cross-functional enterprise AI decisions. These operate
-            at different layers, but legal and compliance teams often evaluate both.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Where Harvey is strong ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Where Harvey is strong</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These are genuine strengths. If your primary need is one of these, Harvey may be
-            the right choice.
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              title="Legal document drafting"
-              body="Harvey is purpose-built for lawyers drafting contracts, briefs and memos. The model is trained on legal corpora and understands legal language, structure and risk in ways general models don't. For legal drafting at scale, Harvey's quality is real."
-            />
-            <Card
-              variant="feature"
-              title="Contract review and redlining"
-              body="Harvey can review contracts, flag non-standard clauses and suggest redlines in context. If your primary workflow is contract review, especially in volume, Harvey's legal specialization gives it an edge over general AI tools."
-            />
-            <Card
-              variant="feature"
-              title="Legal research depth"
-              body="Harvey integrates with legal research platforms and understands case law, precedent and statute in ways that matter to attorneys. For lawyers doing deep legal research, Harvey's domain specialization is valuable."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Where Thursdai differs ── */}
-      <Section variant="default">
-        <Container>
-          <Heading2>Where Thursdai differs</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons. They&apos;re architectural differences that
-            matter when decisions cross domain lines.
-          </Body>
-          <Grid cols={2} gap="lg">
-            <Card
-              variant="feature"
-              title="Cross-functional governance vs single-domain AI"
-              body="Harvey is built for legal professionals doing legal work. Thursdai governs decisions that simultaneously require Legal, Finance and Engineering input, and reconciles them. If a decision crosses domain lines, Harvey has no answer for Finance or Engineering."
-            />
-            <Card
-              variant="feature"
-              title="Decision replay vs no audit trail"
-              body="Every Thursdai decision is recorded with the knowledge and policies active at that exact moment. You can replay any decision from two years ago with full provenance. Harvey has no decision replay capability. Decisions are stateless."
-            />
-            <Card
-              variant="feature"
-              title="Policy-as-Code vs no enforcement layer"
-              body="Thursdai enforces governance rules at the inference layer in YAML (pricing floors, PII blocks, role scope constraints) before any answer reaches a user. Harvey has no equivalent policy enforcement mechanism across domains."
-            />
-            <Card
-              variant="feature"
-              title="Infrastructure vs application"
-              body="Harvey is a legal work application. Thursdai is infrastructure that other applications and agents call. If you need governed AI across your entire enterprise stack, not just your legal team, Thursdai operates at a different layer."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Feature matrix ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
-                  >
-                    Feature
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
-                    Harvey
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
-                    Thursdai
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {MATRIX.map((row) => (
-                  <tr key={row.feature}>
-                    <th
-                      scope="row"
-                      style={{
-                        padding: '0.75rem 1rem',
-                        textAlign: 'left',
-                        fontWeight: 500,
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '14px',
-                        textTransform: 'none',
-                        letterSpacing: 'normal',
-                        color: 'var(--color-text-primary)',
-                        position: 'sticky',
-                        left: 0,
-                        background: 'var(--color-surface-primary)',
-                      }}
-                    >
-                      {row.feature}
-                    </th>
-                    <StatusCell value={row.harvey} />
-                    <StatusCell value={row.thursdai} />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── When Harvey is the right choice ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="When Harvey is the right choice">
-            <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
-              <li>
-                <strong>Your primary users are attorneys doing legal work.</strong> Harvey&apos;s
-                domain specialization (legal drafting, contract review, legal research) is
-                purpose-built for lawyers. If the user is an attorney and the work is legal,
-                Harvey&apos;s depth in that domain is ahead of general-purpose governance infrastructure.
-              </li>
-              <li>
-                <strong>Your AI use case stays within the legal department.</strong> If the
-                decisions you need to govern are entirely legal in nature, with no Finance or
-                Engineering input required, Harvey&apos;s legal specialization may be more
-                valuable than cross-functional governance.
-              </li>
-              <li>
-                <strong>You need legal research platform integration.</strong> Harvey&apos;s
-                integrations with legal research platforms and matter management systems are
-                mature. If your workflow depends on those integrations, Harvey&apos;s ecosystem
-                is ahead.
-              </li>
-            </ul>
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── Bottom line ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Bottom line">
-            Harvey makes lawyers faster. Thursdai governs decisions across Legal, Finance and
-            Engineering simultaneously. If a decision requires more than one domain and you need
-            to audit it, Harvey alone isn&apos;t the answer.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── CTA ── */}
-      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Put your own AI decisions on the record</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            A pilot connects one of your AI systems to your own tenant. Before that, the demo shows a
-            signed sample receipt you can verify yourself, with no login.
-          </Body>
-          <ClosingCTAs primary="pilot" align="center" style={{ marginTop: '1.5rem' }} />
-        </Container>
-      </Section>
-    </>
-  );
+  return <CompareTemplate {...DATA} />;
 }

@@ -1,174 +1,188 @@
+import React from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
+import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
+import { LABEL_STYLE } from '@/components/typography/scale';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { FactList } from '@/components/templates/TrustDocument';
+import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
+import { EU_AI_ACT_URL } from '@/config/sources';
 
 export const metadata: Metadata = {
   title: 'Company: Thursdai',
-  description:
-    'Thursdai is AI governance infrastructure built by practitioners who watched AI make confident, wrong, unauditable decisions. They decided to fix it.',
+  description: `Thursdai records the decisions AI systems make and signs each one as an ${RECEIPT_TERM}. Founded in 2026 by Jeff Hoyt after building agents he could not explain.`,
 };
+
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
+
+const LINKS = [
+  { href: '/customers', label: 'Design partners', body: 'The terms of the program, who it is for and how to apply.' },
+  { href: '/company/team', label: 'Team', body: 'The founder, how Thursdai got here and how to reach him.' },
+  { href: '/trust', label: 'Trust', body: 'Where security and certification stand today, without the badges.' },
+];
 
 export default function CompanyPage() {
   return (
     <>
-      {/* ── Section 1: Founder story ── */}
-      <Section variant="default">
-        <Container>
-          <Label>Our Story</Label>
-          <Display style={{ marginTop: '1rem' }}>
-            Built because I couldn&apos;t see what my own agents were doing.
-          </Display>
-          <Body style={{ marginTop: '1.5rem' }}>
-            I&apos;m Jeffrey Hoyt. In February 2026 I was laid off, and for the first time in years I
-            had the time to actually build something I&apos;d been thinking about for a long time: a
-            business operations agent. I started with Program and Project Management (the domain I
-            know best) and HR, which my wife knows inside out.
-          </Body>
-          <Body style={{ marginTop: '1.25rem' }}>
-            The further I got into building, the more I ran into the same wall: I had no idea how
-            my own agents were arriving at their answers. So I built a case object, a place where
-            agents could interact with each other and leave evidence of how they were getting to
-            their work product. That case object turned out to be the most interesting thing I
-            built.
-          </Body>
-          <Body style={{ marginTop: '1.25rem' }}>
-            Around the same time, AI regulation bills started landing. And it clicked: the hard
-            problem isn&apos;t building agents that do things. It&apos;s building agents that can
-            prove what they did and why. The operations agent market is crowded and every company is
-            building their own internal tooling. But the governance layer? Nobody was doing that
-            right. So I pivoted, and Thursdai became what it is today.
-          </Body>
-          <Body style={{ marginTop: '1.25rem' }}>
-            I&apos;m building in public and looking for early design partners who have the same
-            problem I had. If that&apos;s you, reach out at{' '}
-            <a href="mailto:thursdai@getthursdai.com">
-              thursdai@getthursdai.com
-            </a>
-            .
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Section 2: What we're building ── */}
+      {/* ── Founder story ── */}
       <Section variant="compact">
         <Container>
-          <Heading2><span className="font-display">What we&apos;re building</span></Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Thursdai is a governed agent substrate: a thin, specialized layer that sits between
-            AI models and regulated enterprise workflows. Every answer is role-moderated, every
-            decision is replayable, and every policy is enforced at the inference layer, not
-            bolted on after.
-          </Body>
-          <Body style={{ marginTop: '0.75rem' }}>
-            We&apos;re not competing with ChatGPT or Copilot. We&apos;re the governance layer
-            enterprises need to actually trust the AI they&apos;ve already decided to deploy.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Section 3: Why now ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2><span className="font-display">Why now</span></Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            The EU AI Act binding date, SEC AI disclosure rules and three years of enterprises
-            deploying AI without governance have created a forcing function. Every major financial
-            services firm, healthcare system and law firm that shipped AI in 2023–2025 now needs
-            to demonstrate that their AI decisions are auditable, explainable and policy-compliant.
-          </Body>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Thursdai exists at exactly this inflection point. The window to capture this market
-            is the next 18 months, and we&apos;re already in it.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Section 4: Why Thursdai wins ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2><span className="font-display">Why Thursdai wins</span></Heading2>
-          <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
-            <Card
-              variant="feature"
-              title="Audit layer first"
-              body="Every competitor added governance on top of an existing chatbot. We built the audit layer first. That's an architectural difference, not a feature gap."
-            />
-            <Card
-              variant="feature"
-              title="Infrastructure, not an app"
-              body="Thursdai doesn't replace your AI tools. It governs them. Any model, any stack: if you can make an API call, you can add Thursdai's governance layer today."
-            />
-            <Card
-              variant="feature"
-              title="Regulatory-native"
-              body="EU AI Act Annex III documentation, FRIA/DPIA templates and full audit logs that meet record-keeping requirements, built in, not bolted on."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Section 5: Design partners ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2><span className="font-display">Early design partners</span></Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            We&apos;re working with a small group of design partners in financial services,
-            healthcare and legal: industries where the cost of an unauditable AI decision is
-            highest. The value varies significantly depending on how deeply AI is embedded in your
-            workflows and how tightly regulated your domain is, which is exactly why we work
-            closely with each partner rather than promising universal numbers.
-          </Body>
-          <Body style={{ marginTop: '0.75rem' }}>
-            If you&apos;re in a regulated industry and AI governance is on your roadmap for 2026,
-            we&apos;d like to talk.
-          </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <ButtonLink href="mailto:thursdai@getthursdai.com" variant="primary" size="md">
-              Become a design partner →
-            </ButtonLink>
+          <Label>Company</Label>
+          <Heading1 style={{ marginTop: '1rem' }}>Built because I couldn&apos;t see what my own agents were doing.</Heading1>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8" style={{ marginTop: '2.5rem' }}>
+            <div className="lg:col-span-8 flex flex-col gap-5">
+              <Body variant="large">
+                I&apos;m Jeff Hoyt. In February 2026 I was laid off, and for the first time in years I
+                had the time to build something I had been thinking about for a long while: a
+                business operations agent. I started with program and project management, the
+                domain I know best, and HR, which my wife knows inside out.
+              </Body>
+              <Body>
+                The further I got, the more I ran into the same wall: I had no idea how my own agents
+                were arriving at their answers. So I built a case object, a place where agents could
+                work together and leave evidence of how they reached their work product. That case
+                object turned out to be the most interesting thing I had built.
+              </Body>
+              <Body>
+                Around the same time, AI regulation started to land, and it clicked. The hard problem
+                is not building agents that do things. It is proving what they did and why. Plenty
+                of companies build operations agents; very few were building the record. So I
+                pivoted, and Thursdai became what it is today.
+              </Body>
+            </div>
+            <aside
+              className="lg:col-start-10 lg:col-span-3 lg:self-end"
+              style={{ borderTop: '1px solid var(--ink)', paddingTop: '1.25rem', marginTop: '2.5rem' }}
+            >
+              <Label as="p">Founder</Label>
+              <p className="m-0" style={{ marginTop: '0.75rem', fontFamily: 'var(--font-display)', fontSize: '22px', color: 'var(--ink)' }}>
+                Jeff Hoyt
+              </p>
+              <Link href="/company/team" className="inline-block" style={{ ...UNDERLINED, marginTop: '0.5rem', fontSize: '15px' }}>
+                The longer story
+              </Link>
+            </aside>
           </div>
         </Container>
       </Section>
 
-      {/* ── Section 6: For investors ── */}
-      <Section variant="compact">
+      {/* ── What we are, and are not ── */}
+      <Section>
         <Container>
-          <Heading2><span className="font-display">For investors</span></Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            We&apos;re building Thursdai with a small group of design partners and early customers.
-            If you&apos;re an investor who sees the AI governance opportunity, I&apos;d like to talk.
-          </Body>
-          <Body style={{ marginTop: '0.75rem' }}>
-            <a
-              href="mailto:thursdai@getthursdai.com"
-              style={{ fontWeight: 600 }}
-            >
-              Reach out → thursdai@getthursdai.com
-            </a>
-          </Body>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
+            <div className="lg:col-span-7">
+              <Label as="p">What we build</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>A record of what your AI decided.</Heading2>
+            </div>
+            <Body className="lg:col-span-5 lg:self-end">
+              Thursdai sits beside the AI systems you already run, your own and your vendors&apos;,
+              and writes a signed {RECEIPT_TERM} for each decision they make: the answer, the policy
+              it ran under, the evidence it used and the person who reviewed it.
+            </Body>
+          </div>
+          <div style={{ marginTop: '3rem' }}>
+            <FactList
+              items={[
+                { term: 'An evidence layer', body: 'Each receipt is signed and verifiable by anyone, without an account.' },
+                { term: 'Not a chatbot', body: 'If you need a general assistant, Copilot or ChatGPT will serve you better.' },
+                { term: 'Not an auditor', body: 'Thursdai does not certify your systems. A receipt is proof of what happened, not that it was right.' },
+              ]}
+            />
+          </div>
         </Container>
       </Section>
 
-      {/* ── Section 7: Press & Media ── */}
-      <Section variant="compact">
+      {/* ── Why now ── */}
+      <Section>
         <Container>
-          <Heading2><span className="font-display">Press &amp; Media</span></Heading2>
-          <Body style={{ marginTop: '1rem', color: 'var(--color-text-secondary)' }}>
-            For press inquiries, interview requests or the media kit, email{' '}
-            <a href="mailto:thursdai@getthursdai.com">
-              thursdai@getthursdai.com
-            </a>
-            .
-          </Body>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
+            <div className="lg:col-span-7">
+              <Label as="p">Why now</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>The rules arrived before the records.</Heading2>
+            </div>
+            <Body className="lg:col-span-5 lg:self-end">
+              Firms put AI into hiring, lending and insurance decisions faster than they built ways
+              to show how those decisions were made. The{' '}
+              <a href={EU_AI_ACT_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
+                EU AI Act
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>{' '}
+              now treats those uses as high-risk and asks deployers to keep the logs; New York City
+              already requires bias audits of automated hiring tools. The record has to exist before
+              anyone asks for it.
+            </Body>
+          </div>
         </Container>
       </Section>
+
+      {/* ── Design partners: honest, non-numeric ── */}
+      <Section>
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
+            <div className="lg:col-span-7">
+              <Label as="p">Design partners</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>Open to teams that answer for AI decisions.</Heading2>
+            </div>
+            <div className="lg:col-span-5 lg:self-end">
+              <Body>
+                The design partner program is open to teams in financial services, healthcare,
+                legal and other regulated work where the cost of an unexplained AI decision is
+                highest. Partners run Thursdai on their own systems and work directly with me.
+              </Body>
+              <div style={{ marginTop: '1.5rem' }}>
+                <ButtonLink href="/customers" variant="primary" size="lg">
+                  Become a design partner
+                </ButtonLink>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Elsewhere in the company ── */}
+      <Section>
+        <Container>
+          <ul className="list-none p-0 m-0 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {LINKS.map((l) => (
+              <li key={l.href} style={{ borderTop: '1px solid var(--ink)', paddingTop: '1.25rem' }}>
+                <Link href={l.href} style={{ fontFamily: 'var(--font-display)', fontSize: '22px', color: 'var(--ink)' }}>
+                  {l.label}
+                </Link>
+                <Body variant="small" style={{ marginTop: '0.5rem' }}>
+                  {l.body}
+                </Body>
+              </li>
+            ))}
+            <li className="md:col-span-3" style={{ borderTop: '1px solid var(--rule)', paddingTop: '1.25rem' }}>
+              <p className="m-0" style={{ ...LABEL_STYLE }}>
+                Press and media
+              </p>
+              <Body variant="small" style={{ marginTop: '0.5rem' }}>
+                For press enquiries or an interview, email{' '}
+                <a href={`mailto:${CONTACT_EMAIL}?subject=Press`} style={UNDERLINED}>
+                  {CONTACT_EMAIL}
+                </a>
+                .
+              </Body>
+            </li>
+          </ul>
+        </Container>
+      </Section>
+
+      <ClosingBand
+        heading="Put your hardest AI decision on the record."
+        body="Design partners get a pilot tenant, receipts on their own AI systems and a direct line to the founder."
+        actions={
+          <ButtonLink href="/customers" variant="primary" size="lg">
+            Become a design partner
+          </ButtonLink>
+        }
+      />
     </>
   );
 }

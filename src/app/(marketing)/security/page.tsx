@@ -1,390 +1,201 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
+import Link from 'next/link';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Callout } from '@/components/ui/Callout';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { ButtonLink } from '@/components/ui/Button';
+import { TrustDocument, FactList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { SUBPROCESSORS } from '@/lib/subprocessors';
+import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Security Overview: Thursdai',
+  title: 'Security overview: Thursdai',
   description:
-    'Technical and procedural security controls for Thursdai. Architecture, data handling, subprocessors, certifications and incident response for procurement and compliance teams.',
+    'Technical and procedural security controls for Thursdai: architecture, encryption, data categories, subprocessors, certification status and the security contact, for procurement and compliance teams.',
 };
 
-// ── Styles ─────────────────────────────────────────────────────
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-const thStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  textAlign: 'left',
-  fontSize: '13px',
-  fontWeight: 600,
-};
-
-const tdStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  fontSize: '14px',
-  lineHeight: 1.5,
-  color: 'var(--color-text-secondary)',
-  verticalAlign: 'top',
-};
-
-// ── Data ───────────────────────────────────────────────────────
-
-const ARCHITECTURE_ROWS = [
-  {
-    component: 'API Server',
-    description: 'Fastify-based HTTP API; handles authentication, request routing and approval workflows',
-  },
-  {
-    component: 'Temporal Worker',
-    description: 'Durable workflow execution engine; manages long-running approval and compliance workflows',
-  },
-  {
-    component: 'Database',
-    description:
-      'PostgreSQL (production) or SQLite (single-node/dev); stores audit events, identities, cases and compliance artifacts',
-  },
-  {
-    component: 'Compliance Engine',
-    description:
-      'Signs and renders compliance packs; manages evidence bindings and cryptographic attestation',
-  },
+const ARCHITECTURE = [
+  { id: 'api', component: 'API server', description: 'Fastify HTTP API: authentication, request routing and approval workflows.' },
+  { id: 'worker', component: 'Temporal worker', description: 'Durable workflow execution for long-running approval and compliance workflows.' },
+  { id: 'db', component: 'Database', description: 'PostgreSQL in production (SQLite for single-node and development): audit events, identities, cases and compliance artifacts.' },
+  { id: 'compliance', component: 'Compliance engine', description: 'Signs and renders compliance packs; manages evidence bindings and cryptographic attestation.' },
 ];
 
-const DATA_CLASSIFICATION_ROWS = [
-  { category: 'Governed decisions', description: 'Approval requests, case outcomes, policy evaluations' },
-  { category: 'Identity data', description: 'Employee names, email addresses, departments, roles' },
-  {
-    category: 'Compliance artifacts',
-    description: 'Framework packs, evidence bindings, attestation records',
-  },
-  {
-    category: 'Audit events',
-    description: 'Immutable log of all agent actions, human approvals and system events',
-  },
-  { category: 'Workflow metadata', description: 'Case status, SLA tracking, assignee history' },
+const DATA_CATEGORIES = [
+  { id: 'decisions', category: 'Governed decisions', description: 'Approval requests, case outcomes and policy evaluations.' },
+  { id: 'identity', category: 'Identity data', description: 'Employee names, email addresses, departments and roles.' },
+  { id: 'artifacts', category: 'Compliance artifacts', description: 'Framework packs, evidence bindings and attestation records.' },
+  { id: 'audit', category: 'Audit events', description: 'An immutable log of agent actions, human approvals and system events.' },
+  { id: 'workflow', category: 'Workflow metadata', description: 'Case status, SLA tracking and assignee history.' },
 ];
-
-const SUBPROCESSOR_ROWS = [
-  {
-    name: 'Amazon Web Services',
-    purpose: 'KMS key management; GovCloud deployments',
-    dpaStatus: 'DPA on file (AWS standard DPA)',
-  },
-  {
-    name: 'Anthropic',
-    purpose: 'LLM inference (governed AI decisions and compliance analysis)',
-    dpaStatus: 'DPA on file',
-  },
-  {
-    name: 'Temporal Technologies',
-    purpose: 'Durable workflow orchestration',
-    dpaStatus: 'DPA on file',
-  },
-  {
-    name: 'Railway',
-    purpose: 'Cloud hosting and container runtime',
-    dpaStatus: 'DPA on file',
-  },
-  {
-    name: 'Stripe',
-    purpose: 'Payment processing and billing',
-    dpaStatus: 'DPA on file',
-  },
-  {
-    name: 'OpenAI',
-    purpose: 'AI inference (supplemental model provider)',
-    dpaStatus: 'DPA on file',
-  },
-];
-
-const CERTIFICATION_ROWS = [
-  {
-    framework: 'SOC 2 Type II',
-    status: 'Planned',
-    notes: 'Planned. The SOC 2 observation period and third-party audit require production customers and operational history; we will begin once those are in place. Contact thursdai@getthursdai.com for status.',
-  },
-  {
-    framework: 'ISO 42001',
-    status: 'Planned',
-    notes: 'Planned, no date yet. AI management system controls align with our current architecture.',
-  },
-  {
-    framework: 'EU AI Act Annex III',
-    status: 'Planned',
-    notes:
-      'High-risk system classification self-assessment complete and technical documentation prepared. Third-party conformity assessment is planned; we have no date yet.',
-  },
-];
-
-// ── Page ───────────────────────────────────────────────────────
 
 export default function SecurityPage() {
+  const mail = `mailto:${CONTACT_EMAIL}?subject=Security`;
   return (
-    <>
-      {/* Header */}
-      <Section variant="default">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Security' },
-            ]}
-          />
-          <Label style={{ marginTop: '1.5rem', display: 'block' }}>Security Overview</Label>
-          <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1rem' }}>
-            Security Overview
-          </Heading1>
-          <Body variant="large" style={{ marginBottom: '1.5rem' }}>
-            For security, compliance and procurement teams evaluating Thursdai as a vendor.
-          </Body>
-          <div
-            style={{
-              display: 'flex',
-              gap: '2rem',
-              flexWrap: 'wrap',
-              fontSize: '13px',
-              color: 'var(--color-text-tertiary)',
-              borderTop: '1px solid var(--color-border-default)',
-              paddingTop: '1rem',
-            }}
-          >
-            <span>
-              <strong style={{ color: 'var(--color-text-secondary)' }}>Document version:</strong>{' '}
-              1.0
-            </span>
-            <span>
-              <strong style={{ color: 'var(--color-text-secondary)' }}>Effective date:</strong>{' '}
-              2026-04-23
-            </span>
-            <span>
-              <strong style={{ color: 'var(--color-text-secondary)' }}>Review frequency:</strong>{' '}
-              Quarterly
-            </span>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Executive Summary */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Executive Summary</Heading2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <Body>
-              Thursdai is AI governance infrastructure for regulated enterprises. It sits between AI
-              models and the teams that rely on them, enforcing role-based moderation, decision
-              replay and policy-as-code so every AI decision is auditable. Security and compliance
-              are load-bearing requirements of the product. Thursdai governs decisions that carry
-              legal, financial and regulatory consequence, and it must satisfy the same audit
-              standards as the workflows it supports.
-            </Body>
-            <Body>
-              Thursdai applies defense-in-depth across cryptographic controls, access management,
-              audit integrity and operational resilience. Engineering controls for SOC 2 CC-series
-              requirements are implemented and in active use. Third-party SOC 2 Type II
-              certification is planned; the observation period requires production customers and
-              operational history before it can begin.
-            </Body>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Architecture */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Architecture Overview</Heading2>
-          <Body style={{ marginBottom: '1.5rem' }}>
-            Thursdai is deployed on Railway, a managed cloud platform. The application runs in
-            Docker containers with strict container isolation. There is no shared hosting; each
-            customer deployment is a dedicated tenant.
-          </Body>
-          <div style={{ overflowX: 'auto', marginBottom: '1.5rem' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Component</th>
-                  <th style={thStyle}>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ARCHITECTURE_ROWS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
-                      {row.component}
-                    </td>
-                    <td style={tdStyle}>{row.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1rem',
-            }}
-          >
-            <div
-              style={{
-                border: '1px solid var(--color-border-default)',
-                borderRadius: '2px',
-                padding: '1.25rem',
-                background: 'var(--color-surface-primary)',
-              }}
-            >
-              <Label style={{ marginBottom: '0.5rem' }}>Network &amp; Transport</Label>
+    <TrustDocument
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Trust', href: '/trust' },
+        { label: 'Security overview' },
+      ]}
+      label="Security overview"
+      title="Security, in plain terms."
+      lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, what data it holds, who processes it and where certification stands."
+      meta={[
+        { label: 'Version', value: '1.0' },
+        { label: 'Effective', value: '23 April 2026' },
+        { label: 'Review', value: 'Quarterly' },
+      ]}
+      sections={[
+        {
+          id: 'summary',
+          title: 'Summary',
+          body: (
+            <>
               <Body>
-                All traffic in transit uses TLS 1.3. HTTP connections are rejected or upgraded.
-                Internal component communication is within the private Railway network.
+                Thursdai records the decisions AI systems make, including systems it does not
+                operate, and signs each one as an {RECEIPT_TERM}. Those decisions carry legal,
+                financial and regulatory weight, so security is a requirement of the product rather
+                than a feature of it.
               </Body>
-            </div>
-            <div
-              style={{
-                border: '1px solid var(--color-border-default)',
-                borderRadius: '2px',
-                padding: '1.25rem',
-                background: 'var(--color-surface-primary)',
-              }}
-            >
-              <Label style={{ marginBottom: '0.5rem' }}>Data at Rest</Label>
               <Body>
-                AES-256 via hosting provider storage encryption. PII fields are encrypted at the
-                application layer using a configurable key independent of the storage backend.
+                Controls cover cryptography, access management, audit integrity and operational
+                resilience. Engineering controls for the SOC 2 common criteria are implemented and
+                in use. No SOC 2 report is held yet: the observation period starts once an auditor
+                is engaged.
               </Body>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Data Classification */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Data Classification</Heading2>
-          <Body style={{ marginBottom: '1.5rem' }}>
-            Thursdai processes the following data categories in the course of its operation. Raw LLM
-            conversation content is not persisted beyond the active session. Thursdai does not ingest
-            or store payroll data, bank account information or health records.
-          </Body>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Data Category</th>
-                  <th style={thStyle}>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {DATA_CLASSIFICATION_ROWS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
-                      {row.category}
-                    </td>
-                    <td style={tdStyle}>{row.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Subprocessors */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Subprocessors</Heading2>
-          <Body style={{ marginBottom: '1.5rem' }}>
-            Thursdai maintains a complete and up-to-date subprocessor registry. Customers who have
-            signed a DPA are notified of material subprocessor changes with at least 30 days advance
-            notice.
-          </Body>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Subprocessor</th>
-                  <th style={thStyle}>Purpose</th>
-                  <th style={thStyle}>DPA Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {SUBPROCESSOR_ROWS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
-                      {row.name}
-                    </td>
-                    <td style={tdStyle}>{row.purpose}</td>
-                    <td style={tdStyle}>{row.dpaStatus}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Certifications */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Certifications &amp; Compliance Status</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Framework</th>
-                  <th style={thStyle}>Status</th>
-                  <th style={thStyle}>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {CERTIFICATION_ROWS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
-                      {row.framework}
-                    </td>
-                    <td style={tdStyle}>
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          padding: '2px 8px',
-                          borderRadius: '2px',
-                          fontSize: '12px',
-                          fontWeight: 600,
-                          border: '1px solid var(--color-border-default)',
-                          color: 'var(--color-text-primary)',
-                        }}
-                      >
-                        {row.status}
-                      </span>
-                    </td>
-                    <td style={tdStyle}>{row.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Contact */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Security contact">
-            For security inquiries, vulnerability reports, DPA requests or SOC 2 documentation,
-            contact{' '}
-            <a
-              href="mailto:thursdai@getthursdai.com"
-              style={{ fontWeight: 600 }}
-            >
-              thursdai@getthursdai.com
-            </a>
-            . We acknowledge reports within 2 business days.
-          </Callout>
-        </Container>
-      </Section>
-    </>
+            </>
+          ),
+        },
+        {
+          id: 'architecture',
+          title: 'Architecture',
+          body: (
+            <>
+              <Body>
+                Thursdai runs on Railway, a managed cloud platform, in Docker containers with strict
+                container isolation. There is no shared hosting: each customer deployment is a
+                dedicated tenant.
+              </Body>
+              <RecordTable
+                caption="Architecture components"
+                columns={[
+                  { key: 'component', label: 'Component', width: '28%' },
+                  { key: 'description', label: 'What it does' },
+                ]}
+                rows={ARCHITECTURE}
+              />
+              <FactList
+                items={[
+                  {
+                    term: 'In transit',
+                    body: 'TLS 1.3 for all traffic. Plain HTTP is rejected or upgraded. Components talk over the private Railway network.',
+                  },
+                  {
+                    term: 'At rest',
+                    body: 'AES-256 storage encryption from the hosting provider. Personal data fields are also encrypted in the application with a configurable key independent of the storage backend.',
+                  },
+                ]}
+              />
+            </>
+          ),
+        },
+        {
+          id: 'data',
+          title: 'Data categories',
+          body: (
+            <>
+              <Body>
+                The categories Thursdai processes in operation. Raw model conversation content is
+                not kept beyond the active session. Thursdai does not ingest or store payroll data,
+                bank account details or health records. Retention and isolation are on the{' '}
+                <Link href="/trust/data" style={UNDERLINED}>
+                  data handling
+                </Link>{' '}
+                page.
+              </Body>
+              <RecordTable
+                caption="Data categories Thursdai processes"
+                columns={[
+                  { key: 'category', label: 'Category', width: '28%' },
+                  { key: 'description', label: 'Includes' },
+                ]}
+                rows={DATA_CATEGORIES}
+              />
+            </>
+          ),
+        },
+        {
+          id: 'subprocessors',
+          title: 'Subprocessors',
+          body: (
+            <>
+              <Body>
+                Customers who have signed a DPA are told of material subprocessor changes at least
+                30 days in advance. The list is also kept on the{' '}
+                <Link href="/trust/subprocessors" style={UNDERLINED}>
+                  subprocessors
+                </Link>{' '}
+                page.
+              </Body>
+              <RecordTable
+                caption="Subprocessors, their purpose and DPA status"
+                columns={[
+                  { key: 'name', label: 'Subprocessor', width: '28%' },
+                  { key: 'purpose', label: 'Purpose' },
+                  { key: 'dpa', label: 'DPA', width: '24%' },
+                ]}
+                rows={SUBPROCESSORS.map((s) => ({ id: s.name, ...s }))}
+              />
+            </>
+          ),
+        },
+        {
+          id: 'certifications',
+          title: 'Certification status',
+          body: (
+            <>
+              <Body>
+                Thursdai holds no certifications today. The roadmap below is the same one on the{' '}
+                <Link href="/trust#certifications" style={UNDERLINED}>
+                  trust page
+                </Link>
+                ; dates appear only once an auditor is engaged.
+              </Body>
+              <CertRoadmapTable />
+            </>
+          ),
+        },
+        {
+          id: 'contact',
+          title: 'Security contact',
+          body: (
+            <Body>
+              For security questions, vulnerability reports, DPA requests or a vendor questionnaire,
+              email{' '}
+              <a href={mail} style={UNDERLINED}>
+                {CONTACT_EMAIL}
+              </a>
+              . We acknowledge reports within two business days.
+            </Body>
+          ),
+        },
+      ]}
+      close={
+        <ClosingBand
+          heading="Questions this does not answer?"
+          body="Send the questionnaire or the question. Vulnerability reports are acknowledged within two business days."
+          actions={
+            <ButtonLink href={mail} variant="primary" size="lg">
+              Email security
+            </ButtonLink>
+          }
+        />
+      }
+    />
   );
 }

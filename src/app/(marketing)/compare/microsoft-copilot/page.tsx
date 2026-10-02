@@ -1,287 +1,69 @@
-import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { Callout } from '@/components/ui/Callout';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { CompareTemplate, type CompareTemplateProps } from '@/components/templates/CompareTemplate';
 
 export const metadata: Metadata = {
-  title: 'Thursdai vs Microsoft Copilot: AI Governance vs AI Assistance',
+  title: 'Thursdai and Microsoft Copilot',
   description:
-    "Microsoft Copilot is the world's best writing assistant. It's not a decision governance platform. Here's where they diverge.",
+    'Where Microsoft Copilot is strong and where Thursdai differs: a general assistant inside Microsoft 365 versus a signed record of every AI decision. An honest table and a sample receipt you can verify.',
 };
 
-type MatrixStatus = 'yes' | 'no' | 'partial' | 'text';
-
-interface MatrixRow {
-  feature: string;
-  copilot: MatrixStatus | string;
-  thursdai: MatrixStatus | string;
-}
-
-const MATRIX: MatrixRow[] = [
-  { feature: 'AI writing & drafting', copilot: 'text', thursdai: 'text' },
-  { feature: 'Office 365 integration', copilot: 'yes', thursdai: 'no' },
-  { feature: 'Decision audit trail', copilot: 'no', thursdai: 'yes' },
-  { feature: 'Role-based deliberation', copilot: 'no', thursdai: 'yes' },
-  { feature: 'Policy enforcement (hard constraints)', copilot: 'no', thursdai: 'yes' },
-  { feature: 'Decision replay / time-travel', copilot: 'no', thursdai: 'yes' },
-  { feature: 'Foundation-model choice', copilot: 'text', thursdai: 'text' },
-  { feature: 'EU AI Act compliance tooling', copilot: 'partial', thursdai: 'yes' },
-];
-
-const COPILOT_WRITING = 'copilot';
-const THURSDAI_WRITING = 'thursdai';
-
-function MatrixCell({ row, col }: { row: MatrixRow; col: 'copilot' | 'thursdai' }) {
-  const value = row[col];
-
-  if (row.feature === 'AI writing & drafting') {
-    if (col === COPILOT_WRITING) {
-      return (
-        <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-primary)' }}>
-          ✓ Excellent
-        </td>
-      );
-    }
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Via API
-      </td>
-    );
-  }
-
-  if (row.feature === 'Foundation-model choice') {
-    if (col === COPILOT_WRITING) {
-      return (
-        <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-          Microsoft/OpenAI only
-        </td>
-      );
-    }
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Claude, GPT-4o, Gemini
-      </td>
-    );
-  }
-
-  if (row.feature === 'EU AI Act compliance tooling' && col === COPILOT_WRITING) {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Limited
-      </td>
-    );
-  }
-
-  if (row.feature === 'EU AI Act compliance tooling' && col === THURSDAI_WRITING) {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-primary)' }}>
-        ✓ Full Annex III mapping
-      </td>
-    );
-  }
-
-  if (value === 'yes') {
-    return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
-  }
-  if (value === 'no') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>
-        ✗
-      </td>
-    );
-  }
-  if (value === 'partial') {
-    return (
-      <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-        Limited
-      </td>
-    );
-  }
-  return (
-    <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>
-      {String(value)}
-    </td>
-  );
-}
+const DATA: CompareTemplateProps = {
+  competitor: 'Microsoft Copilot',
+  slug: 'microsoft-copilot',
+  title: 'A productivity layer is not a record.',
+  lead: 'Microsoft Copilot is a capable assistant built into the tools your teams already use. Thursdai records the decisions AI systems make and signs each one. They solve different problems and can run together.',
+  summary: {
+    line: 'Copilot helps people get work done in Microsoft 365. Thursdai records what AI systems decided.',
+    theyAreFor: 'Drafting, summarising and answering inside Word, Excel, Outlook, Teams and the rest of Microsoft 365.',
+    thursdaiIsFor: 'A signed, verifiable record of each AI decision, including vendor tools.',
+    chooseThem: 'You need a general assistant for your people inside Microsoft 365.',
+    chooseThursdai: 'You must show an auditor what an AI system decided and why.',
+  },
+  strengths: [
+    {
+      title: 'Built into Microsoft 365',
+      body: 'Copilot works inside Word, Excel, Outlook and Teams. If your team lives in Microsoft 365, it is the lowest-friction way to put an assistant in front of them. Copilot is better if you need a general assistant.',
+    },
+    {
+      title: 'Strong language models',
+      body: 'Drafting, summarising and answering questions across your documents and mail are what it is built for, and it does them well.',
+    },
+    {
+      title: 'Enterprise reach',
+      body: "Microsoft's distribution, administration tooling and published compliance programme make it straightforward to bring into a large organisation.",
+    },
+  ],
+  differences: [
+    {
+      title: 'A record, not an assistant',
+      body: "Thursdai's output is a signed receipt of a decision made by any AI system, your own or a vendor's. That can include decisions made with an assistant like Copilot.",
+    },
+    {
+      title: 'Verifiable without trusting us',
+      body: 'Each receipt carries an Ed25519 signature and a sha256 fingerprint. Anyone can check it against the public key, without an account.',
+    },
+    {
+      title: 'Replay as of the decision',
+      body: 'What the system knew, the policies that applied and the model version are kept as they were at the moment of the decision, so a later change does not rewrite the past.',
+    },
+    {
+      title: 'Policy results on the record',
+      body: 'Every policy checked, its version and its result are part of the signed receipt, which is what an examiner asks for.',
+    },
+  ],
+  rows: [
+    { capability: 'Primary job', them: 'A general AI assistant across Microsoft 365', thursdai: 'Recording and signing the decisions AI systems make' },
+    { capability: 'Microsoft 365 integration', them: 'Built into Word, Excel, Outlook and Teams', thursdai: 'One API call from any system; not a Microsoft 365 add-in' },
+    { capability: 'Records decisions made by other AI systems', them: 'Not its purpose', thursdai: 'Yes, one signed receipt per decision, including vendor tools' },
+    { capability: 'Signed record anyone can verify', them: 'Not confirmed', thursdai: 'Yes, Ed25519 signature and sha256 fingerprint' },
+    { capability: 'Replay a decision as of its date', them: 'Not confirmed', thursdai: 'Yes, knowledge, policies and model version at the time' },
+    { capability: 'Policy results per decision', them: 'Not confirmed', thursdai: 'Yes, each policy, its version and result on the receipt' },
+    { capability: 'EU AI Act mapping', them: 'Not confirmed', thursdai: 'Published, article by article, on the trust pages' },
+    { capability: 'Security certifications', them: 'SOC 2 Type II, per its trust center', thursdai: 'None held yet; roadmap on the trust page' },
+    { capability: 'HIPAA workloads', them: 'Not confirmed; check its trust center', thursdai: 'Architecture designed for HIPAA workloads; no attestation held' },
+  ],
+};
 
 export default function CompareMicrosoftCopilotPage() {
-  return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <Label>Thursdai vs Microsoft Copilot</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>
-            Microsoft Copilot is the best writing assistant in the world. It is not a decision
-            governance platform.
-          </Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            When your compliance team asks &ldquo;what did the AI say and why,&rdquo; Copilot has
-            no answer. Thursdai does. These are different tools for different problems.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Where Copilot is strong ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Where Copilot is strong</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These are genuine strengths. If your primary need is one of these, Copilot may be the
-            right choice.
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              title="Deep Office 365 integration"
-              body="Copilot is embedded in Word, Excel, Outlook, Teams and every Microsoft application. If your team lives in Microsoft 365, Copilot is the lowest-friction AI available."
-            />
-            <Card
-              variant="feature"
-              title="World-class language model"
-              body="Copilot is powered by GPT-4o. The underlying model quality is excellent: fast, capable and accurate for drafting, summarisation and writing tasks."
-            />
-            <Card
-              variant="feature"
-              title="Enterprise-scale deployment"
-              body="Microsoft's enterprise distribution, security posture and compliance certifications (FedRAMP, ISO 27001) make Copilot easy to clear procurement for large organisations."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Where Thursdai differs ── */}
-      <Section variant="default">
-        <Container>
-          <Heading2>Where Thursdai differs</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons. They&apos;re architectural differences that
-            matter for regulated use cases.
-          </Body>
-          <Grid cols={2} gap="lg">
-            <Card
-              variant="feature"
-              title="Decision audit trail"
-              body="Copilot has no audit trail for decisions. If your auditor asks 'what did the AI say and why', there is no record. Thursdai logs every decision with the knowledge state, policy set and role breakdown that governed it."
-            />
-            <Card
-              variant="feature"
-              title="Role-based deliberation"
-              body="Copilot gives you one AI perspective. Thursdai gives you Legal, Finance and Operations simultaneously, with disagreements flagged and sources cited before the answer reaches you."
-            />
-            <Card
-              variant="feature"
-              title="Policy enforcement at inference"
-              body="Copilot's safety guardrails are prompt-level: the model can reason around them. Thursdai enforces policies as hard constraints at the inference layer. The model cannot quote below your pricing floor or make a regulatory claim without a citation."
-            />
-            <Card
-              variant="feature"
-              title="Decision replay"
-              body="Copilot cannot replay a decision from 6 months ago and show you what knowledge was active. Thursdai's Time-Travel engine lets you reconstruct any decision: what the AI knew, what rules were in effect, what it said."
-            />
-            <Card
-              variant="feature"
-              title="Foundation-model agnostic"
-              body="Copilot is tied to OpenAI models via Microsoft's stack. Thursdai runs on Claude, GPT-4o, or Gemini, whichever model your team prefers."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Feature matrix ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
-                  >
-                    Feature
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
-                    Microsoft Copilot
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
-                    Thursdai
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {MATRIX.map((row) => (
-                  <tr key={row.feature}>
-                    <th
-                      scope="row"
-                      style={{
-                        padding: '0.75rem 1rem',
-                        textAlign: 'left',
-                        fontWeight: 500,
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '14px',
-                        textTransform: 'none',
-                        letterSpacing: 'normal',
-                        color: 'var(--color-text-primary)',
-                        position: 'sticky',
-                        left: 0,
-                        background: 'var(--color-surface-primary)',
-                      }}
-                    >
-                      {row.feature}
-                    </th>
-                    <MatrixCell row={row} col="copilot" />
-                    <MatrixCell row={row} col="thursdai" />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── When Copilot is the right choice ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="When Copilot is the right choice">
-            <p style={{ marginTop: '0.5rem', lineHeight: 1.7 }}>
-              If your team primarily needs AI-assisted writing, summarisation or drafting within
-              Microsoft 365, Copilot is the right choice. It is best-in-class for that use case.
-              Thursdai is the right choice when those AI outputs need to be governed, audited, and
-              replayable.
-            </p>
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── Bottom line ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Bottom line">
-            If your team needs to explain every AI-assisted decision to a regulator, a client or a board, Copilot cannot do that. Thursdai can.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── CTA ── */}
-      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Put your own AI decisions on the record</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            A pilot connects one of your AI systems to your own tenant. Before that, the demo shows a
-            signed sample receipt you can verify yourself, with no login.
-          </Body>
-          <ClosingCTAs primary="pilot" align="center" style={{ marginTop: '1.5rem' }} />
-        </Container>
-      </Section>
-    </>
-  );
+  return <CompareTemplate {...DATA} />;
 }

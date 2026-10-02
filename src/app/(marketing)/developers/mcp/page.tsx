@@ -1,51 +1,57 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
+import Link from 'next/link';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
 import { LABEL_STYLE } from '@/components/typography/scale';
-import { Badge } from '@/components/ui/Badge';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { CodeBlock } from '@/components/ui/CodeBlock';
+import { RequestPilotButton } from '@/components/ui/RequestPilotButton';
+import { TrustDocument, FactList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'MCP Server: Thursdai',
-  description:
-    'The Thursdai MCP server: five read-only audit tools for querying your AI Receipt record from any MCP-compatible client.',
+  title: 'MCP server: Thursdai',
+  description: `The Thursdai MCP server: five read-only tools for querying your ${RECEIPT_TERM} record from Claude Desktop, Cursor or any MCP client. Private beta for design partners.`,
 };
 
-// ── Tool definitions ────────────────────────────────────────────
+const API_BASE = 'https://api.getthursdai.com/v1';
 
-const MCP_TOOLS = [
+// Input schemas are JSON Schema, which is what MCP clients read from a tool's inputSchema.
+const TOOLS = [
   {
     name: 'get_decision_record',
-    description:
-      'Retrieve a specific AI Receipt by ID, with full TCDS schema fields and anchor proof.',
+    description: 'Retrieve one AI Receipt by id with every schema field and, optionally, its Merkle anchor proof.',
     schema: {
-      receipt_id: 'string (required)',
-      tenant_id: 'string (required)',
-      include_anchor_proof: 'boolean (optional, default false)',
+      type: 'object',
+      required: ['receipt_id', 'tenant_id'],
+      properties: {
+        receipt_id: { type: 'string', description: 'The receipt id to retrieve' },
+        tenant_id: { type: 'string', description: 'Your tenant identifier' },
+        include_anchor_proof: { type: 'boolean', default: false, description: 'Include the Merkle anchor proof' },
+      },
     },
-    curlExample: `curl "https://api.getthursdai.com/v1/receipts/rec_01HXYZ..." \\
+    curl: `curl "${API_BASE}/receipts/rcpt_7f3a9c21b84e?include_anchor_proof=true" \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "X-Tenant-ID: acme-financial"`,
   },
   {
     name: 'search_decisions',
-    description:
-      'Search the decision record by source system, date range, outcome, policy flag or compliance status.',
+    description: 'Search the record by source system, date range or policy result.',
     schema: {
-      tenant_id: 'string (required)',
-      source: 'string (optional)',
-      from: 'ISO8601 timestamp (optional)',
-      to: 'ISO8601 timestamp (optional)',
-      compliance_status: "'pass' | 'flag' | 'block' (optional)",
-      limit: 'number (optional, default 20)',
-      cursor: 'string (optional, for pagination)',
+      type: 'object',
+      required: ['tenant_id'],
+      properties: {
+        tenant_id: { type: 'string', description: 'Your tenant identifier' },
+        source: { type: 'string', description: 'Filter by source system' },
+        from: { type: 'string', format: 'date-time', description: 'Start of date range (ISO 8601)' },
+        to: { type: 'string', format: 'date-time', description: 'End of date range (ISO 8601)' },
+        compliance_status: { type: 'string', enum: ['pass', 'flag', 'block'], description: 'Filter by policy result' },
+        limit: { type: 'number', default: 20, description: 'Maximum results to return' },
+        cursor: { type: 'string', description: 'Pagination cursor from a prior response' },
+      },
     },
-    curlExample: `curl -X POST https://api.getthursdai.com/v1/receipts/search \\
+    curl: `curl -X POST ${API_BASE}/receipts/search \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -57,65 +63,60 @@ const MCP_TOOLS = [
   },
   {
     name: 'verify_anchor',
-    description:
-      'Verify the Merkle chain anchor for one or more receipts, confirming the record has not been altered.',
+    description: 'Verify the Merkle anchor for one or more receipts, confirming the record has not been altered.',
     schema: {
-      receipt_ids: 'string[] (required)',
-      tenant_id: 'string (required)',
+      type: 'object',
+      required: ['receipt_ids', 'tenant_id'],
+      properties: {
+        receipt_ids: { type: 'array', items: { type: 'string' }, description: 'One or more receipt ids to verify' },
+        tenant_id: { type: 'string', description: 'Your tenant identifier' },
+      },
     },
-    curlExample: `curl -X POST https://api.getthursdai.com/v1/receipts/verify \\
+    curl: `curl -X POST ${API_BASE}/receipts/verify \\
   -H "Authorization: Bearer thy_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
-    "receipt_ids": ["rec_01HXYZ...", "rec_01HABC..."],
+    "receipt_ids": ["rcpt_7f3a9c21b84e"],
     "tenant_id": "acme-financial"
   }'`,
   },
   {
     name: 'get_coverage_summary',
-    description:
-      'Return a governance coverage summary: total decision count, compliance pass/fail rates and framework status across a tenant.',
+    description: 'Decision counts and policy pass and fail rates across a tenant for a period.',
     schema: {
-      tenant_id: 'string (required)',
-      from: 'ISO8601 timestamp (optional)',
-      to: 'ISO8601 timestamp (optional)',
+      type: 'object',
+      required: ['tenant_id'],
+      properties: {
+        tenant_id: { type: 'string', description: 'Your tenant identifier' },
+        from: { type: 'string', format: 'date-time', description: 'Start of reporting period (ISO 8601)' },
+        to: { type: 'string', format: 'date-time', description: 'End of reporting period (ISO 8601)' },
+      },
     },
-    curlExample: `curl "https://api.getthursdai.com/v1/coverage?tenant_id=acme-financial&from=2026-01-01T00:00:00Z" \\
+    curl: `curl "${API_BASE}/coverage?tenant_id=acme-financial&from=2026-01-01T00:00:00Z" \\
   -H "Authorization: Bearer thy_live_..."`,
   },
   {
     name: 'list_frameworks',
-    description:
-      'List the compliance frameworks active for a tenant with their status, last audit date and coverage metrics.',
+    description: 'The compliance frameworks active for a tenant, with status, last audit date and coverage.',
     schema: {
-      tenant_id: 'string (required)',
+      type: 'object',
+      required: ['tenant_id'],
+      properties: {
+        tenant_id: { type: 'string', description: 'Your tenant identifier' },
+      },
     },
-    curlExample: `curl "https://api.getthursdai.com/v1/frameworks?tenant_id=acme-financial" \\
+    curl: `curl "${API_BASE}/frameworks?tenant_id=acme-financial" \\
   -H "Authorization: Bearer thy_live_..."`,
   },
 ];
 
-// ── Coming-soon action tools ────────────────────────────────────
-
-const COMING_TOOLS = [
-  {
-    name: 'record_receipt',
-    description: 'Submit a signed AI Receipt from any external system. Ships with the Receipt API.',
-  },
-  {
-    name: 'invoke_role',
-    description: 'Route a question through the Moderator panel. Ships with the Agent API.',
-  },
-  {
-    name: 'stream_moderator_response',
-    description: 'Stream the Moderator reconciliation in real time as role answers arrive.',
-  },
+const NOT_YET = [
+  { name: 'record_receipt', description: 'Record a receipt from an MCP client.' },
+  { name: 'invoke_role', description: 'Route a question through the Moderator panel.' },
+  { name: 'stream_moderator_response', description: 'Stream the Moderator reconciliation as role answers arrive.' },
 ];
 
-// ── Installation snippets ───────────────────────────────────────
-
-const CLAUDE_DESKTOP_CONFIG = `// ~/.claude/claude_desktop_config.json
-{
+const SERVER_ENTRY = `{
   "mcpServers": {
     "thursdai": {
       "command": "npx",
@@ -128,21 +129,7 @@ const CLAUDE_DESKTOP_CONFIG = `// ~/.claude/claude_desktop_config.json
   }
 }`;
 
-const CURSOR_CONFIG = `// .cursor/mcp.json
-{
-  "mcpServers": {
-    "thursdai": {
-      "command": "npx",
-      "args": ["-y", "@thursdai/mcp-server"],
-      "env": {
-        "THURSDAI_API_KEY": "thy_live_...",
-        "THURSDAI_TENANT_ID": "your-tenant-id"
-      }
-    }
-  }
-}`;
-
-const GENERIC_INSTALL = `# Install globally
+const GENERIC_INSTALL = `# Install
 npm install -g @thursdai/mcp-server
 
 # Run the server
@@ -150,222 +137,131 @@ THURSDAI_API_KEY=thy_live_... \\
 THURSDAI_TENANT_ID=your-tenant-id \\
 thursdai-mcp-server --port 3333`;
 
-// ── Styles ─────────────────────────────────────────────────────
-
-const codeStyle: React.CSSProperties = {
-  display: 'block',
-  background: 'var(--sunk)',
-  border: '1px solid var(--rule)',
-  borderRadius: '2px',
-  padding: '1rem',
-  fontFamily: 'var(--font-mono, monospace)',
-  fontSize: '13px',
-  lineHeight: 1.6,
-  color: 'var(--ink)',
-  overflowX: 'auto',
-  whiteSpace: 'pre',
-  margin: '0',
-};
-
-// ── Page ───────────────────────────────────────────────────────
+const mono: React.CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' };
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
 export default function McpPage() {
   return (
-    <>
-      {/* Hero */}
-      <Section variant="default">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Developers', href: '/developers' },
-              { label: 'MCP Server' },
-            ]}
-          />
-          <Label style={{ marginTop: '1.5rem' }}>MCP Server</Label>
-          <Display style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            Thursdai speaks MCP natively.
-          </Display>
-          <Body variant="large">
-            Five read-only audit tools for querying your AI Receipt record from any
-            MCP-compatible client, including Claude Desktop and Cursor. Action tools for
-            recording decisions and routing through the Moderator panel ship as the Receipt
-            and Agent APIs come online.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* Installation */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1rem' }}>Installation</Heading2>
-          <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '1.25rem', padding: '0.75rem 1rem', background: 'var(--color-surface-secondary)', border: '1px solid var(--color-border-default)', borderRadius: '2px' }}>
-            <strong style={{ color: 'var(--color-text-primary)' }}>Private beta:</strong>{' '}
-            <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@thursdai/mcp-server</code> is available to design partners. Contact{' '}
-            <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>thursdai@getthursdai.com</a> for access.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            <details open style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
-                <span>▶</span> Claude Desktop
-              </summary>
-              <div style={{ padding: '1rem' }}>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
-                  Add to your <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>~/.claude/claude_desktop_config.json</code>:
-                </p>
-                <pre style={codeStyle}>{CLAUDE_DESKTOP_CONFIG}</pre>
+    <TrustDocument
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Developers', href: '/developers' },
+        { label: 'MCP server' },
+      ]}
+      label="MCP server"
+      title="Query the record from any MCP client."
+      lead={
+        <>
+          Five read-only tools for querying your {RECEIPT_TERM} record from Claude Desktop, Cursor or
+          any MCP-compatible client. The server is in private beta for design partners.
+        </>
+      }
+      heroActions={<RequestPilotButton source="hero" variant="primary" size="lg">Request access</RequestPilotButton>}
+      meta={[
+        { label: 'Package', value: '@thursdai/mcp-server' },
+        { label: 'Tools', value: '5, read-only' },
+        { label: 'Status', value: 'Private beta' },
+      ]}
+      sections={[
+        {
+          id: 'install',
+          title: 'Installation',
+          body: (
+            <>
+              <FactList
+                items={[
+                  {
+                    term: 'Claude Desktop',
+                    body: (
+                      <>
+                        Add the server entry to <code style={mono}>claude_desktop_config.json</code>:
+                        on macOS in <code style={mono}>~/Library/Application Support/Claude/</code>, on
+                        Windows in <code style={mono}>%APPDATA%\Claude\</code>.
+                      </>
+                    ),
+                  },
+                  {
+                    term: 'Cursor',
+                    body: (
+                      <>
+                        Add the same entry to <code style={mono}>.cursor/mcp.json</code> in your project
+                        root.
+                      </>
+                    ),
+                  },
+                ]}
+              />
+              <CodeBlock code={SERVER_ENTRY} language="json" filename="claude_desktop_config.json" />
+              <Body>Any other client can run the server over a port:</Body>
+              <CodeBlock code={GENERIC_INSTALL} language="bash" filename="terminal" />
+            </>
+          ),
+        },
+        {
+          id: 'tools',
+          title: 'Tool reference',
+          body: (
+            <>
+              <Body>
+                Each tool calls the REST endpoint shown, documented in the{' '}
+                <Link href="/developers#endpoints" style={UNDERLINED}>
+                  API reference
+                </Link>
+                .
+              </Body>
+              <div style={{ borderTop: '1px solid var(--ink)' }}>
+                {TOOLS.map((tool) => (
+                  <details key={tool.name} style={{ borderBottom: '1px solid var(--rule)' }}>
+                    <summary className="cursor-pointer py-4 grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-x-6 gap-y-1" style={{ listStyle: 'none' }}>
+                      <code style={{ ...mono, fontSize: '15px', fontWeight: 500 }}>{tool.name}</code>
+                      <span style={{ fontSize: '15px', lineHeight: 1.55, color: 'var(--color-text-secondary)' }}>
+                        {tool.description}
+                      </span>
+                    </summary>
+                    <div className="flex flex-col gap-4" style={{ paddingBottom: '1.5rem' }}>
+                      <p className="m-0" style={LABEL_STYLE}>
+                        Input schema
+                      </p>
+                      <CodeBlock code={JSON.stringify(tool.schema, null, 2)} language="json" filename={`${tool.name}.schema.json`} />
+                      <p className="m-0" style={LABEL_STYLE}>
+                        Equivalent request
+                      </p>
+                      <CodeBlock code={tool.curl} language="bash" filename={`${tool.name}.sh`} />
+                    </div>
+                  </details>
+                ))}
               </div>
-            </details>
-
-            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
-                <span>▶</span> Cursor
-              </summary>
-              <div style={{ padding: '1rem' }}>
-                <p style={{ fontSize: '14px', color: 'var(--color-text-secondary)', marginBottom: '0.75rem' }}>
-                  Add to <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>.cursor/mcp.json</code> in your project root:
-                </p>
-                <pre style={codeStyle}>{CURSOR_CONFIG}</pre>
-              </div>
-            </details>
-
-            <details style={{ border: '1px solid var(--color-border-default)', borderRadius: '2px', overflow: 'hidden' }}>
-              <summary style={{ cursor: 'pointer', padding: '0.75rem 1rem', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', listStyle: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--color-surface-secondary)' }}>
-                <span>▶</span> Generic MCP client
-              </summary>
-              <div style={{ padding: '1rem' }}>
-                <pre style={codeStyle}>{GENERIC_INSTALL}</pre>
-              </div>
-            </details>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Tool reference */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '0.5rem' }}>Tool reference</Heading2>
-          <Body style={{ marginBottom: '2rem' }}>Five read-only audit tools, with three action tools coming.</Body>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {MCP_TOOLS.map((tool) => (
-              <details
-                key={tool.name}
-                style={{
-                  border: '1px solid var(--color-border-default)',
-                  borderRadius: '2px',
-                  background: 'var(--color-surface-primary)',
-                  overflow: 'hidden',
-                }}
-              >
-                <summary
-                  style={{
-                    padding: '1rem 1.25rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.75rem',
-                    listStyle: 'none',
-                  }}
-                >
-                  <code
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '14px',
-                      fontWeight: 500,
-                      color: 'var(--color-text-primary)',
-                    }}
-                  >
-                    {tool.name}
-                  </code>
-                  <Badge variant="teal">MCP Tool</Badge>
-                  <span
-                    style={{
-                      fontSize: '14px',
-                      color: 'var(--color-text-secondary)',
-                      flex: 1,
-                    }}
-                  >
-                    {tool.description}
-                  </span>
-                </summary>
-
-                <div
-                  style={{
-                    padding: '1rem 1.25rem 1.25rem',
-                    borderTop: '1px solid var(--color-border-default)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem',
-                  }}
-                >
-                  <div>
-                    <p
-                      style={{ ...LABEL_STYLE, marginBottom: '0.5rem' }}
-                    >
-                      Input schema
-                    </p>
-                    <pre style={codeStyle}>
-                      {JSON.stringify(tool.schema, null, 2)}
-                    </pre>
-                  </div>
-                  <div>
-                    <p
-                      style={{ ...LABEL_STYLE, marginBottom: '0.5rem' }}
-                    >
-                      cURL example
-                    </p>
-                    <pre style={codeStyle}>{tool.curlExample}</pre>
-                  </div>
-                </div>
-              </details>
-            ))}
-          </div>
-
-          {/* Coming-soon action tools */}
-          <Heading2 style={{ marginTop: '2.5rem', marginBottom: '0.5rem' }}>Coming soon</Heading2>
-          <Body style={{ marginBottom: '1.5rem' }}>
-            Action tools shipping with the Receipt and Agent APIs.
-          </Body>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {COMING_TOOLS.map((tool) => (
-              <div
-                key={tool.name}
-                style={{
-                  border: '1px solid var(--color-border-default)',
-                  borderRadius: '2px',
-                  background: 'var(--color-surface-primary)',
-                  padding: '1rem 1.25rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
-                }}
-              >
-                <code
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    color: 'var(--color-text-primary)',
-                  }}
-                >
-                  {tool.name}
-                </code>
-                <Badge variant="muted">Coming soon</Badge>
-                <span
-                  style={{
-                    fontSize: '14px',
-                    color: 'var(--color-text-secondary)',
-                    flex: 1,
-                  }}
-                >
-                  {tool.description}
-                </span>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
-    </>
+            </>
+          ),
+        },
+        {
+          id: 'not-yet',
+          title: 'Not yet available',
+          body: (
+            <>
+              <Body>
+                These action tools are not in the server yet. Until they are, record receipts over
+                REST.
+              </Body>
+              <RecordTable
+                caption="MCP tools not yet available"
+                columns={[
+                  { key: 'name', label: 'Tool', width: '34%' },
+                  { key: 'description', label: 'What it will do' },
+                ]}
+                rows={NOT_YET.map((t) => ({ id: t.name, name: <code style={mono}>{t.name}</code>, description: t.description }))}
+              />
+            </>
+          ),
+        },
+      ]}
+      close={
+        <ClosingBand
+          heading={<>Access comes with a pilot.</>}
+          body="Design partners get the MCP server, the SDKs and API keys for a tenant of their own."
+          actions={<RequestPilotButton source="closing" variant="primary" size="lg">Request access</RequestPilotButton>}
+        />
+      }
+    />
   );
 }

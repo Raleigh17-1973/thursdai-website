@@ -1,100 +1,81 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
+import Link from 'next/link';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
-import { TemplateDownloadCard } from '@/components/content/TemplateDownloadCard';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { TrustDocument, FactList, QAList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { RECEIPT_TERM } from '@/config/site';
+import { EU_AI_ACT_URL } from '@/config/sources';
 
 export const metadata: Metadata = {
-  title: 'EU AI Act Annex III: Thursdai',
+  title: 'EU AI Act mapping for Annex III systems: Thursdai',
   description:
-    'How Thursdai maps to every EU AI Act Annex III obligation. Downloadable FRIA, DPIA and technical documentation templates.',
+    'The EU AI Act obligations for high-risk AI systems listed in Annex III, article by article: who owns each one and what a Thursdai AI Receipt records for it, including the six month log retention floor for deployers.',
 };
 
-// ── Data ───────────────────────────────────────────────────────
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-const ANNEX_III_OBLIGATIONS = [
-  { num: 1, title: 'Risk management system', desc: 'Establish, implement, document and maintain a risk management system throughout the AI system lifecycle.' },
-  { num: 2, title: 'Data and data governance', desc: 'Training, validation and testing data must meet quality criteria appropriate for the intended purpose.' },
-  { num: 3, title: 'Technical documentation', desc: 'Draw up technical documentation before placing the AI system on the market or putting it into service.' },
-  { num: 4, title: 'Record-keeping and logging', desc: 'Automatically record events (logs) throughout the lifetime of the AI system.' },
-  { num: 5, title: 'Transparency and information provision', desc: 'Design and develop AI systems to be sufficiently transparent to enable deployers to interpret outputs.' },
-  { num: 6, title: 'Human oversight', desc: 'Design and develop AI systems to be effectively overseen by natural persons during their use period.' },
-  { num: 7, title: 'Accuracy, robustness and cybersecurity', desc: 'Achieve appropriate levels of accuracy, robustness and cybersecurity throughout the system lifecycle.' },
-  { num: 8, title: 'Quality management system', desc: 'Implement a quality management system ensuring compliance with the regulation.' },
-  { num: 9, title: 'Conformity assessment', desc: 'Undergo a conformity assessment procedure before placing on the market.' },
-  { num: 10, title: 'Registration', desc: 'Register the AI system in the EU database before placing on the market.' },
-  { num: 11, title: 'Corrective actions and reporting', desc: 'Take necessary corrective actions and report serious incidents to market surveillance authorities.' },
-  { num: 12, title: 'Post-market monitoring', desc: 'Establish and document a post-market monitoring system proportional to risk.' },
+// The obligations that apply to high-risk systems, which Annex III lists by use case. Articles
+// 9 to 15 are requirements on the system (met by its provider), 16 to 20 are provider duties,
+// 26 and 27 are deployer duties; 43, 49, 72 and 73 cover conformity, registration and
+// post-market duties. Each row says plainly when Thursdai does not cover it.
+const OBLIGATIONS = [
+  { article: 'Art. 9', title: 'Risk management system', owner: 'Provider', thursdai: 'Not covered. Policy results and the risk tier on each receipt are inputs to your risk reviews.' },
+  { article: 'Art. 10', title: 'Data and data governance', owner: 'Provider', thursdai: 'Not covered. Thursdai does not see training data; each receipt lists the evidence used for that decision.' },
+  { article: 'Art. 11', title: 'Technical documentation', owner: 'Provider', thursdai: 'Not covered. Receipts can be cited as examples of the system in operation.' },
+  { article: 'Art. 12', title: 'Record-keeping (automatic logging)', owner: 'Provider builds it in', thursdai: `A signed ${RECEIPT_TERM} per decision, recorded at the time and kept outside the system that made it. It complements the system's own logs.` },
+  { article: 'Art. 13', title: 'Transparency to deployers', owner: 'Provider', thursdai: 'Each receipt names the system, the operator, the model and its version.' },
+  { article: 'Art. 14', title: 'Human oversight', owner: 'Provider designs; deployer assigns', thursdai: "Each receipt records the reviewer's role and what they did with the output." },
+  { article: 'Art. 15', title: 'Accuracy, robustness and cybersecurity', owner: 'Provider', thursdai: 'Not covered. Replay shows what the system knew at the time, which helps when a result is questioned.' },
+  { article: 'Arts. 16 to 20', title: 'Provider duties: quality management, documentation, logs, corrective action', owner: 'Provider', thursdai: 'Receipts and audit packs are evidence a provider can keep. Thursdai holds no ISO/IEC 42001 certification.' },
+  { article: 'Art. 26(1) to (5)', title: 'Use as instructed, assign oversight, monitor', owner: 'Deployer', thursdai: 'Policies check every decision against your rules, and a failed check is on the receipt.' },
+  { article: 'Art. 26(6)', title: 'Keep logs for at least six months', owner: 'Deployer', thursdai: 'Receipts are retained for your tenant setting. Six months or more meets the floor; sector rules may require longer.' },
+  { article: 'Art. 26(7) and (11)', title: 'Inform workers and the people decisions are about', owner: 'Deployer', thursdai: 'A policy can confirm a required notice was on file before the decision, as the sample receipt does.' },
+  { article: 'Art. 27', title: 'Fundamental rights impact assessment', owner: 'Some deployers', thursdai: 'Not covered. Receipts supply real decisions to test the assessment against.' },
+  { article: 'Arts. 43 and 49', title: 'Conformity assessment and registration', owner: 'Provider', thursdai: 'Not covered. Thursdai does not perform conformity assessments or register systems.' },
+  { article: 'Arts. 72 and 73', title: 'Post-market monitoring and serious incidents', owner: 'Provider', thursdai: 'Receipts are searchable by system, period and policy result, which helps when an incident has to be reconstructed.' },
 ];
 
-const OBLIGATION_MAPPINGS = [
-  { obligation: 'Risk management system', thursdai: 'Policy-as-Code enforces risk controls at inference time. Full audit trail per inference. Risk register exportable via API.' },
-  { obligation: 'Data and data governance', thursdai: 'Two-tier knowledge architecture: standard corpus versioned monthly, tenant corpus fully isolated. No cross-tenant data access.' },
-  { obligation: 'Technical documentation', thursdai: 'Architecture documentation, API reference and deployment guides available at /developers. Downloadable technical pack via security pack form.' },
-  { obligation: 'Record-keeping and logging', thursdai: 'Every inference logged with timestamp, role attribution, knowledge snapshot version and policy state. Logs retained per configured retention window.' },
-  { obligation: 'Transparency', thursdai: 'Sentence-level provenance on every answer. Role attribution breakdown per response. Source confidence scores exposed in API response.' },
-  { obligation: 'Human oversight', thursdai: 'Moderator panel surfaces disagreements for human review. Policy dry-run mode before deployment. Approval workflows configurable per role.' },
-  { obligation: 'Accuracy and robustness', thursdai: 'Role Bench benchmark measures accuracy across domains. Policy-as-Code enforces citation requirements. Confidence scores on all source attributions.' },
-  { obligation: 'Quality management', thursdai: 'ISO 42001 certification planned (see /trust/iso-42001). SOC 2 Type II certification planned. Change management process documented.' },
-  { obligation: 'Conformity assessment', thursdai: 'Self-assessment completed. Third-party assessment planned; no date yet. Results will be published at /trust/certifications.' },
-  { obligation: 'Registration', thursdai: 'EU database registration planned. We will complete it as required for production deployments under the Act.' },
-  { obligation: 'Corrective actions', thursdai: 'Incident response process documented. Security incidents reported to customers within 72 hours per SLA. Quarterly security bulletins.' },
-  { obligation: 'Post-market monitoring', thursdai: 'Continuous policy compliance monitoring. Role Bench quarterly refresh. Customer anomaly reporting via /developers/api.' },
-];
-
-const ANNEX_FAQ = [
+const FAQ = [
   {
-    question: 'Does Thursdai qualify as a high-risk AI system under Annex III?',
-    answer: 'Thursdai is infrastructure. It enables deployers to build governed AI applications. Whether a specific deployment qualifies as high-risk depends on the use case and sector. Our compliance team can advise on your specific context.',
+    question: 'What is Annex III?',
+    answer:
+      'Annex III is the list of high-risk use cases in the EU AI Act. It includes AI used in employment, such as screening or evaluating candidates; creditworthiness and credit scoring; risk assessment and pricing in life and health insurance; and uses in education, essential public services, law enforcement, migration and justice. The obligations themselves are in Articles 9 to 27 and the articles that follow.',
   },
   {
-    question: 'When does Annex III become binding?',
-    answer: 'The EU AI Act Annex III provisions become binding on August 2, 2026, three years after the Act entered into force on August 2, 2023.',
+    question: 'When do the obligations apply?',
+    answer:
+      'The Act entered into force on 1 August 2024. Under the Act as adopted, the obligations for high-risk systems listed in Annex III apply from 2 August 2026. The European Commission has proposed, in its digital omnibus package, to delay that date. Until a change is adopted, the date in the Act stands, so check the current text before you plan around it.',
   },
   {
-    question: 'What is a FRIA and who needs to complete one?',
-    answer: 'A Fundamental Rights Impact Assessment is required for deployers of high-risk AI systems before deployment. It assesses potential impacts on fundamental rights including privacy, non-discrimination and access to essential services.',
+    question: 'How long do deployers have to keep logs?',
+    answer:
+      'Article 26(6) requires deployers of high-risk systems to keep the logs the system generates, to the extent they are under their control, for a period appropriate to the intended purpose and of at least six months, unless other Union or national law, in particular data protection law, provides otherwise.',
   },
   {
-    question: 'Does Thursdai provide audit logs that satisfy Annex III record-keeping requirements?',
-    answer: 'Yes. Every Thursdai inference is logged with a full audit trail including timestamp, role attribution, knowledge snapshot version, active policy set and source citations. Logs are retained per your configured retention window and exportable via API.',
+    question: 'Who has to complete a fundamental rights impact assessment?',
+    answer:
+      'Article 27 applies to deployers that are bodies governed by public law or private entities providing public services, and to deployers of systems used for creditworthiness or credit scoring and for life and health insurance risk assessment and pricing. It is not required of every deployer.',
   },
   {
-    question: 'Is Thursdai registered in the EU AI Act database?',
-    answer: 'Registration is on our roadmap. We will complete it as required for production deployments under the Act; we do not have a specific date yet. Status is updated at /trust/certifications.',
+    question: 'Is Thursdai itself a high-risk AI system?',
+    answer:
+      'Thursdai does not make the decisions it records; the AI systems you connect do. Whether one of your systems is high-risk depends on its use under Annex III, which is a legal assessment for you and your counsel.',
+  },
+  {
+    question: 'Does a receipt make my system compliant?',
+    answer:
+      'No. A receipt is proof of what happened, not that it was right. It is evidence that supports several obligations, mainly deployer log keeping and monitoring, but compliance depends on your system, your processes and your provider.',
   },
 ];
-
-// ── Styles ─────────────────────────────────────────────────────
-
-const thStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  textAlign: 'left',
-  fontSize: '13px',
-  fontWeight: 600,
-};
-
-const tdStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  fontSize: '14px',
-  lineHeight: 1.5,
-  color: 'var(--color-text-secondary)',
-  verticalAlign: 'top',
-};
-
-// ── Page ───────────────────────────────────────────────────────
 
 export default function AnnexIiiPage() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: ANNEX_FAQ.map((q) => ({
+    mainEntity: FAQ.map((q) => ({
       '@type': 'Question',
       name: q.question,
       acceptedAnswer: { '@type': 'Answer', text: q.answer },
@@ -103,137 +84,130 @@ export default function AnnexIiiPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      {/* Hero */}
-      <Section variant="default">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Trust', href: '/trust' },
-              { label: 'EU AI Act Annex III' },
-            ]}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <TrustDocument
+        crumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Trust', href: '/trust' },
+          { label: 'EU AI Act mapping' },
+        ]}
+        label="EU AI Act"
+        title="The EU AI Act, article by article."
+        lead={
+          <>
+            Annex III lists the uses of AI the Act treats as high-risk, from hiring to credit to
+            insurance. This page sets out the obligations that follow for those systems, who owns
+            each one and what a signed {RECEIPT_TERM} records for it, including where Thursdai does not
+            help.
+          </>
+        }
+        meta={[
+          { label: 'Regulation', value: '(EU) 2024/1689' },
+          { label: 'In force', value: '1 August 2024' },
+          { label: 'High-risk obligations', value: '2 August 2026, may change' },
+        ]}
+        sections={[
+          {
+            id: 'scope',
+            title: 'Dates and scope',
+            body: (
+              <>
+                <FactList
+                  items={[
+                    { term: 'In force', body: 'The Act entered into force on 1 August 2024.' },
+                    {
+                      term: 'Applies',
+                      body: 'Under the Act as adopted, the obligations for high-risk systems listed in Annex III apply from 2 August 2026. The European Commission has proposed, in its digital omnibus package, to delay that date. Until a change is adopted the date in the Act stands; check the current text before you plan around it.',
+                    },
+                    {
+                      term: 'Annex III',
+                      body: 'The list of high-risk use cases, including employment, creditworthiness, life and health insurance pricing, education and essential services. Annex III names the uses; the obligations are in the articles below.',
+                    },
+                    {
+                      term: 'Log floor',
+                      body: 'Deployers keep the logs a high-risk system generates, where they control them, for at least six months (Article 26(6)). Providers have a matching duty in Article 19.',
+                    },
+                    {
+                      term: 'Penalties',
+                      body: 'Up to €15 million or 3% of worldwide annual turnover, whichever is higher, for operators that breach these obligations (Article 99(4)).',
+                    },
+                  ]}
+                />
+                <Body variant="small">
+                  Source: Regulation (EU) 2024/1689 on{' '}
+                  <a href={EU_AI_ACT_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
+                    EUR-Lex
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                  . This page is a summary, not legal advice.
+                </Body>
+              </>
+            ),
+          },
+          {
+            id: 'obligations',
+            title: 'Obligations for high-risk systems',
+            body: (
+              <>
+                <Body>
+                  Most requirements fall on the provider that builds the system; deployers that use
+                  it carry their own duties in Article 26. The right-hand column says what a receipt
+                  contributes, and says so when the answer is nothing.
+                </Body>
+                <RecordTable
+                  caption="Obligations for high-risk AI systems under the EU AI Act, who owns each one and what Thursdai records for it"
+                  columns={[
+                    { key: 'title', label: 'Obligation', width: '30%' },
+                    { key: 'article', label: 'Article', width: '13%' },
+                    { key: 'owner', label: 'Owner', width: '17%' },
+                    { key: 'thursdai', label: 'What Thursdai records' },
+                  ]}
+                  rows={OBLIGATIONS.map((o) => ({
+                    id: o.article,
+                    title: o.title,
+                    article: <span style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' }}>{o.article}</span>,
+                    owner: o.owner,
+                    thursdai: o.thursdai,
+                  }))}
+                />
+              </>
+            ),
+          },
+          {
+            id: 'faq',
+            title: 'Questions',
+            body: <QAList items={FAQ} />,
+          },
+          {
+            id: 'related',
+            title: 'Related',
+            body: (
+              <Body>
+                For compliance teams, the{' '}
+                <Link href="/solutions/compliance" style={UNDERLINED}>
+                  compliance and risk
+                </Link>{' '}
+                page shows how receipts fit a program. For hiring, see{' '}
+                <Link href="/solutions/people" style={UNDERLINED}>
+                  HR and People
+                </Link>
+                . Where Thursdai stands on its own certifications is on the{' '}
+                <Link href="/trust#certifications" style={UNDERLINED}>
+                  certification roadmap
+                </Link>
+                .
+              </Body>
+            ),
+          },
+        ]}
+        close={
+          <ClosingBand
+            heading="See what a receipt records."
+            body="The demo shows one high-risk hiring decision as a signed receipt you can verify, with the replay and the audit pack behind it."
+            actions={<ClosingCTAs primary="demo" />}
           />
-          <Label style={{ marginTop: '1.5rem', display: 'block' }}>EU AI Act Annex III</Label>
-          <Display style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            Built for the EU AI Act.
-          </Display>
-          <Body variant="large">
-            The EU AI Act Annex III binding date is August 2, 2026. Thursdai is designed to help
-            regulated enterprises meet every obligation, with documented controls, audit trails
-            and downloadable compliance templates.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* What Annex III requires */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>What Annex III requires</Heading2>
-          <ol
-            style={{
-              marginTop: '1.5rem',
-              paddingLeft: '1.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              listStyle: 'decimal',
-            }}
-          >
-            {ANNEX_III_OBLIGATIONS.map((item) => (
-              <li key={item.num} style={{ color: 'var(--color-text-secondary)', fontSize: '15px', lineHeight: 1.6 }}>
-                <strong style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>
-                  {item.title}:
-                </strong>{' '}
-                {item.desc}
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </Section>
-
-      {/* Mapping table */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1rem' }}>How Thursdai maps</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Annex III Obligation</th>
-                  <th style={thStyle}>Thursdai Control / Feature</th>
-                </tr>
-              </thead>
-              <tbody>
-                {OBLIGATION_MAPPINGS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)', whiteSpace: 'nowrap' }}>
-                      {row.obligation}
-                    </td>
-                    <td style={tdStyle}>{row.thursdai}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Downloadable templates */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Compliance templates</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Ready-to-use templates pre-populated for a hypothetical Thursdai deployment. Adapt to
-            your organisation before submission.
-          </Body>
-          <Grid cols={3} gap="md" style={{ marginTop: '1.5rem' }}>
-            <TemplateDownloadCard
-              title="FRIA Template"
-              desc="Fundamental Rights Impact Assessment, pre-populated for a typical Thursdai enterprise deployment."
-              href="/api/templates/fria"
-            />
-            <TemplateDownloadCard
-              title="DPIA Template"
-              desc="Data Protection Impact Assessment covering Thursdai&apos;s data processing activities and tenant isolation architecture."
-              href="/api/templates/dpia"
-            />
-            <TemplateDownloadCard
-              title="Technical Documentation"
-              desc="Technical documentation template meeting Annex IV requirements, pre-filled with Thursdai architecture details."
-              href="/api/templates/tech-doc"
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* FAQ */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '2rem' }}>Frequently asked questions</Heading2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            {ANNEX_FAQ.map((item, i) => (
-              <div key={i}>
-                <p
-                  style={{
-                    fontSize: '17px',
-                    fontWeight: 500,
-                    color: 'var(--color-text-primary)',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  {item.question}
-                </p>
-                <Body>{item.answer}</Body>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
+        }
+      />
     </>
   );
 }
