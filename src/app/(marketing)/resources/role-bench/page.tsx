@@ -1,142 +1,83 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Badge } from '@/components/ui/Badge';
-import { Callout } from '@/components/ui/Callout';
-import { Card } from '@/components/ui/Card';
-import {
-  RoleBenchTable,
-  RoleBenchSubmitForm,
-  RoleBenchNotifyForm,
-} from '@/components/content/RoleBenchTable';
+import { LABEL_STYLE } from '@/components/typography/scale';
+import { LongForm, LongFormSection } from '@/components/templates/LongForm';
+import { RoleBenchSubmitForm, RoleBenchNotifyForm } from '@/components/content/RoleBenchTable';
 
 export const metadata: Metadata = {
   title: 'Role Bench: Thursdai',
   description:
-    'Benchmark comparing AI agent accuracy across roles and domains. Methodology, leaderboard and raw data.',
+    'Role Bench is the evaluation Thursdai is building to compare role-panel answers with single-model answers across domains. No results are published yet.',
 };
+
+const MEASURES = [
+  {
+    label: 'Accuracy',
+    body: 'Whether the answer is right for its domain, scored by domain experts against a reference answer set.',
+  },
+  {
+    label: 'Citation precision',
+    body: 'Whether each cited source exists in the knowledge base and supports the claim it is cited for.',
+  },
+  {
+    label: 'Policy compliance',
+    body: 'Whether the answer meets the active policy set, recorded as pass or fail for each rule.',
+  },
+];
 
 export default function RoleBenchPage() {
   return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-            <Label>Role Bench</Label>
-            <Badge variant="amber">Results publishing Q3 2026</Badge>
-          </div>
-          <Heading1>Measuring governed AI accuracy across domains.</Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            Role Bench evaluates how accurately AI systems answer questions in Legal, Finance,
-            Engineering, HR, Compliance and three other domains, with and without role-based
-            moderation, policy enforcement and tenant knowledge.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Real data callout ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="warning" title="Real data only">
-            Role Bench scores will be published when the evaluation suite is complete, not before.
-            We&apos;re running the benchmark in Q2 2026. Estimated publication: July 2026. Subscribe
-            below to be notified when results are live.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── Leaderboard shell ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Leaderboard</Heading2>
-          <RoleBenchTable />
-        </Container>
-      </Section>
-
-      {/* ── Methodology ── */}
-      <Section>
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>How we measure</Heading2>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              title="Cross-domain accuracy"
-              body="Does the role give the right answer for its domain? Scored by domain experts against a ground-truth answer set. 100-point scale."
-            />
-            <Card
-              variant="feature"
-              title="Citation precision"
-              body="Are the sources cited actually in the knowledge base, and do they support the cited claim? Scored by automated verification against indexed corpus. 100-point scale."
-            />
-            <Card
-              variant="feature"
-              title="Policy compliance"
-              body="Does the answer comply with the active policy set? Tested with a suite of 50 policy rules across 6 policy types. Binary pass/fail, reported as percentage."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Download raw data (disabled) ── */}
-      <Section variant="compact">
-        <Container>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-            <p style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-text-primary)', margin: 0 }}>
-              Download raw data
-            </p>
-            <button
-              disabled
-              aria-label="Raw data available Q3 2026"
-              title="Available Q3 2026"
-              style={{
-                padding: '8px 16px',
-                borderRadius: '2px',
-                border: '1px solid var(--color-border-default)',
-                background: 'var(--color-surface-primary)',
-                color: 'var(--color-text-tertiary)',
-                fontSize: '14px',
-                fontWeight: 500,
-                cursor: 'not-allowed',
-              }}
+    <LongForm
+      meta={['Research', 'Role Bench', 'No results published']}
+      title="A benchmark for role-based answers."
+      lead={
+        <>
+          Role Bench is the evaluation we are building to compare answers from Thursdai&apos;s role panel
+          with single-model answers in domains such as Legal, Finance, Engineering and HR. It has no results
+          yet, and this page shows none until the evaluation is complete.
+        </>
+      }
+    >
+      <LongFormSection title="What it measures">
+        <Body>
+          The design is simple. Each question is answered twice: once by the role panel with its policies and tenant knowledge,
+          once by a single model with the same question and no panel. Both answers are scored the same way.
+        </Body>
+        <dl className="m-0" style={{ borderTop: '1px solid var(--rule)' }}>
+          {MEASURES.map((m) => (
+            <div
+              key={m.label}
+              className="grid grid-cols-1 sm:grid-cols-[176px_1fr] gap-x-6 gap-y-1"
+              style={{ padding: '1.25rem 0', borderBottom: '1px solid var(--rule)' }}
             >
-              Download CSV: Available Q3 2026
-            </button>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── Submit a role ── */}
-      <Section>
-        <Container>
-          <div>
-            <Heading2 style={{ marginBottom: '0.5rem' }}>Submit a role for evaluation</Heading2>
-            <Body style={{ marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>
-              Have a role configuration you&apos;d like included in the v1 benchmark? Submit it
-              below and we&apos;ll be in touch if it&apos;s selected.
-            </Body>
-            <div style={{ maxWidth: '560px' }}>
-              <RoleBenchSubmitForm />
+              <dt style={{ ...LABEL_STYLE, color: 'var(--ink)', paddingTop: '0.3rem' }}>{m.label}</dt>
+              <dd className="m-0" style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
+                {m.body}
+              </dd>
             </div>
-          </div>
-        </Container>
-      </Section>
+          ))}
+        </dl>
+        <Body>
+          When there are results we intend to publish the method and the scores by domain, including the
+          domains where the panel does worse.
+        </Body>
+      </LongFormSection>
 
-      {/* ── Email notification signup ── */}
-      <Section variant="compact" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2 style={{ marginBottom: '0.5rem' }}>Get notified when results are live</Heading2>
-          <Body style={{ marginBottom: '1.5rem', color: 'var(--color-text-secondary)' }}>
-            We&apos;ll email you once when the first Role Bench results are published. No marketing, just the one notification.
-          </Body>
+      <LongFormSection title="Submit a role">
+        <Body>
+          If you have a role configuration you would like evaluated, send it here. We will be in touch if it
+          is selected.
+        </Body>
+        <RoleBenchSubmitForm />
+      </LongFormSection>
+
+      <LongFormSection title="Hear when there are results">
+        <Body>We will email you once, when the first results are published, and for nothing else.</Body>
+        <div>
           <RoleBenchNotifyForm />
-        </Container>
-      </Section>
-    </>
+        </div>
+      </LongFormSection>
+    </LongForm>
   );
 }

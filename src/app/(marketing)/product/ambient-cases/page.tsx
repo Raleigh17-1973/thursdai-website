@@ -1,201 +1,91 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Container } from '@/components/layout/Container';
-import { Section } from '@/components/layout/Section';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { ButtonLink } from '@/components/ui/Button';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { Callout } from '@/components/ui/Callout';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { ProductPillar } from '@/components/templates/ProductPillar';
+import { AmbientCaseDiagram } from '@/components/diagrams/AmbientCaseDiagram';
+import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
+import { SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
+import { LABEL_STYLE } from '@/components/typography/scale';
 
 export const metadata: Metadata = {
   title: 'Ambient Cases: Thursdai',
   description:
-    'Background case files that populate automatically from your event streams. No manual intake. Cases arrive ready for AI-assisted investigation.',
+    'Thursdai watches your event streams and assembles a case file in the background, with the facts, the policies in scope and the related AI Receipts in place before anyone opens it. Early access with design partners.',
 };
 
-function IconContract() {
+function EarlyAccess() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <polyline points="14 2 14 8 20 8" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <line x1="8" y1="13" x2="16" y2="13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <line x1="8" y1="17" x2="12" y2="17" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconCompliance() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <polyline points="9 12 11 14 15 10" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconIncident() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <line x1="12" y1="9" x2="12" y2="13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconEvidence() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M8 12h8M8 8h8M8 16h4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconRole() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.25" />
-      <circle cx="17" cy="10" r="3" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconAudit() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <polyline points="14 2 14 8 20 8" stroke="currentColor" strokeWidth="1.25" />
-      <polyline points="9 15 11 17 15 13" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <p className="m-0" style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '1rem', fontSize: '15px', lineHeight: 1.55, color: 'var(--ink)' }}>
+      <span style={{ ...LABEL_STYLE, display: 'block', marginBottom: '0.25rem' }}>Early access</span>
+      Ambient Cases runs with design partners on one regulated workflow at a time. To try it on yours,
+      request a pilot.
+    </p>
   );
 }
 
 export default function AmbientCasesPage() {
   return (
-    <>
-      {/* ── 1. Hero ─────────────────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Product', href: '/product' },
-              { label: 'Ambient Cases' },
-            ]}
-          />
-          <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem' }}>
-            <Callout variant="info" title="Early access">
-              Ambient Cases is available to design partners. Capabilities and integrations
-              expand as the product ships. Reach out at{' '}
-              <a href="mailto:thursdai@getthursdai.com" style={{ color: 'var(--color-accent)' }}>
-                thursdai@getthursdai.com
-              </a>{' '}
-              to join the program.
-            </Callout>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <Label>Ambient Cases</Label>
-            <Display>Cases that build themselves.</Display>
-            <Body variant="large">
-              Thursdai monitors your event streams and builds structured case files in the
-              background. By the time an investigator opens a case, the facts are assembled, the
-              relevant policies are identified, and the AI panel is ready.
-            </Body>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
-              <ButtonLink href="#event-sources" variant="secondary">View event sources</ButtonLink>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── 2. Event sources ────────────────────────────────── */}
-      <Section variant="default" id="event-sources">
-        <Container>
-          <Label>Event sources</Label>
-          <Heading2 style={{ marginTop: '0.5rem', marginBottom: '2.5rem' }}>
-            What triggers a case
-          </Heading2>
-          <Grid cols={3} gap="lg">
-            <Card
-              variant="feature"
-              icon={<IconContract />}
-              title="Contract events"
-              body="New contracts, amendments, renewals and expirations trigger case creation. Thursdai extracts parties, value, terms and risk flags automatically."
-            />
-            <Card
-              variant="feature"
-              icon={<IconCompliance />}
-              title="Compliance triggers"
-              body="Regulatory deadlines, policy version changes and audit events create cases with the relevant obligations pre-populated from your compliance corpus."
-            />
-            <Card
-              variant="feature"
-              icon={<IconIncident />}
-              title="Incident signals"
-              body="Security events, SLA breaches and escalation flags from connected systems create investigation cases with the initial evidence already assembled."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── 3. Investigator role ────────────────────────────── */}
-      <Section variant="default">
-        <Container>
-          <Heading2 style={{ marginBottom: '1rem' }}>
-            Built for the investigator, not the system
-          </Heading2>
-          <Body
-            variant="large"
-            style={{ marginBottom: '2.5rem', color: 'var(--color-text-secondary)' }}
-          >
-            Ambient Cases are designed around how investigators actually work: opening a case
-            should mean starting the analysis, not assembling the facts.
-          </Body>
-          <Grid cols={3} gap="lg">
-            <Card
-              variant="feature"
-              icon={<IconEvidence />}
-              title="Pre-assembled evidence"
-              body="When you open a case, the relevant documents, policy sections and prior decisions are already surfaced. The AI panel has already run the initial analysis."
-            />
-            <Card
-              variant="feature"
-              icon={<IconRole />}
-              title="Role-based perspective"
-              body="Legal sees the contractual risk. Compliance sees the regulatory exposure. Engineering sees the technical blast radius. All in the same case file."
-            />
-            <Card
-              variant="feature"
-              icon={<IconAudit />}
-              title="Audit-ready from day one"
-              body="Every case records who saw what, when and what the AI recommended at each stage. Export to your GRC system with one API call."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── 4. CTA ──────────────────────────────────────────── */}
-      <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>See the record a case is built from</Heading2>
-          <Body
-            variant="large"
-            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
-          >
-            Cases are assembled from receipts like the one in the demo. Verify a signed sample, replay it and download its audit pack. No login.
-          </Body>
-          <ClosingCTAs primary="demo" align="center" />
-        </Container>
-      </Section>
-    </>
+    <ProductPillar
+      crumb="Ambient Cases"
+      label="Ambient Cases"
+      title="Cases that assemble themselves."
+      promise={
+        <>
+          Thursdai watches your event streams and assembles a case file in the background, so the facts, the
+          policies in scope and the related receipts are in place before anyone opens it.
+        </>
+      }
+      status={<EarlyAccess />}
+      visual={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} style={{ marginLeft: 'auto' }} />}
+      visualNote="A case file links the receipts for the AI decisions it touches, like this sample."
+      facts={{
+        label: 'A case file',
+        title: 'What a case starts with.',
+        items: [
+          {
+            label: 'Triggers',
+            body: <>Contract events, policy changes, regulatory deadlines and incident signals from connected systems.</>,
+          },
+          {
+            label: 'Contents',
+            body: (
+              <>
+                The facts from the triggering events, the policies in scope and the receipts for related AI
+                decisions, in the order they happened.
+              </>
+            ),
+          },
+          {
+            label: 'Record',
+            body: <>Who opened the case, what they saw and what was recommended at each stage, kept like any other record.</>,
+          },
+        ],
+      }}
+      diagram={{
+        label: 'Case assembly',
+        title: 'Events in, a case file out.',
+        body: (
+          <>
+            Most events pass by. The ones that match a case rule are gathered into one file with the policies
+            and receipts that bear on them.
+          </>
+        ),
+        figure: <AmbientCaseDiagram />,
+      }}
+      verify={
+        <>
+          The receipts inside a case file are the same signed receipts, so each one can be verified on its
+          own, outside the case.
+        </>
+      }
+      close={{
+        title: 'See the record a case is built from.',
+        body: (
+          <>
+            Cases are assembled from receipts like the one in the demo. Verify a signed sample, replay it and
+            download its audit pack. No login.
+          </>
+        ),
+      }}
+    />
   );
 }

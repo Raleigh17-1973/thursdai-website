@@ -1,150 +1,136 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
+import { Heading2 } from '@/components/typography/Heading';
 import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { ButtonLink } from '@/components/ui/Button';
+import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
+import { ProductPillar } from '@/components/templates/ProductPillar';
+import { ThreeStepsDiagram } from '@/components/diagrams/ThreeStepsDiagram';
+import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
+import { SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
+import { RECEIPT_TERM, RECEIPT_TERM_PLURAL } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Everything that goes on the record: Thursdai',
-  description:
-    'Every AI decision becomes a signed AI Receipt. Replay it, bundle it into a compliance pack and see the policies, sources and roles that shaped it.',
+  description: `Thursdai records the decisions your AI systems make, checks them against your policies and signs each one as an ${RECEIPT_TERM} you can replay, bundle for an auditor and verify.`,
 };
 
+// Pillar order is fixed: receipts, replay, packs, policy, knowledge, cases, moderator.
 const PILLARS = [
   {
-    label: 'The record',
-    title: 'AI Receipts',
+    name: RECEIPT_TERM_PLURAL,
     href: '/product/ai-receipts',
-    description:
-      'Every AI decision is recorded as a signed AI Receipt: the answer, the roles, the policies and the sources. The provable record behind every answer.',
-    callout: 'Provable record',
+    line: 'One signed record per decision: what was decided, by which system, under which policies and on what evidence.',
   },
   {
-    label: 'Replay',
-    title: 'Time-Travel',
+    name: 'Time-Travel',
     href: '/product/time-travel',
-    description:
-      'Reopen any AI Receipt exactly as it was, with the knowledge base, role definitions and policy set that were live at that moment.',
-    callout: 'Decision replay',
+    line: 'Replay any decision with the knowledge, policies and roles that were live when it was made.',
   },
   {
-    label: 'Evidence',
-    title: 'Compliance Packs',
+    name: 'Compliance Packs',
     href: '/product/compliance-packs',
-    description:
-      'Bundle the relevant receipts into a signed, framework-shaped evidence pack on demand. The auditor-ready form of the record.',
-    callout: 'Signed audit packs',
+    line: 'Receipts for a framework, period or system, gathered into one signed document for an auditor.',
   },
   {
-    label: 'Constraints',
-    title: 'Policy-as-Code',
+    name: 'Policy-as-Code',
     href: '/product/policy-as-code',
-    description:
-      'Express governance rules in plain YAML. Thursdai enforces them at the inference layer, before any answer reaches a user, and records them on every receipt.',
-    callout: 'Hard constraint enforcement',
+    line: 'Rules written as versioned YAML. Every decision is checked against them and the result is recorded.',
   },
   {
-    label: 'Knowledge',
-    title: 'Two-Tier Knowledge',
+    name: 'Two-Tier Knowledge',
     href: '/product/two-tier-knowledge',
-    description:
-      'A shared standard corpus of regulatory frameworks and best practices, plus a cryptographically isolated tenant layer for your proprietary policies and precedents. Never mixed.',
-    callout: 'Knowledge isolation',
+    line: 'A shared standard corpus and your isolated tenant layer, cited by tier and never mixed.',
   },
   {
-    label: 'Cases',
-    title: 'Ambient Cases',
+    name: 'Ambient Cases',
     href: '/product/ambient-cases',
-    description:
-      'Thursdai monitors your event streams and assembles structured case files in the background. By the time an investigator opens a case, the evidence is already there.',
-    callout: 'Background case assembly',
+    line: 'Case files assembled from your event streams and receipts before anyone opens them. Early access.',
   },
   {
-    label: 'The panel',
-    title: 'Moderator',
+    name: 'Moderator',
     href: '/product/moderator',
-    description:
-      'Legal, Finance and Engineering deliberate before any answer reaches a user. The panel behind every answer, and the substance each receipt records.',
-    callout: 'Multi-role deliberation',
+    line: 'Thursdai’s own role panel. Its answers are recorded like a decision from any other system.',
   },
 ];
 
+function PillarIndex() {
+  return (
+    <Section>
+      <Container>
+        <Label as="p">The parts</Label>
+        <Heading2 style={{ marginTop: '1rem' }}>Seven parts, one record.</Heading2>
+        <ol className="list-none m-0 p-0" style={{ marginTop: '3rem', borderTop: '1px solid var(--ink)' }}>
+          {PILLARS.map((p, i) => (
+            <li
+              key={p.href}
+              className="grid grid-cols-[40px_1fr] md:grid-cols-[64px_minmax(0,4fr)_minmax(0,7fr)] gap-x-6 gap-y-2"
+              style={{ padding: '1.5rem 0', borderBottom: '1px solid var(--rule)' }}
+            >
+              <span style={{ ...LABEL_STYLE, color: 'var(--ink-3)', paddingTop: '0.45rem' }}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 className="m-0" style={H3_STYLE}>
+                <Link href={p.href} style={{ color: 'var(--ink)' }}>
+                  {p.name}
+                </Link>
+              </h3>
+              <p
+                className="m-0 col-start-2 md:col-start-3"
+                style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)', paddingTop: '0.15rem' }}
+              >
+                {p.line}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </Container>
+    </Section>
+  );
+}
+
 export default function ProductPage() {
   return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <Label>Product</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>
-            Everything that goes on the record.
-          </Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            Every AI decision becomes a provable record. These capabilities, designed together, let
-            regulated enterprises deploy AI that documents every decision, enforces policy
-            automatically and produces audit-ready evidence.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Five pillars ── */}
-      <Section variant="compact">
-        <Container>
-          <Grid cols={3} gap="lg">
-            {PILLARS.map((pillar) => (
-              <Card
-                key={pillar.href}
-                variant="feature"
-                headingLevel={2}
-                title={pillar.title}
-                body={pillar.description}
-                href={pillar.href}
-                className="h-full"
-              />
-            ))}
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── How they fit together ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Designed to work together.</Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Each pillar is useful on its own. Together, they form a complete governance
-            layer: every decision becomes an AI Receipt, Policy-as-Code constrains it, Two-Tier
-            Knowledge grounds it, Time-Travel replays it and a signed audit pack turns the receipts
-            into evidence. The Moderator is the panel behind each answer.
-          </Body>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Every answer is traceable. Every policy is provable. Every audit is answerable.
-          </Body>
-          <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="/demo" variant="primary" size="md">Open the demo</ButtonLink>
-            <ButtonLink href="/developers" variant="secondary" size="md">Read the API docs →</ButtonLink>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── Developers callout ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Built for your stack.</Heading2>
-          <Body style={{ marginTop: '1rem' }}>
-            Thursdai ships with a Python SDK, TypeScript SDK, REST API and an MCP server
-            for agent-to-agent orchestration. If you can make an HTTP call, you can add
-            governance to your AI stack today.
-          </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <ButtonLink href="/developers" variant="secondary" size="md">Developer docs →</ButtonLink>
-          </div>
-        </Container>
-      </Section>
-    </>
+    <ProductPillar
+      label="Product"
+      title="Everything that goes on the record."
+      promise={
+        <>
+          Thursdai records the decisions your AI systems make, checks them against your policies and
+          signs each one as an {RECEIPT_TERM} you can replay, bundle for an auditor and verify.
+        </>
+      }
+      visual={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} style={{ marginLeft: 'auto' }} />}
+      diagram={{
+        label: 'How it works',
+        title: 'Three steps, every decision.',
+        body: (
+          <>
+            Any AI system can send its decision. Thursdai captures it, checks it against your policies
+            and signs it. The receipt has the same shape whichever system decided.
+          </>
+        ),
+        figure: <ThreeStepsDiagram />,
+      }}
+      verify={
+        <>
+          Every part of the product reads from or adds to the same signed receipts, so there is one
+          record to verify, not seven.
+        </>
+      }
+      close={{
+        title: 'Every AI decision, on the record.',
+        body: (
+          <>
+            Open the demo to verify a signed receipt, replay the decision behind it and download its audit
+            pack. No login.
+          </>
+        ),
+      }}
+    >
+      <PillarIndex />
+    </ProductPillar>
   );
 }
