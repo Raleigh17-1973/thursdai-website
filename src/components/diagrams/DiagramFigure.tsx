@@ -1,5 +1,6 @@
 import React from 'react';
 import { LABEL_STYLE } from '@/components/typography/scale';
+import { Reveal } from '@/components/motion/Reveal';
 import { NARROW_W, WIDE_W } from './kit';
 
 export interface LegendItem {
@@ -39,28 +40,30 @@ export function DiagramFigure({ title, wide, narrow, legend }: DiagramFigureProp
   const cols =
     legend.length >= 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : legend.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2';
   return (
-    <figure className="m-0" style={{ borderTop: '1px solid var(--ink)' }}>
-      <div style={{ padding: '0.75rem 0' }}>
-        <span style={{ ...LABEL_STYLE, color: 'var(--ink)' }}>{title}</span>
-      </div>
-      <div className="hidden lg:block" style={plate(WIDE_W, 40)}>
-        {wide}
-      </div>
-      <div className="lg:hidden" style={plate(NARROW_W, 32)}>
-        {narrow}
-      </div>
-      <figcaption style={{ borderTop: '1px solid var(--rule)' }}>
-        <dl className={`m-0 grid grid-cols-1 ${cols} gap-x-8 gap-y-6`} style={{ paddingTop: '1.5rem' }}>
-          {legend.map((l) => (
-            <div key={l.term}>
-              <dt style={{ ...LABEL_STYLE, color: 'var(--ink)' }}>{l.term}</dt>
-              <dd className="m-0" style={{ marginTop: '0.5rem', fontSize: '15px', lineHeight: 1.55, color: 'var(--color-text-secondary)' }}>
-                {l.detail}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </figcaption>
-    </figure>
+    <Reveal>
+      <figure className="m-0" style={{ borderTop: '1px solid var(--ink)' }}>
+        <div style={{ padding: '0.75rem 0' }}>
+          <span style={{ ...LABEL_STYLE, color: 'var(--ink)' }}>{title}</span>
+        </div>
+        <div className="hidden lg:block" style={plate(WIDE_W, 40)}>
+          {wide}
+        </div>
+        <div className="lg:hidden" style={plate(NARROW_W, 32)}>
+          {narrow}
+        </div>
+        <figcaption style={{ borderTop: '1px solid var(--rule)' }}>
+          <dl className={`m-0 grid grid-cols-1 ${cols} gap-x-8 gap-y-6`} style={{ paddingTop: '1.5rem' }}>
+            {legend.map((l) => (
+              <div key={l.term}>
+                <dt style={{ ...LABEL_STYLE, color: 'var(--ink)' }}>{l.term}</dt>
+                <dd className="m-0" style={{ marginTop: '0.5rem', fontSize: '15px', lineHeight: 1.55, color: 'var(--color-text-secondary)' }}>
+                  {l.detail}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </figcaption>
+      </figure>
+    </Reveal>
   );
 }

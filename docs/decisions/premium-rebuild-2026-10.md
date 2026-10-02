@@ -164,6 +164,23 @@ Stash `stash@{0}` ("WIP copy edits (pre site/integrity-week1)"), left in place. 
 | trust | Current / In progress badge layout | Rejected: superseded by the roadmap table. |
 | home, product/* | All hunks | Skipped: not owned by this wave (home rebuilt in 3b; product pages belong to the product agent). |
 
+### Wave 4: motion and visuals
+
+| # | Decision | Why | Confidence |
+|---|---|---|---|
+| W4-1 | No motion library. The three behaviours are CSS keyframes and transitions plus one shared IntersectionObserver in a ~40-line client island (`components/motion/Reveal.tsx`); `framer-motion` stays unimported. | Motion's `useReducedMotion` and `motion.div` would add a client chunk to every page with a visual; CSS does all three with no JS on first load, and `@media (prefers-reduced-motion: no-preference)` is the reduced-motion switch. Shared JS stays 102 kB. | 95% |
+| W4-2 | Timings live in `src/lib/motion.ts` and as `--motion-*` tokens in globals.css; a unit test fails if they drift, if any animation sits outside the `no-preference` block or if anything loops. | One source of truth that both CSS and TS can read, guarded by a test instead of by memory. | 90% |
+| W4-3 | Signing is CSS only, starting at first paint: fingerprint types in over 600ms (one character per step, clip-path), amber rule draws 450 to 750ms (scaleX from the left), seal fades 750 to 900ms. Total 900ms. Only the home hero and the /demo receipt pass `signing`. | Starting without JS means the signature never waits on hydration; clip-path, transform and opacity keep CLS at zero from the motion and leave LCP (the H1) untouched. | 85% |
+| W4-4 | The SSR markup is always the signed receipt; `data-receipt-state="signing"` only switches the CSS on. Reduced motion has no start state at all. The fingerprint span is `inline-block` in every state so the line never reflows. | No-JS readers, crawlers and reduced motion get the final receipt at first paint (checked in Playwright with `reducedMotion: 'reduce'`). | 95% |
+| W4-5 | Honesty: the signing animation depicts the fixture's existing signature and is not tied to verification; the /demo "Verify" button stays the only thing that verifies, and it calls the real verifier. The ReceiptFrame comment says so. | The animation could be read as "signed just now". It sits next to the sample label, and nothing claims live signing, but it is worth a look. | 80% |
+| W4-6 | Reveal never hides server HTML. After hydration a wrapper is marked `pending` (hidden) only if its top is below the fold, then `in` on first entry; anything already on screen is left alone. Applied to every `DiagramFigure`, the `ProductPillar` visual, the home receipt beat and the audit pack summary (home and /demo). | Crawlers and no-JS readers see everything; nothing visible ever blinks out; above-the-fold visuals cannot become a late LCP. | 90% |
+| W4-7 | Panels: the mega menu drops 4px and the modal rises 4px, both fading over 180ms on the `panel` curve; the scrim fades with them. Both close instantly (they unmount). The mobile drawer keeps its full-width slide (an off-canvas panel has to travel) at the panel timing, and now closes at 120ms. | Matches 6.4c; the drawer is the same behaviour at a different distance, not a fourth one. | 80% |
+| W4-8 | Hover: link underline offset now transitions over 120ms (was 100ms); buttons already darkened through `--btn-bg` (primary to `#2d3d9e`, secondary to the sunk fill), verified in Chromium. Focus rings untouched (2px indigo, 2px offset, verified). The nav chevron's 150ms rotation stays as a state indicator. | 6.5 was mostly in place from Wave 1; the chevron is feedback on a click, not an entrance. | 85% |
+| W4-9 | Blog share card (`resources/blog/[slug]/opengraph-image.tsx`, edge, vendored fonts): the root card's frame with "Journal" and the slug as header, the post title as the decision line, the date (UTC, YYYY-MM-DD) as the timestamp, section and source as fields, the amber rule and the wordmark. No "Signed" seal or hash. Unknown and draft slugs return 404. | A post is not a signed record, so the card borrows the frame and stops short of the claim. Verified by temporarily un-drafting a post and fetching the PNG (reverted). | 80% |
+| W4-10 | No on-page post header component yet. | Every post is a draft, so it would ship unseen; the share card is the useful half. Add it when the first post is approved. | 85% |
+| W4-11 | Screenshots (6.1) left to the quality-gates agent, who owns Playwright. | Ownership split for this wave. | 95% |
+| W4-12 | The remaining CLS (about 0.005 on / and 0.0001 on /demo in Lighthouse) is the web-font swap at about 130ms (nav, wordmark, mono receipt id), identical before and after this wave. Not fixed here. | Out of this wave's files (font loading lives in the root layout); motion itself adds none. | 85% |
+
 ## For review (confidence under 90%)
 
 (Collected at the end.)
@@ -171,6 +188,8 @@ Stash `stash@{0}` ("WIP copy edits (pre site/integrity-week1)"), left in place. 
 Wave 1: W1-3 (85%), W1-6 (70%), W1-7 (80%), W1-8 (75%), W1-9 (85%), W1-10 (80%), W1-11 (80%), W1-12 (85%), W1-13 (85%), W1-14 (85%), W1-20 (80%), W1-21 (80%), W1-23 (85%), W1-25 (85%), W1-27 (85%), W1-29 (85%), W1-30 (85%).
 
 Wave 2: W2-3 (85%), W2-4 (80%), W2-6 (85%), W2-7 (75%), W2-9 (85%), W2-10 (85%), W2-11 (80%), W2-13 (80%), W2-14 (85%), W2-16 (85%), W2-17 (80%), W2-20 (85%), W2-24 (85%).
+
+Wave 4: W4-3 (85%), W4-5 (80%), W4-7 (80%), W4-8 (85%), W4-9 (80%), W4-10 (85%), W4-12 (85%).
 
 Wave 3b: W3b-3 (80%), W3b-5 (80%), W3b-6 (85%), W3b-8 (85%), W3b-9 (85%), W3b-10 (80%), W3b-12 (85%).
 
