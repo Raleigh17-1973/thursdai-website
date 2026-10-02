@@ -17,20 +17,20 @@ import { PolicyEditor } from '@/components/demos/PolicyEditor';
 import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { CertBadge } from '@/components/content/CertBadge';
+import { CERT_ROADMAP } from '@/lib/certifications';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
 
 
 // ── Cert badges data ──────────────────────────────────────────
 
-const CERT_BADGES = [
-  { name: 'SOC 2 Type II', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'ISO 27001', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'ISO 42001', status: 'in-progress' as const, href: '/trust#certifications' },
-  { name: 'HIPAA-eligible Architecture', status: 'ready' as const, href: '/trust#certifications' },
-  { name: 'EU AI Act Annex III', status: 'ready' as const, href: '/trust/annex-iii' },
-  { name: 'FedRAMP Moderate', status: 'in-progress' as const, href: '/trust#certifications' },
-];
+// Single source with the /trust roadmap table, so the two can never disagree.
+const CERT_BADGES = CERT_ROADMAP.map((row) => ({
+  name: row.shortName,
+  status: row.status,
+  quarter: row.targetQuarter,
+  href: '/trust#certifications',
+}));
 
 // ── invoke_role code snippet ───────────────────────────────────
 
