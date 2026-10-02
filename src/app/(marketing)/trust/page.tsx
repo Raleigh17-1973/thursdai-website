@@ -95,9 +95,8 @@ export default function TrustPage() {
             Built so your team, your clients and your auditors all feel confident.
           </Display>
           <p style={{
-            fontSize: '1.25rem', color: 'var(--color-text-secondary)',
-            margin: '0.75rem 0 0',
-            fontStyle: 'italic',
+            fontFamily: 'var(--font-display)', fontSize: '22px', lineHeight: 1.35,
+            color: 'var(--color-text-primary)', margin: '0.75rem 0 0',
           }}>
             &ldquo;We show our work; so your auditors don&apos;t have to.&rdquo;
           </p>

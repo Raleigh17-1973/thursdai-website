@@ -185,7 +185,7 @@ const summaryStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   gap: '0.5rem',
-  background: 'var(--color-surface-secondary)',
+  background: 'var(--color-surface-primary)',
 };
 
 // ── Page ───────────────────────────────────────────────────────
@@ -328,7 +328,7 @@ export default function DevelopersPage() {
       <Section variant="compact">
         <Container>
           <Heading2 style={{ marginBottom: '1.5rem' }}>Developer resources</Heading2>
-          <Grid cols={3} gap="md">
+          <Grid cols={4} gap="md">
             <Card variant="feature" icon={<IconAPI />} title="Reference (on this page)" body="Full REST API reference for the Receipt, Query and Agent APIs. Authenticate with a bearer token and start submitting receipts in minutes." href="#reference" />
             <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="MCP tools for governed agent orchestration including receipt submission, decision replay and policy dry-runs. Works with Claude Desktop, Cursor and any MCP-compatible client." href="/developers/mcp" />
             <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design for receipts, queries and agent calls." href="/developers/sdk" />

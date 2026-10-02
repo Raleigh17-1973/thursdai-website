@@ -1,10 +1,23 @@
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-import { Instrument_Serif, Newsreader } from 'next/font/google';
+import { Geist, Geist_Mono, Instrument_Serif, Newsreader } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SITE_URL } from '@/config/site';
 import './globals.css';
+
+// Geist for text and UI, Latin subset (a fraction of the full variable files the geist
+// package ships: about 54KB together instead of 142KB). Geist Mono stays preloaded because
+// the hero receipt is set in it and a late swap shifts the hero (CLS).
+const geistSans = Geist({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist-sans',
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist-mono',
+});
 
 // Display face (The Record). Variable with the optical-size axis so H1 can sit at
 // opsz 72 and H2 at opsz 36. next/font self-hosts the files at build, so the CSP's
@@ -79,7 +92,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${newsreader.variable} ${instrumentSerif.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${instrumentSerif.variable}`}
     >
       <head>
         {/* Structured data */}

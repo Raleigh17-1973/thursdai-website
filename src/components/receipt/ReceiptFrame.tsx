@@ -84,7 +84,7 @@ export function ReceiptFrame({
 }: ReceiptFrameProps) {
   return (
     <figure
-      className={['rec-receipt m-0 w-full', className].filter(Boolean).join(' ')}
+      className={['rec-receipt m-0', className].filter(Boolean).join(' ')}
       aria-label={label ? `Sample ${term}` : term}
       data-receipt-state={signing ? 'signing' : 'signed'}
       style={{
@@ -93,6 +93,8 @@ export function ReceiptFrame({
         border: '1px solid var(--ink)',
         borderRadius: 0,
         boxShadow: '4px 4px 0 0 var(--ink)',
+        // Leave room for the 4px offset rule so it never pokes past the column.
+        width: 'calc(100% - 4px)',
         maxWidth: '520px',
         ...style,
       }}
@@ -111,8 +113,11 @@ export function ReceiptFrame({
       <div className="px-5 pt-5 pb-5">
         {/* Source: who decided */}
         <p className="m-0" style={{ ...MONO_LABEL, color: 'var(--ink-2)' }}>
-          Decision by <span style={{ color: 'var(--ink)' }}>{source.system}</span>
-          {source.model ? <span> · {source.model}</span> : null}
+          Decision by
+        </p>
+        <p className="m-0 mt-1" style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: 1.45, color: 'var(--ink)' }}>
+          {source.system}
+          {source.model ? <span style={{ color: 'var(--ink-2)' }}> · {source.model}</span> : null}
         </p>
 
         {/* Decision line */}
