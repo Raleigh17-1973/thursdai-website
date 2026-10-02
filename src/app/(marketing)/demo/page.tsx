@@ -1,7 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { statSync } from 'node:fs';
-import path from 'node:path';
 import { Section } from '@/components/layout/Section';
 import { Container } from '@/components/layout/Container';
 import { Display } from '@/components/typography/Display';
@@ -18,42 +16,14 @@ import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
 import { SAMPLE_DISPLAY as S, SAMPLE_RECEIPT as R, tamperedId } from '@/lib/receipts/display';
+import { sampleArtifacts } from '@/lib/artifacts';
 
 export const metadata: Metadata = {
   title: 'Demo: Thursdai',
   description: `Verify a signed ${RECEIPT_TERM}, replay what a vendor's hiring screening agent knew at the moment it decided and download the audit pack. Sample tenant, real signatures, no login.`,
 };
 
-// Sizes are read at build time from the files actually served, so the labels cannot drift.
-function kb(file: string): string {
-  try {
-    const bytes = statSync(path.join(process.cwd(), 'public', 'artifacts', file)).size;
-    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-  } catch {
-    return '';
-  }
-}
-
-const DOWNLOADS = [
-  {
-    href: '/artifacts/northwind-sample-receipt.pdf',
-    title: `${RECEIPT_TERM}, PDF`,
-    meta: ['PDF', '1 page', kb('northwind-sample-receipt.pdf')],
-    note: 'The receipt as a printable record, with the signature line.',
-  },
-  {
-    href: '/artifacts/northwind-sample-receipt.json',
-    title: `${RECEIPT_TERM}, JSON`,
-    meta: ['JSON', kb('northwind-sample-receipt.json')],
-    note: 'The signed record, its signature and the public key, so you can check it without us.',
-  },
-  {
-    href: '/artifacts/northwind-sample-audit-pack.pdf',
-    title: 'Audit pack, PDF',
-    meta: ['PDF', '4 pages', kb('northwind-sample-audit-pack.pdf')],
-    note: 'Cover, receipt, policy evaluation and evidence, signature and verification steps.',
-  },
-];
+const DOWNLOADS = sampleArtifacts();
 
 const PANES = [
   { n: '01', id: 'receipt', title: 'The receipt' },
@@ -216,7 +186,7 @@ export default function DemoPage() {
                       {d.title}
                     </a>
                     <span style={{ ...LABEL_STYLE, display: 'block', marginTop: '0.25rem', color: 'var(--ink-3)' }}>
-                      {d.meta.filter(Boolean).join(' · ')}
+                      {d.meta.join(' · ')}
                     </span>
                     <Body variant="small" style={{ marginTop: '0.25rem' }}>
                       {d.note}

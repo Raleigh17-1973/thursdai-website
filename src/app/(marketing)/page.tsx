@@ -1,38 +1,34 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
-import { Grid } from '@/components/layout/Grid';
 import { Split } from '@/components/layout/Split';
 import { Display } from '@/components/typography/Display';
 import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
-import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
+import { H1_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 import { CodeBlock } from '@/components/ui/CodeBlock';
-import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
-import { SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
-import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
-import { PolicyEditor } from '@/components/demos/PolicyEditor';
-import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
-import { CertBadge } from '@/components/content/CertBadge';
-import { CERT_ROADMAP } from '@/lib/certifications';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { HowItWorksSteps } from '@/components/ui/HowItWorksSteps';
+import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
+import { SAMPLE_HIRING_RECEIPT, SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
+import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
+import { ProofBand, EU_AI_ACT_URL } from '@/components/home/ProofBand';
+import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
+import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
+import { SAMPLE_DISPLAY as S } from '@/lib/receipts/display';
 
+// The two client islands below the fold load as their own chunks (still server-rendered,
+// so nothing shifts); the hero stays a server component.
+const TimeTravelScrubber = dynamic(() =>
+  import('@/components/demos/TimeTravelScrubber').then((m) => m.TimeTravelScrubber),
+);
+const PolicyEditor = dynamic(() => import('@/components/demos/PolicyEditor').then((m) => m.PolicyEditor));
 
-// ── Cert badges data ──────────────────────────────────────────
-
-// Single source with the /trust roadmap table, so the two can never disagree.
-const CERT_BADGES = CERT_ROADMAP.map((row) => ({
-  name: row.shortName,
-  status: row.status,
-  quarter: row.targetQuarter,
-  href: '/trust#certifications',
-}));
-
-// ── invoke_role code snippet ───────────────────────────────────
+// Home: seven beats (plan Item 5). Hero, problem, proof, the receipt once, replay and packs,
+// policy as code, close. Everything else lives on its own page, reachable from nav and footer.
 
 const RECORD_RECEIPT_SNIPPET = `from thursdai import ThursdaiClient
 
@@ -50,35 +46,62 @@ receipt = client.receipts.record(
     },
 )
 
-# The receipt is signed and compliance-checked immediately
+# The receipt is signed and policy-checked on arrival
 print(f"Receipt:  {receipt.id}")
 print(f"Signed:   {receipt.signed_at}")
 print(f"Checks:   {receipt.compliance_results}")`;
 
-// ── Shared inline styles ─────────────────────────────────────
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-const MONO_SMALL: React.CSSProperties = {
-  fontFamily: 'var(--font-mono)',
-  fontSize: '12px',
-  lineHeight: 1.5,
-  letterSpacing: '0.04em',
-  color: 'var(--color-text-secondary)',
-};
-
-const FRAME: React.CSSProperties = {
-  border: '1px solid var(--color-border-default)',
-  borderRadius: '2px',
-  background: 'var(--color-surface-primary)',
-};
-
-const INLINE_LINK: React.CSSProperties = { fontSize: '17px', fontWeight: 500 };
-
-// ── Page ───────────────────────────────────────────────────────
+// The four facts beside the receipt (beat 4). Retention is stated as configured, not promised.
+const RECEIPT_FACTS: { label: string; body: React.ReactNode }[] = [
+  {
+    label: 'Captured',
+    body: (
+      <>
+        The decision and the system that made it, the model and its version, every policy that ran
+        and its result, the evidence used, the human reviewer and the time to the second.
+      </>
+    ),
+  },
+  {
+    label: 'Signed',
+    body: (
+      <>
+        Ed25519 over the receipt&apos;s canonical JSON, with a sha256 fingerprint (
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--ink)' }}>{S.fingerprint}</span>)
+        that changes if a single character does.
+      </>
+    ),
+  },
+  {
+    label: 'Verified',
+    body: (
+      <>
+        Anyone can verify a receipt without an account: recompute the hash and check the signature
+        against the public key.{' '}
+        <Link href="/demo#receipt" style={UNDERLINED}>
+          Verify this one in the demo
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    label: 'Kept',
+    body: (
+      <>
+        Retention is set per tenant, so you can meet the six month minimum for deployers or keep
+        receipts for as long as your own policy or sector rules require.
+      </>
+    ),
+  },
+];
 
 export default function HomePage() {
   return (
     <>
-      {/* ── Section 1: Hero ──────────────────────────────────── */}
+      {/* ── 1. Hero ──────────────────────────────────────────── */}
       <Section variant="compact">
         <Container>
           <Split
@@ -89,27 +112,12 @@ export default function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <Display>Every AI decision, on the record.</Display>
                 <Body variant="large">
-                  Thursdai is AI governance infrastructure that writes an AI Receipt for every
-                  decision your AI makes: the answer, the roles, the policies and the sources.
-                  Audit-ready evidence, not bolted on after.
+                  Thursdai writes a signed {RECEIPT_TERM} for every decision your AI makes, so your
+                  auditors see the answer, the policy and the sources.
                 </Body>
                 <div style={{ marginTop: '0.5rem' }}>
                   <HeroCTAs />
                 </div>
-                <ul
-                  className="list-none m-0 p-0"
-                  style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1.5rem', marginTop: '0.5rem' }}
-                >
-                  {[
-                    '✓ A receipt for every decision',
-                    '✓ Audit-ready evidence',
-                    '✓ EU AI Act ready',
-                  ].map((item) => (
-                    <li key={item} style={LABEL_STYLE}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </div>
             }
             right={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} style={{ marginLeft: 'auto' }} />}
@@ -117,490 +125,166 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Trust band ───────────────────────────────────────── */}
-      <Container>
-        <div
-          style={{
-            borderTop: '1px solid var(--color-border-default)',
-            borderBottom: '1px solid var(--color-border-default)',
-            padding: '1.25rem 0',
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem 2rem',
-            alignItems: 'baseline',
-          }}
-        >
-          <span style={LABEL_STYLE}>Trusted by compliance teams in</span>
-          {[
-            'Financial Services',
-            'Healthcare & Life Sciences',
-            'Human Resources & Workforce',
-            'Legal & Professional Services',
-            'Insurance',
-            'Government Contracting',
-          ].map((industry) => (
-            <span
-              key={industry}
-              style={{ fontSize: '15px', color: 'var(--color-text-secondary)', whiteSpace: 'nowrap' }}
-            >
-              {industry}
-            </span>
-          ))}
-        </div>
-      </Container>
-
-      {/* ── AI Receipts ──────────────────────────────────────── */}
+      {/* ── 2. Problem, then what Thursdai is not ────────────── */}
       <Section>
         <Container>
-          <Label>AI Receipts</Label>
-          <Heading2 style={{ marginTop: '1rem' }}>A signed record for every AI decision.</Heading2>
-          <Body variant="large" style={{ marginTop: '1.5rem' }}>
-            Every time an AI system in your business makes a decision, Thursdai captures it as a signed AI Receipt: the source system, the model, the policies that applied, the sources cited and a tamper-evident signature, written at the moment it occurs, never reconstructed after the fact.
-          </Body>
-
-          <ul
-            className="list-none m-0 p-0 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8"
-            style={{ marginTop: '4rem' }}
-          >
-            {[
-              {
-                title: 'Tamper-evident signature',
-                body: 'Every receipt is anchored in a tamper-evident Merkle chain at the moment it occurs. The record cannot be altered or backdated.',
-              },
-              {
-                title: 'Policy compliance status',
-                body: 'Each receipt records which of your policies ran against the decision and whether they passed or flagged.',
-              },
-              {
-                title: 'Bundled into compliance packs',
-                body: 'Group receipts by framework, time window or AI system and export them as signed evidence for auditors and regulators.',
-              },
-            ].map(({ title, body }) => (
-              <li
-                key={title}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-12">
+            <div className="lg:col-span-7">
+              {/* The label is the section heading, so the outline reads h1, h2, h3 */}
+              <h2 className="m-0" style={LABEL_STYLE}>
+                The problem
+              </h2>
+              <p
+                id="problem"
+                className="m-0"
                 style={{
-                  borderTop: '1px solid var(--color-text-primary)',
-                  paddingTop: '1.25rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.75rem',
+                  marginTop: '1.5rem',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(22px, calc(19.33px + 0.74vw), 30px)',
+                  lineHeight: 1.35,
+                  letterSpacing: '-0.01em',
+                  color: 'var(--ink)',
+                  textWrap: 'pretty',
                 }}
               >
-                <span style={LABEL_STYLE}>✓ Included</span>
-                <h3 style={H3_STYLE}>{title}</h3>
-                <p className="m-0" style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
-                  {body}
-                </p>
-              </li>
-            ))}
-          </ul>
+                Your AI already decides who gets an interview, who gets credit and what a policy
+                costs. When an auditor asks why, the output is often all there is: not the policy it
+                ran under, the sources it used or the person who reviewed it. The EU AI Act puts a
+                price on that gap,{' '}
+                <a href={EU_AI_ACT_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
+                  fines of up to €15 million or 3% of worldwide turnover
+                  <span className="sr-only"> (Article 99, opens in a new tab)</span>
+                </a>{' '}
+                for deployers of high-risk systems that miss their obligations.
+              </p>
+            </div>
 
-          <p className="m-0" style={{ marginTop: '3rem' }}>
-            <Link href="/product/ai-receipts" style={INLINE_LINK}>
-              See AI Receipts in depth →
-            </Link>
-          </p>
-          <Body variant="small" style={{ marginTop: '0.5rem' }}>
-            or <Link href="/demo#receipt">verify the sample receipt in the demo →</Link>
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── How it works ──────────────────────────────────────── */}
-      <Section>
-        <Container>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <Label>How it works</Label>
-            <Heading2 style={{ marginTop: '1rem' }}>Three steps. One trusted answer.</Heading2>
-          </div>
-          <HowItWorksSteps />
-        </Container>
-      </Section>
-
-      {/* ── Investigation bridge ─────────────────────────────── */}
-      <Section>
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <Label>Decision Intelligence</Label>
-                <Heading2>Ask questions of your entire decision record.</Heading2>
-                <Body>
-                  Every receipt Thursdai captures becomes part of a queryable record. Use Thursdai&apos;s agents to investigate patterns, surface anomalies and answer regulators, in plain language, with the receipts as evidence.
-                </Body>
-                <Body>
-                  The more decisions are recorded, the more powerful the investigation. Your receipt history becomes the source of truth your compliance team, legal team and auditors can all query independently.
-                </Body>
-              </div>
-            }
-            right={
-              <ul className="list-none m-0 p-0" style={{ borderTop: '1px solid var(--color-text-primary)' }}>
-                {[
-                  'Which AI systems generated the most compliance flags last quarter?',
-                  'Show me all hiring decisions where confidence was below 80%.',
-                  'Compare override rates across departments for this year.',
-                  'Which decisions were flagged by ll144-bias-audit but still followed?',
-                ].map((query) => (
-                  <li
-                    key={query}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'baseline',
-                      gap: '1rem',
-                      padding: '1.125rem 0',
-                      borderBottom: '1px solid var(--color-border-default)',
-                    }}
-                  >
-                    <span aria-hidden="true" style={{ ...MONO_SMALL, color: 'var(--color-text-primary)' }}>›</span>
-                    <span style={{ fontSize: '17px', color: 'var(--color-text-primary)', lineHeight: 1.5 }}>{query}</span>
-                  </li>
-                ))}
-              </ul>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* ── Solutions / People + executive dashboard ─────────── */}
-      <Section>
-        <Container>
-          <div style={{ textAlign: 'center' }}>
-            <Label>Solutions</Label>
-            <Heading2 style={{ marginTop: '1rem' }}>Put it to work where the stakes are highest.</Heading2>
-            <Body style={{ maxWidth: '640px', margin: '1.5rem auto 3rem' }}>
-              The People space governs hiring and workforce AI: bias-audit evidence, an AI system
-              register and a compliance pack for every framework an HR team answers to. Leaders see
-              it all at a glance.
-            </Body>
-          </div>
-          <ExecutiveDashboard />
-          <p className="m-0" style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link href="/solutions/people" style={INLINE_LINK}>
-              Explore the People space →
-            </Link>
-          </p>
-        </Container>
-      </Section>
-
-      {/* ── Thursdai Agent ───────────────────────────────────── */}
-      <Section>
-        <Container>
-          <Label>Thursdai Agent</Label>
-          <Heading2 style={{ marginTop: '1rem' }}>Governed answers for every question your team asks.</Heading2>
-          <Body variant="large" style={{ marginTop: '1.5rem', marginBottom: '4rem' }}>
-            When your employees use the Thursdai Agent, every answer is grounded in your business&apos;s own knowledge base: your policies, procedures, contracts and guidelines. The agent cannot answer outside what you have approved. Every response is an AI Receipt showing exactly what knowledge was used, which policies applied and what alternatives were considered.
-          </Body>
-
-          <Split
-            ratio="50/50"
-            alignItems="start"
-            gap="xl"
-            left={
-              <div style={{ ...FRAME, border: '1px solid var(--color-text-primary)' }}>
-                {/* Question */}
-                <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--color-text-primary)' }}>
-                  <p className="m-0" style={{ ...LABEL_STYLE, marginBottom: '0.5rem' }}>Employee question</p>
-                  <p className="m-0" style={{ fontFamily: 'var(--font-display)', fontSize: '20px', lineHeight: 1.35, color: 'var(--color-text-primary)' }}>
-                    &ldquo;Can we reject a candidate based on a three-year employment gap?&rdquo;
-                  </p>
-                </div>
-
-                {/* Internal receipt */}
-                <div style={{ padding: '1.25rem 1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.875rem' }}>
-                    <span style={{ ...LABEL_STYLE, color: 'var(--color-text-primary)' }}>AI Receipt: Internal</span>
-                    <span style={{ ...LABEL_STYLE, color: 'var(--color-text-primary)' }}>✓ Signed</span>
-                  </div>
-
-                  <p className="m-0" style={{ fontSize: '15px', color: 'var(--color-text-primary)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                    No. Under Fair Hiring Policy §4.2, employment gaps cannot be used as a disqualifying factor without documented evidence of role-relevant impact. Document your reasoning if this affects a decision.
-                  </p>
-
-                  <p className="m-0" style={{ ...LABEL_STYLE, marginBottom: '0.375rem' }}>Knowledge consulted</p>
-                  {[
-                    'Fair Hiring Policy v2.3, §4.2 Employment Gaps',
-                    'HR Handbook v3.2, Chapter 7: Screening',
-                    'EEOC Guidance 2025, Background Checks',
-                  ].map((source) => (
-                    <div key={source} style={{ padding: '0.4rem 0', borderTop: '1px solid var(--color-border-default)' }}>
-                      <span style={{ ...MONO_SMALL, color: 'var(--color-text-primary)' }}>{source}</span>
-                    </div>
-                  ))}
-
-                  <p className="m-0" style={{ ...LABEL_STYLE, margin: '1rem 0 0.375rem' }}>Policies applied</p>
-                  {[
-                    { label: 'fair-hiring-v2', status: 'passed' },
-                    { label: 'equal-opportunity-v1', status: 'passed' },
-                    { label: 'pii-block', status: 'passed' },
-                  ].map(({ label, status }) => (
-                    <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0', borderTop: '1px solid var(--color-border-default)' }}>
-                      <span style={{ ...MONO_SMALL, color: 'var(--color-text-primary)' }}>{label}</span>
-                      <span style={MONO_SMALL}>✓ {status}</span>
-                    </div>
-                  ))}
-
-                  <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '0.5rem', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid var(--color-text-primary)' }}>
-                    <span style={MONO_SMALL}>Confidence: 94% · Alternatives: 2</span>
-                    <span style={MONO_SMALL}>sha256 f3d9…</span>
-                  </div>
-                </div>
-              </div>
-            }
-            right={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <p className="m-0" style={LABEL_STYLE}>More use cases</p>
-                {[
-                  {
-                    team: 'Legal',
-                    question: 'Can we share this contract excerpt with a prospective vendor?',
-                    answer: 'No. The NDA signed with Acme Corp on 2024-03-15 covers this section under §3.1 (Confidential Business Terms). Sharing requires written consent from your legal team.',
-                    knowledge: ['Acme Corp NDA v1, §3.1', 'Data Classification Policy, Tier 2', 'Vendor Engagement Guidelines'],
-                  },
-                  {
-                    team: 'Finance',
-                    question: 'What is the approval threshold for this software purchase at $42,000?',
-                    answer: 'Purchases between $25,000 and $75,000 require VP-level approval plus a security review. This purchase also triggers a SOC 2 vendor check under your procurement policy.',
-                    knowledge: ['Procurement Policy v4, §2.3 Thresholds', 'Security Review Requirements', 'Vendor Risk Framework'],
-                  },
-                  {
-                    team: 'Operations',
-                    question: 'Do we need a bias audit before rolling out this screening tool?',
-                    answer: 'Yes. Under your AI System Register policy and New York Local Law 144, any AEDT used in hiring requires a bias audit before deployment and annually thereafter.',
-                    knowledge: ['AI System Register Policy v1', 'NYC Local Law 144 Compliance Pack', 'HR Technology Approval Process'],
-                  },
-                ].map(({ team, question, answer, knowledge }) => (
-                  <div
-                    key={team}
-                    style={{ ...FRAME, padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.625rem' }}
-                  >
-                    <span style={{ ...LABEL_STYLE, color: 'var(--color-text-primary)' }}>{team}</span>
-                    <p className="m-0" style={{ fontFamily: 'var(--font-display)', fontSize: '18px', lineHeight: 1.4, color: 'var(--color-text-primary)' }}>
-                      &ldquo;{question}&rdquo;
-                    </p>
-                    <p className="m-0" style={{ fontSize: '15px', color: 'var(--color-text-secondary)', lineHeight: 1.55 }}>{answer}</p>
-                    <div style={{ borderTop: '1px solid var(--color-border-default)', paddingTop: '0.625rem' }}>
-                      <p className="m-0" style={{ ...LABEL_STYLE, marginBottom: '0.25rem' }}>Knowledge consulted</p>
-                      {knowledge.map((k) => (
-                        <p key={k} className="m-0" style={MONO_SMALL}>· {k}</p>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* ── How we compare ────────────────────────────────────── */}
-      <Section>
-        <Container>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <Label>HOW WE COMPARE</Label>
-            <Heading2 style={{ marginTop: '1rem' }}>Most AI tools weren&apos;t built for accountability.</Heading2>
-            <Body style={{ maxWidth: '640px', margin: '1.5rem auto 0' }}>
-              Thursdai is the only platform purpose-built for enterprises where AI decisions need to be explained, audited and traced.
-            </Body>
-          </div>
-          <Grid cols={3} gap="md">
-            {[
-              {
-                competitor: 'Microsoft Copilot',
-                theyGive: 'AI embedded in Office 365: excellent for drafting and writing',
-                thursdaiAdds: 'The audit trail, policy enforcement and decision replay that Copilot cannot provide',
-                keyDifference: 'No policy layer. No moderation. No audit trail.',
-                href: '/compare/microsoft-copilot',
-              },
-              {
-                competitor: 'ChatGPT Enterprise',
-                theyGive: 'A private, powerful instance of the world\'s best language model',
-                thursdaiAdds: 'The governance layer: role-based deliberation, hard-constraint policies and replayable decisions',
-                keyDifference: 'No governance. No roles. No replay.',
-                href: '/compare/chatgpt-enterprise',
-              },
-              {
-                competitor: 'Glean',
-                theyGive: 'Best-in-class enterprise search: finds the document that says X',
-                thursdaiAdds: 'The decision layer: given our policies and our knowledge, what should we do about X (with proof)',
-                keyDifference: 'Knowledge retrieval only. No decisions, no compliance.',
-                href: '/compare/glean',
-              },
-            ].map(({ competitor, theyGive, thursdaiAdds, keyDifference, href }) => (
-              <div
-                key={competitor}
-                style={{ ...FRAME, padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+            <aside
+              aria-label="What Thursdai is not"
+              className="lg:col-start-9 lg:col-span-4 lg:self-end"
+              style={{ borderTop: '1px solid var(--ink)', paddingTop: '1.25rem' }}
+            >
+              <Label as="p">What Thursdai is not</Label>
+              <p
+                className="m-0"
+                style={{
+                  marginTop: '1rem',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '20px',
+                  lineHeight: 1.45,
+                  color: 'var(--ink)',
+                  textWrap: 'pretty',
+                }}
               >
-                <h3 style={H3_STYLE}>{competitor}</h3>
-                <div>
-                  <Label style={{ marginBottom: '0.375rem' }}>They give you</Label>
-                  <Body variant="small">{theyGive}</Body>
-                </div>
-                <div>
-                  <Label style={{ marginBottom: '0.375rem', color: 'var(--color-text-primary)' }}>Thursdai adds</Label>
-                  <Body variant="small" style={{ color: 'var(--color-text-primary)' }}>{thursdaiAdds}</Body>
-                </div>
-                <p
-                  className="m-0"
-                  style={{
-                    borderTop: '1px solid var(--color-border-default)',
-                    paddingTop: '1rem',
-                    fontSize: '15px',
-                    fontWeight: 500,
-                    color: 'var(--color-text-primary)',
-                  }}
-                >
-                  {keyDifference}
-                </p>
-                <Link href={href} style={{ fontSize: '15px', marginTop: 'auto' }}>
-                  Full comparison →
-                </Link>
-              </div>
-            ))}
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Time-Travel ──────────────────────────────────────── */}
-      <Section>
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <Label>Time-Travel</Label>
-                <Heading2>Every AI decision, period-accurate.</Heading2>
-                <Body>
-                  Thursdai records every agent decision with the knowledge base, policies and role
-                  definitions that were active at the time. Move the slider to any point in the
-                  past: see the answer that would have been given then, and what has changed since.
-                </Body>
-                <Link href="/product/time-travel" style={INLINE_LINK}>
-                  See Time-Travel in depth →
-                </Link>
-              </div>
-            }
-            right={<TimeTravelScrubber />}
-          />
-        </Container>
-      </Section>
-
-      {/* ── Policy-as-Code ───────────────────────────────────── */}
-      <Section>
-        <Container>
-          <Split
-            ratio="50/50"
-            alignItems="start"
-            gap="xl"
-            left={<PolicyEditor />}
-            right={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <Label>Policy-as-Code</Label>
-                <Heading2>Rules your AI must follow. No exceptions.</Heading2>
-                <Body>
-                  Tell Thursdai what your AI is and isn&apos;t allowed to do. It will enforce those rules on every answer, automatically. Block sensitive information from leaking. Require sources on any claim. Prevent the AI from quoting below your contract minimums. Works out of the box; full customisation available for technical teams.
-                </Body>
-                <Body>Three policy primitives:</Body>
-                <ul
-                  className="list-none m-0 p-0"
-                  style={{ borderTop: '1px solid var(--color-border-default)' }}
-                >
-                  {[
-                    ['allowed_sources', 'restrict citations to approved knowledge sources'],
-                    ['required_attribution', 'mandate source citation on specified claim types'],
-                    ['pricing_floor', 'prevent the system from quoting below contract minimums'],
-                  ].map(([name, desc]) => (
-                    <li
-                      key={name}
-                      style={{
-                        padding: '0.75rem 0',
-                        borderBottom: '1px solid var(--color-border-default)',
-                        fontSize: '17px',
-                        lineHeight: 1.6,
-                        color: 'var(--color-text-secondary)',
-                      }}
-                    >
-                      <strong style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-mono)', fontWeight: 400, fontSize: '15px' }}>
-                        {name}
-                      </strong>
-                      {': '}
-                      {desc}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/product/policy-as-code" style={INLINE_LINK}>
-                  Read the policy language spec →
-                </Link>
-              </div>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* ── Security & compliance ─────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-          <p className="m-0" style={{ ...LABEL_STYLE, textAlign: 'center', marginBottom: '1.5rem' }}>
-            Security &amp; compliance
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '0.75rem',
-              alignItems: 'center',
-            }}
-          >
-            {CERT_BADGES.map((badge) => (
-              <CertBadge key={badge.name} {...badge} />
-            ))}
+                Thursdai is not a chatbot, not an auditor and not a model. It records what your AI
+                systems decided, signs it and makes it provable. If you need a general assistant,
+                Copilot is better. A receipt is proof of what happened, not that it was right.
+              </p>
+            </aside>
           </div>
         </Container>
       </Section>
 
-      {/* ── Developers band ──────────────────────────────────── */}
-      <Section>
+      {/* ── 3. Proof band: two cells on one rule ─────────────── */}
+      <Section variant="flush">
         <Container>
-          <Split
-            ratio="50/50"
-            alignItems="center"
-            gap="xl"
-            left={
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                <Label>Developers</Label>
-                <Heading2>Any AI system. One call. A signed receipt.</Heading2>
-                <Body>
-                  Wherever a decision happens in your stack, whether your own model, a vendor&apos;s agent or a third-party tool, record it to Thursdai with a single API call. The receipt is signed, compliance-checked and stored against your tenant the moment it lands.
-                </Body>
-                <Link href="/developers" style={INLINE_LINK}>
-                  Explore the developer surface →
-                </Link>
-              </div>
-            }
-            right={
-              <CodeBlock
-                language="python"
-                filename="record_receipt.py"
-                code={RECORD_RECEIPT_SNIPPET}
-              />
-            }
-          />
+          <ProofBand />
         </Container>
       </Section>
 
-      {/* ── Closing CTA band (the page's one ink surface) ───────── */}
-      <Section tone="ink" style={{ textAlign: 'center' }}>
+      {/* ── 4. The receipt, once ─────────────────────────────── */}
+      <Section>
         <Container>
-          <Heading2>Ready to use AI you can actually trust?</Heading2>
-          <Body variant="large" style={{ maxWidth: '520px', margin: '1.5rem auto 2.5rem' }}>
-            Open the demo to verify a signed receipt and replay the decision behind it. No login. Or talk to us about a pilot.
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-12 items-start">
+            <div className="order-2 lg:order-1 lg:col-span-6">
+              <ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ maxWidth: '560px' }} />
+            </div>
+            <div className="order-1 lg:order-2 lg:col-start-8 lg:col-span-5">
+              <Label as="p">The receipt</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>One decision, one signed record.</Heading2>
+              <dl className="m-0" style={{ marginTop: '2.5rem', borderTop: '1px solid var(--ink)' }}>
+                {RECEIPT_FACTS.map((f) => (
+                  <div
+                    key={f.label}
+                    className="grid grid-cols-1 sm:grid-cols-[112px_1fr] gap-x-6 gap-y-1"
+                    style={{ padding: '1.25rem 0', borderBottom: '1px solid var(--rule)' }}
+                  >
+                    <dt style={{ ...LABEL_STYLE, color: 'var(--ink)', paddingTop: '0.3rem' }}>{f.label}</dt>
+                    <dd className="m-0" style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
+                      {f.body}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── 5. Replay and packs: the one interactive moment ──── */}
+      <Section>
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
+            <div className="lg:col-span-7">
+              <Label as="p">Replay and audit packs</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>Replay any decision as it was.</Heading2>
+            </div>
+            <Body className="lg:col-span-5 lg:self-end">
+              The rubric and the model have both changed since this decision. The receipt has not. Move
+              the slider to see what was known at each point, then hand an auditor the signed pack.
+            </Body>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" style={{ marginTop: '3rem' }}>
+            <div className="lg:col-span-7">
+              <TimeTravelScrubber
+                question={HIRING_REPLAY_QUESTION}
+                questionLabel="Replaying"
+                snapshots={HIRING_REPLAY}
+                initialIndex={HIRING_REPLAY_DECISION_INDEX}
+                sliderLabel="Replay requisition JR-204 at a point in time"
+                footnote={SAMPLE_LABEL_SIGNED}
+              />
+            </div>
+            <div className="lg:col-span-5">
+              <AuditPackSummary compact />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── 6. Policy as code ────────────────────────────────── */}
+      <Section>
+        <Container>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
+            <div className="lg:col-span-7">
+              <Label as="p">Policy as code</Label>
+              <Heading2 style={{ marginTop: '1rem' }}>Write the rules once. Every decision meets them.</Heading2>
+            </div>
+            <Body className="lg:col-span-5 lg:self-end">
+              Policies are versioned files your team reviews like code. Any AI system records its
+              decisions with one call, and every receipt names the policy version that checked it.
+            </Body>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" style={{ marginTop: '3rem' }}>
+            <PolicyEditor />
+            {/* The snippet rides alongside the taller editor so the pair stays read together */}
+            <div className="lg:sticky lg:top-24">
+              <CodeBlock language="python" filename="record_receipt.py" code={RECORD_RECEIPT_SNIPPET} />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── 7. Close: the page's one ink band ────────────────── */}
+      <Section tone="ink">
+        <Container>
+          <h2 style={H1_STYLE}>Every AI decision, on the record.</h2>
+          <Body variant="large" style={{ marginTop: '1.5rem' }}>
+            Open the demo to verify a signed receipt and replay the decision behind it, with no login.
+            A pilot connects one of your own AI systems to your own tenant, starting with one decision
+            flow you choose.
           </Body>
-          <ClosingCTAs primary="demo" align="center" />
+          <ClosingCTAs primary="demo" style={{ marginTop: '2.5rem' }} />
         </Container>
       </Section>
     </>
