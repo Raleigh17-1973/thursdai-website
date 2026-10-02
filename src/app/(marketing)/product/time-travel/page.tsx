@@ -9,6 +9,7 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 
@@ -95,7 +96,7 @@ export default function TimeTravelPage() {
               decision with full provenance.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/#replay-demo" variant="primary">Try Time-Travel</ButtonLink>
+              <ButtonLink href="/demo#replay" variant="primary">Open the demo</ButtonLink>
               <ButtonLink href="/developers#reference" variant="secondary">View API docs</ButtonLink>
             </div>
           </div>
@@ -172,16 +173,14 @@ export default function TimeTravelPage() {
       {/* ── 5. CTA ──────────────────────────────────────────── */}
       <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>Try Time-Travel in the demo</Heading2>
+          <Heading2>Replay a signed decision</Heading2>
           <Body
             variant="large"
-            style={{ maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
+            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
           >
-            Move the slider to replay any decision with period-accurate knowledge and policies.
+            The demo replays one hiring decision at the moment it was made: the knowledge, policies and roles it met. No login.
           </Body>
-          <ButtonLink href="/" variant="primary" size="lg">
-            See the demo →
-          </ButtonLink>
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>

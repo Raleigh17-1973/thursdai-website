@@ -12,6 +12,10 @@ import { Card } from '@/components/ui/Card';
 import { ButtonLink } from '@/components/ui/Button';
 import { Callout } from '@/components/ui/Callout';
 import { CodeBlock } from '@/components/ui/CodeBlock';
+import Link from 'next/link';
+import { VerifyReceiptButton } from '@/components/receipt/VerifyReceiptButton';
+import { SAMPLE_DISPLAY } from '@/lib/receipts/display';
+import { SAMPLE_LABEL_SIGNED } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Developers: Thursdai',
@@ -205,14 +209,15 @@ export default function DevelopersPage() {
             language. Use the Thursdai Agent for governed, knowledge-grounded answers. REST API,
             MCP server and TypeScript and Python SDKs.
           </Body>
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <ButtonLink href="#reference" variant="primary" size="md">
-              API reference →
+          <VerifyReceiptButton receiptId={SAMPLE_DISPLAY.id} label="Verify a receipt" className="max-w-[640px]">
+            <ButtonLink href="/developers/sdk" variant="secondary" size="md">
+              Read the SDK guide
             </ButtonLink>
-            <ButtonLink href="/developers/mcp" variant="secondary" size="md">
-              View MCP docs →
-            </ButtonLink>
-          </div>
+          </VerifyReceiptButton>
+          <Body variant="small" style={{ marginTop: '1rem' }}>
+            Runs <code style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' }}>GET /api/verify?id={SAMPLE_DISPLAY.id}</code>{' '}
+            against the signed sample receipt from the <Link href="/demo" style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>demo</Link>. {SAMPLE_LABEL_SIGNED}
+          </Body>
         </Container>
       </Section>
 

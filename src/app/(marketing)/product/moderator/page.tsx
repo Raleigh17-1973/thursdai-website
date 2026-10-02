@@ -12,6 +12,7 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { ModeratorPanel } from '@/components/demos/ModeratorPanel';
@@ -72,7 +73,7 @@ export default function ModeratorPage() {
               your team.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/#moderator-demo" variant="primary">See the demo</ButtonLink>
+              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
               <ButtonLink href="/developers/mcp" variant="secondary">View API docs</ButtonLink>
             </div>
           </div>
@@ -183,16 +184,14 @@ export default function ModeratorPage() {
       {/* ── 6. CTA ──────────────────────────────────────────── */}
       <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>See the full role library</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            Configure roles for Legal, Finance, Engineering, HR and more, or define custom roles
-            for your domain.
+          <Heading2>See the record behind an answer</Heading2>
+          <Body
+            variant="large"
+            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
+          >
+            The demo follows one signed decision end to end: the receipt, the replay and the audit pack. No login.
           </Body>
-          <div style={{ marginTop: '1.5rem' }}>
-            <ButtonLink href="/developers" variant="secondary">
-              Read the role configuration docs
-            </ButtonLink>
-          </div>
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>

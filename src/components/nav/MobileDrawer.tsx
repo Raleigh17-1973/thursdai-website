@@ -135,6 +135,11 @@ export function MobileDrawer({ isOpen, onClose, onRequestDemo }: MobileDrawerPro
                 </li>
               ) : null,
             )}
+            <li>
+              <Link href="/demo" onClick={onClose} className={linkClass} style={{ color: 'var(--ink)' }}>
+                Demo
+              </Link>
+            </li>
           </ul>
         </nav>
 

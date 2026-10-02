@@ -60,7 +60,7 @@ export function TopNav() {
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Main navigation" className="hidden md:flex items-center gap-2">
+        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-2">
           {/* Product with megamenu */}
           <button
             ref={productButtonRef}
@@ -89,16 +89,22 @@ export function TopNav() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Request a pilot: hidden on mobile (it lives in the drawer) */}
-          <div className="hidden md:block">
+          {/* Demo (plain text link) and Request a pilot: below 1024px (both live in the drawer) */}
+          <Link
+            href="/demo"
+            className="hidden lg:block px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline"
+          >
+            Demo
+          </Link>
+          <div className="hidden lg:block">
             <Button size="sm" onClick={() => setDemoOpen(true)}>
               Request a pilot
             </Button>
           </div>
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger: below 1024px */}
           <button
-            className="flex md:hidden items-center justify-center w-10 h-10 rounded-[2px]"
+            className="flex lg:hidden items-center justify-center w-10 h-10 rounded-[2px]"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
             aria-expanded={mobileOpen}

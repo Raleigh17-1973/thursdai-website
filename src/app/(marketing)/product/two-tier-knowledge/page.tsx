@@ -12,6 +12,7 @@ import { Label } from '@/components/typography/Label';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Callout } from '@/components/ui/Callout';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 
@@ -71,8 +72,8 @@ export default function TwoTierKnowledgePage() {
               attributed separately in every response.
             </Body>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <ButtonLink href="/developers" variant="primary">See the provenance spec</ButtonLink>
-              <ButtonLink href="/trust/data" variant="secondary">Read about data handling</ButtonLink>
+              <ButtonLink href="/demo" variant="primary">Open the demo</ButtonLink>
+              <ButtonLink href="/developers" variant="secondary">See the provenance spec</ButtonLink>
             </div>
           </div>
         </Container>
@@ -232,16 +233,14 @@ export default function TwoTierKnowledgePage() {
       {/* ── 6. CTA ──────────────────────────────────────────── */}
       <Section variant="compact" tone="ink" style={{ textAlign: 'center' }}>
         <Container>
-          <Heading2>See the provenance spec</Heading2>
+          <Heading2>See what a receipt records</Heading2>
           <Body
             variant="large"
-            style={{ maxWidth: '480px', margin: '0.75rem auto 1.5rem' }}
+            style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
           >
-            Full API schema for source attribution, delta reporting and corpus versioning.
+            The demo shows the evidence behind one signed decision and replays it at the versions that were live. No login.
           </Body>
-          <ButtonLink href="/developers" variant="primary" size="lg">
-            Provenance docs →
-          </ButtonLink>
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>

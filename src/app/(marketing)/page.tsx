@@ -11,7 +11,7 @@ import { Label } from '@/components/typography/Label';
 import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 import { CodeBlock } from '@/components/ui/CodeBlock';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
-import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
+import { SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { PolicyEditor } from '@/components/demos/PolicyEditor';
 import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
@@ -112,7 +112,7 @@ export default function HomePage() {
                 </ul>
               </div>
             }
-            right={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ marginLeft: 'auto' }} />}
+            right={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT_COMPACT} style={{ marginLeft: 'auto' }} />}
           />
         </Container>
       </Section>
@@ -201,7 +201,7 @@ export default function HomePage() {
             </Link>
           </p>
           <Body variant="small" style={{ marginTop: '0.5rem' }}>
-            or <a href="#request-demo">book a live walk-through →</a>
+            or <Link href="/demo#receipt">verify the sample receipt in the demo →</Link>
           </Body>
         </Container>
       </Section>
@@ -464,7 +464,7 @@ export default function HomePage() {
       </Section>
 
       {/* ── Time-Travel ──────────────────────────────────────── */}
-      <Section id="replay-demo">
+      <Section>
         <Container>
           <Split
             ratio="50/50"
@@ -598,9 +598,9 @@ export default function HomePage() {
         <Container>
           <Heading2>Ready to use AI you can actually trust?</Heading2>
           <Body variant="large" style={{ maxWidth: '520px', margin: '1.5rem auto 2.5rem' }}>
-            Try the replay demo (no login required) or talk to us about a pilot.
+            Open the demo to verify a signed receipt and replay the decision behind it. No login. Or talk to us about a pilot.
           </Body>
-          <ClosingCTAs />
+          <ClosingCTAs primary="demo" align="center" />
         </Container>
       </Section>
     </>
