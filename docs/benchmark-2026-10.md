@@ -46,7 +46,7 @@ Total = mean of the six visual dimensions × 5 + mean of the six marketing dimen
 
 - The plan's success line was 74 to 76 with Proof at 5 and no dimension under 6. This estimate is 66.7 with Proof at 4. The gap is about 8 points, so the target is **not met** on this scoring.
 - The three biggest movers are Proof and trust (+2), Polish and craft (+2) and Calls to action (+2). All three moved because things that were false or empty were removed or made real, not because of visual design.
-- Motion is flat because Wave 4 is not live. If it lands as specified (the receipt signs on load, product visuals rise once, reduced motion respected), 7 is a fair expectation; that adds about 0.8 to the total.
+- Motion is flat because Wave 4 was not live when scored. Update, October 2, 2026: Wave 4 merged afterwards (#26); the score is left unchanged here until an independent re-score. If it lands as specified (the receipt signs on load, product visuals rise once, reduced motion respected), 7 is a fair expectation; that adds about 0.8 to the total.
 
 ## Dimensions that cannot rise much without real customers or real product
 
