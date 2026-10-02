@@ -26,9 +26,10 @@ export async function POST(request: NextRequest) {
   const ctaLocation = CTA_LOCATIONS.has(source) ? source : undefined;
 
   if (!process.env.HUBSPOT_PORTAL_ID || !process.env.HUBSPOT_FORM_ID) {
-    // Not configured (local, preview): keep the visitor flow working, log without PII.
-    console.warn(`[/api/lead] HubSpot not configured; lead dropped (cta_location=${ctaLocation ?? 'none'})`);
-    return Response.json({ ok: true });
+    // No lead destination yet. Say so, so the modal can hand the visitor an email fallback
+    // instead of promising a reply nobody will send. Log without PII.
+    console.warn(`[/api/lead] HubSpot not configured; asked visitor to email (cta_location=${ctaLocation ?? 'none'})`);
+    return Response.json({ ok: false, error: 'not_configured' }, { status: 503 });
   }
 
   try {
