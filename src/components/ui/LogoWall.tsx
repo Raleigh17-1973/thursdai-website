@@ -44,7 +44,7 @@ function LogoItem({
       <a
         href={href}
         aria-label={name}
-        className="flex items-center justify-center p-4 rounded-lg transition-opacity hover:opacity-100"
+        className="flex items-center justify-center p-4 rounded-[2px] transition-opacity hover:opacity-100"
         target="_blank"
         rel="noopener noreferrer"
         style={{ opacity: 0.7 }}
@@ -55,7 +55,7 @@ function LogoItem({
   }
 
   return (
-    <div className="flex items-center justify-center p-4 rounded-lg" aria-label={name}>
+    <div className="flex items-center justify-center p-4 rounded-[2px]" aria-label={name}>
       {img}
     </div>
   );

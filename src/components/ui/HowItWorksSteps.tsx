@@ -1,6 +1,5 @@
-'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
+import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 
 const STEPS = [
   {
@@ -20,50 +19,23 @@ const STEPS = [
   },
 ];
 
+// Three columns under one rule: a mono step number, a Newsreader title, Geist body.
 export function HowItWorksSteps() {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
-      {STEPS.map(({ step, title, body }, index) => (
-        <motion.div
+    <ol className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 list-none m-0 p-0">
+      {STEPS.map(({ step, title, body }) => (
+        <li
           key={step}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: index * 0.12, ease: 'easeOut' }}
-          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          className="flex flex-col gap-4 pt-5"
+          style={{ borderTop: '1px solid var(--color-text-primary)' }}
         >
-          <span
-            style={{
-              fontSize: '3rem',
-              fontWeight: 800,
-              color: 'var(--color-accent)',
-              lineHeight: 1,
-            }}
-          >
-            {step}
-          </span>
-          <h2
-            style={{
-              fontSize: '1.125rem',
-              fontWeight: 700,
-              color: 'var(--color-text-primary)',
-              margin: 0,
-            }}
-          >
-            {title}
-          </h2>
-          <p
-            style={{
-              fontSize: '17px',
-              lineHeight: 1.6,
-              color: 'var(--color-text-secondary)',
-              margin: 0,
-            }}
-          >
+          <span style={LABEL_STYLE}>{step}</span>
+          <h3 style={H3_STYLE}>{title}</h3>
+          <p className="m-0" style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
             {body}
           </p>
-        </motion.div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }

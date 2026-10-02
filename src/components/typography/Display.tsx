@@ -1,4 +1,5 @@
 import React from 'react';
+import { H1_STYLE, H2_STYLE } from './scale';
 
 interface DisplayProps {
   children: React.ReactNode;
@@ -7,12 +8,12 @@ interface DisplayProps {
   style?: React.CSSProperties;
 }
 
+// Page H1 in Newsreader (opsz 72). Rendered as h2 it takes the H2 size so the
+// scale stays at three sizes above body.
 export function Display({ children, className = '', as: Tag = 'h1', style }: DisplayProps) {
+  const base = Tag === 'h1' ? H1_STYLE : H2_STYLE;
   return (
-    <Tag
-      className={`text-[36px] md:text-[56px] font-bold leading-[1.05] tracking-[-0.02em] ${className}`}
-      style={{ fontFamily: 'var(--font-sans)', color: 'var(--color-text-primary)', ...style }}
-    >
+    <Tag className={className} style={{ ...base, ...style }}>
       {children}
     </Tag>
   );

@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 
 // Share card drawn as an AI Receipt: paper, ink, mono fields, the decision
 // line, and amber only on the signature rule. Field layout follows
-// components/demos/AiReceiptCard.tsx without importing it (satori cannot
+// components/receipt/ReceiptFrame.tsx without importing it (satori cannot
 // render CSS variables or client components).
 
 export const runtime = 'edge';
@@ -12,7 +12,7 @@ export const contentType = 'image/png';
 
 const PAPER = '#F7F5F0';
 const INK = '#14120F';
-const INK_SECONDARY = '#5A5650';
+const INK_SECONDARY = '#4E4A44';
 const RULE = 'rgba(20, 18, 15, 0.18)';
 const AMBER = '#e8a34a';
 const INDIGO = '#3e4fb8';

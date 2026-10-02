@@ -75,13 +75,20 @@ export function TimeTravelScrubber() {
     }, 200);
   }
 
+  const progress = sliderVal / 4;
+  const mono: React.CSSProperties = {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '12px',
+    letterSpacing: '0.04em',
+    textTransform: 'uppercase',
+  };
+
   return (
     <div
       style={{
         border: '1px solid var(--color-border-default)',
-        borderRadius: '16px',
+        borderRadius: '2px',
         background: 'var(--color-surface-primary)',
-        overflow: 'hidden',
         padding: '1.5rem',
         display: 'flex',
         flexDirection: 'column',
@@ -89,76 +96,43 @@ export function TimeTravelScrubber() {
       }}
     >
       {/* Question */}
-      <p
-        style={{
-          fontSize: '13px',
-          fontStyle: 'italic',
-          color: 'var(--color-text-secondary)',
-          margin: 0,
-        }}
-      >
-        &ldquo;{QUESTION}&rdquo;
-      </p>
-
-      <div
-        style={{
-          height: '1px',
-          background: 'var(--color-border-default)',
-        }}
-      />
-
-      {/* Answer — crossfades on change */}
-      <div
-        ref={answerRef}
-        aria-live="polite"
-        style={{
-          opacity: fading ? 0 : 1,
-          transition: 'opacity 200ms ease',
-          minHeight: '120px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.5rem' }}>
-          <span
-            style={{
-              fontSize: '11px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: 'var(--color-accent)',
-            }}
-          >
-            {snapshot.label}
-          </span>
-          <span style={{ fontSize: '12px', color: 'var(--color-text-tertiary)' }}>
-            · {snapshot.date}
-          </span>
-        </div>
+      <div>
+        <p style={{ ...mono, color: 'var(--color-text-secondary)', margin: '0 0 0.5rem' }}>Question</p>
         <p
           style={{
-            fontSize: '14px',
-            lineHeight: 1.65,
+            fontFamily: 'var(--font-display)',
+            fontSize: '20px',
+            lineHeight: 1.35,
             color: 'var(--color-text-primary)',
             margin: 0,
           }}
         >
+          &ldquo;{QUESTION}&rdquo;
+        </p>
+      </div>
+
+      <div style={{ height: '1px', background: 'var(--color-border-default)' }} />
+
+      {/* Answer: crossfades on change */}
+      <div
+        ref={answerRef}
+        aria-live="polite"
+        style={{ opacity: fading ? 0 : 1, transition: 'opacity 200ms ease', minHeight: '120px' }}
+      >
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '0.5rem' }}>
+          <span style={{ ...mono, color: 'var(--color-text-primary)' }}>{snapshot.label}</span>
+          <span style={{ ...mono, textTransform: 'none', color: 'var(--color-text-tertiary)' }}>
+            · {snapshot.date}
+          </span>
+        </div>
+        <p style={{ fontSize: '15px', lineHeight: 1.65, color: 'var(--color-text-primary)', margin: 0 }}>
           {snapshot.answer}
         </p>
       </div>
 
-      {/* What changed chips */}
+      {/* What changed */}
       <div>
-        <p
-          style={{
-            fontSize: '11px',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.06em',
-            color: 'var(--color-text-tertiary)',
-            margin: '0 0 0.5rem 0',
-          }}
-        >
-          What changed here
-        </p>
+        <p style={{ ...mono, color: 'var(--color-text-secondary)', margin: '0 0 0.5rem 0' }}>What changed here</p>
         <div
           style={{
             opacity: fading ? 0 : 1,
@@ -169,30 +143,45 @@ export function TimeTravelScrubber() {
           }}
         >
           {snapshot.changes.map((c) => (
-            <Badge key={c} variant="muted">
+            <Badge key={c} variant="muted" style={{ textTransform: 'none', letterSpacing: 0 }}>
               {c}
             </Badge>
           ))}
         </div>
       </div>
 
-      {/* Slider */}
+      {/* Slider: flat rule track with a solid indigo fill to the thumb */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <input
-          type="range"
-          list="time-travel-ticks"
-          min={0}
-          max={4}
-          step={1}
-          value={sliderVal}
-          onChange={handleSliderChange}
-          aria-label="Time-Travel slider"
-          aria-valuetext={snapshot.label}
-          className="time-travel-slider"
-          style={
-            { '--slider-progress': `${(sliderVal / 4) * 100}%` } as React.CSSProperties
-          }
-        />
+        <div style={{ position: 'relative', height: '20px' }}>
+          <div
+            aria-hidden="true"
+            style={{ position: 'absolute', left: 0, right: 0, top: '9px', height: '2px', background: 'var(--color-border-default)' }}
+          />
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: '9px',
+              height: '2px',
+              width: `calc(8px + (100% - 16px) * ${progress})`,
+              background: 'var(--color-accent)',
+            }}
+          />
+          <input
+            type="range"
+            list="time-travel-ticks"
+            min={0}
+            max={4}
+            step={1}
+            value={sliderVal}
+            onChange={handleSliderChange}
+            aria-label="Time-Travel slider"
+            aria-valuetext={snapshot.label}
+            className="time-travel-slider"
+            style={{ position: 'absolute', inset: 0 }}
+          />
+        </div>
         <datalist id="time-travel-ticks">
           <option value="0" />
           <option value="1" />
@@ -202,9 +191,10 @@ export function TimeTravelScrubber() {
         </datalist>
         <div
           style={{
+            ...mono,
+            textTransform: 'none',
             display: 'flex',
             justifyContent: 'space-between',
-            fontSize: '11px',
             color: 'var(--color-text-tertiary)',
           }}
         >

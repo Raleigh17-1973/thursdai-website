@@ -21,7 +21,7 @@ export async function SyntaxHighlighter({
       className="shiki-wrapper"
       dangerouslySetInnerHTML={{ __html: html }}
       style={{
-        borderRadius: '8px',
+        borderRadius: '2px',
         overflow: 'hidden',
         fontSize: '14px',
         lineHeight: '1.6',

@@ -1,122 +1,122 @@
 @import "tailwindcss";
 
-/* ── Dark mode via data-theme attribute ──────────────────────── */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/* ══════════════════════════════════════════════════════════════
+   The Record: Thursdai marketing design system
+   Spec: docs/design/the-record.md · Tokens: src/tokens/thursdai.ts
+   Light only. Paper, ink, one indigo accent, one amber seal.
+   No gradients, no glows, no shadows (except the receipt's offset rule).
+   ══════════════════════════════════════════════════════════════ */
 
-/* ── Design tokens wired into Tailwind 4 theme ─────────────── */
+/* ── Tokens wired into Tailwind 4 ─────────────────────────────── */
 @theme inline {
-  /* Brand palette — Horizon */
-  --color-indigo-deep: #1e2a5a;
-  --color-indigo:      #3e4fb8;
-  --color-periwinkle:  #8b9ef0;
-  --color-plum:        #5b3a7a;
-  --color-amber:       #e8a34a;
+  --color-paper:  #F7F5F0;
+  --color-sunk:   #EFECE4;
+  --color-ink:    #14120F;
+  --color-ink-2:  #4E4A44;
+  --color-ink-3:  #6B665E;
+  --color-indigo: #3e4fb8;
+  --color-indigo-hover: #2d3d9e;
+  --color-amber:  #e8a34a;
 
-  /* Semantic accent (light / dark resolved per theme) */
-  --color-accent:       #3e4fb8;  /* indigo on light */
-  --color-accent-dark:  #8b9ef0;  /* periwinkle on dark */
-  --color-accent-hover: #2d3d9e;
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
 
-  /* Neutrals */
-  --color-ink:          #171717;
-  --color-muted:        #525252;
-  --color-surface-light: #ffffff;
-  --color-surface-dark:  #141418;
-  --color-bg-light:      #fafaf9;  /* warm paper */
-  --color-bg-dark:       #0a0a0e;  /* brand dark BG */
-
-  /* Dawn gradient stops */
-  --color-dawn-start:  #1e2a5a;
-  --color-dawn-mid:    #5b3a7a;
-  --color-dawn-end:    #e8a34a;
-
-  /* Radius */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
-
-  /* Font families */
-  --font-sans:    'Geist', 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: 'Instrument Serif', 'Georgia', ui-serif, serif;
-  --font-mono:    'Geist Mono', 'SF Mono', 'Menlo', monospace;
+  --font-sans:     var(--font-geist-sans), 'Geist', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono:     var(--font-geist-mono), 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --font-display:  var(--font-newsreader), 'Newsreader', Georgia, ui-serif, serif;
+  --font-wordmark: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
 }
 
-/* ── Light theme CSS variables ──────────────────────────────── */
-:root,
-:root[data-theme="light"] {
+/* ── Semantic variables (paper surface) ───────────────────────── */
+:root {
   color-scheme: light;
-  --color-bg: #fafaf9;
-  --color-surface-primary: #ffffff;
-  --color-surface-secondary: #f5f5f4;
-  --color-surface-tertiary: #efefed;
-  --color-border-default: #e5e5e3;
-  --color-border-strong: #d4d4d1;
-  --color-border-focus: #3e4fb8;
-  --color-text-primary: #171717;
-  --color-text-secondary: #525252;
-  --color-text-tertiary: #6b6b6b;
-  --color-accent: #3e4fb8;
-  --color-accent-hover: #2d3d9e;
+
+  --paper: #F7F5F0;
+  --sunk: #EFECE4;
+  --ink: #14120F;
+  --ink-2: #4E4A44;
+  --ink-3: #6B665E;
+  --rule: rgba(20, 18, 15, 0.14);
+  --rule-strong: #14120F;
+  --indigo: #3e4fb8;
+  --indigo-hover: #2d3d9e;
+  --amber: #e8a34a;
+  --status-pass: #2f6b3a;
+  --status-flag: #b42318;
+
+  /* Legacy names used across pages, mapped onto the paper system */
+  --color-bg: var(--paper);
+  --color-surface-primary: var(--paper);
+  --color-surface-secondary: var(--sunk);
+  --color-surface-tertiary: var(--sunk);
+  --color-border-default: var(--rule);
+  --color-border-strong: rgba(20, 18, 15, 0.5); /* 3.5:1 on paper: input and control boundaries */
+  --color-border-focus: var(--indigo);
+  --color-text-primary: var(--ink);
+  --color-text-secondary: var(--ink-2);
+  --color-text-tertiary: var(--ink-3);
+  --color-accent: var(--indigo);
+  --color-accent-hover: var(--indigo-hover);
   --color-accent-subtle: rgba(62, 79, 184, 0.08);
-  --color-accent-muted: rgba(62, 79, 184, 0.15);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.04);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.04);
+  --color-accent-muted: rgba(62, 79, 184, 0.16);
+
+  /* Buttons (flipped on the ink band) */
+  --button-primary-bg: var(--indigo);
+  --button-primary-bg-hover: var(--indigo-hover);
+  --button-primary-fg: var(--paper);
+  --button-secondary-fg: var(--ink);
+  --button-secondary-border: var(--ink);
+  --button-secondary-bg-hover: var(--sunk);
+
+  /* Section rhythm */
+  --section-pad: 80px;
+  --section-pad-compact: 56px;
+  --gutter: 24px;
+
   --transition-fast: 100ms ease;
   --transition-base: 150ms ease;
-  --transition-slow: 250ms ease;
+  --transition-menu: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Dark theme CSS variables ───────────────────────────────── */
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --color-bg: #0a0a0e;
-  --color-surface-primary: #141418;
-  --color-surface-secondary: #1a1a20;
-  --color-surface-tertiary: #222228;
-  --color-border-default: #2a2a32;
-  --color-border-strong: #3a3a46;
-  --color-border-focus: #8b9ef0;
-  --color-text-primary: #e4e4e9;
-  --color-text-secondary: #a1a1b0;
-  --color-text-tertiary: #8a8a96;
-  --color-accent: #8b9ef0;
-  --color-accent-hover: #a8b6f5;
-  --color-accent-subtle: rgba(139, 158, 240, 0.1);
-  --color-accent-muted: rgba(139, 158, 240, 0.18);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
-  --transition-fast: 100ms ease;
-  --transition-base: 150ms ease;
-  --transition-slow: 250ms ease;
-}
-
-/* ── System preference → auto dark ─────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) {
-    color-scheme: dark;
-    --color-bg: #0a0a0e;
-    --color-surface-primary: #141418;
-    --color-surface-secondary: #1a1a20;
-    --color-surface-tertiary: #222228;
-    --color-border-default: #2a2a32;
-    --color-border-strong: #3a3a46;
-    --color-border-focus: #8b9ef0;
-    --color-text-primary: #e4e4e9;
-    --color-text-secondary: #a1a1b0;
-    --color-text-tertiary: #8a8a96;
-    --color-accent: #8b9ef0;
-    --color-accent-hover: #a8b6f5;
-    --color-accent-subtle: rgba(139, 158, 240, 0.1);
-    --color-accent-muted: rgba(139, 158, 240, 0.18);
+@media (min-width: 768px) {
+  :root {
+    --section-pad: 128px;
+    --section-pad-compact: 80px;
+    --gutter: 40px;
   }
 }
 
-/* ── Global reset ───────────────────────────────────────────── */
+/* The one contrast surface: the closing CTA band. Everything inside reads its
+   colours from these variables, so components need no "on dark" props. */
+.surface-ink {
+  --color-bg: var(--ink);
+  --color-surface-primary: var(--ink);
+  --color-surface-secondary: #1f1c18;
+  --color-border-default: rgba(247, 245, 240, 0.16);
+  --color-border-strong: rgba(247, 245, 240, 0.4);
+  --color-border-focus: #9DA8F0;
+  --color-text-primary: #F7F5F0;
+  --color-text-secondary: #C9C3B7;
+  --color-text-tertiary: #A39D92;
+  --color-accent: #9DA8F0;
+  --color-accent-hover: #c3caf6;
+  --button-primary-bg: #F7F5F0;
+  --button-primary-bg-hover: #E4E0D6;
+  --button-primary-fg: #14120F;
+  --button-secondary-fg: #F7F5F0;
+  --button-secondary-border: rgba(247, 245, 240, 0.6);
+  --button-secondary-bg-hover: rgba(247, 245, 240, 0.08);
+  background: var(--ink);
+  color: #F7F5F0;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────
+   In the base layer so Tailwind utilities (and component styles) win over it. */
+@layer base {
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body { margin: 0; min-height: 100%; }
@@ -126,16 +126,24 @@ body {
   font-size: 17px;
   line-height: 1.6;
   color: var(--color-text-primary);
-  background: var(--color-bg);
+  background: var(--paper);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 button, textarea, input, select { font: inherit; color: inherit; }
 
-a { color: var(--color-accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* Links: indigo, underline offset shifts 2px → 4px on hover */
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  transition: text-underline-offset var(--transition-fast), color var(--transition-fast);
+}
+a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
 
+/* Focus: 2px indigo, 2px offset, on every interactive element */
 :focus-visible {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
@@ -152,127 +160,89 @@ a:hover { text-decoration: underline; }
 }
 
 ::selection {
-  background: var(--color-accent-muted);
-  color: var(--color-text-primary);
+  background: rgba(62, 79, 184, 0.18);
+  color: var(--ink);
 }
 
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-default);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
-* { scrollbar-width: thin; scrollbar-color: var(--color-border-default) transparent; }
-
-/* ── Dawn gradient utility ───────────────────────────────────── */
-.dawn-gradient {
-  background: linear-gradient(135deg, #1e2a5a 0%, #5b3a7a 55%, #e8a34a 100%);
-}
-.dawn-gradient-text {
-  background: linear-gradient(135deg, #3e4fb8 0%, #5b3a7a 55%, #e8a34a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-/* Dark mode: periwinkle start for better contrast */
-:root[data-theme="dark"] .dawn-gradient-text {
-  background: linear-gradient(135deg, #8b9ef0 0%, #c084fc 55%, #e8a34a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .dawn-gradient-text {
-    background: linear-gradient(135deg, #8b9ef0 0%, #c084fc 55%, #e8a34a 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+* { scrollbar-width: thin; scrollbar-color: rgba(20, 18, 15, 0.24) transparent; }
 }
 
-/* Always-dark variant: forces the periwinkle→amber gradient for marks that sit
-   on a dark panel (e.g. the footer) regardless of the active theme. */
-.dawn-gradient-text-dark {
-  background: linear-gradient(135deg, #8b9ef0 0%, #c084fc 55%, #e8a34a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ── Display font utility ─────────────────────────────────────── */
+/* ── Type utilities ───────────────────────────────────────────── */
+/* Newsreader display face. Retained for headings that wrap their text in a span. */
 .font-display {
   font-family: var(--font-display);
-  font-style: italic;
-  letter-spacing: -0.02em;
+  font-weight: inherit;
 }
 
-/* Footer root — dark background always, softened slightly in light mode */
-.footer-root {
-  background: #0b0f19;
-}
-:root[data-theme="light"] .footer-root {
-  background: #1f2937;
+/* Mono label: nouns, not slogans ("RECORDED", "POLICY", "SOURCE"). */
+.rec-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
 }
 
-/* Footer link hover (always-dark footer, no theme switching needed) */
+/* Data tables: hairline rules, sunk header row */
+.rec-table { width: 100%; border-collapse: collapse; }
+.rec-table th {
+  background: var(--sunk);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-align: left;
+}
+.rec-table th, .rec-table td { border-bottom: 1px solid var(--rule); }
+
+/* ── Section rhythm ───────────────────────────────────────────── */
+/* Consecutive paper sections are separated by a hairline at the column width,
+   like the rule between numbered sections of a printed report. */
+.rec-section { position: relative; }
+.rec-section + .rec-section:not(.surface-ink)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(min(1200px, 100%) - 2 * var(--gutter));
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── Footer links ─────────────────────────────────────────────── */
 .footer-link {
-  color: #a1a1aa;
+  color: var(--ink-2);
   text-decoration: none;
-  transition: color 150ms ease;
 }
-.footer-link:hover { color: #e4e4e7; }
-.footer-link:focus-visible { color: #e4e4e7; }
+.footer-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
-/* ── Live indicator pulse animation ─────────────────────────── */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-/* ── ScrollCue bounce animation ─────────────────────────────── */
-@keyframes scrollCueBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
-  50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
-}
-
-/* ── ReplayDemo citation tooltip ────────────────────────────── */
-.replay-citation {
-  position: relative;
-}
+/* ── ReplayDemo citation tooltip ──────────────────────────────── */
+.replay-citation { position: relative; }
 .replay-citation::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%);
-  background: #0b0f19;
-  color: #e4e4e7;
+  background: var(--ink);
+  color: var(--paper);
   font-size: 12px;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 2px;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
   transition: opacity 150ms ease;
   z-index: 10;
-  border: 1px solid rgba(255,255,255,0.1);
 }
-.replay-citation:hover::after {
-  opacity: 1;
-}
+.replay-citation:hover::after { opacity: 1; }
 
-/* ── Feature card hover ──────────────────────────────────────── */
-[data-animate="stagger"] > * {
-  transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
-}
-[data-animate="stagger"] > *:hover {
-  border-color: var(--color-accent) !important;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-/* ── ReplayDemo sentence-level provenance tooltip ───────────── */
+/* ── ReplayDemo sentence-level provenance tooltip ─────────────── */
 .replay-sentence[data-has-citation] {
   text-decoration: underline dotted var(--color-accent);
   text-underline-offset: 3px;
@@ -284,80 +254,64 @@ a:hover { text-decoration: underline; }
   position: absolute;
   bottom: calc(100% + 6px);
   left: 0;
-  background: var(--color-surface-tertiary, #0b0f19);
-  border: 1px solid var(--color-border-default);
-  border-radius: 6px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
   padding: 6px 10px;
   font-size: 12px;
   white-space: nowrap;
   z-index: 50;
-  color: var(--color-text-secondary);
-  box-shadow: var(--shadow-md);
+  color: var(--ink-2);
   pointer-events: none;
 }
 
-/* ── ReplayDemo mobile / desktop provenance panel ───────────── */
+/* ── ReplayDemo mobile / desktop provenance panel ─────────────── */
 .replay-provenance-mobile { display: none; }
 @media (max-width: 767px) {
   .replay-provenance-desktop { display: none; }
   .replay-provenance-mobile { display: block; }
 }
 
-/* ── TimeTravelScrubber slider ──────────────────────────────── */
+/* ── Range slider (TimeTravelScrubber, DealDesigner) ──────────────
+   Transparent track; the component draws the rule and the solid indigo fill behind it. */
 .time-travel-slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  /* Height matches thumb so the thumb is naturally centered on the track */
   height: 20px;
   background: transparent;
   outline: none;
   cursor: pointer;
   padding: 0;
   margin: 0;
+  position: relative;
 }
-/* WebKit track — styled separately so height is independent of the input height */
 .time-travel-slider::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(
-    to right,
-    var(--color-accent) 0%,
-    var(--color-accent) var(--slider-progress, 0%),
-    var(--color-border-default) var(--slider-progress, 0%),
-    var(--color-border-default) 100%
-  );
+  height: 2px;
+  background: transparent;
 }
 .time-travel-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  border: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  background: var(--indigo);
+  border: 2px solid var(--paper);
+  outline: 1px solid var(--indigo);
   cursor: pointer;
-  margin-top: -8px; /* centres 20px thumb on 4px track: -(20-4)/2 */
+  margin-top: -7px;
 }
-/* Firefox track */
 .time-travel-slider::-moz-range-track {
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(
-    to right,
-    var(--color-accent) 0%,
-    var(--color-accent) var(--slider-progress, 0%),
-    var(--color-border-default) var(--slider-progress, 0%),
-    var(--color-border-default) 100%
-  );
+  height: 2px;
+  background: transparent;
 }
 .time-travel-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  border: none;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  background: var(--indigo);
+  border: 2px solid var(--paper);
+  outline: 1px solid var(--indigo);
   cursor: pointer;
 }
 .time-travel-slider:focus-visible {
@@ -365,69 +319,5 @@ a:hover { text-decoration: underline; }
   outline-offset: 4px;
 }
 
-/* ── Fade-in-up animation ─────────────────────────────────────── */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-/* ── Section divider — subtle dawn gradient line ─────────────── */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(62,79,184,0.3) 30%, rgba(91,58,122,0.3) 70%, transparent 100%);
-  border: none;
-  margin: 0;
-}
-
-/* ── Hero dawn backdrop (theme-aware) ───────────────────────────
-   The "a new day for regulated AI" sunrise behind the homepage hero.
-   Light: warm paper with an amber sunrise welling up from the base.
-   Dark:  a deep night sky with the sunrise glowing at the horizon.
-   Pure CSS gradients so it is full-bleed, responsive and zero-weight. */
-.hero-dawn {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-.hero-dawn__sky,
-.hero-dawn__sun {
-  position: absolute;
-  inset: 0;
-}
-/* Light theme (default) */
-.hero-dawn__sky {
-  background:
-    radial-gradient(120% 74% at 50% 116%, rgba(232,163,74,0.42) 0%, rgba(232,163,74,0.16) 34%, transparent 66%),
-    radial-gradient(72% 58% at 10% -8%, rgba(62,79,184,0.16) 0%, transparent 60%),
-    radial-gradient(64% 52% at 92% -6%, rgba(91,58,122,0.14) 0%, transparent 60%);
-}
-.hero-dawn__sun {
-  background: radial-gradient(50% 46% at 50% 112%, rgba(246,200,120,0.58) 0%, rgba(246,200,120,0) 72%);
-}
-/* Dark theme */
-:root[data-theme="dark"] .hero-dawn__sky {
-  background:
-    radial-gradient(120% 78% at 50% 120%, rgba(232,163,74,0.30) 0%, rgba(184,105,60,0.14) 30%, transparent 60%),
-    radial-gradient(85% 60% at 78% 116%, rgba(192,132,252,0.16) 0%, transparent 56%),
-    linear-gradient(180deg, #0a0a0e 0%, #0d1030 46%, #161141 74%, #221a46 100%);
-}
-:root[data-theme="dark"] .hero-dawn__sun {
-  background: radial-gradient(44% 40% at 50% 114%, rgba(246,200,120,0.40) 0%, rgba(246,200,120,0) 72%);
-}
-/* Auto dark (system preference, no explicit data-theme) */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not([data-theme="dark"]) .hero-dawn__sky {
-    background:
-      radial-gradient(120% 78% at 50% 120%, rgba(232,163,74,0.30) 0%, rgba(184,105,60,0.14) 30%, transparent 60%),
-      radial-gradient(85% 60% at 78% 116%, rgba(192,132,252,0.16) 0%, transparent 56%),
-      linear-gradient(180deg, #0a0a0e 0%, #0d1030 46%, #161141 74%, #221a46 100%);
-  }
-  :root:not([data-theme="light"]):not([data-theme="dark"]) .hero-dawn__sun {
-    background: radial-gradient(44% 40% at 50% 114%, rgba(246,200,120,0.40) 0%, rgba(246,200,120,0) 72%);
-  }
-}
+/* ── Shiki code (CodeBlock frames it) ─────────────────────────── */
+.shiki-wrapper pre { margin: 0; background: transparent !important; }

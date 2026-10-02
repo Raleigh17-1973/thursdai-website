@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useInView, useReducedMotion, type Variants } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { Label } from '@/components/typography/Label';
 import { Badge } from '@/components/ui/Badge';
 
@@ -28,15 +27,6 @@ const MODERATOR = {
   text: 'Consensus: proceed with GPT-4o for the customer-support triage flow. Legal confirms ELA compliance. Finance confirms budget coverage. Engineering confirms technical fit. Action: complete FRIA checklist before production deploy.',
 };
 
-const panelVariants: Variants = {
-  hidden: { opacity: 0.15, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.15, duration: 0.4, ease: 'easeOut' as const },
-  }),
-};
-
 function PanelCard({
   panel,
   onClick,
@@ -48,13 +38,17 @@ function PanelCard({
     <button
       onClick={onClick}
       style={{
-        all: 'unset',
+        appearance: 'none',
+        font: 'inherit',
+        color: 'inherit',
+        margin: 0,
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         gap: '0.75rem',
-        background: 'rgba(255,255,255,0.06)',
-        border: '1px solid rgba(255,255,255,0.10)',
-        borderRadius: '12px',
+        background: 'var(--color-surface-primary)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: '2px',
         padding: '1.25rem',
         cursor: 'pointer',
         textAlign: 'left',
@@ -62,22 +56,14 @@ function PanelCard({
         boxSizing: 'border-box',
         transition: 'border-color 150ms ease, background 150ms ease',
       }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-accent)';
-        (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-accent-subtle)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.08)';
-        (e.currentTarget as HTMLButtonElement).style.background = 'rgba(255,255,255,0.04)';
-      }}
       aria-label={`View full ${panel.role} response`}
     >
-      <Label style={{ color: '#8b9ef0' }}>{panel.role}</Label>
-      <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-      <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#c4c4cf', margin: 0 }}>
+      <Label>{panel.role}</Label>
+      <div style={{ height: '1px', background: 'var(--color-border-default)' }} />
+      <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: 0 }}>
         {panel.text}
       </p>
-      <span style={{ fontSize: '12px', color: '#8b9ef0', marginTop: 'auto' }}>
+      <span style={{ fontSize: '14px', color: 'var(--color-accent)', marginTop: 'auto' }}>
         View full response →
       </span>
     </button>
@@ -119,8 +105,7 @@ function OverlayPanel({
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(0,0,0,0.7)',
-          backdropFilter: 'blur(4px)',
+          background: 'rgba(20, 18, 15, 0.45)',
         }}
         aria-hidden="true"
       />
@@ -128,9 +113,9 @@ function OverlayPanel({
         style={{
           position: 'relative',
           zIndex: 1,
-          background: '#0b0f19',
-          border: '1px solid rgba(255,255,255,0.12)',
-          borderRadius: '16px',
+          background: 'var(--paper)',
+          border: '1px solid var(--ink)',
+          borderRadius: '2px',
           padding: '2rem',
           maxWidth: '640px',
           width: '100%',
@@ -142,7 +127,7 @@ function OverlayPanel({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Label style={{ color: 'var(--color-accent)', fontSize: '18px' }}>{panel.role}</Label>
+          <Label style={{ color: 'var(--color-text-primary)' }}>{panel.role}</Label>
           <button
             onClick={onClose}
             aria-label="Close"
@@ -150,7 +135,7 @@ function OverlayPanel({
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#a1a1aa',
+              color: 'var(--ink)',
               fontSize: '20px',
               lineHeight: 1,
               padding: '4px',
@@ -159,18 +144,18 @@ function OverlayPanel({
             ×
           </button>
         </div>
-        <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-        <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#e4e4e7', margin: 0 }}>
+        <div style={{ height: '1px', background: 'var(--rule)' }} />
+        <p style={{ fontSize: '17px', lineHeight: 1.6, color: 'var(--ink)', margin: 0 }}>
           {panel.text}
         </p>
         <div>
           <p
             style={{
-              fontSize: '11px',
-              fontWeight: 700,
+              fontFamily: 'var(--font-mono)',
+              fontSize: '12px',
               textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: '#a1a1aa',
+              letterSpacing: '0.04em',
+              color: 'var(--ink-2)',
               margin: '0 0 0.5rem 0',
             }}
           >
@@ -178,7 +163,7 @@ function OverlayPanel({
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.375rem' }}>
             {panel.sources.map((src) => (
-              <span key={src} style={{ fontSize: '13px', color: '#71717a' }}>
+              <span key={src} style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--ink-2)' }}>
                 · {src}
               </span>
             ))}
@@ -190,17 +175,11 @@ function OverlayPanel({
 }
 
 export function ModeratorPanel() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const shouldReduceMotion = useReducedMotion();
   const [expandedPanel, setExpandedPanel] = useState<(typeof PANELS)[number] | null>(null);
-
-  const animateState = shouldReduceMotion ? 'visible' : isInView ? 'visible' : 'hidden';
 
   return (
     <>
       <div
-        ref={ref}
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(1, 1fr)',
@@ -209,30 +188,17 @@ export function ModeratorPanel() {
         }}
         className="md:grid-cols-4"
       >
-        {PANELS.map((panel, i) => (
-          <motion.div
-            key={panel.role}
-            custom={i}
-            initial="hidden"
-            animate={animateState}
-            variants={panelVariants}
-          >
-            <PanelCard panel={panel} onClick={() => setExpandedPanel(panel)} />
-          </motion.div>
+        {PANELS.map((panel) => (
+          <PanelCard key={panel.role} panel={panel} onClick={() => setExpandedPanel(panel)} />
         ))}
 
-        {/* Moderator panel — delay index 4 → 600ms */}
-        <motion.div
-          custom={4}
-          initial="hidden"
-          animate={animateState}
-          variants={panelVariants}
-        >
+        {/* Moderator: the reconciled answer, ruled in ink */}
+        <div>
           <div
             style={{
-              background: 'var(--color-accent-subtle)',
-              border: '2px solid var(--color-accent)',
-              borderRadius: '12px',
+              background: 'var(--color-surface-primary)',
+              border: '1px solid var(--color-text-primary)',
+              borderRadius: '2px',
               padding: '1.25rem',
               display: 'flex',
               flexDirection: 'column',
@@ -240,21 +206,21 @@ export function ModeratorPanel() {
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Label style={{ color: 'var(--color-accent)' }}>{MODERATOR.role}</Label>
+              <Label style={{ color: 'var(--color-text-primary)' }}>{MODERATOR.role}</Label>
               <Badge variant="teal">Reconciled</Badge>
             </div>
-            <div style={{ height: '1px', background: 'var(--color-accent-muted)' }} />
-            <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#e4e4e7', margin: 0, fontWeight: 500 }}>
+            <div style={{ height: '1px', background: 'var(--color-border-default)' }} />
+            <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-primary)', margin: 0, fontWeight: 500 }}>
               {MODERATOR.text}
             </p>
             <a
               href="/product/moderator"
-              style={{ fontSize: '12px', color: 'var(--color-accent)', textDecoration: 'none', marginTop: 'auto' }}
+              style={{ fontSize: '14px', marginTop: 'auto' }}
             >
               Read full →
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {expandedPanel && (

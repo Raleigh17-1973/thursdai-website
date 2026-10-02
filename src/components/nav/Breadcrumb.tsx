@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Body } from '@/components/typography';
 import { SITE_URL } from '@/config/site';
 
 interface BreadcrumbItem {
@@ -31,19 +30,17 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <nav aria-label="Breadcrumb" className={className}>
-        <ol style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', listStyle: 'none', margin: 0, padding: 0 }}>
+        <ol style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem', listStyle: 'none', margin: 0, padding: 0, fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.04em', lineHeight: 1.4 }}>
           {items.map((item, index) => (
             <li key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               {index > 0 && (
                 <span aria-hidden="true" style={{ color: 'var(--color-text-tertiary)' }}>/</span>
               )}
               {item.href ? (
-                <Link href={item.href}>
-                  <Body variant="small" as="span" style={{ color: 'var(--color-accent)' }}>{item.label}</Body>
-                </Link>
+                <Link href={item.href}>{item.label}</Link>
               ) : (
-                <span aria-current="page">
-                  <Body variant="small" as="span">{item.label}</Body>
+                <span aria-current="page" style={{ color: 'var(--color-text-secondary)' }}>
+                  {item.label}
                 </span>
               )}
             </li>

@@ -9,105 +9,109 @@ interface CodeBlockProps {
   language?: CodeLanguage;
   filename?: string;
   className?: string;
-  /** Pre-rendered HTML from SyntaxHighlighter server component */
+  /**
+   * Deprecated: pre-rendered syntax HTML. The Record sets code in monochrome ink on the
+   * sunk surface (comments in tertiary ink), so this is ignored and kept only so older
+   * call sites still compile.
+   */
   highlightedHtml?: string;
-}
-
-function CopyIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" strokeWidth="2" />
-      <path
-        d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20 6L9 17l-5-5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
 }
 
 function CopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
   }
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      aria-label={copied ? 'Copied!' : 'Copy code'}
-      className="flex items-center gap-1.5 px-2 py-1 rounded text-[12px] transition-colors"
+      aria-label={copied ? 'Copied' : 'Copy code'}
+      className="rounded-[2px] px-2 py-1 transition-colors hover:bg-[var(--paper)]"
       style={{
-        color: copied ? 'rgb(34,197,94)' : 'rgba(255,255,255,0.5)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '12px',
+        letterSpacing: '0.04em',
+        textTransform: 'uppercase',
+        color: 'var(--ink-2)',
         background: 'transparent',
         border: 'none',
         cursor: 'pointer',
       }}
     >
-      {copied ? <CheckIcon /> : <CopyIcon />}
-      {copied ? 'Copied!' : 'Copy'}
+      {copied ? 'Copied' : 'Copy'}
     </button>
   );
 }
 
-export function CodeBlock({
-  code,
-  language = 'text',
-  filename,
-  className = '',
-  highlightedHtml,
-}: CodeBlockProps) {
+const COMMENT_PREFIX: Record<CodeLanguage, RegExp | null> = {
+  bash: /^\s*#/,
+  python: /^\s*#/,
+  yaml: /^\s*#/,
+  typescript: /^\s*\/\//,
+  json: null,
+  text: null,
+};
+
+function renderLines(code: string, language: CodeLanguage) {
+  const comment = COMMENT_PREFIX[language];
+  return code.split('\n').map((line, i, all) => {
+    const isComment = comment ? comment.test(line) : false;
+    return (
+      <React.Fragment key={i}>
+        <span style={isComment ? { color: 'var(--ink-3)' } : undefined}>{line}</span>
+        {i < all.length - 1 ? '\n' : null}
+      </React.Fragment>
+    );
+  });
+}
+
+// Code sits on the sunk surface inside a hairline frame, set in Geist Mono ink.
+export function CodeBlock({ code, language = 'text', filename, className = '' }: CodeBlockProps) {
   return (
     <div
-      className={['rounded-xl overflow-hidden', className].filter(Boolean).join(' ')}
-      style={{ background: '#0b0f19', border: '1px solid rgba(255,255,255,0.08)' }}
+      className={['overflow-hidden rounded-[2px]', className].filter(Boolean).join(' ')}
+      style={{ background: 'var(--sunk)', border: '1px solid var(--rule)', color: 'var(--ink)' }}
     >
-      {/* Header */}
       <div
-        className="flex items-center justify-between px-4 py-2"
-        style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+        className="flex items-center justify-between pl-5 pr-3 py-2"
+        style={{ borderBottom: '1px solid var(--rule)' }}
       >
-        <span className="text-[12px] font-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '12px',
+            letterSpacing: '0.04em',
+            color: 'var(--ink-2)',
+          }}
+        >
           {filename ?? language}
         </span>
         <CopyButton code={code} />
       </div>
-
-      {/* Code — use pre-rendered Shiki HTML when available, else plain pre */}
-      {highlightedHtml ? (
-        <div
-          dangerouslySetInnerHTML={{ __html: highlightedHtml }}
-          style={{ padding: '0 1rem 1rem' }}
-        />
-      ) : (
-        <pre
-          className="overflow-x-auto p-4 text-[13px] leading-relaxed"
-          style={{
-            fontFamily: 'var(--font-mono, monospace)',
-            color: 'rgba(255,255,255,0.85)',
-            margin: 0,
-          }}
-        >
-          <code>{code}</code>
-        </pre>
-      )}
+      <pre
+        className="overflow-x-auto"
+        tabIndex={0}
+        aria-label={filename ? `Code: ${filename}` : 'Code sample'}
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '13.5px',
+          lineHeight: 1.7,
+          color: 'var(--ink)',
+          margin: 0,
+          padding: '20px',
+        }}
+      >
+        <code>{renderLines(code, language)}</code>
+      </pre>
     </div>
   );
 }

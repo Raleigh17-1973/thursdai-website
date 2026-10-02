@@ -51,7 +51,7 @@ export function CaseStudyApplyForm() {
     padding: '10px 14px',
     background: 'var(--color-surface-primary)',
     border: '1px solid var(--color-border-default)',
-    borderRadius: '8px',
+    borderRadius: '2px',
     color: 'var(--color-text-primary)',
     fontSize: '15px',
     outline: 'none',
@@ -64,7 +64,7 @@ export function CaseStudyApplyForm() {
       style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '480px', margin: '0 auto' }}
     >
       {status === 'error' && (
-        <p style={{ color: 'rgb(239,68,68)', fontSize: '14px' }}>
+        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>
           Something went wrong. Please try again.
         </p>
       )}

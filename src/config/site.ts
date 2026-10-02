@@ -8,3 +8,6 @@ export const SAMPLE_LABEL = 'Sample tenant: Northwind Financial (fictional).';
 
 // Where people reach us when an automated channel is unavailable.
 export const CONTACT_EMAIL = 'thursdai@getthursdai.com';
+
+// The product's name for the signed record (decision D6). Centralised so a rename is one line.
+export const RECEIPT_TERM = 'AI Receipt';

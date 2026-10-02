@@ -16,14 +16,14 @@ interface InputProps {
 }
 
 const baseFieldClass =
-  'w-full rounded-lg px-3 py-2 text-[14px] bg-[var(--color-surface-primary)] text-[var(--color-text-primary)] transition-colors';
+  'w-full rounded-[2px] px-3.5 py-2.5 text-[15px] bg-[var(--color-surface-primary)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] transition-colors';
 
 const borderStyle = {
-  border: '1px solid var(--color-border-default)',
+  border: '1px solid var(--color-border-strong)',
 };
 
 const focusClass =
-  'focus:border-[var(--color-border-focus)] focus:outline focus:outline-2 focus:outline-[var(--color-border-focus)] focus:outline-offset-[-1px]';
+  'focus-visible:border-[var(--color-border-focus)] focus-visible:outline-2 focus-visible:outline-[var(--color-border-focus)] focus-visible:outline-offset-2';
 
 export function Input({
   label,
@@ -48,10 +48,10 @@ export function Input({
     'aria-describedby': errorId,
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       onChange?.(e.target.value),
-    className: [baseFieldClass, focusClass, error ? 'border-red-500' : '', className]
+    className: [baseFieldClass, focusClass, className]
       .filter(Boolean)
       .join(' '),
-    style: { ...borderStyle, ...(error ? { borderColor: 'rgb(239 68 68)' } : {}) },
+    style: { ...borderStyle, ...(error ? { borderColor: 'var(--status-flag)' } : {}) },
   };
 
   return (
@@ -59,12 +59,12 @@ export function Input({
       {label && (
         <label
           htmlFor={id}
-          className="text-[13px] font-medium"
+          className="text-[14px] font-medium"
           style={{ color: 'var(--color-text-secondary)' }}
         >
           {label}
           {required && (
-            <span aria-hidden="true" className="ml-0.5 text-red-500">
+            <span aria-hidden="true" className="ml-0.5" style={{ color: 'var(--status-flag)' }}>
               *
             </span>
           )}
@@ -86,7 +86,7 @@ export function Input({
       )}
 
       {error && (
-        <p id={errorId} className="text-[12px] text-red-500" role="alert">
+        <p id={errorId} className="text-[14px]" style={{ color: 'var(--status-flag)' }} role="alert">
           {error}
         </p>
       )}

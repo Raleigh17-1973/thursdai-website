@@ -18,7 +18,6 @@ export function ClosingCTAs() {
           variant="primary"
           size="lg"
           onClick={scrollToDemo}
-          style={{ background: '#111827', color: '#ffffff' }}
         >
           See a replay
         </Button>
@@ -26,7 +25,6 @@ export function ClosingCTAs() {
           variant="secondary"
           size="lg"
           onClick={() => setModalOpen(true)}
-          style={{ borderColor: '#ffffff', color: '#ffffff' }}
         >
           Request a pilot
         </Button>

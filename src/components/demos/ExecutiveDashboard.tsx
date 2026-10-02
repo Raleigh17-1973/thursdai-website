@@ -36,16 +36,15 @@ function SampleTenantBanner() {
         alignItems: 'center',
         gap: '0.5rem',
         padding: '0.5rem 0.875rem',
-        borderRadius: '8px',
-        background: 'color-mix(in srgb, var(--color-amber, #e8a34a) 16%, transparent)',
-        border: '1px solid color-mix(in srgb, var(--color-amber, #e8a34a) 40%, transparent)',
+        borderRadius: '2px',
+        border: '1px dashed var(--color-border-strong)',
+        fontFamily: 'var(--font-mono)',
         fontSize: '12px',
-        fontWeight: 600,
+        lineHeight: 1.5,
         color: 'var(--color-text-secondary)',
         marginBottom: '1.25rem',
       }}
     >
-      <span aria-hidden="true">●</span>
       {SAMPLE_LABEL} Sample figures shown to demonstrate the surface, not real customer results.
     </div>
   );
@@ -56,7 +55,7 @@ function KpiCard({ kpi }: { kpi: Kpi }) {
     <div
       style={{
         border: '1px solid var(--color-border-default)',
-        borderRadius: '12px',
+        borderRadius: '2px',
         background: 'var(--color-surface-primary)',
         padding: '1.1rem 1.25rem',
         display: 'flex',
@@ -64,15 +63,15 @@ function KpiCard({ kpi }: { kpi: Kpi }) {
         gap: '0.35rem',
       }}
     >
-      <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-text-tertiary)' }}>
+      <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--color-text-secondary)' }}>
         {kpi.label}
       </span>
       <span
         style={{
           fontSize: '26px',
-          fontWeight: 700,
+          fontWeight: 500,
           color: 'var(--color-text-primary)',
-          fontFamily: 'var(--font-display, inherit)',
+          fontFamily: 'var(--font-display)',
           lineHeight: 1.1,
         }}
       >
@@ -83,8 +82,7 @@ function KpiCard({ kpi }: { kpi: Kpi }) {
           aria-hidden="true"
           style={{
             display: 'block',
-            height: '4px',
-            borderRadius: '999px',
+            height: '2px',
             background: 'var(--color-border-default)',
             overflow: 'hidden',
             marginTop: '0.15rem',
@@ -95,13 +93,12 @@ function KpiCard({ kpi }: { kpi: Kpi }) {
               display: 'block',
               height: '100%',
               width: `${kpi.fill}%`,
-              borderRadius: '999px',
-              background: 'linear-gradient(90deg, var(--color-indigo, #3e4fb8), var(--color-plum, #5b3a7a))',
+              background: 'var(--color-text-primary)',
             }}
           />
         </span>
       )}
-      <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>{kpi.sub}</span>
+      <span style={{ fontSize: '13px', lineHeight: 1.45, color: 'var(--color-text-secondary)' }}>{kpi.sub}</span>
     </div>
   );
 }
@@ -111,11 +108,11 @@ function KpiGroup({ title, kpis }: { title: string; kpis: Kpi[] }) {
     <div>
       <p
         style={{
-          fontSize: '11px',
-          fontWeight: 700,
-          letterSpacing: '0.08em',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '12px',
+          letterSpacing: '0.04em',
           textTransform: 'uppercase',
-          color: 'var(--color-text-tertiary)',
+          color: 'var(--color-text-secondary)',
           margin: '0 0 0.75rem 0',
         }}
       >
@@ -138,12 +135,13 @@ function KpiGroup({ title, kpis }: { title: string; kpis: Kpi[] }) {
 
 export function ExecutiveDashboard() {
   return (
-    <section
+    <div
+      role="region"
       aria-label="Executive governance dashboard preview"
       style={{
         border: '1px solid var(--color-border-default)',
-        borderRadius: '16px',
-        background: 'var(--color-surface-secondary)',
+        borderRadius: '2px',
+        background: 'var(--color-surface-primary)',
         padding: '1.5rem',
       }}
     >
@@ -157,10 +155,10 @@ export function ExecutiveDashboard() {
           marginBottom: '1rem',
         }}
       >
-        <span style={{ fontSize: '15px', fontWeight: 700, color: 'var(--color-text-primary)' }}>
+        <span style={{ fontSize: '17px', fontWeight: 500, color: 'var(--color-text-primary)' }}>
           AI governance, at a glance
         </span>
-        <span style={{ fontSize: '12px', color: 'var(--color-text-tertiary)' }}>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--color-text-secondary)' }}>
           People space &middot; this quarter
         </span>
       </div>
@@ -169,6 +167,6 @@ export function ExecutiveDashboard() {
         <KpiGroup title="AI governance" kpis={GOVERNANCE_KPIS} />
         <KpiGroup title="Workforce" kpis={WORKFORCE_KPIS} />
       </div>
-    </section>
+    </div>
   );
 }

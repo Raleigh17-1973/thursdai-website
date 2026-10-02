@@ -12,7 +12,7 @@ export function TemplateDownloadCard({ title, desc, href }: TemplateDownloadCard
     <div
       style={{
         border: '1px solid var(--color-border-default)',
-        borderRadius: '12px',
+        borderRadius: '2px',
         padding: '1.5rem',
         background: 'var(--color-surface-primary)',
         display: 'flex',

@@ -20,38 +20,23 @@ const statusLabel = {
   ready: 'Ready',
 } as const;
 
+// A ruled certificate stub: name in ink, status as a mono tag. The frame never implies a
+// certificate is held; the status tag carries that.
 // No aria-label: the visible name and status are the accessible name, so speech
 // input users can say what they see (WCAG 2.5.3).
 export function CertBadge({ name, status, href }: CertBadgeProps) {
   return (
     <Link
       href={href}
-      style={{ textDecoration: 'none' }}
+      className="inline-flex items-center gap-3 rounded-[2px] px-4 py-2.5 no-underline hover:no-underline"
+      style={{
+        border: '1px solid var(--color-border-default)',
+        background: 'var(--color-surface-primary)',
+        color: 'var(--color-text-primary)',
+      }}
     >
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 1rem',
-          borderRadius: '9999px',
-          border: '1px solid var(--color-border-default)',
-          background: 'var(--color-surface-primary)',
-          transition: 'border-color 150ms ease, box-shadow 150ms ease',
-        }}
-        className="hover:border-[var(--color-accent)] hover:shadow-sm"
-      >
-        <span
-          style={{
-            fontSize: '13px',
-            fontWeight: 600,
-            color: 'var(--color-text-primary)',
-          }}
-        >
-          {name}
-        </span>{' '}
-        <Badge variant={statusVariant[status]}>{statusLabel[status]}</Badge>
-      </div>
+      <span style={{ fontSize: '15px', fontWeight: 500 }}>{name}</span>
+      <Badge variant={statusVariant[status]}>{statusLabel[status]}</Badge>
     </Link>
   );
 }

@@ -46,7 +46,7 @@ export function Tabs({ tabs, defaultTab, className = '', onChange }: TabsProps) 
 
   return (
     <div className={className}>
-      <div role="tablist" className="flex border-b" style={{ borderColor: 'var(--color-border-default)' }}>
+      <div role="tablist" className="flex border-b overflow-x-auto" style={{ borderColor: 'var(--color-border-default)' }}>
         {tabs.map((tab, i) => {
           const isActive = tab.id === activeId;
           const tabId = `${uid}-tab-${tab.id}`;
@@ -62,9 +62,9 @@ export function Tabs({ tabs, defaultTab, className = '', onChange }: TabsProps) 
               ref={(el) => { tabRefs.current[i] = el; }}
               onClick={() => activate(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, i)}
-              className="px-4 py-2 text-[14px] font-medium transition-colors"
+              className="px-4 py-2.5 text-[15px] font-medium whitespace-nowrap transition-colors hover:text-[var(--color-text-primary)]"
               style={{
-                color: isActive ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                 background: 'transparent',
                 border: 'none',
                 borderBottom: isActive ? '2px solid var(--color-accent)' : '2px solid transparent',

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { Button } from './Button';
+import { H3_STYLE } from '@/components/typography/scale';
 import { CONTACT_EMAIL } from '@/config/site';
 
 export type CtaLocation = 'hero' | 'closing' | 'nav';
@@ -107,12 +108,11 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
     display: 'block',
     width: '100%',
     padding: '10px 14px',
-    background: 'var(--color-surface-secondary)',
-    border: '1px solid var(--color-border-default)',
-    borderRadius: '8px',
+    background: 'var(--color-surface-primary)',
+    border: '1px solid var(--color-border-strong)',
+    borderRadius: '2px',
     color: 'var(--color-text-primary)',
     fontSize: '15px',
-    outline: 'none',
     transition: 'border-color 150ms ease',
     boxSizing: 'border-box',
   };
@@ -122,7 +122,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'var(--color-surface-overlay, rgba(0,0,0,0.5))',
+        background: 'rgba(20, 18, 15, 0.45)',
         zIndex: 200,
         display: 'flex',
         alignItems: 'center',
@@ -137,11 +137,11 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
         aria-labelledby={titleId}
         style={{
           background: 'var(--color-surface-primary)',
-          borderRadius: '16px',
-          padding: '2rem',
+          border: '1px solid var(--color-text-primary)',
+          borderRadius: '2px',
+          padding: '2.5rem 2rem 2rem',
           width: '100%',
           maxWidth: '480px',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
           position: 'relative',
         }}
         onKeyDown={handleDialogKeyDown}
@@ -161,7 +161,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
             cursor: 'pointer',
             lineHeight: 1,
             padding: '4px 8px',
-            borderRadius: '6px',
+            borderRadius: '2px',
           }}
         >
           ×
@@ -171,7 +171,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
           <div style={{ padding: '0.5rem 0' }}>
             <h2
               id={titleId}
-              style={{ color: 'var(--color-text-primary)', fontSize: '20px', fontWeight: 700, marginBottom: '0.5rem' }}
+              style={{ ...H3_STYLE, marginBottom: '0.75rem' }}
             >
               One more step
             </h2>
@@ -185,10 +185,10 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
                 display: 'block',
                 textAlign: 'center',
                 padding: '12px 20px',
-                background: 'var(--color-accent)',
-                color: '#ffffff',
-                borderRadius: '8px',
-                fontWeight: 600,
+                background: 'var(--button-primary-bg)',
+                color: 'var(--button-primary-fg)',
+                borderRadius: '2px',
+                fontWeight: 500,
                 fontSize: '15px',
                 textDecoration: 'none',
               }}
@@ -198,8 +198,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
           </div>
         ) : submitted ? (
           <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-            <div style={{ fontSize: '40px', marginBottom: '1rem' }}>✓</div>
-            <p style={{ color: 'var(--color-text-primary)', fontSize: '17px', fontWeight: 600 }}>
+            <p style={{ ...H3_STYLE }}>
               We&apos;ll be in touch within one business day.
             </p>
           </div>
@@ -207,16 +206,11 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
           <>
             <h2
               id={titleId}
-              style={{
-                color: 'var(--color-text-primary)',
-                fontSize: '20px',
-                fontWeight: 700,
-                marginBottom: '0.5rem',
-              }}
+              style={{ ...H3_STYLE, marginBottom: '0.5rem' }}
             >
               Request a pilot
             </h2>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '14px', marginBottom: '1.5rem' }}>
+            <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', marginBottom: '1.75rem' }}>
               We&apos;ll set up a tenant pilot tailored to your use case.
             </p>
 
@@ -225,7 +219,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               <div>
                 <label
                   htmlFor="demo-name"
-                  style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '6px' }}
+                  style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}
                 >
                   Name
                 </label>
@@ -244,7 +238,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               <div>
                 <label
                   htmlFor="demo-company"
-                  style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '6px' }}
+                  style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}
                 >
                   Company
                 </label>
@@ -262,7 +256,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               <div>
                 <label
                   htmlFor="demo-email"
-                  style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '6px' }}
+                  style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}
                 >
                   Work email
                 </label>
@@ -280,7 +274,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               <div>
                 <label
                   htmlFor="demo-decision"
-                  style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '6px' }}
+                  style={{ display: 'block', fontSize: '14px', fontWeight: 500, color: 'var(--color-text-primary)', marginBottom: '6px' }}
                 >
                   What decision would you most want to replay?
                 </label>

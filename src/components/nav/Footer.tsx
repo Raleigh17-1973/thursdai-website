@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
+import { Button } from '@/components/ui/Button';
 
 function LinkedInIcon() {
   return (
@@ -63,16 +64,16 @@ const bottomLinks = [
 
 export function Footer() {
   return (
-    <footer className="footer-root" style={{ background: '#0b0f19' }}>
+    <footer style={{ background: 'var(--paper)', borderTop: '1px solid var(--rule)' }}>
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-16 md:py-20">
         {/* Four-column grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
           {/* Column 1 — Company */}
           <div className="md:col-span-1">
             <div className="mb-4">
-              <ThursdaiWordmark onDark fontSize={30} />
+              <ThursdaiWordmark fontSize={30} />
             </div>
-            <p className="footer-link text-[14px] leading-relaxed mb-6" style={{ color: '#a1a1aa' }}>
+            <p className="text-[15px] leading-relaxed mb-6" style={{ color: 'var(--ink-2)' }}>
               Your team&apos;s AI: controlled, auditable and safe to use.
             </p>
             <div className="flex items-center gap-3">
@@ -81,7 +82,7 @@ export function Footer() {
                 aria-label="Thursdai on LinkedIn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-8 h-8 rounded-md"
+                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
               >
                 <LinkedInIcon />
               </a>
@@ -90,7 +91,7 @@ export function Footer() {
                 aria-label="Thursdai on GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-8 h-8 rounded-md"
+                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
               >
                 <GitHubIcon />
               </a>
@@ -99,7 +100,7 @@ export function Footer() {
                 aria-label="Thursdai on X (Twitter)"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer-link flex items-center justify-center w-8 h-8 rounded-md"
+                className="footer-link flex items-center justify-center w-9 h-9 rounded-[2px]"
               >
                 <XIcon />
               </a>
@@ -108,16 +109,13 @@ export function Footer() {
 
           {/* Column 2 — Product */}
           <div>
-            <h3
-              className="text-[12px] font-semibold uppercase tracking-[0.08em] mb-4"
-              style={{ color: '#71717a' }}
-            >
+            <h2 className="rec-label mb-4 mt-0">
               Product
-            </h3>
+            </h2>
             <ul className="space-y-3 list-none p-0 m-0">
               {productLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="footer-link text-[14px]">
+                  <Link href={link.href} className="footer-link text-[15px]">
                     {link.label}
                   </Link>
                 </li>
@@ -127,16 +125,13 @@ export function Footer() {
 
           {/* Column 3 — Developers */}
           <div>
-            <h3
-              className="text-[12px] font-semibold uppercase tracking-[0.08em] mb-4"
-              style={{ color: '#71717a' }}
-            >
+            <h2 className="rec-label mb-4 mt-0">
               Developers
-            </h3>
+            </h2>
             <ul className="space-y-3 list-none p-0 m-0">
               {developerLinks.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="footer-link text-[14px]">
+                  <Link href={link.href} className="footer-link text-[15px]">
                     {link.label}
                   </Link>
                 </li>
@@ -146,13 +141,10 @@ export function Footer() {
 
           {/* Column 4 — Stay informed */}
           <div>
-            <h3
-              className="text-[12px] font-semibold uppercase tracking-[0.08em] mb-4"
-              style={{ color: '#71717a' }}
-            >
+            <h2 className="rec-label mb-4 mt-0">
               Stay informed
-            </h3>
-            <p className="text-[14px] mb-4" style={{ color: '#a1a1aa' }}>
+            </h2>
+            <p className="text-[15px] mb-4" style={{ color: 'var(--ink-2)' }}>
               Product updates, no noise.
             </p>
             {/* Email subscription form — UI only, not wired */}
@@ -166,21 +158,17 @@ export function Footer() {
                   type="email"
                   placeholder="your@email.com"
                   aria-label="Email address"
-                  className="w-full px-3 py-2.5 rounded-lg text-[14px] border"
+                  className="w-full px-3.5 py-2.5 rounded-[2px] text-[15px] placeholder:text-[var(--ink-3)]"
                   style={{
-                    background: '#1a1a1e',
-                    borderColor: '#27272a',
-                    color: '#e4e4e7',
+                    background: 'var(--paper)',
+                    border: '1px solid var(--color-border-strong)',
+                    color: 'var(--ink)',
                   }}
                 />
               </div>
-              <button
-                type="button"
-                className="w-full px-4 py-2.5 rounded-lg text-[14px] font-semibold text-white"
-                style={{ background: '#3e4fb8', color: '#ffffff', cursor: 'pointer', border: 'none' }}
-              >
+              <Button variant="secondary" className="w-full">
                 Subscribe
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -188,9 +176,9 @@ export function Footer() {
         {/* Bottom bar */}
         <div
           className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6"
-          style={{ borderTop: '1px solid #27272a' }}
+          style={{ borderTop: '1px solid var(--rule)' }}
         >
-          <p className="text-[13px]" style={{ color: '#a1a1aa' }}>
+          <p className="text-[14px] m-0" style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.04em' }}>
             © 2026 Thursdai, Inc.
           </p>
           <nav aria-label="Legal links">
@@ -200,14 +188,14 @@ export function Footer() {
                   {link.external ? (
                     <a
                       href={link.href}
-                      className="footer-link text-[13px]"
+                      className="footer-link text-[14px]"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       {link.label}
                     </a>
                   ) : (
-                    <Link href={link.href} className="footer-link text-[13px]">
+                    <Link href={link.href} className="footer-link text-[14px]">
                       {link.label}
                     </Link>
                   )}

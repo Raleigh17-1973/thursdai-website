@@ -140,24 +140,23 @@ function SliderRow({
           {displayValue}
         </span>
       </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        disabled={disabled}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="time-travel-slider"
-        style={
-          {
-            '--slider-progress': `${progress}%`,
-            opacity: disabled ? 0.4 : 1,
-          } as React.CSSProperties
-        }
-        aria-label={label}
-        aria-valuetext={displayValue}
-      />
+      <div style={{ position: 'relative', height: '20px', opacity: disabled ? 0.4 : 1 }}>
+        <div aria-hidden="true" style={{ position: 'absolute', left: 0, right: 0, top: '9px', height: '2px', background: 'var(--color-border-default)' }} />
+        <div aria-hidden="true" style={{ position: 'absolute', left: 0, top: '9px', height: '2px', width: `calc(8px + (100% - 16px) * ${progress / 100})`, background: 'var(--color-accent)' }} />
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          disabled={disabled}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="time-travel-slider"
+          style={{ position: 'absolute', inset: 0 }}
+          aria-label={label}
+          aria-valuetext={displayValue}
+        />
+      </div>
     </div>
   );
 }
@@ -297,7 +296,7 @@ export function DealDesigner() {
               alignItems: 'center',
               width: '44px',
               height: '24px',
-              borderRadius: '12px',
+              borderRadius: '2px',
               background: deal.includeOutcome
                 ? 'var(--color-accent)'
                 : 'var(--color-border-default)',
@@ -313,7 +312,7 @@ export function DealDesigner() {
                 width: '20px',
                 height: '20px',
                 borderRadius: '50%',
-                background: '#fff',
+                background: 'var(--paper)',
                 transform: deal.includeOutcome ? 'translateX(20px)' : 'translateX(0)',
                 transition: 'transform 200ms ease',
               }}
@@ -383,7 +382,7 @@ export function DealDesigner() {
             style={{
               marginTop: '0.875rem',
               background: 'var(--color-surface-secondary)',
-              borderRadius: '10px',
+              borderRadius: '2px',
               padding: '1rem',
               fontSize: '13px',
               lineHeight: 1.7,
@@ -442,7 +441,7 @@ export function DealDesigner() {
               onClick={() => loadExample(ex)}
               style={{
                 padding: '0.375rem 0.875rem',
-                borderRadius: '8px',
+                borderRadius: '2px',
                 border: '1px solid var(--color-border-default)',
                 background: 'var(--color-surface-secondary)',
                 cursor: 'pointer',
