@@ -8,6 +8,8 @@ import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { H2_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 import { ButtonLink } from '@/components/ui/Button';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { CONTACT_EMAIL } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Team: Thursdai',
@@ -15,7 +17,6 @@ export const metadata: Metadata = {
     'Jeff Hoyt founded Thursdai in 2026 after building AI agents he could not explain. The story behind the record, and how to work with him as a design partner.',
 };
 
-const CONTACT_EMAIL = 'thursdai@getthursdai.com';
 
 // ── Name plate ─────────────────────────────────────────────────
 // A typographic portrait in place of a headshot: the founder set like the signature block
@@ -211,32 +212,20 @@ export default function TeamPage() {
       </Section>
 
       {/* ── Closing band ── */}
-      <Section tone="ink" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Bring me the decision you can&apos;t explain yet.</Heading2>
-          <Body variant="large" style={{ marginTop: '1.5rem' }}>
-            I&apos;m taking on a small number of design partners: regulated teams putting AI into
-            hiring, lending, insurance or similar decisions. Partners get a pilot tenant, receipts
-            on their own systems and a direct line to me.
-          </Body>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: '0.75rem',
-              marginTop: '2rem',
-            }}
-          >
+      <ClosingBand
+        heading="Bring me the decision you can't explain yet."
+        body="I'm taking on a small number of design partners: regulated teams putting AI into hiring, lending, insurance or similar decisions. Partners get a pilot tenant, receipts on their own systems and a direct line to me."
+        actions={
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
             <ButtonLink href="/customers" variant="primary" size="lg">
-              See the design partner program
+              Become a design partner
             </ButtonLink>
             <ButtonLink href={`mailto:${CONTACT_EMAIL}`} variant="secondary" size="lg">
-              {CONTACT_EMAIL}
+              Email Jeff
             </ButtonLink>
           </div>
-        </Container>
-      </Section>
+        }
+      />
     </>
   );
 }

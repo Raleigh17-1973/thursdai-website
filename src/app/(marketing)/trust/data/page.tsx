@@ -1,270 +1,162 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Callout } from '@/components/ui/Callout';
-import { Breadcrumb } from '@/components/nav/Breadcrumb';
+import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { TrustDocument, FactList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { RECEIPT_TERM_PLURAL } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Data Handling: Thursdai',
+  title: 'Data handling: Thursdai',
   description:
-    "How Thursdai stores, processes and protects your data. Retention windows, PII handling, tenant isolation, encryption and our training policy.",
+    'How Thursdai stores, processes and protects your data: no training on customer data, retention windows, encryption, tenant isolation and personal data handling.',
 };
 
-// ── Styles ─────────────────────────────────────────────────────
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-const thStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  textAlign: 'left',
-  fontSize: '13px',
-  fontWeight: 600,
-};
-
-const tdStyle: React.CSSProperties = {
-  padding: '10px 14px',
-  fontSize: '14px',
-  lineHeight: 1.5,
-  color: 'var(--color-text-secondary)',
-  verticalAlign: 'top',
-};
-
-// ── Data ───────────────────────────────────────────────────────
-
-const RETENTION_ROWS = [
-  { type: 'Inference logs', defaultRetention: '365 days', maxRetention: '7 years', notes: 'Required for AI Act audit trail' },
-  { type: 'Tenant corpus content', defaultRetention: 'Indefinite (until deleted)', maxRetention: 'N/A', notes: 'Customer-controlled deletion' },
-  { type: 'User session data', defaultRetention: '30 days', maxRetention: '1 year', notes: 'Covers auth tokens, session state' },
-  { type: 'Audit events', defaultRetention: '7 years', maxRetention: '7 years', notes: 'Non-configurable; regulatory requirement' },
-  { type: 'API request logs', defaultRetention: '90 days', maxRetention: '1 year', notes: 'Access patterns, rate limiting data' },
+const RETENTION = [
+  { id: 'receipts', type: RECEIPT_TERM_PLURAL, standard: 'Set per tenant', max: 'Set per tenant', notes: 'Set it to six months or more to meet the deployer floor in EU AI Act Article 26(6).' },
+  { id: 'inference', type: 'Inference logs', standard: '365 days', max: '7 years', notes: 'Configurable per tenant.' },
+  { id: 'corpus', type: 'Tenant corpus content', standard: 'Until you delete it', max: 'Not applicable', notes: 'You control deletion.' },
+  { id: 'session', type: 'User session data', standard: '30 days', max: '1 year', notes: 'Authentication tokens and session state.' },
+  { id: 'audit', type: 'Audit events', standard: '7 years', max: '7 years', notes: 'Fixed; not configurable.' },
+  { id: 'api', type: 'API request logs', standard: '90 days', max: '1 year', notes: 'Access patterns and rate limiting data.' },
 ];
-
-// ── Page ───────────────────────────────────────────────────────
 
 export default function DataPage() {
   return (
-    <>
-      {/* Hero */}
-      <Section variant="default">
-        <Container>
-          <Breadcrumb
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Trust', href: '/trust' },
-              { label: 'Data Handling' },
-            ]}
-          />
-          <Label style={{ marginTop: '1.5rem', display: 'block' }}>Data Handling</Label>
-          <Heading1 style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
-            Your data is yours. We don&apos;t train on it.
-          </Heading1>
-          <Body variant="large">
-            This is not fine print. Thursdai never uses customer data to train models, fine-tune
-            systems or improve the standard corpus. This section documents every data flow,
-            retention window and isolation guarantee.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* Training policy statement */}
-      {/* LEGAL REVIEW REQUIRED */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="warning" style={{ marginBottom: '1.5rem' }}>
-            Content pending legal review before launch. Full data handling documentation requires
-            review by DPO/legal counsel before launch.
-          </Callout>
-          <div
-            style={{
-              background: 'var(--color-surface-primary)',
-              border: '1px solid var(--color-border-default)',
-              borderTop: '1px solid var(--color-text-primary)',
-              borderRadius: '2px',
-              padding: '2rem',
-              margin: '2rem 0',
-              textAlign: 'center',
-            }}
-          >
-            <Heading2>Thursdai never trains on customer data.</Heading2>
-            <Body variant="large" style={{ marginTop: '1rem' }}>
-              Not in the fine print. Not as an opt-out. Never. Your tenant corpus content, your
-              queries and your outputs are never used for model training, fine-tuning or standard
-              corpus improvement.
-            </Body>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Retention windows */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Retention windows</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={thStyle}>Data type</th>
-                  <th style={thStyle}>Default retention</th>
-                  <th style={thStyle}>Configurable max</th>
-                  <th style={thStyle}>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {RETENTION_ROWS.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: 'var(--color-text-primary)' }}>{row.type}</td>
-                    <td style={tdStyle}>{row.defaultRetention}</td>
-                    <td style={tdStyle}>{row.maxRetention}</td>
-                    <td style={tdStyle}>{row.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Encryption */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Encryption</Heading2>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '1.5rem',
-            }}
-          >
-            <div
+    <TrustDocument
+      crumbs={[
+        { label: 'Home', href: '/' },
+        { label: 'Trust', href: '/trust' },
+        { label: 'Data handling' },
+      ]}
+      label="Data handling"
+      title="Your data is yours. We don't train on it."
+      lead="Thursdai never uses customer data to train models, fine-tune systems or improve the standard corpus. This document sets out retention, encryption, isolation and how personal data is handled."
+      meta={[
+        { label: 'Status as of', value: 'October 2026' },
+        { label: 'Legal review', value: 'Pending' },
+      ]}
+      sections={[
+        {
+          id: 'training',
+          title: 'Training policy',
+          body: (
+            <p
+              className="m-0"
               style={{
-                border: '1px solid var(--color-border-default)',
-                borderRadius: '2px',
-                padding: '1.5rem',
-                background: 'var(--color-surface-primary)',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(22px, calc(19.33px + 0.74vw), 30px)',
+                lineHeight: 1.35,
+                letterSpacing: '-0.01em',
+                color: 'var(--ink)',
               }}
             >
-              <Label style={{ marginBottom: '0.75rem' }}>At rest</Label>
+              Your tenant corpus, your queries and your outputs are never used for model training,
+              fine-tuning or improving the standard corpus. Not as an opt-out and not in the fine
+              print.
+            </p>
+          ),
+        },
+        {
+          id: 'retention',
+          title: 'Retention',
+          body: (
+            <RecordTable
+              caption="Retention by data type: standard period, configurable maximum and notes"
+              columns={[
+                { key: 'type', label: 'Data type', width: '26%' },
+                { key: 'standard', label: 'Standard', width: '18%' },
+                { key: 'max', label: 'Configurable maximum', width: '18%' },
+                { key: 'notes', label: 'Notes' },
+              ]}
+              rows={RETENTION}
+            />
+          ),
+        },
+        {
+          id: 'encryption',
+          title: 'Encryption',
+          body: (
+            <FactList
+              items={[
+                {
+                  term: 'At rest',
+                  body: 'AES-256-GCM. Tenant corpus encrypted with a tenant-specific key. Customer-managed keys are available on dedicated deployments and above.',
+                },
+                {
+                  term: 'In transit',
+                  body: 'TLS 1.3 minimum. Certificate pinning is available for dedicated deployments; mutual TLS is supported for your-cloud and on-premises deployments.',
+                },
+              ]}
+            />
+          ),
+        },
+        {
+          id: 'isolation',
+          title: 'Tenant isolation',
+          body: (
+            <>
               <Body>
-                AES-256-GCM. Tenant corpus encrypted with tenant-specific key. CMEK available on
-                dedicated and above tiers.
+                Tenant boundaries are enforced in the database, not only as an application check.
+                Each tenant has its own database schema and queries are scoped to the tenant when
+                the connection is made, so no code path reads another tenant&apos;s data, even with
+                a crafted request.
               </Body>
-            </div>
-            <div
-              style={{
-                border: '1px solid var(--color-border-default)',
-                borderRadius: '2px',
-                padding: '1.5rem',
-                background: 'var(--color-surface-primary)',
-              }}
-            >
-              <Label style={{ marginBottom: '0.75rem' }}>In transit</Label>
               <Body>
-                TLS 1.3 minimum. Certificate pinning available for dedicated deployments. mTLS
-                supported for VPC and on-premises.
+                Access logs are generated per tenant and you can audit them through the API: who
+                accessed your data and when, without asking Thursdai support.
               </Body>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Tenant isolation */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Tenant isolation</Heading2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            </>
+          ),
+        },
+        {
+          id: 'personal-data',
+          title: 'Personal data',
+          body: (
+            <FactList
+              items={[
+                { term: 'Detection', body: 'Personal data in inference inputs and outputs is detected with pattern matching and a classifier.' },
+                {
+                  term: 'Redaction',
+                  body: (
+                    <>
+                      The <code style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--ink)' }}>pii_block</code>{' '}
+                      policy redacts it before output.
+                    </>
+                  ),
+                },
+                { term: 'Storage', body: 'Masked in inference logs by default; full logs are available on request, and each request is itself logged.' },
+                { term: 'Erasure', body: 'You submit an erasure request through the API; it is processed within 30 days and confirmed with a receipt.' },
+              ]}
+            />
+          ),
+        },
+        {
+          id: 'third-parties',
+          title: 'Third parties',
+          body: (
             <Body>
-              Cryptographic isolation ensures no cross-tenant query is possible at any layer of the
-              stack. The architecture enforces tenant boundaries at the database level, not purely
-              as an application-layer check.
+              The companies that process customer data on our behalf, and what each does, are on
+              the{' '}
+              <Link href="/trust/subprocessors" style={UNDERLINED}>
+                subprocessors
+              </Link>{' '}
+              page.
             </Body>
-            <Body>
-              Each tenant operates on separate database schemas. Queries are scoped to the tenant
-              at connection time; there is no code path that permits reading another tenant&apos;s
-              data even with a crafted request.
-            </Body>
-            <Body>
-              Access logs are generated per-tenant and auditable by the customer via API. You can
-              independently verify who accessed your data and when, without relying on Thursdai
-              support.
-            </Body>
-          </div>
-        </Container>
-      </Section>
-
-      {/* PII handling */}
-      {/* LEGAL REVIEW REQUIRED */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>PII handling</Heading2>
-          <Callout variant="warning" style={{ marginBottom: '1.5rem' }}>
-            Content pending legal review before launch.
-          </Callout>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div>
-              <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
-                Detection
-              </p>
-              <Body>
-                PII detected in inference inputs and outputs using pattern matching plus ML
-                classification.
-              </Body>
-            </div>
-            <div>
-              <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
-                Redaction
-              </p>
-              <Body>
-                <code
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    background: 'var(--color-surface-secondary)',
-                    padding: '1px 4px',
-                    borderRadius: '2px',
-                    fontSize: '13px',
-                  }}
-                >
-                  pii_block
-                </code>{' '}
-                policy primitive redacts before output.
-              </Body>
-            </div>
-            <div>
-              <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
-                Storage
-              </p>
-              <Body>
-                PII in inference logs masked by default; full logs available on-demand with audit
-                trail.
-              </Body>
-            </div>
-            <div>
-              <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
-                Right to erasure
-              </p>
-              <Body>
-                Documented workflow: customer submits erasure request via API, Thursdai processes
-                within 30 days, confirmation receipt issued.
-              </Body>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Subprocessors */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Subprocessors">
-            Thursdai uses a small number of carefully vetted subprocessors for infrastructure and
-            security services.{' '}
-            <Link href="/trust/subprocessors">
-              View the full subprocessors list →
-            </Link>
-          </Callout>
-        </Container>
-      </Section>
-    </>
+          ),
+        },
+      ]}
+      close={
+        <ClosingBand
+          heading="Test it on your own data."
+          body="A pilot runs in a tenant of your own, under these controls, on one AI system you choose."
+          actions={<ClosingCTAs primary="pilot" />}
+        />
+      }
+    />
   );
 }

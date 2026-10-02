@@ -1,29 +1,26 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Display } from '@/components/typography/Display';
-import { Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
-import { Card } from '@/components/ui/Card';
-import { ButtonLink } from '@/components/ui/Button';
-import { Callout } from '@/components/ui/Callout';
-import { CodeBlock } from '@/components/ui/CodeBlock';
 import Link from 'next/link';
+import { Body } from '@/components/typography/Body';
+import { LABEL_STYLE } from '@/components/typography/scale';
+import { ButtonLink } from '@/components/ui/Button';
+import { CodeBlock } from '@/components/ui/CodeBlock';
 import { VerifyReceiptButton } from '@/components/receipt/VerifyReceiptButton';
+import { TrustDocument, FactList } from '@/components/templates/TrustDocument';
+import { RecordTable } from '@/components/templates/RecordTable';
+import { ClosingBand } from '@/components/templates/ClosingBand';
+import { RequestPilotButton } from '@/components/ui/RequestPilotButton';
 import { SAMPLE_DISPLAY } from '@/lib/receipts/display';
-import { SAMPLE_LABEL_SIGNED } from '@/config/site';
+import { RECEIPT_TERM, RECEIPT_TERM_PLURAL, SAMPLE_LABEL_SIGNED } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Developers: Thursdai',
-  description:
-    'Submit AI Receipts from any system, query your decision record and use the Thursdai agent: REST API, MCP server, TypeScript and Python SDKs.',
+  description: `The Thursdai API reference: authentication, recording ${RECEIPT_TERM_PLURAL} from any AI system, the receipt schema, verifying a signature yourself, queries, the agent and rate limits.`,
 };
 
-// ── Receipt API snippets ────────────────────────────────────────
+// Until separate docs exist, this page is the docs (plan Item 7.6).
+
+const API_BASE = 'https://api.getthursdai.com/v1';
 
 const PYTHON_RECEIPT = `from thursdai import ThursdaiClient
 
@@ -65,8 +62,9 @@ console.log('Receipt:', receipt.id);
 console.log('Signed:', receipt.signedAt);
 console.log('Checks:', receipt.complianceResults);`;
 
-const CURL_RECEIPT = `curl -X POST https://api.getthursdai.com/v1/receipts \\
+const CURL_RECEIPT = `curl -X POST ${API_BASE}/receipts \\
   -H "Authorization: Bearer thy_live_..." \\
+  -H "X-Tenant-ID: acme-financial" \\
   -H "Content-Type: application/json" \\
   -d '{
     "source": "greenhouse-screening-agent",
@@ -74,12 +72,26 @@ const CURL_RECEIPT = `curl -X POST https://api.getthursdai.com/v1/receipts \\
     "decision": "Advanced applicant 4821 to interview stage",
     "context": {
       "job_req": "JR-204",
-      "rubric_version": "v3"
-    },
-    "tenant_id": "acme-financial"
+      "rubric_version": "v3",
+      "tenant_id": "acme-financial"
+    }
   }'`;
 
-// ── Agent API snippets ──────────────────────────────────────────
+const PYTHON_QUERY = `from thursdai import ThursdaiClient
+
+client = ThursdaiClient(api_key="thy_live_...")
+
+# Query your receipt history in plain language
+results = client.receipts.query(
+    question="Which AI systems had the most compliance flags last quarter?",
+    tenant_id="acme-financial",
+    from_date="2026-04-01",
+    to_date="2026-06-30",
+)
+
+for item in results.receipts:
+    print(f"{item.source}: {item.compliance_summary}")
+    print(f"  Receipt: {item.id}")`;
 
 const PYTHON_AGENT = `from thursdai import ThursdaiClient
 
@@ -97,325 +109,357 @@ print(result.answer)
 print(f"Knowledge used: {[k.title for k in result.knowledge_consulted]}")
 print(f"Receipt ID:     {result.receipt.id}")`;
 
-// ── Query snippet ───────────────────────────────────────────────
+// Mirrors src/lib/receipts/verify.ts, so what we tell developers is what the verifier does.
+const NODE_VERIFY = `import { createHash, createPublicKey, verify } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 
-const PYTHON_QUERY = `from thursdai import ThursdaiClient
+const file = JSON.parse(readFileSync('northwind-sample-receipt.json', 'utf8'));
 
-client = ThursdaiClient(api_key="thy_live_...")
+// Canonical JSON: object keys sorted, no whitespace
+const canon = (v) =>
+  v === null || typeof v !== 'object'
+    ? JSON.stringify(v)
+    : Array.isArray(v)
+      ? '[' + v.map(canon).join(',') + ']'
+      : '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + canon(v[k])).join(',') + '}';
 
-# Query your receipt history in plain language
-results = client.receipts.query(
-    question="Which AI systems had the most compliance flags last quarter?",
-    tenant_id="acme-financial",
-    date_range={"start": "2025-01-01", "end": "2025-03-31"},
-)
+const bytes = Buffer.from(canon(file.receipt), 'utf8');
+const sha256 = createHash('sha256').update(bytes).digest('hex');
+const signed = verify(null, bytes, createPublicKey(file.public_key_pem), Buffer.from(file.signature, 'base64'));
 
-for item in results.receipts:
-    print(f"{item.source}: {item.compliance_summary}")
-    print(f"  Receipt: {item.id}")`;
+console.log('fingerprint matches:', sha256 === file.sha256);
+console.log('signature valid:', signed);`;
 
-// ── Icons ──────────────────────────────────────────────────────
+const SCOPES = [
+  { scope: 'receipts:write', permits: 'Record AI Receipts from external systems and internal agents.' },
+  { scope: 'receipts:read', permits: 'Read receipts, retrieve one by id and run plain-language queries against receipt history.' },
+  { scope: 'agent:invoke', permits: 'Use the Thursdai agent for knowledge-grounded, policy-checked answers.' },
+  { scope: 'replay:read', permits: 'Replay past decisions and run point-in-time queries.' },
+  { scope: 'policy:read', permits: 'Read policy sets and dry-run them against recorded decisions.' },
+  { scope: 'policy:write', permits: 'Create, update and publish policy sets.' },
+  { scope: 'admin', permits: 'Tenant management, user provisioning and audit log export.' },
+];
 
-function IconReceipt() {
+const ENDPOINTS = [
+  { method: 'POST /v1/receipts', purpose: 'Record a decision from any AI system: your own model, a vendor agent or a third-party tool. Returns the receipt id, policy results and signature.' },
+  { method: 'GET /v1/receipts/{id}', purpose: 'Read one receipt. Add include_anchor_proof=true for its Merkle anchor proof.' },
+  { method: 'POST /v1/receipts/search', purpose: 'Filter receipts by source, date range or policy result. Cursor-paginated.' },
+  { method: 'POST /v1/receipts/verify', purpose: 'Check the Merkle anchor for one or more receipts.' },
+  { method: 'POST /v1/receipts/query', purpose: 'Ask questions of your receipt history in plain language. Returns matching receipts and summary statistics.' },
+  { method: 'GET /v1/coverage', purpose: 'Decision counts and policy pass and fail rates for a tenant over a period.' },
+  { method: 'GET /v1/frameworks', purpose: 'The compliance frameworks active for a tenant and their status.' },
+  { method: 'POST /v1/agent/ask', purpose: 'Ask the Thursdai agent, grounded in your knowledge and policies. Every answer is itself an AI Receipt.' },
+];
+
+// The receipt schema as signed (src/lib/receipts/fixture.json is a real instance).
+const SCHEMA_FIELDS = [
+  { field: 'id', type: 'string', meaning: 'Receipt id, prefixed rcpt_.' },
+  { field: 'schema', type: 'string', meaning: 'Schema version. Currently thursdai.ai-receipt/1.' },
+  { field: 'tenant', type: 'string', meaning: 'The tenant that recorded the decision.' },
+  { field: 'decision', type: 'object', meaning: 'summary, type, outcome, subject_ref (a reference, never a name) and confidence.' },
+  { field: 'source', type: 'object', meaning: 'The system that decided: role, system, operator, model, model_host and version.' },
+  { field: 'policies_evaluated', type: 'array', meaning: 'Each policy checked: id, name, result (pass, flag or block) and detail.' },
+  { field: 'evidence', type: 'array', meaning: 'What the decision relied on: kind and ref for each item.' },
+  { field: 'risk', type: 'object', meaning: 'tier and the framework it was assessed under.' },
+  { field: 'human_oversight', type: 'object', meaning: 'reviewer_role and the action the reviewer took.' },
+  { field: 'recorded_at', type: 'string', meaning: 'When the decision was recorded, ISO 8601 UTC.' },
+  { field: 'scope_note', type: 'string', meaning: 'What the receipt does and does not claim.' },
+];
+
+const ENVELOPE_FIELDS = [
+  { field: 'sha256', type: 'string', meaning: 'Hex sha256 of the canonical JSON of receipt: the fingerprint.' },
+  { field: 'signature', type: 'string', meaning: 'Base64 Ed25519 signature over the same canonical bytes.' },
+  { field: 'signature_algorithm', type: 'string', meaning: 'ed25519.' },
+  { field: 'signed_at', type: 'string', meaning: 'When the signature was made, ISO 8601 UTC.' },
+  { field: 'key_id', type: 'string', meaning: 'Which signing key was used.' },
+];
+
+const mono: React.CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' };
+const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
+
+function Code({ children }: { children: React.ReactNode }) {
+  return <code style={mono}>{children}</code>;
+}
+
+function CodeTabs({
+  items,
+}: {
+  items: { label: string; code: string; language: 'python' | 'typescript' | 'bash'; filename: string }[];
+}) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 2v20l3-2 2 2 3-2 3 2 2-2 3 2V2z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round" />
-      <path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
+    <div style={{ borderTop: '1px solid var(--ink)' }}>
+      {items.map((it, i) => (
+        <details key={it.label} open={i === 0} style={{ borderBottom: '1px solid var(--rule)' }}>
+          <summary
+            className="cursor-pointer py-3 flex items-center justify-between"
+            style={{ ...LABEL_STYLE, color: 'var(--ink)', listStyle: 'none' }}
+          >
+            {it.label}
+            <span aria-hidden="true" style={{ color: 'var(--ink-3)' }}>
+              {it.filename}
+            </span>
+          </summary>
+          <div style={{ paddingBottom: '1rem' }}>
+            <CodeBlock code={it.code} language={it.language} filename={it.filename} />
+          </div>
+        </details>
+      ))}
+    </div>
   );
 }
 
-function IconAgent() {
+function SchemaTable({ caption, rows }: { caption: string; rows: { field: string; type: string; meaning: string }[] }) {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M16 3l2 2-2 2" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <RecordTable
+      caption={caption}
+      columns={[
+        { key: 'field', label: 'Field', width: '28%' },
+        { key: 'type', label: 'Type', width: '12%' },
+        { key: 'meaning', label: 'Meaning' },
+      ]}
+      rows={rows.map((r) => ({ id: r.field, field: <Code>{r.field}</Code>, type: r.type, meaning: r.meaning }))}
+    />
   );
 }
-
-function IconQuery() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M8 11h6M11 8v6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconMCP() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="2" y="2" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <rect x="13" y="2" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <rect x="2" y="13" width="9" height="9" rx="2" stroke="currentColor" strokeWidth="1.25" />
-      <path d="M17.5 13v9M13 17.5h9" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconAPI() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 6h16M4 10h16M4 14h10M4 18h7" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconSDK() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <polyline points="16 18 22 12 16 6" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-      <polyline points="8 6 2 12 8 18" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-const detailsStyle: React.CSSProperties = {
-  border: '1px solid var(--color-border-default)',
-  borderRadius: '2px',
-  overflow: 'hidden',
-};
-
-const summaryStyle: React.CSSProperties = {
-  cursor: 'pointer',
-  padding: '0.6rem 1rem',
-  fontSize: '14px',
-  fontWeight: 500,
-  color: 'var(--color-text-primary)',
-  listStyle: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem',
-  background: 'var(--color-surface-primary)',
-};
-
-// ── Page ───────────────────────────────────────────────────────
 
 export default function DevelopersPage() {
   return (
-    <>
-      {/* Hero */}
-      <Section variant="default">
-        <Container>
-          <Label>Developers</Label>
-          <Display style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
-            One API. Every AI decision on the record.
-          </Display>
-          <Body variant="large" style={{ marginBottom: '2rem' }}>
-            Submit AI Receipts from any system in a single call. Query your decision history in plain
-            language. Use the Thursdai Agent for governed, knowledge-grounded answers. REST API,
-            MCP server and TypeScript and Python SDKs.
-          </Body>
+    <TrustDocument
+      crumbs={[{ label: 'Home', href: '/' }, { label: 'Developers' }]}
+      label="Developers"
+      title="One API. Every AI decision on the record."
+      lead={
+        <>
+          Record a signed {RECEIPT_TERM} from any system in one call, query your decision history in
+          plain language and verify any receipt without an account. This page is the reference:
+          authentication, the endpoints, the receipt schema and rate limits.
+        </>
+      }
+      heroActions={
+        <>
           <VerifyReceiptButton receiptId={SAMPLE_DISPLAY.id} label="Verify a receipt" className="max-w-[640px]">
             <ButtonLink href="/developers/sdk" variant="secondary" size="md">
               Read the SDK guide
             </ButtonLink>
           </VerifyReceiptButton>
           <Body variant="small" style={{ marginTop: '1rem' }}>
-            Runs <code style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' }}>GET /api/verify?id={SAMPLE_DISPLAY.id}</code>{' '}
-            against the signed sample receipt from the <Link href="/demo" style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>demo</Link>. {SAMPLE_LABEL_SIGNED}
+            Runs <Code>GET /api/verify?id={SAMPLE_DISPLAY.id}</Code> against the signed sample
+            receipt from the{' '}
+            <Link href="/demo" style={UNDERLINED}>
+              demo
+            </Link>
+            . {SAMPLE_LABEL_SIGNED}
           </Body>
-        </Container>
-      </Section>
-
-      {/* ── Three API surfaces ─────────────────────────────────── */}
-      <Section id="reference" variant="compact" style={{ scrollMarginTop: '80px' }}>
-        <Container>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
-            {[
-              {
-                icon: <IconReceipt />,
-                label: 'POST /v1/receipts',
-                title: 'Receipt API',
-                body: 'Submit a signed AI Receipt from any system, whether your own model, a vendor\'s agent or a third-party tool. Returns a receipt ID, compliance results and tamper-evident signature.',
-              },
-              {
-                icon: <IconQuery />,
-                label: 'POST /v1/receipts/query',
-                title: 'Query API',
-                body: 'Ask questions of your full receipt history in plain language. Get back matching receipts, aggregate statistics and trend data for compliance reporting.',
-              },
-              {
-                icon: <IconAgent />,
-                label: 'POST /v1/agent/ask',
-                title: 'Agent API',
-                body: 'Use the Thursdai Agent grounded in your knowledge base and policies. Every answer is a signed AI Receipt: knowledge consulted, policies applied, confidence score.',
-              },
-            ].map(({ icon, label, title, body }) => (
-              <div key={title} style={{
-                background: 'var(--color-surface-primary)',
-                border: '1px solid var(--color-border-default)',
-                borderRadius: '2px',
-                padding: '1.5rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.75rem',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--color-text-primary)' }}>
-                  {icon}
-                  <code
-                    style={{
-                      fontSize: '12px',
-                      color: 'var(--color-text-primary)',
-                      fontFamily: 'var(--font-mono, monospace)',
-                      border: '1px solid var(--color-border-strong)',
-                      borderRadius: '2px',
-                      padding: '2px 8px',
-                    }}
-                  >
-                    {label}
-                  </code>
-                </div>
-                <h2 style={{ ...H3_STYLE, margin: 0 }}>{title}</h2>
-                <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: 0 }}>{body}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── Code snippets ──────────────────────────────────────── */}
-      <Section variant="compact">
-        <Container>
-
-          {/* Receipt — primary */}
-          <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
-            Submit a receipt
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <details open style={detailsStyle}>
-              <summary style={summaryStyle}>
-                <span>▶</span> Python
-              </summary>
-              <div style={{ padding: '0.75rem' }}>
-                <CodeBlock code={PYTHON_RECEIPT} language="python" filename="record_receipt.py" />
-              </div>
-            </details>
-            <details style={detailsStyle}>
-              <summary style={summaryStyle}>
-                <span>▶</span> TypeScript
-              </summary>
-              <div style={{ padding: '0.75rem' }}>
-                <CodeBlock code={TS_RECEIPT} language="typescript" filename="record_receipt.ts" />
-              </div>
-            </details>
-            <details style={detailsStyle}>
-              <summary style={summaryStyle}>
-                <span>▶</span> cURL
-              </summary>
-              <div style={{ padding: '0.75rem' }}>
-                <CodeBlock code={CURL_RECEIPT} language="bash" filename="record_receipt.sh" />
-              </div>
-            </details>
-          </div>
-
-          {/* Query + Agent — secondary */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem', marginTop: '2.5rem' }}>
-            <div>
-              <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
-                Query the receipt record
-              </p>
+        </>
+      }
+      meta={[
+        { label: 'Base URL', value: API_BASE.replace('https://', '') },
+        { label: 'Schema', value: 'thursdai.ai-receipt/1' },
+        { label: 'Access', value: 'Pilot tenants' },
+      ]}
+      sections={[
+        {
+          id: 'access',
+          title: 'Access',
+          body: (
+            <FactList
+              items={[
+                { term: 'Keys', body: 'API keys are issued with a pilot tenant. There is no self-serve sign-up yet.' },
+                {
+                  term: 'SDKs',
+                  body: (
+                    <>
+                      TypeScript and Python SDKs and the{' '}
+                      <Link href="/developers/mcp" style={UNDERLINED}>
+                        MCP server
+                      </Link>{' '}
+                      are in private beta for design partners. Everything they do is available over
+                      REST.
+                    </>
+                  ),
+                },
+                { term: 'Verify', body: 'Verifying a receipt needs no key: use the public check below or the public key.' },
+              ]}
+            />
+          ),
+        },
+        {
+          id: 'authentication',
+          title: 'Authentication',
+          body: (
+            <>
+              <Body>
+                Every endpoint takes a bearer token in the <Code>Authorization</Code> header. Requests
+                are scoped to a tenant with the <Code>X-Tenant-ID</Code> header or a{' '}
+                <Code>tenant_id</Code> field. Keys carry scopes:
+              </Body>
+              <RecordTable
+                caption="API key scopes and what each permits"
+                columns={[
+                  { key: 'scope', label: 'Scope', width: '28%' },
+                  { key: 'permits', label: 'Permits' },
+                ]}
+                rows={SCOPES.map((s) => ({ id: s.scope, scope: <Code>{s.scope}</Code>, permits: s.permits }))}
+              />
+            </>
+          ),
+        },
+        {
+          id: 'endpoints',
+          title: 'Endpoints',
+          body: (
+            <RecordTable
+              caption="API endpoints"
+              columns={[
+                { key: 'method', label: 'Endpoint', width: '32%' },
+                { key: 'purpose', label: 'What it does' },
+              ]}
+              rows={ENDPOINTS.map((e) => ({ id: e.method, method: <Code>{e.method}</Code>, purpose: e.purpose }))}
+            />
+          ),
+        },
+        {
+          id: 'record',
+          title: 'Record a receipt',
+          body: (
+            <>
+              <Body>
+                Send the system that decided, the model, the decision and any context you want on
+                the record. The response carries the receipt id, the signing time and the result of
+                every policy that ran.
+              </Body>
+              <CodeTabs
+                items={[
+                  { label: 'Python', code: PYTHON_RECEIPT, language: 'python', filename: 'record_receipt.py' },
+                  { label: 'TypeScript', code: TS_RECEIPT, language: 'typescript', filename: 'record_receipt.ts' },
+                  { label: 'cURL', code: CURL_RECEIPT, language: 'bash', filename: 'record_receipt.sh' },
+                ]}
+              />
+            </>
+          ),
+        },
+        {
+          id: 'schema',
+          title: 'The receipt schema',
+          body: (
+            <>
+              <Body>
+                A signed receipt is an envelope around one <Code>receipt</Code> object. The{' '}
+                <a href="/artifacts/northwind-sample-receipt.json" download style={UNDERLINED}>
+                  sample receipt JSON
+                </a>{' '}
+                is a complete instance.
+              </Body>
+              <SchemaTable caption="Fields of the receipt object" rows={SCHEMA_FIELDS} />
+              <Body>The envelope around it:</Body>
+              <SchemaTable caption="Fields of the signature envelope" rows={ENVELOPE_FIELDS} />
+            </>
+          ),
+        },
+        {
+          id: 'verify',
+          title: 'Verify a receipt yourself',
+          body: (
+            <>
+              <Body>
+                Serialise <Code>receipt</Code> as canonical JSON (keys sorted, no whitespace), hash it
+                with sha256 and check the Ed25519 signature over the same bytes with the public key.
+                If one character changes, both checks fail. This runs against the sample file with
+                Node and nothing else:
+              </Body>
+              <CodeBlock code={NODE_VERIFY} language="typescript" filename="verify_receipt.mjs" />
+            </>
+          ),
+        },
+        {
+          id: 'query',
+          title: 'Query the record',
+          body: (
+            <>
+              <Body>
+                Ask questions of your receipt history in plain language, bounded by{' '}
+                <Code>from_date</Code> and <Code>to_date</Code>.
+              </Body>
               <CodeBlock code={PYTHON_QUERY} language="python" filename="query_receipts.py" />
-            </div>
-            <div>
-              <p style={{ ...LABEL_STYLE, margin: '0 0 0.75rem' }}>
-                Use the agent
-              </p>
+            </>
+          ),
+        },
+        {
+          id: 'agent',
+          title: 'Use the agent',
+          body: (
+            <>
+              <Body>
+                The agent answers from your knowledge base under your policies, and its answer is
+                recorded as a receipt like any other decision.
+              </Body>
               <CodeBlock code={PYTHON_AGENT} language="python" filename="agent_ask.py" />
+            </>
+          ),
+        },
+        {
+          id: 'rate-limits',
+          title: 'Rate limits',
+          body: (
+            <FactList
+              items={[
+                {
+                  term: 'Public verify',
+                  body: (
+                    <>
+                      <Code>GET /api/verify</Code> allows 60 requests a minute per IP address. Above
+                      that it returns <Code>429</Code> with <Code>Retry-After: 60</Code>.
+                    </>
+                  ),
+                },
+                {
+                  term: 'Tenant API',
+                  body: 'Limits are set per pilot tenant from your expected receipt volume. There are no published tiers yet.',
+                },
+              ]}
+            />
+          ),
+        },
+        {
+          id: 'tools',
+          title: 'Tools',
+          body: (
+            <RecordTable
+              caption="Developer tools"
+              columns={[
+                { key: 'tool', label: 'Tool', width: '28%' },
+                { key: 'what', label: 'What it is' },
+              ]}
+              rows={[
+                {
+                  id: 'mcp',
+                  tool: <Link href="/developers/mcp" style={{ color: 'var(--ink)' }}>MCP server</Link>,
+                  what: 'Read-only audit tools for querying your receipts from any MCP client. Private beta.',
+                },
+                {
+                  id: 'sdk',
+                  tool: <Link href="/developers/sdk" style={{ color: 'var(--ink)' }}>SDK guide</Link>,
+                  what: 'Writing, reading and searching receipts over REST while the SDKs are in private beta.',
+                },
+              ]}
+            />
+          ),
+        },
+      ]}
+      close={
+        <ClosingBand
+          heading="Check the signature before you write a line."
+          body="The demo verifies the sample receipt in the page. When you want keys, a pilot gives you a tenant of your own."
+          actions={
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <ButtonLink href="/demo#receipt" variant="primary" size="lg">
+                Verify a receipt
+              </ButtonLink>
+              <RequestPilotButton source="closing" variant="secondary" size="lg" />
             </div>
-          </div>
-        </Container>
-      </Section>
-      {/* Nav cards */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Developer resources</Heading2>
-          <Grid cols={4} gap="md">
-            <Card variant="feature" icon={<IconAPI />} title="Reference (on this page)" body="Full REST API reference for the Receipt, Query and Agent APIs. Authenticate with a bearer token and start submitting receipts in minutes." href="#reference" />
-            <Card variant="feature" icon={<IconMCP />} title="MCP Server" body="MCP tools for governed agent orchestration including receipt submission, decision replay and policy dry-runs. Works with Claude Desktop, Cursor and any MCP-compatible client." href="/developers/mcp" />
-            <Card variant="feature" icon={<IconSDK />} title="SDK" body="TypeScript and Python SDKs with full type coverage and async-first design for receipts, queries and agent calls." href="/developers/sdk" />
-            <Card variant="feature" icon={<IconReceipt />} title="Receipt Schema" body="Full AIDR 1.1.0 schema reference: all fields, agent types, evidence formats, compliance classifications and extension points." href="#reference" />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* Auth overview */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1rem' }}>Authentication</Heading2>
-          <Callout variant="info" style={{ marginBottom: '1.5rem' }}>
-            All API endpoints require a bearer token in the{' '}
-            <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>Authorization</code>{' '}
-            header. Tenant scoping is applied via the{' '}
-            <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>X-Tenant-ID</code>{' '}
-            header or the <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>tenant_id</code>{' '}
-            body parameter.
-          </Callout>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Scope</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Permits</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { scope: 'receipts:write', permits: 'Submit AI Receipts from external systems and internal agents' },
-                  { scope: 'receipts:read', permits: 'Read receipts, retrieve by ID and run plain-language queries against receipt history' },
-                  { scope: 'agent:invoke', permits: 'Use the Thursdai Agent for knowledge-grounded, policy-checked answers' },
-                  { scope: 'replay:read', permits: 'Replay past decisions and run time-travel queries' },
-                  { scope: 'policy:read', permits: 'Read policy sets and dry-run results against submitted decisions' },
-                  { scope: 'policy:write', permits: 'Create, update and publish policy sets' },
-                  { scope: 'admin', permits: 'Tenant management, user provisioning and audit log export' },
-                ].map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ padding: '10px 14px', fontSize: '13px', fontFamily: 'var(--font-mono)', color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.scope}</td>
-                    <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.permits}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Rate limits */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Rate limits</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
-              <thead>
-                <tr>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Tier</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Receipts/min</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Agent calls/min</th>
-                  <th style={{ padding: '10px 14px', textAlign: 'left' }}>Burst</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { tier: 'SMB', rpm: 'See dashboard', apm: 'See dashboard', burst: 'See dashboard' },
-                  { tier: 'Mid-market', rpm: 'See dashboard', apm: 'See dashboard', burst: 'See dashboard' },
-                  { tier: 'Enterprise', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
-                  { tier: 'Fortune 100', rpm: 'Custom', apm: 'Custom', burst: 'Custom' },
-                ].map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ padding: '10px 14px', fontSize: '14px', fontWeight: 600, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.tier}</td>
-                    <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.rpm}</td>
-                    <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.apm}</td>
-                    <td style={{ padding: '10px 14px', fontSize: '14px', color: 'var(--color-text-secondary)', borderBottom: '1px solid var(--color-border-default)' }}>{row.burst}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-    </>
+          }
+        />
+      }
+    />
   );
 }

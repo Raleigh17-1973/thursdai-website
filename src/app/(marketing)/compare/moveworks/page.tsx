@@ -1,239 +1,71 @@
-import React from 'react';
 import type { Metadata } from 'next';
-import { Section } from '@/components/layout/Section';
-import { Container } from '@/components/layout/Container';
-import { Grid } from '@/components/layout/Grid';
-import { Heading1, Heading2 } from '@/components/typography/Heading';
-import { Body } from '@/components/typography/Body';
-import { Label } from '@/components/typography/Label';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Callout } from '@/components/ui/Callout';
-import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
+import { CompareTemplate, type CompareTemplateProps } from '@/components/templates/CompareTemplate';
 
 export const metadata: Metadata = {
   // Not reviewed to the Glean page standard yet; keep out of the index until it is.
   robots: { index: false },
-  title: 'Thursdai vs Moveworks',
+  title: 'Thursdai and Moveworks',
   description:
-    'Where Moveworks is strong and where Thursdai differs. IT service automation vs. cross-functional AI governance.',
+    'Where Moveworks is strong and where Thursdai differs: IT and HR service automation versus a signed record of every AI decision. An honest table and a sample receipt you can verify.',
 };
 
-type MatrixStatus = 'yes' | 'no' | 'partial' | 'in-progress';
-
-interface MatrixRow {
-  feature: string;
-  moveworks: MatrixStatus | string;
-  thursdai: MatrixStatus | string;
-  note?: { col: 'moveworks' | 'thursdai'; label: string };
-}
-
-const MATRIX: MatrixRow[] = [
-  { feature: 'IT service automation', moveworks: 'yes', thursdai: 'no' },
-  { feature: 'HR service delivery', moveworks: 'yes', thursdai: 'no' },
-  { feature: 'Agentic IT ticket resolution', moveworks: 'yes', thursdai: 'no' },
-  { feature: 'Role-based answer panel', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Cross-functional moderation (Legal + Finance + Engineering)', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Decision replay / time-travel', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Policy-as-Code enforcement', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Sentence-level provenance', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Tenant knowledge isolation', moveworks: 'yes', thursdai: 'yes' },
-  { feature: 'EU AI Act Annex III documentation', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'FRIA/DPIA templates', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'MCP server (agent-to-agent)', moveworks: 'no', thursdai: 'yes' },
-  { feature: 'Ambient case management', moveworks: 'partial', thursdai: 'yes' },
-  { feature: 'Audit log API', moveworks: 'partial', thursdai: 'yes' },
-  { feature: 'SOC 2 Type II', moveworks: 'yes', thursdai: 'yes' },
-  { feature: 'ISO 27001', moveworks: 'yes', thursdai: 'yes' },
-  { feature: 'ISO 42001', moveworks: 'no', thursdai: 'in-progress' },
-  { feature: 'HIPAA-eligible', moveworks: 'yes', thursdai: 'yes' },
-];
-
-function StatusCell({ value }: { value: MatrixStatus | string }) {
-  if (value === 'yes') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px' }}>✓</td>;
-  if (value === 'no') return <td style={{ padding: '0.75rem 1rem', fontSize: '15px', color: 'var(--color-text-secondary)' }}>✗</td>;
-  if (value === 'partial') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Partial</Badge></td>;
-  if (value === 'in-progress') return <td style={{ padding: '0.75rem 1rem' }}><Badge variant="amber">Planned</Badge></td>;
-  return <td style={{ padding: '0.75rem 1rem', fontSize: '14px', color: 'var(--color-text-secondary)' }}>{String(value)}</td>;
-}
+const DATA: CompareTemplateProps = {
+  competitor: 'Moveworks',
+  slug: 'moveworks',
+  title: 'Automation is not a record.',
+  lead: 'Moveworks is a strong platform for automating IT and HR service requests. Thursdai records the decisions AI systems make and signs each one. They are often evaluated together, and they can run together.',
+  summary: {
+    line: 'Moveworks resolves employee requests. Thursdai records what its AI systems decided.',
+    theyAreFor: 'Resolving IT and HR requests for employees, with an AI assistant and workflow automation.',
+    thursdaiIsFor: 'A signed, verifiable record of each AI decision, including vendor tools.',
+    chooseThem: 'Your main need is automating IT and HR service delivery.',
+    chooseThursdai: 'You must show an auditor what an AI system decided and why.',
+  },
+  strengths: [
+    {
+      title: 'IT help desk automation',
+      body: 'Moveworks resolves common IT requests such as access and password issues. If deflecting service volume is the goal, it is built for that and Thursdai is not.',
+    },
+    {
+      title: 'HR service delivery',
+      body: 'It connects to HR and service management systems so employees can ask about benefits, time off and onboarding in one place.',
+    },
+    {
+      title: 'Multi-step workflows',
+      body: 'It can chain steps across systems, such as granting access and notifying the people involved, so a request is carried through to the end.',
+    },
+  ],
+  differences: [
+    {
+      title: 'A record, not a resolved ticket',
+      body: "Thursdai's output is a signed receipt of a decision made by any AI system, your own or a vendor's. That can include decisions made with an assistant like Moveworks.",
+    },
+    {
+      title: 'Verifiable without trusting us',
+      body: 'Each receipt carries an Ed25519 signature and a sha256 fingerprint. Anyone can check it against the public key, without an account.',
+    },
+    {
+      title: 'Replay as of the decision',
+      body: 'What the system knew, the policies that applied and the model version are kept as they were at the moment of the decision, so a later change does not rewrite the past.',
+    },
+    {
+      title: 'Policy results on the record',
+      body: 'Every policy checked, its version and its result are part of the signed receipt, which is what an examiner asks for.',
+    },
+  ],
+  rows: [
+    { capability: 'Primary job', them: 'IT and HR service automation with an AI assistant', thursdai: 'Recording and signing the decisions AI systems make' },
+    { capability: 'Service desk integrations', them: 'Connects to IT service management and HR systems', thursdai: 'One API call from any system; not a service desk platform' },
+    { capability: 'Records decisions made by other AI systems', them: 'Not its purpose', thursdai: 'Yes, one signed receipt per decision, including vendor tools' },
+    { capability: 'Signed record anyone can verify', them: 'Not confirmed', thursdai: 'Yes, Ed25519 signature and sha256 fingerprint' },
+    { capability: 'Replay a decision as of its date', them: 'Not confirmed', thursdai: 'Yes, knowledge, policies and model version at the time' },
+    { capability: 'Policy results per decision', them: 'Not confirmed', thursdai: 'Yes, each policy, its version and result on the receipt' },
+    { capability: 'EU AI Act mapping', them: 'Not confirmed', thursdai: 'Published, article by article, on the trust pages' },
+    { capability: 'Security certifications', them: 'SOC 2 Type II, per its trust center', thursdai: 'None held yet; roadmap on the trust page' },
+    { capability: 'HIPAA workloads', them: 'Not confirmed; check its trust center', thursdai: 'Architecture designed for HIPAA workloads; no attestation held' },
+  ],
+};
 
 export default function CompareMoveworksPage() {
-  return (
-    <>
-      {/* ── Hero ── */}
-      <Section>
-        <Container>
-          <Label>Thursdai vs Moveworks</Label>
-          <Heading1 style={{ marginTop: '0.75rem' }}>Ticket deflection isn&apos;t decision governance.</Heading1>
-          <Body variant="large" style={{ marginTop: '1rem' }}>
-            Moveworks is a strong IT and HR service automation platform. Thursdai is a governed
-            agent substrate for cross-functional regulated decisions. These solve different
-            problems, but enterprises often evaluate them in the same AI governance review.
-          </Body>
-        </Container>
-      </Section>
-
-      {/* ── Where Moveworks is strong ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2>Where Moveworks is strong</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These are genuine strengths. If your primary need is one of these, Moveworks may be
-            the right choice.
-          </Body>
-          <Grid cols={3} gap="md">
-            <Card
-              variant="feature"
-              title="IT helpdesk automation"
-              body="Moveworks resolves IT tickets autonomously: password resets, software access, hardware requests. If your primary AI use case is deflecting IT service volume, Moveworks is purpose-built for that."
-            />
-            <Card
-              variant="feature"
-              title="HR service delivery"
-              body="Deep integrations with Workday, ServiceNow and HRIS systems. Moveworks handles onboarding, benefits queries and PTO requests without human intervention. The employee experience layer is polished."
-            />
-            <Card
-              variant="feature"
-              title="Agentic workflow orchestration"
-              body="Moveworks can chain multi-step IT workflows (provision access, spin up environments, notify stakeholders) without a human in the loop. For IT automation at scale, the orchestration depth is real."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Where Thursdai differs ── */}
-      <Section variant="default">
-        <Container>
-          <Heading2>Where Thursdai differs</Heading2>
-          <Body style={{ marginBottom: '1.5rem', marginTop: '0.5rem' }}>
-            These aren&apos;t feature comparisons. They&apos;re architectural differences that
-            matter for regulated, cross-functional decisions.
-          </Body>
-          <Grid cols={2} gap="lg">
-            <Card
-              variant="feature"
-              title="Cross-functional moderation vs single-domain automation"
-              body="Moveworks operates in IT and HR. Thursdai simultaneously routes questions to Legal, Finance and Engineering, reconciles their answers and applies cross-role policies. If a decision touches more than one domain, Moveworks has no answer for that."
-            />
-            <Card
-              variant="feature"
-              title="Decision replay vs stateless responses"
-              body="Every Thursdai decision is recorded with the knowledge and policies active at that moment. You can replay any decision from two years ago with full provenance. Moveworks has no decision replay capability. Responses are stateless."
-            />
-            <Card
-              variant="feature"
-              title="Policy-as-Code vs no governance layer"
-              body="Thursdai enforces governance rules at the inference layer in YAML: the model cannot override them. Moveworks has no equivalent policy enforcement mechanism for cross-functional decisions."
-            />
-            <Card
-              variant="feature"
-              title="EU AI Act readiness vs no compliance surface"
-              body="Thursdai documents Annex III obligations, provides FRIA/DPIA templates and has audit logs meeting the Act's record-keeping requirements. Moveworks has no published EU AI Act compliance surface for high-risk AI use cases."
-            />
-          </Grid>
-        </Container>
-      </Section>
-
-      {/* ── Feature matrix ── */}
-      <Section variant="compact">
-        <Container>
-          <Heading2 style={{ marginBottom: '1.5rem' }}>Feature matrix</Heading2>
-          <div style={{ overflowX: 'auto' }}>
-            <table className="rec-table" style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', left: 0, background: 'var(--sunk)' }}
-                  >
-                    Feature
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '140px' }}>
-                    Moveworks
-                  </th>
-                  <th scope="col" style={{ padding: '0.75rem 1rem', textAlign: 'left', minWidth: '160px' }}>
-                    Thursdai
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {MATRIX.map((row) => (
-                  <tr key={row.feature}>
-                    <th
-                      scope="row"
-                      style={{
-                        padding: '0.75rem 1rem',
-                        textAlign: 'left',
-                        fontWeight: 500,
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '14px',
-                        textTransform: 'none',
-                        letterSpacing: 'normal',
-                        color: 'var(--color-text-primary)',
-                        position: 'sticky',
-                        left: 0,
-                        background: 'var(--color-surface-primary)',
-                      }}
-                    >
-                      {row.feature}
-                    </th>
-                    <StatusCell value={row.moveworks} />
-                    <StatusCell value={row.thursdai} />
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Container>
-      </Section>
-
-      {/* ── When Moveworks is the right choice ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="When Moveworks is the right choice">
-            <ul style={{ paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
-              <li>
-                <strong>Your primary use case is IT or HR service automation.</strong> If the
-                goal is deflecting helpdesk tickets and automating onboarding workflows, Moveworks
-                is purpose-built and proven at enterprise scale. Thursdai is not an IT automation platform.
-              </li>
-              <li>
-                <strong>You need deep ServiceNow or Workday integration.</strong> Moveworks has
-                mature, production-hardened integrations with the major ITSM and HRIS platforms.
-                If your workflows live there, Moveworks&apos; integrations are ahead.
-              </li>
-              <li>
-                <strong>Your decisions are single-domain.</strong> If all your AI decisions
-                stay within IT or HR and don&apos;t require Legal or Finance input, Moveworks&apos;
-                single-domain depth may be sufficient.
-              </li>
-            </ul>
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── Bottom line ── */}
-      <Section variant="compact">
-        <Container>
-          <Callout variant="info" title="Bottom line">
-            Moveworks automates IT and HR service delivery. Thursdai governs cross-functional
-            decisions in regulated workflows. If your AI decisions touch Legal, Finance, or
-            Engineering, and you need to audit them, Moveworks alone isn&apos;t the answer.
-          </Callout>
-        </Container>
-      </Section>
-
-      {/* ── CTA ── */}
-      <Section tone="ink" variant="compact" style={{ textAlign: 'center' }}>
-        <Container>
-          <Heading2>Put your own AI decisions on the record</Heading2>
-          <Body style={{ marginTop: '0.75rem' }}>
-            A pilot connects one of your AI systems to your own tenant. Before that, the demo shows a
-            signed sample receipt you can verify yourself, with no login.
-          </Body>
-          <ClosingCTAs primary="pilot" align="center" style={{ marginTop: '1.5rem' }} />
-        </Container>
-      </Section>
-    </>
-  );
+  return <CompareTemplate {...DATA} />;
 }

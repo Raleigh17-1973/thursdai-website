@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/config/nav';
 import { MegaMenu } from './MegaMenu';
 import { MobileDrawer } from './MobileDrawer';
@@ -40,6 +41,8 @@ export function TopNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
   const productButtonRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname() ?? '';
+  const isCurrent = (href: string) => pathname === href || pathname.startsWith(href + '/');
 
   const otherNavItems = NAV_ITEMS.filter((item) => item.label !== 'Product');
 
@@ -79,7 +82,8 @@ export function TopNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline"
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                className="px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline aria-[current=page]:text-[var(--ink)]"
               >
                 {item.label}
               </Link>
@@ -115,7 +119,7 @@ export function TopNav() {
         </div>
       </div>
 
-      {/* MegaMenu — positioned relative to the sticky header */}
+      {/* MegaMenu, positioned relative to the sticky header */}
       <div className="absolute left-0 right-0 top-full">
         <MegaMenu
           isOpen={megaOpen}
