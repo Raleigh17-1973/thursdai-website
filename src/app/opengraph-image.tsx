@@ -1,9 +1,14 @@
 import { ImageResponse } from 'next/og';
+import fixture from '@/lib/receipts/fixture.json';
+import { formatUtc, shortHash } from '@/lib/receipts/format';
+import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 
-// Share card drawn as an AI Receipt: paper, ink, mono fields, the decision
-// line, and amber only on the signature rule. Field layout follows
+// Share card drawn as an AI Receipt: paper, ink, mono fields, the headline,
+// and amber only on the signature rule. Field layout follows
 // components/receipt/ReceiptFrame.tsx without importing it (satori cannot
-// render CSS variables or client components).
+// render CSS variables or client components). Every receipt value comes from
+// the signed fixture (imported statically: edge runtime, no fs), so the card
+// shows the same id, hash and decision that /api/verify checks.
 
 export const runtime = 'edge';
 export const alt = 'Thursdai: a signed record for every AI decision';
@@ -17,12 +22,15 @@ const RULE = 'rgba(20, 18, 15, 0.18)';
 const AMBER = '#e8a34a';
 const INDIGO = '#3e4fb8';
 
-const DECISION = 'A signed record for every AI decision.';
+const HEADLINE = 'A signed record for every AI decision.';
+
+const R = fixture.receipt;
+const SAMPLE_DECISION = `${R.decision.summary}.`;
 
 const FIELDS: [string, string][] = [
-  ['Recorded', '2026-10-02 14:32 UTC'],
-  ['System', 'Screening agent'],
-  ['Policies', 'll144, pii-block'],
+  ['Recorded', formatUtc(R.recorded_at, { seconds: false })],
+  ['Decision by', 'Screening agent'],
+  ['Policies', R.policies_evaluated.map((p) => p.id).join(', ')],
   ['Risk tier', 'High / Annex III'],
 ];
 
@@ -71,16 +79,17 @@ export default async function OpenGraphImage() {
             textTransform: 'uppercase',
           }}
         >
-          <span>AI Receipt</span>
-          <span style={{ color: INK_SECONDARY, textTransform: 'none' }}>rcpt_7f3a91c2</span>
+          <span>{RECEIPT_TERM}</span>
+          <span style={{ color: INK_SECONDARY, textTransform: 'none' }}>{R.id}</span>
         </div>
 
-        {/* Decision line */}
-        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 40 }}>
-          <span style={{ fontFamily: 'GeistMono', fontSize: 18, letterSpacing: 1, color: INK_SECONDARY, textTransform: 'uppercase' }}>
-            Decision
+        {/* Headline, then the sample decision this receipt actually records */}
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: 36 }}>
+          <span style={{ fontSize: 60, lineHeight: 1.08, letterSpacing: -1.5 }}>{HEADLINE}</span>
+          <span style={{ fontFamily: 'GeistMono', fontSize: 18, letterSpacing: 1, color: INK_SECONDARY, textTransform: 'uppercase', marginTop: 24 }}>
+            {SAMPLE_LABEL_SIGNED}
           </span>
-          <span style={{ fontSize: 60, lineHeight: 1.08, letterSpacing: -1.5, marginTop: 10 }}>{DECISION}</span>
+          <span style={{ fontFamily: 'GeistMono', fontSize: 24, color: INK, marginTop: 8 }}>{SAMPLE_DECISION}</span>
         </div>
 
         {/* Fields */}
@@ -104,7 +113,7 @@ export default async function OpenGraphImage() {
             <div style={{ display: 'flex', height: 3, background: AMBER }} />
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginTop: 12, fontFamily: 'GeistMono' }}>
               <span style={{ fontSize: 22, letterSpacing: 2, textTransform: 'uppercase', color: INK }}>Signed</span>
-              <span style={{ fontSize: 18, color: INK_SECONDARY }}>sha256 a1b2c4…e9f0</span>
+              <span style={{ fontSize: 18, color: INK_SECONDARY }}>sha256 {shortHash(fixture.sha256)}</span>
             </div>
           </div>
           <div style={{ display: 'flex', fontSize: 44 }}>

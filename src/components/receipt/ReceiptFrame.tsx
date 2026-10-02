@@ -1,5 +1,6 @@
 import React from 'react';
 import { RECEIPT_TERM } from '@/config/site';
+import { shortHash } from '@/lib/receipts/format';
 
 // ReceiptFrame: the signature visual of The Record (docs/design/the-record.md).
 // A printed card: paper, 1px ink border, radius 0, a solid 4px offset rule as its only
@@ -62,11 +63,8 @@ const TONE_COLOR: Record<NonNullable<ReceiptField['tone']>, string> = {
   flag: 'var(--status-flag)',
 };
 
-export function fingerprint(hash: string): string {
-  const hex = hash.replace(/^sha256[:\s]*/i, '');
-  if (hex.length <= 12) return hex;
-  return `${hex.slice(0, 6)}…${hex.slice(-4)}`;
-}
+/** sha256 shown as a fingerprint: first 6 … last 4 hex characters. */
+export const fingerprint = shortHash;
 
 export function ReceiptFrame({
   id,
