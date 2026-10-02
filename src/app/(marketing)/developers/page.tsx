@@ -216,7 +216,7 @@ export default function DevelopersPage() {
           </VerifyReceiptButton>
           <Body variant="small" style={{ marginTop: '1rem' }}>
             Runs <code style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--ink)' }}>GET /api/verify?id={SAMPLE_DISPLAY.id}</code>{' '}
-            against the signed sample receipt from the <Link href="/demo">demo</Link>. {SAMPLE_LABEL_SIGNED}
+            against the signed sample receipt from the <Link href="/demo" style={{ textDecoration: 'underline', textUnderlineOffset: '2px' }}>demo</Link>. {SAMPLE_LABEL_SIGNED}
           </Body>
         </Container>
       </Section>

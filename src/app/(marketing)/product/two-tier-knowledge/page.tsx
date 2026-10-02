@@ -238,7 +238,7 @@ export default function TwoTierKnowledgePage() {
             variant="large"
             style={{ maxWidth: '520px', margin: '0.75rem auto 1.5rem' }}
           >
-            The demo shows the evidence one decision drew on, recorded and signed, and replays it at the versions that were live. No login.
+            The demo shows the evidence behind one signed decision and replays it at the versions that were live. No login.
           </Body>
           <ClosingCTAs primary="demo" align="center" />
         </Container>
