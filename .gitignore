@@ -9,3 +9,12 @@ dist/
 .DS_Store
 .velite
 pnpm-lock.yaml
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+# Visual baselines are Linux-only (made in CI); never commit local renders.
+tests/e2e/__screenshots__/**/*-win32.png
+tests/e2e/__screenshots__/**/*-darwin.png
+.lighthouseci/

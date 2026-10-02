@@ -22,7 +22,7 @@ export async function GET() {
   <channel>
     <title>Thursdai Blog</title>
     <link>${SITE_URL}</link>
-    <description>Insights on governed AI agents, enterprise AI deployment, and the EU AI Act.</description>
+    <description>Insights on governed AI agents, enterprise AI deployment and the EU AI Act.</description>
     <language>en-US</language>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
     ${items}
