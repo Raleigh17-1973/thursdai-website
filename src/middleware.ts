@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { matchesBypassSecret, readBypassSecret } from '@/lib/preview-bypass';
+import { isBypassGranted, resolveBypassSecret } from '@/lib/preview-bypass';
 
 const PREVIEW_COOKIE    = '__thursdai_preview';
 const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
@@ -11,15 +11,14 @@ const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
 // Set to false → full site is live
 //
 // When you're ready to launch: change the line below to `false`
-// and push. (The preview bypass below is the one thing that needs an env var.)
+// and push. The preview bypass (below) needs COMING_SOON_BYPASS_SECRET.
 // ─────────────────────────────────────────────────────────────────
 const COMING_SOON = false;
 
-// Preview bypass secret: visit /?preview=<this> to get a 24h cookie that skips the
-// coming-soon gate. It comes from PREVIEW_BYPASS_SECRET and fails closed: with the variable
-// unset or empty no URL value can match, so the gate has no bypass. (An earlier build
-// hard-coded a secret in this file; it is in git history, so treat it as burned and never reuse it.)
-const BYPASS_SECRET = readBypassSecret(process.env.PREVIEW_BYPASS_SECRET);
+// Preview bypass: visit /?preview=<secret> to get a 24h cookie that skips the coming-soon gate.
+// The secret is the server-only env var COMING_SOON_BYPASS_SECRET (at least 16 characters);
+// unset or shorter, the bypass is off and the query parameter does nothing. The value that used
+// to be hard-coded here is public in git history and must never be reused.
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
@@ -27,7 +26,8 @@ export function middleware(request: NextRequest) {
   // ── Coming-soon gate ───────────────────────────────────────────
   if (COMING_SOON) {
     // 1. Bypass secret in URL → set cookie, redirect to clean URL
-    if (matchesBypassSecret(searchParams.get('preview'), BYPASS_SECRET)) {
+    const bypassSecret = resolveBypassSecret(process.env.COMING_SOON_BYPASS_SECRET);
+    if (isBypassGranted(searchParams.get('preview'), bypassSecret)) {
       const destination = new URL(request.url);
       destination.searchParams.delete('preview');
       const res = NextResponse.redirect(destination);
