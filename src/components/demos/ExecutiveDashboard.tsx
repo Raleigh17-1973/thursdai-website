@@ -14,10 +14,12 @@ interface Kpi {
 }
 
 const GOVERNANCE_KPIS: Kpi[] = [
-  { label: 'Bias audit pass rate', value: '94%', sub: 'AEDTs passing four-fifths threshold', fill: 94 },
-  { label: 'AI systems in cadence', value: '12 / 12', sub: 'Within annual audit window', fill: 100 },
+  // LL144 requires impact ratios to be calculated and published; it sets no pass mark. The
+  // 0.80 shown here is the EEOC four-fifths rule of thumb, for reference only.
+  { label: 'Lowest impact ratio', value: '0.86', sub: 'Across AEDT categories; EEOC four-fifths reference 0.80', fill: 86 },
+  { label: 'AI systems in cadence', value: '12 / 12', sub: 'Bias audit within the last year', fill: 100 },
   { label: 'Hiring override rate', value: '7%', sub: 'Human reversed the AI recommendation', fill: 7 },
-  { label: 'Screening consent rate', value: '99.2%', sub: 'Candidates notified and consented', fill: 99 },
+  { label: 'Candidate notice rate', value: '99.2%', sub: 'Candidates given the AEDT notice', fill: 99 },
 ];
 
 const WORKFORCE_KPIS: Kpi[] = [

@@ -13,7 +13,7 @@ import { EU_AI_ACT_URL, NYC_LL144_URL } from '@/config/sources';
 
 export const metadata: Metadata = {
   title: 'HR and People: Thursdai',
-  description: `For HR and talent acquisition leaders whose hiring tools use AI: a signed ${RECEIPT_TERM} for each hiring decision routed to Thursdai, and a four-fifths impact-ratio dashboard for NYC Local Law 144 work.`,
+  description: `For HR and talent acquisition leaders whose hiring tools use AI: a signed ${RECEIPT_TERM} for each hiring decision routed to Thursdai, and an impact-ratio dashboard for NYC Local Law 144 work, with the EEOC four-fifths rule of thumb shown for reference.`,
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
@@ -23,7 +23,7 @@ const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecor
 const FRAMEWORKS = [
   {
     name: 'NYC Local Law 144',
-    detail: 'A four-fifths impact-ratio dashboard on live HR data. The independent audit and the public summary remain yours.',
+    detail: 'An impact-ratio dashboard on live HR data: impact ratios by category, as the law requires a bias audit to calculate, with the EEOC four-fifths rule of thumb shown for reference. The law sets no pass mark. The independent audit and the public summary remain yours.',
   },
   {
     name: 'EU AI Act, Articles 12 and 26',
@@ -41,8 +41,8 @@ export default function PeopleSolutionPage() {
         <>
           For HR, talent acquisition and people analytics leaders whose screening, ranking or
           interview tools use AI. Thursdai writes a signed {RECEIPT_TERM} for each hiring decision
-          those tools route to it, including vendor tools. A four-fifths impact-ratio dashboard
-          supports Local Law 144 work.
+          those tools route to it, including vendor tools. An impact-ratio dashboard supports Local
+          Law 144 work, with the EEOC four-fifths rule of thumb shown for reference.
         </>
       }
       problem={

@@ -31,7 +31,7 @@ const SOLUTIONS = [
     number: '02',
     label: 'HR and People',
     title: 'For HR and People',
-    body: 'For HR and talent acquisition leaders whose hiring tools use AI. A receipt for each screening decision routed to Thursdai and a four-fifths impact-ratio dashboard for Local Law 144 work.',
+    body: 'For HR and talent acquisition leaders whose hiring tools use AI. A receipt for each screening decision routed to Thursdai and an impact-ratio dashboard for Local Law 144 work, with the EEOC four-fifths rule of thumb for reference.',
     cta: 'See HR and People',
   },
 ] as const;
