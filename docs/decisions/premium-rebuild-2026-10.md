@@ -189,6 +189,8 @@ Stash `stash@{0}` ("WIP copy edits (pre site/integrity-week1)"), left in place. 
 | D11 | Ran the cascade (Wave 5) before visuals and motion (Wave 4) and moved the linework diagrams into Wave 5b. | Visuals drop into finished templates instead of being reworked twice. | 85% |
 | D12 | Lighthouse is blocking again with an LCP budget of 2.5s (Google's "good" threshold); every other threshold unchanged. | Superseded the report-only call on October 2, 2026 (OD-5): Jeff accepted 2.5s rather than fallback fonts on first visit. Before that, everything passed except LCP (about 2.5s simulated vs the 2.0s budget), and the perf pass measured a floor of about 2.07s on home with every web font removed. It does not pass yet: on the Linux CI runner the floor is about 2.52s (the last report-only run on `main` already measured 2.51s to 2.53s on six of nine URLs, and this PR measured 2.52s to 2.53s on /product, /product/ai-receipts and both solutions pages). Local Windows runs pass (2.42s to 2.50s) only because Windows builds omit the next/font preload links. Observed LCP is first paint, so the simulated figure is set by the bytes requested before it: about 100 kB of framework JS, 20 kB of app JS, three preloaded fonts (70 kB), CSS and the document. Reaching 2.5s with margin needs about 15 to 20 kB fewer of those bytes, for example deferring the wordmark and mono fonts on first visit the way Newsreader is deferred. That is a design call for Jeff, so the gate is blocking and failing until it is made. | 85% |
 | D13 | Did not re-score motion upward after Wave 4 merged; the re-score stays a self-estimate (66.7) pending an independent re-score. | Self-scoring is biased. | 90% |
+| D14 | Geist Mono is no longer preloaded (`preload: false`, `adjustFontFallback`); Geist Sans and the Instrument Serif wordmark stay preloaded. | Its 24 kB was requested before first paint on every page and counted against simulated LCP, which sat at about 2.52s in CI against the 2.5s budget (D12). The size-adjusted fallback keeps mono labels and the hero receipt from shifting when it swaps in. The wordmark is not deferred, by instruction. | 85% |
+| D15 | `/api/lead` takes a `type` (pilot, design-partner, role-bench-submission, role-bench-notify) with per-type required fields, all sent to the one HubSpot form through its six fields (details labelled into `decision_to_replay`, the type in `cta_location`). The /customers and Role Bench forms show the pre-filled email fallback instead of an error. | The strict validation added in #14 rejected every non-pilot form, so those forms always failed. | 85% |
 
 ### Decisions recorded in PR bodies (Waves 2a, 3a, 5b, 6 and the perf pass)
 
@@ -225,6 +227,7 @@ Jeff's answers to the priority review list, applied in the PR "Apply owner decis
 | OD-6 | Draft a privacy policy and website terms of use. | Jeff | Yes: /privacy and /terms as drafts pending legal review (noindex, outside the sitemap), linked from the footer and under the pilot form. Placeholders for counsel are in square brackets. |
 | OD-7 | Initialise PostHog in the browser: cookieless, no session recording, no input autocapture, respect Do Not Track, loaded lazily. | Jeff | Yes: `src/lib/analytics.ts`; events `cta_click`, `demo_view`, `demo_verify`, `pilot_request`; CSP connect-src names the PostHog host in use. Needs `NEXT_PUBLIC_POSTHOG_KEY` (and `NEXT_PUBLIC_POSTHOG_HOST` if not US) in Vercel. |
 | OD-8 | Keep "AI Receipt" and the solid indigo wordmark. | Jeff | No change needed. |
+| OD-9 | SSO stays listed under "What the real thing adds" on /demo: it is available in pilots. | Jeff | No change needed. |
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)
@@ -234,7 +237,7 @@ Jeff's answers to the priority review list, applied in the PR "Apply owner decis
 3. Resolved (OD-2): /security list plus Sentry. Was: two lists disagreed; the /security list was kept and Datadog and Sentry were dropped (W5a-16, 65%). Confirm the real list.
 4. Resolved (OD-3): dedicated only. Was: /security says every customer gets a dedicated tenant while /trust/deployment offers a shared multi-tenant option. Unresolved; pick one.
 5. Resolved (OD-4): removed. Was: LinkedIn, GitHub and X links for "thursdai" were kept without confirming the accounts are ours (W5a-5, 70%).
-6. SSO is listed under "What the real thing adds" on /demo (W2, 80%). Confirm it is in pilot scope.
+6. Resolved (OD-9): SSO is available in pilots; kept. Was: SSO is listed under "What the real thing adds" on /demo (W2, 80%). Confirm it is in pilot scope.
 7. Resolved (OD-5): 2.5s accepted and Lighthouse blocking. Was: accept about 2.5s, or accept fallback fonts on first visit to reach 2.0s (D12).
 8. Resolved: `main` now requires "Type check, lint, build". Was: require "Type check, lint, build" on `main` so a PR cannot merge before its checks finish (repository setting; Jeff's call).
 9. Resolved (OD-7): PostHog runs in the browser once its key is set in Vercel. Was: PostHog is not initialised in the browser, so the hero to /demo to pilot funnel (Item 8.6) cannot report until it is.
