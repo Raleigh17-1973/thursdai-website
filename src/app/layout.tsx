@@ -5,7 +5,8 @@ import { SITE_URL } from '@/config/site';
 import './globals.css';
 
 // Geist for text and UI, Latin subset (a fraction of the full variable files the geist
-// package ships: about 54KB together instead of 142KB). Geist Sans is preloaded; Geist Mono is not (below).
+// package ships: about 54KB together instead of 142KB). Geist Sans is the only preloaded font;
+// Geist Mono, Newsreader and the wordmark face are fetched after first paint (below).
 const geistSans = Geist({
   subsets: ['latin'],
   display: 'swap',
@@ -44,12 +45,19 @@ const newsreader = Newsreader({
 const NEWSREADER_FALLBACK = newsreader.style.fontFamily.split(',').slice(1).join(',').trim();
 const DISPLAY_FONT_GATE = `(function(){var d=document.documentElement,c=${JSON.stringify(newsreader.variable)},k='thursdai-fd';function on(){d.classList.add(c);try{sessionStorage.setItem(k,'1')}catch(e){}}try{if(sessionStorage.getItem(k)){on();return}}catch(e){}var P=window.PerformanceObserver;if(P&&P.supportedEntryTypes&&P.supportedEntryTypes.indexOf('paint')>-1){new P(function(l,o){if(l.getEntriesByName('first-contentful-paint').length){o.disconnect();setTimeout(on,0)}}).observe({type:'paint',buffered:true})}else{addEventListener('load',on)}})();`;
 
-// Instrument Serif survives only in the wordmark (italic).
+// Instrument Serif survives only in the wordmark (italic). Not preloaded (D16): its file was one
+// of the bytes fetched before first paint that held CI's simulated LCP at the 2.5s budget. On a
+// cold first view the wordmark paints in 'Thursdai Wordmark Fallback' (globals.css), a local
+// serif italic scaled so "thursdai" keeps the same width and baseline, then swaps in.
+// next/font's own adjusted fallback is off because it is an upright Times face that the browser
+// would slant; the hand-tuned italic one looks closer and is measured on this exact word.
 const instrumentSerif = Instrument_Serif({
   weight: '400',
   style: ['italic'],
   subsets: ['latin'],
   display: 'swap',
+  preload: false,
+  adjustFontFallback: false,
   variable: '--font-instrument-serif',
 });
 
