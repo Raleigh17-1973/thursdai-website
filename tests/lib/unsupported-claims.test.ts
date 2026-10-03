@@ -10,6 +10,7 @@ const WITHDRAWN: { phrase: RegExp; why: string }[] = [
   { phrase: /GovCloud/i, why: 'no GovCloud deployment exists' },
   { phrase: /dedicated[ -]tenant|single-tenant|on-premises/i, why: 'one multi-tenant deployment; dedicated databases are designed, not offered' },
   { phrase: /certificate pinning|CMEK|(?:on|for) every deployment/i, why: 'dedicated deployments and customer-managed keys are the target model, designed and being built, not offered today (OD-3, 2026-10-02)' },
+  { phrase: /business days?/i, why: 'no response-time commitment exists; the site promises a reply, never a deadline' },
   { phrase: /Trusted by/i, why: 'there are no customers to be trusted by' },
   { phrase: /Merkle|cannot be altered|cannot be backdated/i, why: 'anchoring is built but off, and not independently verifiable yet' },
   { phrase: /ThursdaiClient|thy_live_|api\.getthursdai\.com/, why: 'no public API or published SDK exists' },

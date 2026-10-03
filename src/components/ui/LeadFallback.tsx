@@ -17,7 +17,7 @@ export function LeadFallback({ subject, lines, align = 'start' }: { subject: str
     <div role="status" style={{ textAlign: align === 'center' ? 'center' : 'left' }}>
       <p className="m-0" style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
         We couldn&apos;t send this automatically. Email it to us with your details already filled in and
-        we&apos;ll reply within one business day.
+        we&apos;ll reply.
       </p>
       <a
         href={leadMailto(subject, lines)}
