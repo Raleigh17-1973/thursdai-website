@@ -29,11 +29,12 @@
   --font-mono:     var(--font-geist-mono), 'Geist Mono', 'SF Mono', Menlo, Consolas, monospace;
   /* --font-newsreader is set after first paint (see DISPLAY_FONT_GATE in app/layout.tsx). */
   --font-display:  var(--font-newsreader, var(--font-newsreader-fallback)), Georgia, ui-serif, serif;
-  --font-wordmark: var(--font-instrument-serif), 'Instrument Serif', 'Thursdai Wordmark Fallback', Georgia, serif;
+  /* --font-instrument-serif is set after first paint too (D16); naming 'Instrument Serif' here would fetch it early. */
+  --font-wordmark: var(--font-instrument-serif, 'Thursdai Wordmark Fallback'), 'Thursdai Wordmark Fallback', Georgia, serif;
 }
 
-/* Wordmark fallback (D16). Instrument Serif is not preloaded, so a cold first view paints the
-   wordmark in a local Times-metric italic until it swaps in. Scaled so italic 400 "thursdai" at
+/* Wordmark fallback (D16). Instrument Serif is requested after first paint, so a cold first view
+   paints the wordmark in a local Times-metric italic until it swaps in. Scaled so italic 400 "thursdai" at
    -0.01em tracking has the same advance width (within 0.05px at 24 to 100px in Chrome) and the
    same baseline as Instrument Serif Italic (ascent 0.99, descent 0.31, no line gap; overrides
    are divided by size-adjust because Chrome scales them by it). Liberation Serif and Tinos share
