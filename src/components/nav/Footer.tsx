@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
+import { CookieSettingsButton } from '@/components/consent/CookieSettingsButton';
 import { FOOTER_COLUMNS, type FooterColumn } from '@/config/nav';
 import { CONTACT_EMAIL } from '@/config/site';
 import { LEGAL_ENTITY } from '@/config/legal';
@@ -89,6 +90,12 @@ export async function Footer() {
                 </Link>
               </li>
             ))}
+            {/* Only when Clarity is configured: without it there is nothing to consent to. */}
+            {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
+              <li>
+                <CookieSettingsButton className="text-[14px]" />
+              </li>
+            )}
           </ul>
         </div>
       </div>

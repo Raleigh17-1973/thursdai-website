@@ -234,6 +234,45 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-under
   text-decoration: none;
 }
 .footer-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+/* "Cookie settings" is a button (it acts, it does not navigate) dressed as a footer link. */
+.footer-link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ── Consent banner (components/consent/ConsentBanner.tsx) ────────
+   Fixed overlay added after hydration: nothing in the page moves when it appears. Paper with
+   a 1px ink rule on top, like the footer's rule but at full strength. No shadow. */
+.consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: var(--paper);
+  border-top: 1px solid var(--ink);
+  color: var(--ink);
+}
+.consent-banner:focus { outline: none; }
+.consent-banner:focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: -2px; }
+.consent-banner-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.consent-banner-text a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.consent-banner-button { width: 100%; min-height: 44px; }
+@media (min-width: 768px) {
+  .consent-banner-button { width: auto; min-width: 112px; }
+}
 
 /* ── Motion: exactly three behaviours (src/lib/motion.ts) ─────────
    Every animation sits inside `no-preference`, so with reduced motion there is no start
@@ -273,6 +312,8 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-under
   .motion-panel { animation: rec-panel-down var(--motion-panel) var(--ease-panel) both; }
   .motion-panel-up { animation: rec-panel-up var(--motion-panel) var(--ease-panel) both; }
   .motion-scrim { animation: rec-fade-in var(--motion-panel) linear both; }
+  /* The consent banner fades in at the panel timing; with reduced motion it simply appears. */
+  .consent-banner { animation: rec-fade-in var(--motion-panel) linear both; }
 }
 
 @keyframes rec-sign-type {

@@ -7,8 +7,8 @@ import { CONTACT_EMAIL } from '@/config/site';
 import { LEGAL_LAST_UPDATED, LEGAL_ENTITY } from '@/config/legal';
 
 // Draft pending legal review. Every statement describes what this website's code does
-// (src/lib/hubspot.ts, src/app/api/lead/route.ts, src/lib/analytics.ts, src/middleware.ts,
-// src/app/layout.tsx). Anything not established in code is in [square brackets] for counsel.
+// (src/lib/hubspot.ts, src/app/api/lead/route.ts, src/lib/analytics.ts, src/lib/consent.ts,
+// src/lib/clarity.ts, src/components/consent/ConsentBanner.tsx, src/middleware.ts). Anything not established in code is in [square brackets] for counsel.
 // Not in the sitemap and noindex until the review is done.
 
 export const metadata: Metadata = {
@@ -85,15 +85,19 @@ export default function PrivacyPage() {
               label), opening the demo, the result of the receipt check in the demo and whether a pilot request was
               delivered. It does not set cookies or use local storage, does not record sessions and does not
               capture what you type. If your browser sends a Do Not Track or Global Privacy Control signal,
-              PostHog is not loaded at all. PostHog receives standard request details such as your IP address,
-              browser and the page address. [Confirm the PostHog project region and whether IP capture is
-              disabled in the project settings.]
+              PostHog is not loaded at all. Because it sets no cookies and stores nothing in your browser, PostHog
+              does not wait for the cookie banner. PostHog receives standard request details such as your IP
+              address, browser and the page address. [Confirm the PostHog project region and whether IP capture
+              is disabled in the project settings.]
             </>,
             <>
-              <strong>Microsoft Clarity.</strong> Records how visitors interact with pages, such as clicks,
-              scrolling and mouse movement, to produce heatmaps and session recordings. Clarity sets its own
-              cookies and is provided by Microsoft. [Confirm Clarity&apos;s masking settings, its cookies and
-              whether consent is required before it loads for visitors in the EEA and the UK.]
+              <strong>Microsoft Clarity, only if you accept it.</strong> Records how visitors interact with pages,
+              such as clicks, scrolling and mouse movement, to produce heatmaps and session recordings. Clarity
+              sets its own cookies and is provided by Microsoft. We ask every visitor first, wherever they are:
+              until you choose &quot;Accept&quot; in the cookie banner, the Clarity script is not loaded and nothing
+              is sent to Microsoft. If your browser sends a Global Privacy Control or Do Not Track signal, we treat
+              it as a refusal: the banner is not shown and Clarity is not loaded. [Confirm Clarity&apos;s masking
+              settings.]
             </>,
           ]}
         />
@@ -111,10 +115,10 @@ export default function PrivacyPage() {
         <LongFormList
           items={[
             <>
-              <strong>__thursdai_id</strong> (first party, set by our server). A random identifier that lasts one
-              year. It is HttpOnly, so scripts on the page cannot read it. It exists to keep a visitor on the same
-              version of a page while we test page variants. At the time of writing no such test is running,
-              nothing reads it and it is not sent to any third party.
+              <strong>Your cookie choice</strong> (local storage, first party). Records whether you accepted or
+              declined Microsoft Clarity and when, under the name thursdai-consent-v1, so the banner does not ask
+              again on every page. It is needed to remember your choice, holds no personal information, is never
+              sent to us or anyone else and stays until you change your choice or clear this site&apos;s data.
             </>,
             <>
               <strong>Session storage.</strong> One entry records that the site&apos;s display font has loaded in
@@ -122,13 +126,22 @@ export default function PrivacyPage() {
               cleared when you close the tab.
             </>,
             <>
-              <strong>Microsoft Clarity cookies</strong> as described above. [List Clarity&apos;s cookie names and
-              lifetimes.]
+              <strong>Microsoft Clarity cookies</strong>, only after you accept, as described above. [List
+              Clarity&apos;s cookie names and lifetimes.]
             </>,
           ]}
         />
         <Body>
-          Neither PostHog nor Vercel Web Analytics sets cookies on this site.
+          Neither PostHog nor Vercel Web Analytics sets cookies on this site, and the site sets no cookies of its
+          own. The first-party __thursdai_id visitor cookie it used to set has been removed: it is no longer set
+          or read, and a copy already in your browser expires on its own.
+        </Body>
+        <Body>
+          <strong>Changing your choice.</strong> &quot;Cookie settings&quot; at the bottom of every page opens the
+          banner again, so you can withdraw consent as easily as you gave it. When you decline after accepting,
+          we tell Clarity that consent is withdrawn and do not load it again. Clarity cannot be fully switched off
+          on a page where it is already running, so withdrawal takes full effect from the next page you load. You
+          can also clear cookies and site data in your browser settings.
         </Body>
       </LongFormSection>
 
@@ -136,8 +149,9 @@ export default function PrivacyPage() {
         <Body>
           Where the GDPR or UK GDPR applies, we rely on our legitimate interests in responding to enquiries,
           running pilots, understanding how the site is used and keeping it secure, and on steps taken at your
-          request before entering into a contract when you ask for a pilot. [Counsel to confirm the bases and
-          where consent is required, in particular for Microsoft Clarity.]
+          request before entering into a contract when you ask for a pilot. We rely on your consent for Microsoft
+          Clarity. [Counsel to confirm the bases, and that PostHog as configured (no cookies, no browser storage)
+          does not need consent.]
         </Body>
       </LongFormSection>
 
@@ -162,7 +176,7 @@ export default function PrivacyPage() {
             <>PostHog events: [retention period under the PostHog plan].</>,
             <>Microsoft Clarity recordings and heatmaps: [retention period per Microsoft].</>,
             <>Vercel request logs and analytics: [retention period per Vercel].</>,
-            <>The __thursdai_id cookie: one year from when it is set.</>,
+            <>Your cookie choice: in your browser until you change it or clear this site&apos;s data.</>,
             <>IP addresses held by the receipt verifier: one minute, in memory only.</>,
           ]}
         />

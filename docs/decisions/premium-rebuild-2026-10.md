@@ -229,6 +229,22 @@ Jeff's answers to the priority review list, applied in the PR "Apply owner decis
 | OD-7 | Initialise PostHog in the browser: cookieless, no session recording, no input autocapture, respect Do Not Track, loaded lazily. | Jeff | Yes: `src/lib/analytics.ts`; events `cta_click`, `demo_view`, `demo_verify`, `pilot_request`; CSP connect-src names the PostHog host in use. Needs `NEXT_PUBLIC_POSTHOG_KEY` (and `NEXT_PUBLIC_POSTHOG_HOST` if not US) in Vercel. |
 | OD-8 | Keep "AI Receipt" and the solid indigo wordmark. | Jeff | No change needed. |
 | OD-9 | SSO stays listed under "What the real thing adds" on /demo: it is available in pilots. | Jeff | No change needed. |
+| OD-10 | Ask before Microsoft Clarity loads: a consent banner, with Clarity loaded only after "Accept". | Jeff | Yes (PR "Consent banner gating Clarity; remove unused tracking cookie"): `src/lib/consent.ts`, `src/lib/clarity.ts`, `src/components/consent/ConsentBanner.tsx`; the root layout no longer injects the tag; "Cookie settings" in the footer reopens the banner; /privacy updated. See C-1 to C-7. |
+| OD-11 | Remove the unused `__thursdai_id` visitor cookie. | Jeff | Yes (same PR): the middleware no longer sets it (constants removed; no other reader or writer existed); /privacy says it no longer exists. Cookies already in browsers are not actively expired and lapse within a year (C-8). |
+
+### Consent banner and cookie removal (October 2, 2026)
+
+| # | Decision | Why | Confidence |
+|---|---|---|---|
+| C-1 | The banner is shown to every visitor, not only in the EEA and the UK. | No geolocation to maintain or get wrong, and one behaviour to explain in the privacy draft. Cost: some consent-rate loss outside Europe, and Clarity data only from visitors who accept. | 80% |
+| C-2 | PostHog is not consent-gated. It is cookieless (`persistence: 'memory'`), stores nothing in the browser and is already off under DNT or GPC. Documented on /privacy with a counsel placeholder. | Nothing is stored on the device, so the ePrivacy cookie rule is not engaged as configured; gating it would lose the funnel (Item 8.6) for visitors who ignore the banner. The owner may change this. | 75% |
+| C-3 | "Decline" and "Accept" have equal prominence: the same secondary button (1px ink rule), size and weight, Decline first, neither focused or pre-selected. A test checks their sizes match. | Regulators (CNIL, ICO, EDPB) treat a faint or hidden refusal as invalid consent. The secondary style rather than two indigo buttons keeps indigo for the site's own primary actions and nudges neither way. | 85% |
+| C-4 | A Global Privacy Control or Do Not Track signal counts as "denied": no banner and no Clarity, whatever is stored. Reopened from the footer under a signal, the banner explains that Clarity stays off and offers only "Close". | A browser-level refusal is the clearest refusal there is (GPC is binding in California and Colorado), and asking again would undercut it. | 85% |
+| C-5 | The choice is kept in localStorage (`thursdai-consent-v1`, state and ISO timestamp), not a cookie; every access is in try/catch and a choice that cannot be stored still applies for the page view. | Strictly necessary to remember the choice, never sent to the server, and it adds no cookie to a site that now sets none. | 85% |
+| C-6 | Withdrawal calls `clarity('consent', false)` and loads nothing more; full effect from the next page load (stated on /privacy). | Clarity cannot be unloaded in-session. | 85% |
+| C-7 | The banner is a fixed overlay rendered after hydration (no server HTML, no reserved space), fades in at 180ms only when motion is allowed, and is not a dialog: it takes no focus on arrival and traps none; reopened from the footer it takes focus and returns it on close. `?consent-preview` shows it only in builds without a Clarity id, so CI's a11y suite can test it; it cannot load anything. | Zero CLS, not the LCP candidate at first paint, and keyboard users reach it from the footer. | 85% |
+| C-8 | Existing `__thursdai_id` cookies are left to expire rather than cleared with a `Max-Age=0` header. | The decision was to remove the logic; nothing reads the cookie (HttpOnly, never sent to a third party). Clearing it would mean keeping cookie code to delete a cookie. | 80% |
+
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)
@@ -255,3 +271,5 @@ Wave 4: W4-3 (85%), W4-5 (80%), W4-7 (80%), W4-8 (85%), W4-9 (80%), W4-10 (85%),
 Wave 3b: W3b-3 (80%), W3b-5 (80%), W3b-6 (85%), W3b-8 (85%), W3b-9 (85%), W3b-10 (80%), W3b-12 (85%).
 
 Wave 5a: W5a-1 (75%), W5a-4 (80%), W5a-5 (70%), W5a-8 (80%), W5a-9 (85%), W5a-10 (75%), W5a-16 (65%), W5a-17 (75%), W5a-18 (85%), W5a-19 (80%), W5a-20 (85%), W5a-21 (85%), W5a-23 (80%), W5a-24 (85%), W5a-25 (70%), W5a-27 (85%), W5a-28 (80%), W5a-29 (80%).
+
+Consent banner: C-1 (80%), C-2 (75%), C-3 (85%), C-4 (85%), C-5 (85%), C-6 (85%), C-7 (85%), C-8 (80%).
