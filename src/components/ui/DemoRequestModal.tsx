@@ -5,6 +5,7 @@ import { Button } from './Button';
 import { H3_STYLE } from '@/components/typography/scale';
 import { CONTACT_EMAIL } from '@/config/site';
 import { MOTION_CLASS } from '@/lib/motion';
+import { track } from '@/lib/analytics';
 
 export type CtaLocation = 'hero' | 'closing' | 'nav';
 
@@ -49,7 +50,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
     if (e.key !== 'Tab') return;
     const dialog = e.currentTarget;
     const focusable = dialog.querySelectorAll<HTMLElement>(
-      'button, input, textarea, [tabindex]:not([tabindex="-1"])'
+      'a[href], button, input, textarea, [tabindex]:not([tabindex="-1"])'
     );
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
@@ -81,6 +82,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
       delivered = false;
     }
     setSubmitting(false);
+    track({ name: 'pilot_request', props: { cta_location: source ?? 'unknown', delivered } });
     if (!delivered) {
       setFallback(true);
       return;
@@ -294,6 +296,13 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               <Button type="submit" variant="primary" size="lg" disabled={submitting}>
                 {submitting ? 'Sending…' : 'Request a pilot'}
               </Button>
+              <p className="m-0" style={{ fontSize: '14px', lineHeight: 1.5, color: 'var(--color-text-secondary)' }}>
+                We use your details to respond to your request. See our{' '}
+                <a href="/privacy" style={{ textDecoration: 'underline', textDecorationThickness: '1px' }}>
+                  Privacy policy
+                </a>
+                .
+              </p>
             </form>
           </>
         )}

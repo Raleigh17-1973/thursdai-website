@@ -17,7 +17,7 @@ interface ClosingCTAsProps {
 
 export function ClosingCTAs({ primary = 'demo', align = 'start', size = 'lg', style }: ClosingCTAsProps) {
   const demo = (variant: 'primary' | 'secondary') => (
-    <ButtonLink href="/demo" variant={variant} size={size}>
+    <ButtonLink href="/demo" variant={variant} size={size} data-cta-location="closing" data-cta-label="Open the demo">
       Open the demo
     </ButtonLink>
   );

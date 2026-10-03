@@ -9,6 +9,7 @@ import { MobileDrawer } from './MobileDrawer';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
 import { DemoRequestModal } from '@/components/ui/DemoRequestModal';
 import { Button } from '@/components/ui/Button';
+import { track } from '@/lib/analytics';
 
 function HamburgerIcon() {
   return (
@@ -96,12 +97,19 @@ export function TopNav() {
           {/* Demo (plain text link) and Request a pilot: below 1024px (both live in the drawer) */}
           <Link
             href="/demo"
+            onClick={() => track({ name: 'cta_click', props: { location: 'nav', label: 'Demo' } })}
             className="hidden lg:block px-3 py-2 rounded-[2px] text-[15px] text-[var(--ink-2)] hover:text-[var(--ink)] hover:no-underline"
           >
             Demo
           </Link>
           <div className="hidden lg:block">
-            <Button size="sm" onClick={() => setDemoOpen(true)}>
+            <Button
+              size="sm"
+              onClick={() => {
+                track({ name: 'cta_click', props: { location: 'nav', label: 'Request a pilot' } });
+                setDemoOpen(true);
+              }}
+            >
               Request a pilot
             </Button>
           </div>
@@ -129,7 +137,7 @@ export function TopNav() {
       </div>
 
       {/* Mobile drawer */}
-      <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} onRequestDemo={() => { setMobileOpen(false); setDemoOpen(true); }} />
+      <MobileDrawer isOpen={mobileOpen} onClose={() => setMobileOpen(false)} onRequestDemo={() => { track({ name: 'cta_click', props: { location: 'nav-menu', label: 'Request a pilot' } }); setMobileOpen(false); setDemoOpen(true); }} />
 
       {/* Demo request modal */}
       <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} source="nav" />
