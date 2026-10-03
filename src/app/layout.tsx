@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Instrument_Serif, Newsreader } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { SITE_URL } from '@/config/site';
+import { BASE_OPEN_GRAPH, SITE_DESCRIPTION, SITE_TITLE } from '@/config/metadata';
 import './globals.css';
 
 // Geist for text and UI, Latin subset (a fraction of the full variable files the geist
@@ -62,22 +63,12 @@ const instrumentSerif = Instrument_Serif({
 const NEWSREADER_FALLBACK = newsreader.style.fontFamily.split(',').slice(1).join(',').trim();
 const DISPLAY_FONT_GATE = `(function(){var d=document.documentElement,c=${JSON.stringify([newsreader.variable, instrumentSerif.variable])},k='thursdai-fd';function on(){d.classList.add.apply(d.classList,c);try{sessionStorage.setItem(k,'1')}catch(e){}}try{if(sessionStorage.getItem(k)){on();return}}catch(e){}var P=window.PerformanceObserver;if(P&&P.supportedEntryTypes&&P.supportedEntryTypes.indexOf('paint')>-1){new P(function(l,o){if(l.getEntriesByName('first-contentful-paint').length){o.disconnect();setTimeout(on,0)}}).observe({type:'paint',buffered:true})}else{addEventListener('load',on)}})();`;
 
-const SITE_TITLE = 'Thursdai: a signed record for every AI decision';
-const SITE_DESCRIPTION =
-  'Thursdai writes a signed AI Receipt for every decision you route to it, and gives you the record to answer for it.';
-
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: SITE_URL,
-    siteName: 'Thursdai',
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-  },
+  // og:url and the canonical are set per page by the (marketing) layout (src/config/metadata.ts).
+  openGraph: BASE_OPEN_GRAPH,
   twitter: {
     card: 'summary_large_image',
     title: SITE_TITLE,

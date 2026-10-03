@@ -3,6 +3,11 @@ import { Footer } from '@/components/nav/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { AnalyticsInit } from '@/components/analytics/Analytics';
 import { ConsentBanner } from '@/components/consent/ConsentBanner';
+import type { Metadata } from 'next';
+import { PAGE_URL_METADATA } from '@/config/metadata';
+
+// Each page's own absolute URL as og:url and canonical (see src/config/metadata.ts).
+export const metadata: Metadata = PAGE_URL_METADATA;
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
