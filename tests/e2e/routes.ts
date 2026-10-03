@@ -15,6 +15,23 @@ export const TEMPLATE_ROUTES = [
 ] as const;
 
 /**
+ * Stores a consent choice before any page script runs, so the cookie banner
+ * (src/components/consent/ConsentBanner.tsx) never appears. The visual suite
+ * uses it so its baselines show the page, not the banner, in any build.
+ */
+export async function presetConsent(page: Page, state: 'granted' | 'denied' = 'denied') {
+  await page.addInitScript(
+    ([key, value]) => {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch {
+        // Storage blocked: the banner would show, and the screenshot diff will say so.
+      }
+    },
+    ['thursdai-consent-v1', JSON.stringify({ state, at: '2026-10-02T00:00:00.000Z' })] as const,
+  );
+}
+/**
  * Brings a page to a settled, deterministic state: fonts loaded, every image
  * decoded and anything that reveals on scroll already revealed.
  */
