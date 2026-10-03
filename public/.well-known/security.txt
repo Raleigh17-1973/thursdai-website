@@ -1,0 +1,6 @@
+# Thursdai security contact (RFC 9116)
+Contact: mailto:security@getthursdai.com
+Expires: 2027-09-30T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://getthursdai.com/.well-known/security.txt
+Policy: https://getthursdai.com/security
