@@ -16,7 +16,7 @@ import { SAMPLE_HIRING_RECEIPT, SAMPLE_HIRING_RECEIPT_COMPACT } from '@/componen
 import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
 import { Reveal } from '@/components/motion/Reveal';
 import { ProofBand, EU_AI_ACT_URL } from '@/components/home/ProofBand';
-import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
+import { DEMO_KEY_NOTE, RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
 import { SAMPLE_DISPLAY as S } from '@/lib/receipts/display';
 
@@ -32,7 +32,7 @@ const PolicyEditor = dynamic(() => import('@/components/demos/PolicyEditor').the
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-// The four facts beside the receipt (beat 4). Retention is stated as configured, not promised.
+// The three facts beside the receipt (beat 4).
 const RECEIPT_FACTS: { label: string; body: React.ReactNode }[] = [
   {
     label: 'Captured',
@@ -49,7 +49,7 @@ const RECEIPT_FACTS: { label: string; body: React.ReactNode }[] = [
       <>
         Ed25519 over the receipt&apos;s canonical JSON, with a sha256 fingerprint (
         <span style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--ink)' }}>{S.fingerprint}</span>)
-        that changes if a single character does.
+        that changes if a single character does. {DEMO_KEY_NOTE}
       </>
     ),
   },
@@ -63,15 +63,6 @@ const RECEIPT_FACTS: { label: string; body: React.ReactNode }[] = [
           Verify this one in the demo
         </Link>
         .
-      </>
-    ),
-  },
-  {
-    label: 'Kept',
-    body: (
-      <>
-        Retention is set per tenant, so you can meet the six month minimum for deployers or keep
-        receipts for as long as your own policy or sector rules require.
       </>
     ),
   },
@@ -91,8 +82,8 @@ export default function HomePage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <Display>Every AI decision, on the record.</Display>
                 <Body variant="large">
-                  Thursdai writes a signed {RECEIPT_TERM} for every decision your AI makes, so your
-                  auditors see the answer, the policy and the sources.
+                  Thursdai writes a signed {RECEIPT_TERM} for every AI decision you route to it, so you
+                  can show the answer, the policy and the sources.
                 </Body>
                 <div style={{ marginTop: '0.5rem' }}>
                   <HeroCTAs />
@@ -206,11 +197,12 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
             <div className="lg:col-span-7">
               <Label as="p">Replay and audit packs</Label>
-              <Heading2 style={{ marginTop: '1rem' }}>Replay any decision as it was.</Heading2>
+              <Heading2 style={{ marginTop: '1rem' }}>Reopen a decision as it stood.</Heading2>
             </div>
             <Body className="lg:col-span-5 lg:self-end">
               The rubric and the model have both changed since this decision. The receipt has not. Move
-              the slider to see what was known at each point, then hand an auditor the signed pack.
+              the slider to see what was known at each point, then open the sample pack. Packs are in
+              development, and HR bias-audit reporting comes first.
             </Body>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" style={{ marginTop: '3rem' }}>

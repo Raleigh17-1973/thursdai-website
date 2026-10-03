@@ -36,8 +36,8 @@ export default function ModeratorPage() {
             label: 'Roles',
             body: (
               <>
-                Each role answers from its own corpus sections and policy set. Role definitions control what
-                each one may cite.
+                Each role is a role card defined as data. It gives its view grounded in your knowledge base
+                and Thursdai&apos;s standard knowledge, and your knowledge wins a conflict.
               </>
             ),
           },
@@ -45,8 +45,8 @@ export default function ModeratorPage() {
             label: 'Reconcile',
             body: (
               <>
-                The Moderator merges the answers, flags disagreement for a person to resolve and applies the
-                policies that span roles.
+                The Moderator chooses which roles weigh in. Their views are then merged into one answer with
+                a confidence score.
               </>
             ),
           },
@@ -66,8 +66,8 @@ export default function ModeratorPage() {
         title: 'Three roles, one answer, one receipt.',
         body: (
           <>
-            The roles deliberate before anything reaches your team. What reaches the record is one answer,
-            with each sentence attributed to the role and source it came from.
+            The roles weigh in before anything reaches your team. What reaches the record is one answer
+            with the roles and sources behind it.
           </>
         ),
         figure: <ModeratorRolesDiagram />,

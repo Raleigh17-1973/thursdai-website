@@ -11,12 +11,11 @@ interface CertStatusTagProps {
   quarter?: string | null;
 }
 
-// Ready reads in indigo; in-audit in ink; scheduled in a dashed frame, so a standard that is
-// not yet under audit never looks like one that is.
+// In-audit reads in ink; not-started in a dashed frame, so a standard that is not yet under
+// audit never looks like one that is.
 const statusVariant = {
-  ready: 'indigo',
   'in-audit': 'green',
-  scheduled: 'amber',
+  'not-started': 'amber',
 } as const;
 
 export function CertStatusTag({ status, quarter }: CertStatusTagProps) {

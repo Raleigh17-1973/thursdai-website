@@ -45,7 +45,7 @@ export default function CompliancePacksPage() {
           },
           {
             label: 'Signature',
-            body: <>The pack is signed like a receipt, so a pack produced today can still be verified later.</>,
+            body: <>The pack is signed like a receipt, so any alteration is detectable.</>,
           },
         ],
       }}

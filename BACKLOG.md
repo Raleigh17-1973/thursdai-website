@@ -5,7 +5,7 @@
 - [ ] **Company page — founder name** — edit `src/app/(marketing)/company/page.tsx`, replace all `[Your Name]` / `[placeholder]` blocks with real content: your name, years of experience, specific incident that led to building Thursdai, your previous role/company, your direct email
 - [ ] **Company page — market size** — add a real IDC/Gartner citation for the AI governance market size figure (currently `[$XX billion]`)
 - [ ] **Company page — unfair advantage** — fill in the "Why Thursdai wins" section with your specific background/architecture advantage
-- [ ] **SOC 2 audit** — badges now show "In Audit" (honest); begin the actual SOC 2 Type II audit process if not started; update badge to reflect real stage
+- [ ] **SOC 2 audit** — not started. The trust page and `src/lib/certifications.ts` say "Not started" with no date; engage an auditor, then set `auditorEngaged` and a real `targetQuarter` there
 - [ ] **Mobile testing** — manually test at 390px (iPhone 15) viewport: hero demo panel stacking, Moderator section readability, Policy-as-Code YAML overflow
 - [ ] **Customers page** — if any early pilots have given permission, replace "A Financial Services Company" etc. with real names + quotes
 

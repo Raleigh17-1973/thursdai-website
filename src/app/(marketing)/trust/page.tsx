@@ -9,7 +9,7 @@ import { RecordTable } from '@/components/templates/RecordTable';
 import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
 import { ClosingBand } from '@/components/templates/ClosingBand';
 import { sampleArtifacts } from '@/lib/artifacts';
-import { CONTACT_EMAIL } from '@/config/site';
+import { CONTACT_EMAIL, DEMO_KEY_NOTE } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Trust: Thursdai',
@@ -87,8 +87,8 @@ export default function TrustPage() {
           body: (
             <>
               <Body>
-                The standards we intend to certify against and what is ready now. Dates appear here
-                only once an auditor is engaged.
+                The standards buyers ask about. Thursdai holds none of them and has not started any.
+                Dates appear here only once an auditor is engaged.
               </Body>
               <CertRoadmapTable style={{ marginTop: '0.5rem' }} />
             </>
@@ -126,7 +126,7 @@ export default function TrustPage() {
                 <Link href="/demo#receipt" style={UNDERLINED}>
                   demo verifier
                 </Link>{' '}
-                checks. Download them and verify the signature yourself.
+                checks. Download them and verify the signature yourself. {DEMO_KEY_NOTE}
               </Body>
               <ul className="list-none p-0 m-0" style={{ borderTop: '1px solid var(--ink)' }}>
                 {artifacts.map((a) => (

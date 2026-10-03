@@ -7,14 +7,14 @@ const TITLE = 'Three steps: capture, check against policy, sign';
 const LEGEND: LegendItem[] = [
   { term: 'AI system', detail: 'Yours or a vendor’s. It makes the decision; Thursdai does not.' },
   { term: '01 Capture', detail: 'The decision, the model and version, the evidence used and the reviewer.' },
-  { term: '02 Check', detail: 'Every policy that applies runs against the decision, and each result is kept.' },
-  { term: '03 Sign', detail: 'Ed25519 over the canonical JSON. The result is an AI Receipt anyone can verify.' },
+  { term: '02 Check', detail: 'The policies that apply to the decision are evaluated, and each result is kept.' },
+  { term: '03 Sign', detail: 'The record is signed with a key held in AWS KMS. The result is an AI Receipt.' },
 ];
 
 const STEPS = [
   { title: '01 Capture', lines: ['decision, model,', 'evidence'], one: 'decision, model, evidence' },
   { title: '02 Check', lines: ['against your', 'policies'], one: 'against your policies' },
-  { title: '03 Sign', lines: ['Ed25519 over', 'canonical JSON'], one: 'Ed25519 over canonical JSON' },
+  { title: '03 Sign', lines: ['signed with a', 'KMS-held key'], one: 'signed with a KMS-held key' },
 ];
 
 function Wide() {

@@ -14,14 +14,14 @@ import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
 import { Reveal } from '@/components/motion/Reveal';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
-import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
+import { DEMO_KEY_NOTE, RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
 import { SAMPLE_DISPLAY as S, SAMPLE_RECEIPT as R, tamperedId } from '@/lib/receipts/display';
 import { sampleArtifacts } from '@/lib/artifacts';
 
 export const metadata: Metadata = {
   title: 'Demo: Thursdai',
-  description: `Verify a signed ${RECEIPT_TERM}, replay what a vendor's hiring screening agent knew at the moment it decided and download the audit pack. Sample tenant, real signatures, no login.`,
+  description: `Verify a signed ${RECEIPT_TERM}, replay what a vendor's hiring screening agent knew at the moment it decided and download the audit pack. Sample tenant, a signature you can check, no login.`,
 };
 
 const DOWNLOADS = sampleArtifacts();
@@ -34,20 +34,20 @@ const PANES = [
 
 const REAL_THING = [
   {
-    title: 'Tenant isolation',
-    body: 'Your receipts are written to your own tenant and stored apart from every other customer. Nothing you record touches the sample.',
+    title: 'Tenant separation',
+    body: 'Your receipts are written to your own tenant, separated from other tenants by row-level security. Nothing you record touches the sample.',
   },
   {
     title: 'Your policies',
     body: 'The checks are the ones you write, versioned as code. Every receipt names the policy version that ran.',
   },
   {
-    title: 'Your corpus',
-    body: 'Replay draws on your own knowledge: the rubrics, policies and documents your systems used, at the versions they used.',
+    title: 'Your records',
+    body: 'A replay reopens a decision from its audit trail: the evidence, policies and roles named on your own receipts, at the versions they used.',
   },
   {
     title: 'SSO',
-    body: 'Your people sign in through your identity provider, so the reviewer named on a receipt is a real account.',
+    body: 'SSO via WorkOS is integrated; availability is confirmed per pilot.',
   },
 ];
 
@@ -125,6 +125,7 @@ export default function DemoPage() {
                 recomputes the hash from the stored record and checks the Ed25519 signature. Then try an
                 id that is one character off.
               </Body>
+              <Body variant="small">{DEMO_KEY_NOTE}</Body>
             </div>
 
             <div className="md:col-start-2 md:row-start-1 md:row-span-2 md:sticky md:top-24">
@@ -151,9 +152,9 @@ export default function DemoPage() {
             <PaneLabel n="02" title="The replay" />
             <Heading2>What was known at 14:32 on 16 September.</Heading2>
             <Body>
-              Time-Travel keeps the state a decision met: the knowledge it drew on, the policies that
-              were live and who held which role. Move the slider, or use the arrow keys. The rubric and
-              the model have both changed since the decision. The receipt has not.
+              Time-Travel reopens a decision as its record had it: the knowledge it drew on, the policies
+              that were live and who held which role. Move the slider, or use the arrow keys. The rubric
+              and the model have both changed since the decision. The receipt has not.
             </Body>
           </div>
           <div style={{ marginTop: '2.5rem' }}>

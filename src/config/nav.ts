@@ -8,8 +8,8 @@ export const NAV_ITEMS = [
     megamenu: true,
     items: [
       { label: 'AI Receipts', href: '/product/ai-receipts', description: 'The provable record of every AI decision' },
-      { label: 'Time-Travel', href: '/product/time-travel', description: 'Replay any decision with period-accurate knowledge' },
-      { label: 'Compliance Packs', href: '/product/compliance-packs', description: 'Signed, framework-shaped audit evidence on demand' },
+      { label: 'Time-Travel', href: '/product/time-travel', description: 'Reopen a decision as its audit trail recorded it' },
+      { label: 'Compliance Packs', href: '/product/compliance-packs', description: 'Receipts gathered into one signed document' },
       { label: 'Policy-as-Code', href: '/product/policy-as-code', description: 'Rules written as code, results recorded on the receipt' },
       { label: 'Two-Tier Knowledge', href: '/product/two-tier-knowledge', description: 'Standard corpus and a tenant layer separated by row-level security' },
       { label: 'Moderator', href: '/product/moderator', description: 'The multi-role panel behind every answer' },

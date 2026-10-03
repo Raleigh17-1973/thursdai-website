@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { DEMO_KEY_NOTE } from '@/config/site';
 
 // Runs the real verifier (/api/verify, backed by the signed fixture) in the page and shows
 // its response field by field: id, sha256, signed_at and valid. The optional tampered-id
@@ -135,11 +136,16 @@ function VerifyResult({ result, tampered }: { result: VerifyResponse; tampered: 
       </p>
       <p className="m-0 mt-1" style={{ fontSize: '15px', lineHeight: 1.55, color: 'var(--ink-2)' }}>
         {result.valid
-          ? 'The hash was recomputed from the stored record and the Ed25519 signature checked against the published key. Nothing has changed since it was signed.'
+          ? "The hash was recomputed from the stored record and the Ed25519 signature checked against the sample's public key. Nothing has changed since it was signed."
           : tampered
             ? 'This id is one character away from the real receipt. No signed record matches it, so the verifier returns nothing but valid: false.'
             : 'No signed record matches this id.'}
       </p>
+      {result.valid ? (
+        <p className="m-0 mt-2" style={{ fontSize: '13px', lineHeight: 1.5, color: 'var(--ink-3)' }}>
+          {DEMO_KEY_NOTE}
+        </p>
+      ) : null}
       <dl className="grid grid-cols-1 gap-[2px] m-0 mt-4">
         {rows.map(([k, v]) => (
           <div

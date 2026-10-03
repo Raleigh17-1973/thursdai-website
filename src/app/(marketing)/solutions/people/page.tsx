@@ -41,19 +41,20 @@ export default function PeopleSolutionPage() {
         <>
           For HR, talent acquisition and people analytics leaders whose screening, ranking or
           interview tools use AI. Thursdai writes a signed {RECEIPT_TERM} for each hiring decision
-          those tools route to it, vendor tools included, and includes a four-fifths
-          impact-ratio dashboard for Local Law 144 work.
+          those tools route to it, including vendor tools. A four-fifths impact-ratio dashboard
+          supports Local Law 144 work.
         </>
       }
       problem={
         <>
           In New York City, an automated employment decision tool needs an independent bias audit
-          in the year before use, a public summary of the results and notice to candidates, with{' '}
+          in the year before use, a public summary of the results and notice to candidates. Civil
+          penalties are{' '}
           <a href={NYC_LL144_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
-            penalties of up to $1,500 per violation
+            up to $500 for a first violation and $500 to $1,500 for each later one
             <span className="sr-only"> (Local Law 144, opens in a new tab)</span>
           </a>
-          . Under the EU AI Act, AI that screens or evaluates candidates is high-risk, and the
+          , and each day of use can count separately. Confirm the details with your counsel. Under the EU AI Act, AI that screens or evaluates candidates is high-risk, and the
           employer that deploys it must keep its logs for at least six months.
         </>
       }

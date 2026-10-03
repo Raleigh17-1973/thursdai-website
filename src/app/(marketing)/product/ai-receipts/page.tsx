@@ -6,7 +6,7 @@ import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
 import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
 import { LABEL_STYLE } from '@/components/typography/scale';
 import { Body } from '@/components/typography/Body';
-import { RECEIPT_TERM, RECEIPT_TERM_PLURAL } from '@/config/site';
+import { DEMO_KEY_NOTE, RECEIPT_TERM, RECEIPT_TERM_PLURAL } from '@/config/site';
 import { sampleArtifacts } from '@/lib/artifacts';
 
 export const metadata: Metadata = {
@@ -70,16 +70,17 @@ export default function AiReceiptsPage() {
       }}
       verify={
         <>
-          The receipt on this page is the sample from the demo: a fictional tenant, signed with a real
-          key. Its id, hash and fields are read from the same signed file the verifier checks.
+          The receipt on this page is the sample from the demo: a fictional tenant with a genuine
+          signature. Its id, hash and fields are read from the same signed file the verifier checks.{' '}
+          {DEMO_KEY_NOTE}
         </>
       }
       close={{
         title: 'Verify a signed receipt.',
         body: (
           <>
-            The demo holds a genuinely signed {RECEIPT_TERM} from a fictional tenant. Check its signature,
-            then try an id one character off. No login.
+            The demo holds a signed {RECEIPT_TERM} from a fictional tenant. Check its signature, then try
+            an id one character off. No login.
           </>
         ),
       }}

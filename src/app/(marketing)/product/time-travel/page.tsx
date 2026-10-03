@@ -14,7 +14,7 @@ const TimeTravelScrubber = dynamic(() =>
 export const metadata: Metadata = {
   title: 'Time-Travel: Thursdai',
   description:
-    'Replay any recorded AI decision with the knowledge, policies and roles that were live at that moment, even after all three have changed.',
+    'Reopen a recorded AI decision as its audit trail had it: the knowledge, policies and roles named on its receipt, even after all three have changed.',
 };
 
 export default function TimeTravelPage() {
@@ -22,12 +22,12 @@ export default function TimeTravelPage() {
     <ProductPillar
       crumb="Time-Travel"
       label="Time-Travel"
-      title="See what was known when it decided."
+      title="See what was recorded when it decided."
       demoHref="/demo#replay"
       promise={
         <>
-          Time-Travel reopens any recorded decision with the knowledge, policies and roles that were live
-          at that moment, even after all three have changed.
+          Time-Travel reopens a recorded decision as its audit trail had it, with the knowledge,
+          policies and roles named on its receipt, even after all three have changed.
         </>
       }
       visualLayout="wide"

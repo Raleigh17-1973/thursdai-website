@@ -27,12 +27,12 @@ const PILLARS = [
   {
     name: 'Time-Travel',
     href: '/product/time-travel',
-    line: 'Replay any decision with the knowledge, policies and roles that were live when it was made.',
+    line: 'Reopen a decision as its audit trail recorded it: the knowledge, policies and roles on its receipt.',
   },
   {
     name: 'Compliance Packs',
     href: '/product/compliance-packs',
-    line: 'Receipts for a framework, period or system, gathered into one signed document for an auditor.',
+    line: 'Receipts for a framework, period or system, gathered into one signed document.',
   },
   {
     name: 'Policy-as-Code',

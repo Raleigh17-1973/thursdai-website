@@ -41,7 +41,7 @@ export function CertRoadmapTable({ style }: { style?: React.CSSProperties }) {
         status: <CertStatusTag status={row.status} quarter={row.targetQuarter} />,
         auditor: <span style={{ color: 'var(--ink)' }}>{auditorText(row.auditorEngaged)}</span>,
         target: (
-          <span style={{ color: row.targetQuarter || row.status === 'ready' ? 'var(--ink)' : undefined }}>
+          <span style={{ color: row.targetQuarter ? 'var(--ink)' : undefined }}>
             {targetText(row)}
           </span>
         ),
