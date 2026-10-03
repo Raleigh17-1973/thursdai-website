@@ -14,9 +14,6 @@ const THIRD_PARTY = [
   'clarity.ms',
   'posthog.com',
   'hubspot.com',
-  'linkedin.com',
-  'github.com',
-  'x.com',
   // Primary legal sources cited on the page (the EU AI Act on EUR-Lex).
   'eur-lex.europa.eu',
 ];

@@ -15,13 +15,23 @@ interface LongFormProps {
   meta: string[];
   title: string;
   lead?: React.ReactNode;
+  /** A status note above everything else, e.g. that a legal page is a draft. */
+  notice?: React.ReactNode;
   children?: React.ReactNode;
 }
 
-export function LongForm({ meta, title, lead, children }: LongFormProps) {
+export function LongForm({ meta, title, lead, notice, children }: LongFormProps) {
   return (
     <Section variant="compact">
       <Container narrow>
+        {notice ? (
+          <p
+            className="m-0"
+            style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '1rem', marginBottom: '2rem', fontSize: '15px', lineHeight: 1.55, color: 'var(--ink)' }}
+          >
+            {notice}
+          </p>
+        ) : null}
         <p className="m-0" style={LABEL_STYLE}>
           {meta.join(' · ')}
         </p>
@@ -44,5 +54,18 @@ export function LongFormSection({ title, children, id }: { title: string; childr
       <Heading2>{title}</Heading2>
       <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>{children}</div>
     </section>
+  );
+}
+
+/** A plain bulleted list for long-form prose, at body size. */
+export function LongFormList({ items }: { items: React.ReactNode[] }) {
+  return (
+    <ul className="m-0 list-disc" style={{ paddingLeft: '1.25rem', fontSize: '17px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>
+      {items.map((item, i) => (
+        <li key={i} style={{ marginTop: i ? '0.5rem' : 0 }}>
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }

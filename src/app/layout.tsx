@@ -67,8 +67,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@thursdai',
-    creator: '@thursdai',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
@@ -79,11 +77,6 @@ const organizationSchema = {
   '@type': 'Organization',
   name: 'Thursdai',
   url: SITE_URL,
-  sameAs: [
-    'https://linkedin.com/company/thursdai',
-    'https://github.com/thursdai',
-    'https://x.com/thursdai',
-  ],
 };
 
 const websiteSchema = {

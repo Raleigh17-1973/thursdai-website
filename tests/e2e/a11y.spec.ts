@@ -6,7 +6,14 @@ import { TEMPLATE_ROUTES, settle } from './routes';
 // Moderate and minor findings are printed but do not fail the gate.
 const BLOCKING = new Set(['serious', 'critical']);
 
-for (const route of TEMPLATE_ROUTES) {
+// The legal drafts use the long-form template but are noindex and outside the visual suite,
+// so they are checked here on their own.
+const LEGAL_ROUTES = [
+  { name: 'privacy', path: '/privacy' },
+  { name: 'terms', path: '/terms' },
+];
+
+for (const route of [...TEMPLATE_ROUTES, ...LEGAL_ROUTES]) {
   test(`a11y ${route.name} (${route.path})`, async ({ page }, testInfo) => {
     const res = await page.goto(route.path, { waitUntil: 'load' });
     expect(res?.status(), `${route.path} status`).toBe(200);
