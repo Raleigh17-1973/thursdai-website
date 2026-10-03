@@ -8,14 +8,13 @@ import { ClosingBand } from '@/components/templates/ClosingBand';
 export const metadata: Metadata = {
   title: 'Deployment options: Thursdai',
   description:
-    'Managed, dedicated single-tenant, your own cloud or on-premises: data residency, customer-managed keys and set-up times for each Thursdai deployment model.',
+    'Every Thursdai customer gets a dedicated, isolated tenant: managed by Thursdai, in your own cloud or on-premises. Data residency, customer-managed keys and set-up times for each deployment model.',
 };
 
 const MATRIX = [
   {
     id: 'residency',
     aspect: 'Data residency',
-    managed: 'US or EU, your choice',
     dedicated: 'US or EU, your choice',
     vpc: 'Your cloud region',
     onprem: 'Your data centre',
@@ -23,7 +22,6 @@ const MATRIX = [
   {
     id: 'keys',
     aspect: 'Customer-managed keys',
-    managed: 'No',
     dedicated: 'Yes',
     vpc: 'Yes',
     onprem: 'Yes, with your own HSM',
@@ -31,7 +29,6 @@ const MATRIX = [
   {
     id: 'time',
     aspect: 'Set-up time',
-    managed: 'Set up with your pilot',
     dedicated: '5 to 10 business days',
     vpc: '15 to 30 business days',
     onprem: '60 to 90 business days',
@@ -39,7 +36,6 @@ const MATRIX = [
   {
     id: 'maintenance',
     aspect: 'Maintenance',
-    managed: 'Fully managed by Thursdai',
     dedicated: 'Managed by Thursdai, isolated instance',
     vpc: 'Shared responsibility',
     onprem: 'You run it; Thursdai supports',
@@ -56,7 +52,7 @@ export default function DeploymentPage() {
       ]}
       label="Deployment"
       title="Deploy where your data needs to live."
-      lead="Four deployment models, from fully managed to on-premises and air-gapped. Every model supports your data residency requirements; customer-managed keys are available from dedicated single-tenant upward."
+      lead="Every customer gets an isolated, dedicated tenant; there is no shared multi-tenant option. Three deployment models, from managed by Thursdai to on-premises and air-gapped. Every model supports your data residency requirements and customer-managed keys."
       meta={[{ label: 'Status as of', value: 'October 2026' }]}
       sections={[
         {
@@ -67,8 +63,7 @@ export default function DeploymentPage() {
               caption="Deployment models compared: residency, customer-managed keys, set-up time and maintenance"
               columns={[
                 { key: 'aspect', label: 'Aspect', width: '20%' },
-                { key: 'managed', label: 'Managed, multi-tenant' },
-                { key: 'dedicated', label: 'Dedicated single-tenant' },
+                { key: 'dedicated', label: 'Dedicated, managed by Thursdai' },
                 { key: 'vpc', label: 'Your cloud (VPC)' },
                 { key: 'onprem', label: 'On-premises' },
               ]}
@@ -83,12 +78,8 @@ export default function DeploymentPage() {
             <FactList
               items={[
                 {
-                  term: 'Managed',
-                  body: 'You have no strict residency rules beyond US or EU, want to start fastest and are comfortable with shared infrastructure. Thursdai holds no SOC 2 or ISO/IEC 27001 certificate yet, so check the security overview against your vendor policy.',
-                },
-                {
-                  term: 'Dedicated',
-                  body: 'You need an isolated instance, customer-managed keys or a dedicated endpoint, without running infrastructure yourself.',
+                  term: 'Dedicated, managed by Thursdai',
+                  body: 'Your own isolated instance in the US or EU with customer-managed keys and a dedicated endpoint, without running infrastructure yourself. This is where pilots start. Thursdai holds no SOC 2 or ISO/IEC 27001 certificate yet, so check the security overview against your vendor policy.',
                 },
                 {
                   term: 'Your cloud or on-premises',

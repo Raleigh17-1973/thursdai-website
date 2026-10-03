@@ -40,7 +40,7 @@ const PRICING_FAQ = [
   },
   {
     q: 'What does the platform fee cover?',
-    a: 'The platform fee covers: unlimited role configurations, unlimited policy rules, all deployment models (SaaS through VPC), standard corpus access, support (SLA depends on tier) and SSO/SCIM provisioning.',
+    a: 'The platform fee covers: unlimited role configurations, unlimited policy rules, all deployment models (dedicated managed tenant through VPC), standard corpus access, support (SLA depends on tier) and SSO/SCIM provisioning.',
   },
   {
     q: 'Are credits shared across departments?',

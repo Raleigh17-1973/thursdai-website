@@ -23,7 +23,7 @@ const DOCUMENTS = [
   { href: '/security', title: 'Security overview', covers: 'Architecture, encryption, data categories, subprocessors and the security contact. Written for vendor review.' },
   { href: '/trust/annex-iii', title: 'EU AI Act mapping', covers: 'The obligations for high-risk systems, article by article: who owns each one and what a receipt records for it.' },
   { href: '/trust/iso-42001', title: 'ISO/IEC 42001', covers: 'What the AI management system standard is and where Thursdai stands against it.' },
-  { href: '/trust/deployment', title: 'Deployment', covers: 'Managed, dedicated, your own cloud or your own data centre, with residency and key management for each.' },
+  { href: '/trust/deployment', title: 'Deployment', covers: 'A dedicated tenant for every customer: managed by Thursdai, in your own cloud or in your own data centre, with residency and key management for each.' },
   { href: '/trust/data', title: 'Data handling', covers: 'Training policy, retention, encryption, tenant isolation and personal data.' },
   { href: '/trust/subprocessors', title: 'Subprocessors', covers: 'Every third party that processes customer data and what it does.' },
 ];
