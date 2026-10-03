@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { LeadFallback } from '@/components/ui/LeadFallback';
 
 const DOMAINS = [
   'Legal',
@@ -121,7 +122,7 @@ export function RoleBenchTable() {
 
 export function RoleBenchSubmitForm() {
   const [fields, setFields] = useState({ roleName: '', yaml: '', email: '' });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'fallback'>('idle');
 
   function update(key: keyof typeof fields, value: string) {
     setFields((f) => ({ ...f, [key]: value }));
@@ -136,11 +137,19 @@ export function RoleBenchSubmitForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'role-bench-submission', ...fields }),
       });
-      if (!res.ok) throw new Error('failed');
-      setStatus('success');
+      setStatus(res.ok ? 'success' : 'fallback');
     } catch {
-      setStatus('error');
+      setStatus('fallback');
     }
+  }
+
+  if (status === 'fallback') {
+    return (
+      <LeadFallback
+        subject={`Role Bench submission: ${fields.roleName}`}
+        lines={[`Role: ${fields.roleName}`, `Email: ${fields.email}`, '', 'Configuration:', fields.yaml]}
+      />
+    );
   }
 
   if (status === 'success') {
@@ -165,9 +174,6 @@ export function RoleBenchSubmitForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      {status === 'error' && (
-        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>Something went wrong. Please try again.</p>
-      )}
       <input
         type="text"
         required
@@ -204,7 +210,7 @@ export function RoleBenchSubmitForm() {
 
 export function RoleBenchNotifyForm() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'fallback'>('idle');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -215,11 +221,20 @@ export function RoleBenchNotifyForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'role-bench-notify', email }),
       });
-      if (!res.ok) throw new Error('failed');
-      setStatus('success');
+      setStatus(res.ok ? 'success' : 'fallback');
     } catch {
-      setStatus('error');
+      setStatus('fallback');
     }
+  }
+
+  if (status === 'fallback') {
+    return (
+      <LeadFallback
+        align="center"
+        subject="Role Bench: notify me"
+        lines={[`Please email ${email} once, when the first Role Bench results are published.`]}
+      />
+    );
   }
 
   if (status === 'success') {
@@ -235,11 +250,6 @@ export function RoleBenchNotifyForm() {
       onSubmit={handleSubmit}
       style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}
     >
-      {status === 'error' && (
-        <p style={{ width: '100%', color: 'var(--status-flag)', fontSize: '14px', textAlign: 'center' }}>
-          Something went wrong. Please try again.
-        </p>
-      )}
       <input
         type="email"
         required

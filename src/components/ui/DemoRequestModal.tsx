@@ -75,7 +75,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, source }),
+        body: JSON.stringify({ type: 'pilot', ...form, source }),
       });
       delivered = res.ok;
     } catch {
