@@ -5,17 +5,21 @@ import { SITE_URL } from '@/config/site';
 import './globals.css';
 
 // Geist for text and UI, Latin subset (a fraction of the full variable files the geist
-// package ships: about 54KB together instead of 142KB). Geist Mono stays preloaded because
-// the hero receipt is set in it and a late swap shifts the hero (CLS).
+// package ships: about 54KB together instead of 142KB). Geist Sans is preloaded; Geist Mono is not (below).
 const geistSans = Geist({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist-sans',
 });
 
+// Geist Mono is not preloaded (OD-9): its 24KB counted against simulated LCP on every page.
+// adjustFontFallback gives the fallback size-adjusted metrics so the swap does not shift labels
+// or the hero receipt.
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
+  preload: false,
+  adjustFontFallback: true,
   variable: '--font-geist-mono',
 });
 
