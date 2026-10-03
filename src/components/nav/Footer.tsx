@@ -67,7 +67,7 @@ export async function Footer() {
           style={{ borderTop: '1px solid var(--rule)' }}
         >
           <p className="m-0" style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-mono)', fontSize: '12px', letterSpacing: '0.04em' }}>
-            © 2026 Thursdai, Inc.
+            © 2026 Thursdai
             <span aria-hidden="true" style={{ margin: '0 0.75rem', color: 'var(--ink-3)' }}>·</span>
             <a href={`mailto:${CONTACT_EMAIL}`} className="footer-link">
               {CONTACT_EMAIL}

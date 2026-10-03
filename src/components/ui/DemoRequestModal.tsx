@@ -180,7 +180,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
             </h2>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', lineHeight: 1.6, marginBottom: '1.5rem' }}>
               We couldn&apos;t send your request automatically. Email it to us with your details already filled in
-              and we&apos;ll reply within one business day.
+              and we&apos;ll reply.
             </p>
             <a
               href={mailtoHref}
@@ -202,7 +202,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
         ) : submitted ? (
           <div style={{ textAlign: 'center', padding: '2rem 0' }}>
             <p style={{ ...H3_STYLE }}>
-              We&apos;ll be in touch within one business day.
+              We&apos;ll be in touch.
             </p>
           </div>
         ) : (
@@ -214,7 +214,7 @@ export function DemoRequestModal({ open, onClose, source }: DemoRequestModalProp
               Request a pilot
             </h2>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', marginBottom: '1.75rem' }}>
-              We&apos;ll set up a tenant pilot tailored to your use case.
+              Tell us about the decision flow you want on the record and we&apos;ll be in touch about a pilot.
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
