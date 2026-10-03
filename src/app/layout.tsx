@@ -51,7 +51,7 @@ const instrumentSerif = Instrument_Serif({
 
 const SITE_TITLE = 'Thursdai: a signed record for every AI decision';
 const SITE_DESCRIPTION =
-  'Thursdai writes a signed AI Receipt for every decision your AI makes and bundles them into audit-ready packs for the EU AI Act, NYC Local Law 144 and ISO 42001.';
+  'Thursdai writes a signed AI Receipt for every decision you route to it, and gives you the record to answer for it.';
 
 export const metadata: Metadata = {
   title: SITE_TITLE,

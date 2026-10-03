@@ -9,7 +9,6 @@ import { Heading2 } from '@/components/typography/Heading';
 import { Body } from '@/components/typography/Body';
 import { Label } from '@/components/typography/Label';
 import { H1_STYLE, LABEL_STYLE } from '@/components/typography/scale';
-import { CodeBlock } from '@/components/ui/CodeBlock';
 import { HeroCTAs } from '@/components/ui/HeroCTAs';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
@@ -30,27 +29,6 @@ const PolicyEditor = dynamic(() => import('@/components/demos/PolicyEditor').the
 
 // Home: seven beats (plan Item 5). Hero, problem, proof, the receipt once, replay and packs,
 // policy as code, close. Everything else lives on its own page, reachable from nav and footer.
-
-const RECORD_RECEIPT_SNIPPET = `from thursdai import ThursdaiClient
-
-client = ThursdaiClient(api_key="thy_live_...")
-
-# Record a decision made by any AI system
-receipt = client.receipts.record(
-    source="greenhouse-screening-agent",
-    model="gpt-4o",
-    decision="Advanced applicant 4821 to interview stage",
-    context={
-        "job_req": "JR-204",
-        "rubric_version": "v3",
-        "tenant_id": "acme-financial",
-    },
-)
-
-# The receipt is signed and policy-checked on arrival
-print(f"Receipt:  {receipt.id}")
-print(f"Signed:   {receipt.signed_at}")
-print(f"Checks:   {receipt.compliance_results}")`;
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
@@ -259,19 +237,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
             <div className="lg:col-span-7">
               <Label as="p">Policy as code</Label>
-              <Heading2 style={{ marginTop: '1rem' }}>Write the rules once. Every decision meets them.</Heading2>
+              <Heading2 style={{ marginTop: '1rem' }}>Write the rules once. Every decision is checked against them.</Heading2>
             </div>
             <Body className="lg:col-span-5 lg:self-end">
-              Policies are versioned files your team reviews like code. Any AI system records its
-              decisions with one call, and every receipt names the policy version that checked it.
+              Policies are written as code, evaluated at defined points and recorded on the receipt.
             </Body>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" style={{ marginTop: '3rem' }}>
+          <div style={{ marginTop: '3rem' }}>
             <PolicyEditor />
-            {/* The snippet rides alongside the taller editor so the pair stays read together */}
-            <div className="lg:sticky lg:top-24">
-              <CodeBlock language="python" filename="record_receipt.py" code={RECORD_RECEIPT_SNIPPET} />
-            </div>
           </div>
         </Container>
       </Section>

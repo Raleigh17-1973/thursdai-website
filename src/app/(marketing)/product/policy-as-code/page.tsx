@@ -10,7 +10,7 @@ const PolicyEditor = dynamic(() => import('@/components/demos/PolicyEditor').the
 export const metadata: Metadata = {
   title: 'Policy-as-Code: Thursdai',
   description:
-    'Write governance rules as versioned YAML. Thursdai evaluates every decision against them before the answer reaches a user and writes the result onto its AI Receipt.',
+    'Policies are written as code, evaluated at defined points and recorded on the AI Receipt.',
 };
 
 const SAMPLE_POLICIES = R.policies_evaluated.map((p) => p.id).join(' and ');
@@ -23,13 +23,12 @@ export default function PolicyAsCodePage() {
       title="Rules as code. Results on the record."
       promise={
         <>
-          Your team writes governance rules as versioned YAML, Thursdai evaluates every decision against
-          them before the answer reaches a user and the result is written onto the receipt.
+          Policies are written as code, evaluated at defined points and recorded on the receipt.
         </>
       }
       visualLayout="wide"
       visual={<PolicyEditor />}
-      visualNote="Choose a policy to see the YAML and what it does to an answer."
+      visualNote="Choose an example rule to see it evaluated against two contexts."
       facts={{
         label: 'Policy',
         title: 'How a policy works.',
@@ -38,8 +37,8 @@ export default function PolicyAsCodePage() {
             label: 'Written',
             body: (
               <>
-                Plain YAML, versioned and reviewed like code. Each rule says what it applies to and what
-                happens when it fails: redact, block or hold for review.
+                A rule is a small expression: all, any and not combine tests such as equals, greater than
+                and in. It carries a version and an effect: allow, deny, require approval or redact.
               </>
             ),
           },
@@ -47,8 +46,8 @@ export default function PolicyAsCodePage() {
             label: 'Evaluated',
             body: (
               <>
-                Before the answer reaches a user, as a check on the output rather than an instruction in a
-                prompt that a model can ignore.
+                At defined points, such as a case moving to a new state. The engine checks the rules that
+                apply to the context and returns their effects.
               </>
             ),
           },
@@ -65,27 +64,27 @@ export default function PolicyAsCodePage() {
       }}
       diagram={{
         label: 'Policy flow',
-        title: 'Checked before anyone sees it.',
+        title: 'Checked at defined points, then recorded.',
         body: (
           <>
-            The policy sits between the system that proposes an answer and the person who receives it.
-            Whatever the result, it goes on the record.
+            The rules that apply are evaluated against the decision&apos;s context. Whatever the result, it
+            goes on the record.
           </>
         ),
         figure: <PolicyFlowDiagram />,
       }}
       verify={
         <>
-          Policy results are part of the signed record, so a result cannot be changed after the fact
-          without breaking the signature.
+          Policy results are part of the signed record, so a result changed after the fact no longer
+          matches its signature.
         </>
       }
       close={{
         title: 'See a policy check on the record.',
         body: (
           <>
-            In the demo, two policies run against a vendor agent&apos;s hiring decision before the receipt is
-            signed. Verify it yourself. No login.
+            In the demo, the sample receipt records two policy results for a vendor agent&apos;s hiring
+            decision. Verify it yourself. No login.
           </>
         ),
       }}

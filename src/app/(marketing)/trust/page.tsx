@@ -9,12 +9,12 @@ import { RecordTable } from '@/components/templates/RecordTable';
 import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
 import { ClosingBand } from '@/components/templates/ClosingBand';
 import { sampleArtifacts } from '@/lib/artifacts';
-import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
+import { CONTACT_EMAIL } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Trust: Thursdai',
   description:
-    'Where Thursdai stands on security and compliance: no certifications held yet and a dated roadmap, the EU AI Act mapping, deployment, data handling, subprocessors and signed sample artifacts you can verify.',
+    'Where Thursdai stands on security and compliance: no certifications held, a roadmap with no dates, the security overview and signed sample artifacts you can verify.',
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
@@ -58,8 +58,10 @@ export default function TrustPage() {
                   term: 'In place',
                   body: (
                     <>
-                      Encryption in transit and at rest, tenant isolation, configurable retention and
-                      signed, verifiable {RECEIPT_TERM}s. The{' '}
+                      Each record is hash-chained to the one before it and signed with a key held in AWS
+                      KMS. Changing a record breaks the chain and the signature. Tenant data is separated
+                      by row-level security in the database. None of this has been independently audited.
+                      The{' '}
                       <Link href="/security" style={UNDERLINED}>
                         security overview
                       </Link>{' '}

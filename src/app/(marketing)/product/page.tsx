@@ -37,12 +37,12 @@ const PILLARS = [
   {
     name: 'Policy-as-Code',
     href: '/product/policy-as-code',
-    line: 'Rules written as versioned YAML. Every decision is checked against them and the result is recorded.',
+    line: 'Rules written as code and evaluated at defined points. The result is recorded on the receipt.',
   },
   {
     name: 'Two-Tier Knowledge',
     href: '/product/two-tier-knowledge',
-    line: 'A shared standard corpus and your isolated tenant layer, cited by tier and never mixed.',
+    line: 'A shared standard corpus and a tenant layer separated by row-level security, each source cited by tier.',
   },
   {
     name: 'Moderator',

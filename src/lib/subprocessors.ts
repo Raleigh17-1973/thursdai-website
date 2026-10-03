@@ -1,7 +1,8 @@
-// The one subprocessor list, shown on /trust/subprocessors and summarised on /security.
-// Source: the platform's vendor security overview (thursday-platform docs/security), which
-// /security is regenerated from. The two pages used to carry different lists; keep this the
-// only copy and update it when the overview changes.
+// The one subprocessor list, shown on /security. Source: the sub-processor register in the
+// platform repository (docs/sub-processors.md), reconciled to what is actually integrated.
+// Temporal is not listed: production Temporal is self-hosted, so it is not a third party.
+// SendGrid is not listed: it is planned and not yet integrated. Keep this the only copy and
+// update it when the register changes.
 
 export interface Subprocessor {
   name: string;
@@ -9,11 +10,16 @@ export interface Subprocessor {
   dpa: string;
 }
 
+const STANDARD_DPA = 'Standard DPA on file';
+const PUBLISHED_DPA = "Vendor's published DPA";
+
 export const SUBPROCESSORS: readonly Subprocessor[] = [
-  { name: 'Railway', purpose: 'Cloud hosting and container runtime', dpa: 'DPA on file' },
-  { name: 'Amazon Web Services', purpose: 'Key management (KMS) and GovCloud deployments', dpa: 'DPA on file (AWS standard DPA)' },
-  { name: 'Temporal Technologies', purpose: 'Durable workflow orchestration', dpa: 'DPA on file' },
-  { name: 'Anthropic', purpose: 'Model inference for governed decisions and compliance analysis', dpa: 'DPA on file' },
-  { name: 'OpenAI', purpose: 'Model inference (supplemental provider)', dpa: 'DPA on file' },
-  { name: 'Stripe', purpose: 'Payment processing and billing', dpa: 'DPA on file' },
+  { name: 'Railway', purpose: 'Production hosting and managed Postgres, the primary datastore', dpa: STANDARD_DPA },
+  { name: 'Amazon Web Services', purpose: 'Key management (KMS) and object storage (S3). Region: us-east-1', dpa: PUBLISHED_DPA },
+  { name: 'Anthropic', purpose: 'Model inference. Receives user queries and conversation context', dpa: PUBLISHED_DPA },
+  { name: 'OpenAI', purpose: 'Model inference and embeddings, as a fallback provider', dpa: STANDARD_DPA },
+  { name: 'Vercel', purpose: 'Frontend hosting, edge compute and CDN', dpa: STANDARD_DPA },
+  { name: 'Stripe', purpose: 'Billing and payment processing', dpa: PUBLISHED_DPA },
+  { name: 'PagerDuty', purpose: 'Alerting and on-call management. No customer personal data', dpa: STANDARD_DPA },
+  { name: 'Grafana Labs', purpose: 'Observability (metrics and logs), only when export is configured', dpa: STANDARD_DPA },
 ];

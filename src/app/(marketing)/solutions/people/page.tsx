@@ -13,19 +13,22 @@ import { EU_AI_ACT_URL, NYC_LL144_URL } from '@/config/sources';
 
 export const metadata: Metadata = {
   title: 'HR and People: Thursdai',
-  description: `For HR and talent acquisition leaders whose hiring tools use AI: a signed ${RECEIPT_TERM} for every hiring decision and the evidence NYC Local Law 144 bias audits and the EU AI Act ask for.`,
+  description: `For HR and talent acquisition leaders whose hiring tools use AI: a signed ${RECEIPT_TERM} for each hiring decision routed to Thursdai, and a four-fifths impact-ratio dashboard for NYC Local Law 144 work.`,
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
-// Frameworks the People space shapes evidence to. These are frameworks the product supports;
-// do not list ones it does not.
+// Only list a framework when the product does something real for it today. Other framework
+// reports (EEO-1, pay transparency, OFCCP and the rest) are stubs and must not appear here.
 const FRAMEWORKS = [
-  { name: 'NYC Local Law 144', detail: 'Evidence for the independent bias audit and the public summary the law requires.' },
-  { name: 'EU AI Act, Article 26', detail: 'Deployer obligations for high-risk employment systems, including log keeping.' },
-  { name: 'EU Pay Transparency Directive 2023/970', detail: 'Evidence for pay-gap reporting.' },
-  { name: 'EEOC EEO-1', detail: 'Workforce demographic reporting.' },
-  { name: 'ISO 30414', detail: 'Human capital reporting metrics.' },
+  {
+    name: 'NYC Local Law 144',
+    detail: 'A four-fifths impact-ratio dashboard on live HR data. The independent audit and the public summary remain yours.',
+  },
+  {
+    name: 'EU AI Act, Articles 12 and 26',
+    detail: 'Thursdai records decisions that deployers can use as evidence for their own log-keeping work.',
+  },
 ];
 
 export default function PeopleSolutionPage() {
@@ -37,9 +40,9 @@ export default function PeopleSolutionPage() {
       buyerLine={
         <>
           For HR, talent acquisition and people analytics leaders whose screening, ranking or
-          interview tools use AI. Thursdai writes a signed {RECEIPT_TERM} for every hiring decision
-          those tools make, including vendor tools, and bundles them into the evidence your
-          auditors ask for.
+          interview tools use AI. Thursdai writes a signed {RECEIPT_TERM} for each hiring decision
+          those tools route to it, vendor tools included, and includes a four-fifths
+          impact-ratio dashboard for Local Law 144 work.
         </>
       }
       problem={
@@ -64,7 +67,7 @@ export default function PeopleSolutionPage() {
         intro: (
           <>
             The sample receipt is a vendor screening agent advancing one applicant. Every field is
-            signed, so the record cannot be edited after the fact.
+            signed, so an edit after the fact is detectable.
           </>
         ),
         items: [
@@ -105,19 +108,19 @@ export default function PeopleSolutionPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
             <div className="lg:col-span-7">
               <Label as="p">Frameworks</Label>
-              <Heading2 style={{ marginTop: '1rem' }}>Shaped to the rules you answer to.</Heading2>
+              <Heading2 style={{ marginTop: '1rem' }}>What it does for the rules you answer to.</Heading2>
             </div>
             <Body className="lg:col-span-5 lg:self-end">
-              Thursdai does not perform your independent audit. It produces the evidence that
-              audit, and your regulators, expect, shaped to each framework.
+              Thursdai does not perform your independent audit. Other framework reports are in
+              development.
             </Body>
           </div>
           <RecordTable
             style={{ marginTop: '3rem' }}
-            caption="Frameworks the People space shapes evidence to"
+            caption="Frameworks and what Thursdai provides for each"
             columns={[
               { key: 'name', label: 'Framework', width: '40%' },
-              { key: 'detail', label: 'What the evidence covers' },
+              { key: 'detail', label: 'What Thursdai provides' },
             ]}
             rows={FRAMEWORKS.map((f) => ({ id: f.name, name: f.name, detail: f.detail }))}
           />
@@ -132,8 +135,8 @@ export default function PeopleSolutionPage() {
               <Heading2 style={{ marginTop: '1rem' }}>One view for the people who sign off.</Heading2>
             </div>
             <Body className="lg:col-span-5 lg:self-end">
-              Every automated tool in your hiring funnel, its audit status and its policy results,
-              drawn from the receipts rather than from a survey.
+              A sample of the view for the people who sign off: each automated tool in the hiring
+              funnel, its audit status and its policy results.
             </Body>
           </div>
           <div style={{ marginTop: '3rem' }}>

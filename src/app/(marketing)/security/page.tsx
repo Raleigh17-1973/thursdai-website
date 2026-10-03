@@ -8,7 +8,7 @@ import { RecordTable } from '@/components/templates/RecordTable';
 import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
 import { ClosingBand } from '@/components/templates/ClosingBand';
 import { SUBPROCESSORS } from '@/lib/subprocessors';
-import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
+import { CONTACT_EMAIL, PUBLIC_KEYS_PATH, PUBLIC_KEYS_URL, RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Security overview: Thursdai',
@@ -20,16 +20,16 @@ const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecor
 
 const ARCHITECTURE = [
   { id: 'api', component: 'API server', description: 'Fastify HTTP API: authentication, request routing and approval workflows.' },
-  { id: 'worker', component: 'Temporal worker', description: 'Durable workflow execution for long-running approval and compliance workflows.' },
-  { id: 'db', component: 'Database', description: 'PostgreSQL in production (SQLite for single-node and development): audit events, identities, cases and compliance artifacts.' },
-  { id: 'compliance', component: 'Compliance engine', description: 'Signs and renders compliance packs; manages evidence bindings and cryptographic attestation.' },
+  { id: 'worker', component: 'Temporal worker', description: 'Durable workflow execution for long-running approval workflows. Temporal is self-hosted on Railway.' },
+  { id: 'db', component: 'Database', description: 'PostgreSQL on Railway: audit events, identities, cases and signed records. Every tenant table has a forced row-level security policy.' },
+  { id: 'compliance', component: 'Compliance engine', description: 'Renders and signs report packs.' },
 ];
 
 const DATA_CATEGORIES = [
   { id: 'decisions', category: 'Governed decisions', description: 'Approval requests, case outcomes and policy evaluations.' },
   { id: 'identity', category: 'Identity data', description: 'Employee names, email addresses, departments and roles.' },
-  { id: 'artifacts', category: 'Compliance artifacts', description: 'Framework packs, evidence bindings and attestation records.' },
-  { id: 'audit', category: 'Audit events', description: 'An immutable log of agent actions, human approvals and system events.' },
+  { id: 'artifacts', category: 'Compliance artifacts', description: 'Signed report packs.' },
+  { id: 'audit', category: 'Audit events', description: 'An append-only log of agent actions, human approvals and system events.' },
   { id: 'workflow', category: 'Workflow metadata', description: 'Case status, SLA tracking and assignee history.' },
 ];
 
@@ -45,11 +45,7 @@ export default function SecurityPage() {
       label="Security overview"
       title="Security, in plain terms."
       lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, what data it holds, who processes it and where certification stands."
-      meta={[
-        { label: 'Version', value: '1.0' },
-        { label: 'Effective', value: '23 April 2026' },
-        { label: 'Review', value: 'Quarterly' },
-      ]}
+      meta={[{ label: 'Status as of', value: 'October 2026' }]}
       sections={[
         {
           id: 'summary',
@@ -63,10 +59,9 @@ export default function SecurityPage() {
                 than a feature of it.
               </Body>
               <Body>
-                Controls cover cryptography, access management, audit integrity and operational
-                resilience. Engineering controls for the SOC 2 common criteria are implemented and
-                in use. No SOC 2 report is held yet: the observation period starts once an auditor
-                is engaged.
+                We have not started a SOC 2 engagement. Some controls run today and have not been
+                audited: row-level security in the database, KMS signing of records and secret
+                scanning in CI.
               </Body>
             </>
           ),
@@ -77,9 +72,9 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                Thursdai runs on Railway, a managed cloud platform, in Docker containers with strict
-                container isolation. There is no shared hosting: each customer deployment is a
-                dedicated tenant.
+                Thursdai runs on Railway, a managed cloud platform. Customers share one multi-tenant
+                deployment. Tenant data is separated by Postgres row-level security enforced in the
+                database. Dedicated databases are designed but not yet offered.
               </Body>
               <RecordTable
                 caption="Architecture components"
@@ -93,11 +88,25 @@ export default function SecurityPage() {
                 items={[
                   {
                     term: 'In transit',
-                    body: 'TLS 1.3 for all traffic. Plain HTTP is rejected or upgraded. Components talk over the private Railway network.',
+                    body: 'Traffic is encrypted with TLS at the platform edge. Not independently audited.',
                   },
                   {
                     term: 'At rest',
-                    body: 'AES-256 storage encryption from the hosting provider. Personal data fields are also encrypted in the application with a configurable key independent of the storage backend.',
+                    body: 'Encrypted at rest by our hosting provider (Railway). Not independently audited. Customer-managed keys are designed but not yet available.',
+                  },
+                  {
+                    term: 'Signing',
+                    body: (
+                      <>
+                        Production records are signed with an ES256 key held in AWS KMS, and the private key
+                        never leaves KMS. The public key set is published at{' '}
+                        <a href={PUBLIC_KEYS_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
+                          {PUBLIC_KEYS_PATH}
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        </a>
+                        . The sample receipts on this site use a separate demonstration key.
+                      </>
+                    ),
                   },
                 ]}
               />
@@ -110,9 +119,9 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                The categories Thursdai processes in operation. Raw model conversation content is
-                not kept beyond the active session. Thursdai does not ingest or store payroll data,
-                bank account details or health records.
+                The categories Thursdai processes in operation. Decision records store each governed
+                decision&apos;s inputs and outputs. During a pilot, please do not send payroll, bank
+                or health data.
               </Body>
               <RecordTable
                 caption="Data categories Thursdai processes"
@@ -131,8 +140,8 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                Customers who have signed a DPA are told of material subprocessor changes at least
-                30 days in advance.
+                Our policy is to tell customers at least 30 days before a new subprocessor is added.
+                The DPA that will carry this commitment is in preparation.
               </Body>
               <RecordTable
                 caption="Subprocessors, their purpose and DPA status"
@@ -172,7 +181,7 @@ export default function SecurityPage() {
               <a href={mail} style={UNDERLINED}>
                 {CONTACT_EMAIL}
               </a>
-              . We acknowledge reports within two business days.
+              .
             </Body>
           ),
         },
@@ -180,7 +189,7 @@ export default function SecurityPage() {
       close={
         <ClosingBand
           heading="Questions this does not answer?"
-          body="Send the questionnaire or the question. Vulnerability reports are acknowledged within two business days."
+          body="Send the questionnaire or the question, and a person will reply."
           actions={
             <ButtonLink href={mail} variant="primary" size="lg">
               Email security
