@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { matchesBypassSecret, readBypassSecret } from '@/lib/preview-bypass';
 
 const PREVIEW_COOKIE    = '__thursdai_preview';
 const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
@@ -10,13 +11,15 @@ const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
 // Set to false → full site is live
 //
 // When you're ready to launch: change the line below to `false`
-// and push. No env vars needed.
+// and push. (The preview bypass below is the one thing that needs an env var.)
 // ─────────────────────────────────────────────────────────────────
 const COMING_SOON = false;
 
-// Preview bypass secret — visit /?preview=<this> to get a 24h
-// cookie that skips the coming-soon gate.
-const BYPASS_SECRET = '31151b03-3db3-4184-9d65-eb05c02df216';
+// Preview bypass secret: visit /?preview=<this> to get a 24h cookie that skips the
+// coming-soon gate. It comes from PREVIEW_BYPASS_SECRET and fails closed: with the variable
+// unset or empty no URL value can match, so the gate has no bypass. (An earlier build
+// hard-coded a secret in this file; it is in git history, so treat it as burned and never reuse it.)
+const BYPASS_SECRET = readBypassSecret(process.env.PREVIEW_BYPASS_SECRET);
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
@@ -24,7 +27,7 @@ export function middleware(request: NextRequest) {
   // ── Coming-soon gate ───────────────────────────────────────────
   if (COMING_SOON) {
     // 1. Bypass secret in URL → set cookie, redirect to clean URL
-    if (searchParams.get('preview') === BYPASS_SECRET) {
+    if (matchesBypassSecret(searchParams.get('preview'), BYPASS_SECRET)) {
       const destination = new URL(request.url);
       destination.searchParams.delete('preview');
       const res = NextResponse.redirect(destination);

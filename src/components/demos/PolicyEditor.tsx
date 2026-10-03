@@ -1,76 +1,88 @@
 'use client';
 
 import React from 'react';
-import { diffWords } from 'diff';
 import { Tabs } from '@/components/ui/Tabs';
 import { CodeBlock } from '@/components/ui/CodeBlock';
+
+// Three example rules in the shape the policy engine evaluates: an expression tree built from
+// all, any, not, eq, neq, gt, lt and in over a context (user, org, resource, action, tier),
+// with an effect of allow, deny, require-approval or redact. Each is shown against two
+// contexts, one that matches and one that does not. The results are what the engine returns
+// for that rule and context. Nothing here claims what an effect then does to a response.
+
+interface Case {
+  context: string;
+  result: string;
+}
 
 interface Preset {
   id: string;
   label: string;
-  yaml: string;
-  before: string;
-  after: string;
+  rule: string;
+  cases: [Case, Case];
 }
+
+const NO_MATCH = 'No effect. The rule does not match.';
 
 const PRESETS: Preset[] = [
   {
-    id: 'block-pii',
-    label: 'Block PII',
-    yaml: `# Block PII in output
-rule: block_pii
-applies_to: all_roles
-action: redact
-patterns:
-  - email_addresses
-  - phone_numbers
-  - national_id_numbers
-on_violation: redact_and_flag`,
-    before:
-      'Contact Sarah Chen at sarah.chen@acmecorp.com or +1 (415) 555-0147 to schedule the compliance review.',
-    after:
-      'Contact [REDACTED] at [EMAIL REDACTED] or [PHONE REDACTED] to schedule the compliance review.',
+    id: 'approval-limit',
+    label: 'Approval above a limit',
+    rule: `{
+  "ruleId": "contract-approval-limit",
+  "domain": "approval",
+  "version": "v1",
+  "effect": "require-approval",
+  "ast": { "op": "gt", "path": "resource.contract_value", "value": 500000 }
+}`,
+    cases: [
+      { context: '{ "action": "sign_contract", "resource": { "contract_value": 750000 } }', result: 'require-approval' },
+      { context: '{ "action": "sign_contract", "resource": { "contract_value": 40000 } }', result: NO_MATCH },
+    ],
   },
   {
-    id: 'legal-gate',
-    label: 'Legal review gate',
-    yaml: `# Require legal review for large contracts
-rule: legal_review_gate
-applies_to: finance_role
-condition:
-  field: contract_value
-  operator: greater_than
-  value: 500000
-action: block_and_require_review
-message: "Legal review required before proceeding."`,
-    before:
-      'The proposed SaaS agreement at $750K annual value can proceed to procurement. Standard terms apply.',
-    after:
-      '[BLOCKED] Legal review required. The proposed SaaS agreement at $750K annual value exceeds the $500K threshold. This response is blocked pending Legal sign-off.',
+    id: 'who-may-act',
+    label: 'Who may act',
+    rule: `{
+  "ruleId": "recruiter-advance",
+  "domain": "rbac",
+  "version": "v1",
+  "effect": "allow",
+  "ast": {
+    "op": "all",
+    "of": [
+      { "op": "eq", "path": "user.role", "value": "recruiter" },
+      { "op": "in", "path": "action", "value": ["advance", "reject"] }
+    ]
+  }
+}`,
+    cases: [
+      { context: '{ "user": { "role": "recruiter" }, "action": "advance" }', result: 'allow' },
+      { context: '{ "user": { "role": "contractor" }, "action": "advance" }', result: NO_MATCH },
+    ],
   },
   {
-    id: 'citation',
-    label: 'Require citations',
-    yaml: `# Require citations on regulatory claims
-rule: regulatory_citation
-applies_to: legal_role
-triggers:
-  - keywords:
-      - GDPR
-      - HIPAA
-      - SOC2
-      - ISO
-      - "AI Act"
-      - FedRAMP
-action: require_citation
-on_violation: append_disclaimer`,
-    before:
-      'HIPAA requires encryption of all PHI at rest and in transit. Your current setup is compliant.',
-    after:
-      'HIPAA [45 CFR § 164.312(a)(2)(iv)] requires encryption of all PHI at rest and in transit. Your current setup is compliant [Security Assessment Report, March 2026, §3.2].',
+    id: 'redact-export',
+    label: 'Redact an export',
+    rule: `{
+  "ruleId": "export-redaction",
+  "domain": "pii",
+  "version": "v1",
+  "effect": "redact",
+  "ast": {
+    "op": "all",
+    "of": [
+      { "op": "eq", "path": "action", "value": "export" },
+      { "op": "not", "of": { "op": "eq", "path": "resource.classification", "value": "public" } }
+    ]
+  }
+}`,
+    cases: [
+      { context: '{ "action": "export", "resource": { "classification": "internal" } }', result: 'redact' },
+      { context: '{ "action": "export", "resource": { "classification": "public" } }', result: NO_MATCH },
+    ],
   },
 ];
-
 
 const PANE_LABEL: React.CSSProperties = {
   fontFamily: 'var(--font-mono)',
@@ -81,57 +93,31 @@ const PANE_LABEL: React.CSSProperties = {
   margin: '0 0 0.5rem 0',
 };
 
-// Word-level diff: additions underlined in indigo, removals struck through in tertiary ink.
-function WordDiff({ before, after }: { before: string; after: string }) {
-  const parts = diffWords(before, after);
+const MONO_VALUE: React.CSSProperties = {
+  fontFamily: 'var(--font-mono)',
+  fontSize: '13px',
+  lineHeight: 1.6,
+  color: 'var(--color-text-primary)',
+  margin: 0,
+  overflowWrap: 'anywhere',
+};
+
+function CaseView({ context, result }: Case) {
   return (
-    <p style={{ fontSize: '15px', lineHeight: 1.65, color: 'var(--color-text-primary)', margin: 0 }}>
-      {parts.map((part, i) => {
-        if (part.added) {
-          return (
-            <ins
-              key={i}
-              style={{
-                background: 'var(--color-accent-subtle)',
-                textDecoration: 'underline',
-                textDecorationColor: 'var(--color-accent)',
-                textUnderlineOffset: '3px',
-              }}
-            >
-              {part.value}
-            </ins>
-          );
-        }
-        if (part.removed) {
-          return (
-            <del key={i} style={{ textDecoration: 'line-through', color: 'var(--color-text-tertiary)' }}>
-              {part.value}
-            </del>
-          );
-        }
-        return <span key={i}>{part.value}</span>;
-      })}
-    </p>
+    <div style={{ padding: '1rem', background: 'var(--color-surface-secondary)', borderRadius: '2px' }}>
+      <p style={PANE_LABEL}>Context</p>
+      <p style={MONO_VALUE}>{context}</p>
+      <p style={{ ...PANE_LABEL, marginTop: '0.875rem' }}>Engine result</p>
+      <p style={{ ...MONO_VALUE, fontWeight: 500 }}>{result}</p>
+    </div>
   );
 }
 
-function DiffView({ preset }: { preset: Preset }) {
+function CasesView({ preset }: { preset: Preset }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-      <div>
-        <p style={PANE_LABEL}>Without policy</p>
-        <div style={{ padding: '1rem', background: 'var(--color-surface-secondary)', borderRadius: '2px' }}>
-          <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.65, color: 'var(--color-text-secondary)' }}>
-            {preset.before}
-          </p>
-        </div>
-      </div>
-      <div>
-        <p style={{ ...PANE_LABEL, color: 'var(--color-text-primary)' }}>With policy applied</p>
-        <div style={{ padding: '1rem', border: '1px solid var(--color-text-primary)', borderRadius: '2px' }}>
-          <WordDiff before={preset.before} after={preset.after} />
-        </div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <CaseView {...preset.cases[0]} />
+      <CaseView {...preset.cases[1]} />
     </div>
   );
 }
@@ -142,8 +128,8 @@ export function PolicyEditor() {
     label: preset.label,
     content: (
       <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }} className="md:grid-cols-2">
-        <CodeBlock code={preset.yaml} language="yaml" filename="policy.yaml" />
-        <DiffView preset={preset} />
+        <CodeBlock code={preset.rule} language="json" filename="rule.json" />
+        <CasesView preset={preset} />
       </div>
     ),
   }));
@@ -159,6 +145,9 @@ export function PolicyEditor() {
       }}
     >
       <Tabs tabs={tabs} />
+      <p style={{ ...PANE_LABEL, textTransform: 'none', margin: '1.25rem 0 0' }}>
+        Example rules in the policy engine&apos;s format. They are not a customer&apos;s policies.
+      </p>
     </div>
   );
 }

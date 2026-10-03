@@ -21,6 +21,12 @@ const MD_EXT = new Set(['.mdx', '.md']);
 // `match` narrows the entry to strings containing that text.
 const ALLOWLIST = [
   // Example: { file: 'src/app/foo/page.tsx', rule: 'planned', match: 'Planned maintenance', reason: '...' },
+  {
+    file: 'src/config/site.ts',
+    rule: 'aidr',
+    match: '.well-known/aidr-keys.json',
+    reason: 'The production key set is published at this literal path; it is a URL, not copy.',
+  },
 ];
 
 function walk(dir) {

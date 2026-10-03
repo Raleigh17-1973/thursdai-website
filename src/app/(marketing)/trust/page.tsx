@@ -9,23 +9,19 @@ import { RecordTable } from '@/components/templates/RecordTable';
 import { CertRoadmapTable } from '@/components/templates/CertRoadmapTable';
 import { ClosingBand } from '@/components/templates/ClosingBand';
 import { sampleArtifacts } from '@/lib/artifacts';
-import { CONTACT_EMAIL, RECEIPT_TERM } from '@/config/site';
+import { CONTACT_EMAIL, DEMO_KEY_NOTE } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Trust: Thursdai',
   description:
-    'Where Thursdai stands on security and compliance: no certifications held yet and a dated roadmap, the EU AI Act mapping, deployment, data handling, subprocessors and signed sample artifacts you can verify.',
+    'Where Thursdai stands on security and compliance: no certifications held, a roadmap with no dates, the security overview and signed sample artifacts you can verify.',
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
 const DOCUMENTS = [
   { href: '/security', title: 'Security overview', covers: 'Architecture, encryption, data categories, subprocessors and the security contact. Written for vendor review.' },
-  { href: '/trust/annex-iii', title: 'EU AI Act mapping', covers: 'The obligations for high-risk systems, article by article: who owns each one and what a receipt records for it.' },
   { href: '/trust/iso-42001', title: 'ISO/IEC 42001', covers: 'What the AI management system standard is and where Thursdai stands against it.' },
-  { href: '/trust/deployment', title: 'Deployment', covers: 'A dedicated tenant for every customer: managed by Thursdai, in your own cloud or in your own data centre, with residency and key management for each.' },
-  { href: '/trust/data', title: 'Data handling', covers: 'Training policy, retention, encryption, tenant isolation and personal data.' },
-  { href: '/trust/subprocessors', title: 'Subprocessors', covers: 'Every third party that processes customer data and what it does.' },
 ];
 
 export default function TrustPage() {
@@ -62,8 +58,10 @@ export default function TrustPage() {
                   term: 'In place',
                   body: (
                     <>
-                      Encryption in transit and at rest, tenant isolation, configurable retention and
-                      signed, verifiable {RECEIPT_TERM}s. The{' '}
+                      Each record is hash-chained to the one before it and signed with a key held in AWS
+                      KMS. Changing a record breaks the chain and the signature. Tenant data is separated
+                      by row-level security in the database. None of this has been independently audited.
+                      The{' '}
                       <Link href="/security" style={UNDERLINED}>
                         security overview
                       </Link>{' '}
@@ -89,8 +87,8 @@ export default function TrustPage() {
           body: (
             <>
               <Body>
-                The standards we intend to certify against and what is ready now. Dates appear here
-                only once an auditor is engaged.
+                The standards buyers ask about. Thursdai holds none of them and has not started any.
+                Dates appear here only once an auditor is engaged.
               </Body>
               <CertRoadmapTable style={{ marginTop: '0.5rem' }} />
             </>
@@ -128,7 +126,7 @@ export default function TrustPage() {
                 <Link href="/demo#receipt" style={UNDERLINED}>
                   demo verifier
                 </Link>{' '}
-                checks. Download them and verify the signature yourself.
+                checks. Download them and verify the signature yourself. {DEMO_KEY_NOTE}
               </Body>
               <ul className="list-none p-0 m-0" style={{ borderTop: '1px solid var(--ink)' }}>
                 {artifacts.map((a) => (

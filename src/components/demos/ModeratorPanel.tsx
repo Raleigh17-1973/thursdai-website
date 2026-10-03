@@ -179,6 +179,18 @@ export function ModeratorPanel() {
 
   return (
     <>
+      <p
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '12px',
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          color: 'var(--color-text-secondary)',
+          margin: '0 0 1rem 0',
+        }}
+      >
+        Scripted example for a fictional company. Not a live answer.
+      </p>
       <div
         style={{
           display: 'grid',

@@ -45,7 +45,7 @@ export default function CompliancePacksPage() {
           },
           {
             label: 'Signature',
-            body: <>The pack is signed like a receipt, so a pack produced today can still be verified later.</>,
+            body: <>The pack is signed like a receipt, so any alteration is detectable.</>,
           },
         ],
       }}
@@ -79,7 +79,8 @@ export default function CompliancePacksPage() {
       <ProductPillarSection label="Scope" title="What a pack is, and is not.">
         <Body>
           A pack is the evidence that supports an audit. It is not the audit and it is not a finding of
-          compliance: your auditor and your regulators reach the conclusions.
+          compliance: your auditor and your regulators reach the conclusions. The format is meant for an
+          auditor to review, and no auditor has yet reviewed a Thursdai pack.
         </Body>
         <Body>
           The sample pack is a PDF. Export formats for GRC systems are settled framework by framework, so

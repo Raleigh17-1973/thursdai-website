@@ -14,7 +14,7 @@ import { EU_AI_ACT_URL } from '@/config/sources';
 
 export const metadata: Metadata = {
   title: 'Compliance and risk: Thursdai',
-  description: `For compliance, risk and internal audit teams at firms that use AI in hiring, credit or insurance decisions: a signed ${RECEIPT_TERM} for every decision, evidence for EU AI Act deployer obligations and audit packs on demand.`,
+  description: `For compliance, risk and internal audit teams at firms that use AI in hiring, credit or insurance decisions: a signed ${RECEIPT_TERM} for each decision routed to Thursdai, and a record that supports EU AI Act deployer log-keeping.`,
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
@@ -29,7 +29,7 @@ export default function ComplianceSolutionPage() {
         <>
           For compliance, risk and internal audit teams at firms that use AI to decide on hiring,
           credit or insurance. Thursdai writes a signed {RECEIPT_TERM} for each decision your AI
-          systems make, so you can show an examiner what happened instead of describing it.
+          systems route to it, so you can show an examiner what happened instead of describing it.
         </>
       }
       problem={
@@ -55,8 +55,8 @@ export default function ComplianceSolutionPage() {
         heading: 'What an examiner can check.',
         intro: (
           <>
-            Each receipt is signed when it is recorded and anyone can verify it without an account.
-            A question about one decision becomes a document you can hand over.
+            Each receipt is signed when it is recorded, so a question about one decision becomes a
+            document you can hand over.
           </>
         ),
         items: [
@@ -75,10 +75,6 @@ export default function ComplianceSolutionPage() {
           {
             label: 'Oversight',
             body: "The human reviewer's role and what they did with the recommendation.",
-          },
-          {
-            label: 'Kept',
-            body: 'For as long as your tenant setting says. Six months or more meets the deployer minimum in Article 26(6).',
           },
         ],
       }}
@@ -114,11 +110,11 @@ export default function ComplianceSolutionPage() {
                   items={[
                     {
                       term: 'Log keeping',
-                      body: 'An independent, signed record of each decision, kept for your retention period (Article 26(6)).',
+                      body: 'A signed record of each decision, which is raw material for the log-keeping duty in Article 26(6). Whether it meets your obligations depends on your system and your counsel.',
                     },
                     {
                       term: 'Monitoring',
-                      body: 'Policy results on every decision, so a failed check shows up as it happens rather than at the annual review (Article 26(5)).',
+                      body: 'Policy results are recorded on each decision, so a failed check is on the record when it happens rather than found at the annual review.',
                     },
                     {
                       term: 'Audit packs',
@@ -129,13 +125,13 @@ export default function ComplianceSolutionPage() {
                           <Link href="/product/compliance-packs" style={UNDERLINED}>
                             How packs work
                           </Link>
-                          .
+                          . No auditor has yet reviewed a Thursdai pack.
                         </>
                       ),
                     },
                     {
                       term: 'Replay',
-                      body: 'What the system knew, and which rules applied, at the moment it decided.',
+                      body: 'A decision reopened as its record had it: the evidence, policies and roles named on the receipt.',
                     },
                   ]}
                 />
@@ -163,13 +159,6 @@ export default function ComplianceSolutionPage() {
                   ]}
                 />
               </div>
-              <Body style={{ marginTop: '1.5rem' }}>
-                The article-by-article view is on the{' '}
-                <Link href="/trust/annex-iii" style={UNDERLINED}>
-                  EU AI Act mapping
-                </Link>
-                .
-              </Body>
             </div>
           </div>
         </Container>

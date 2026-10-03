@@ -60,10 +60,10 @@ export default function TermsPage() {
       <LongFormSection title="Intellectual property" id="ip">
         <Body>
           The site and its content, including text, design, diagrams, code samples, the Thursdai name and the
-          wordmark, belong to Thursdai or its licensors. You may view the site, share links to it and use the
-          code samples to integrate with Thursdai. Any other use needs our written permission. Names of other
-          companies and products mentioned on the site, for example on comparison pages, belong to their owners
-          and are used only to identify them.
+          wordmark, belong to Thursdai or its licensors. You may view the site, share links to it and read the
+          code samples as illustrations. Any other use needs our written permission. Names of other
+          companies and products mentioned on the site belong to their owners and are used only to identify
+          them.
         </Body>
       </LongFormSection>
 
@@ -81,8 +81,7 @@ export default function TermsPage() {
           The site discusses laws and standards such as the EU AI Act, New York City Local Law 144 and ISO/IEC
           42001. That material is general information, may not reflect the latest changes and is not legal
           advice. Using Thursdai does not by itself make an organisation compliant with any law or standard.
-          Ask your own counsel about your obligations. Comparisons with other products reflect our understanding
-          when they were written; to report an error, email {mail}.
+          Ask your own counsel about your obligations. To report an error on the site, email {mail}.
         </Body>
       </LongFormSection>
 

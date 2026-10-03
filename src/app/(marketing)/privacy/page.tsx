@@ -53,11 +53,10 @@ export default function PrivacyPage() {
           details filled in, which you can choose to send from your own email account.
         </Body>
         <Body>
-          <strong>Other forms.</strong> The design partner application and the Role Bench forms ask for similar
-          details (company, role, email address and a short description, or an email address alone to be told
-          when results are published). Our server sends them to HubSpot in the same way, labelled with the form they came
-          from, and we use them for the same purpose: to reply to you. If HubSpot cannot be reached, these forms also offer you a pre-filled email to
-          {CONTACT_EMAIL} instead.
+          <strong>Other forms.</strong> The design partner application asks for similar details (company, role,
+          email address and a short description). Our server sends it to HubSpot in the same way, labelled with the
+          form it came from, and we use it for the same purpose: to reply to you. If HubSpot cannot be reached, this
+          form also offers you a pre-filled email to {CONTACT_EMAIL} instead.
         </Body>
         <Body>
           <strong>When you email us.</strong> We receive whatever you include in your message and use it to
@@ -104,7 +103,7 @@ export default function PrivacyPage() {
         <Body>
           <strong>Error monitoring.</strong> The website does not send errors to Sentry. Sentry is used by the
           Thursdai platform and is listed on the{' '}
-          <Link href="/trust/subprocessors" style={A}>
+          <Link href="/security#subprocessors" style={A}>
             subprocessors
           </Link>{' '}
           page.

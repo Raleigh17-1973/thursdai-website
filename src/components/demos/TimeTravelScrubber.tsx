@@ -32,10 +32,10 @@ export interface ReplaySnapshot {
 }
 
 export interface TimeTravelScrubberProps {
-  question?: string;
+  question: string;
   questionLabel?: string;
-  /** Oldest first. */
-  snapshots?: ReplaySnapshot[];
+  /** Oldest first. Required: the scrubber ships no built-in history, so it can never show invented events. */
+  snapshots: ReplaySnapshot[];
   /** Index shown first. Defaults to the newest snapshot. */
   initialIndex?: number;
   /** Accessible name for the slider. */
@@ -46,57 +46,6 @@ export interface TimeTravelScrubberProps {
   footnote?: string;
 }
 
-const DEFAULT_QUESTION =
-  'What is our recommended approach to AI model selection for customer-facing use cases?';
-
-// Oldest first.
-const DEFAULT_SNAPSHOTS: ReplaySnapshot[] = [
-  {
-    tick: 'Apr 2024',
-    label: '2 years ago',
-    date: 'April 2024',
-    answer:
-      'GPT-4 is the only approved model for production customer-facing use. All other OpenAI and third-party models are in review. Deployments require VP Engineering sign-off. No formal AI governance framework in place.',
-    changes: ['AI governance framework adopted', 'GPT-4 Turbo replaced GPT-4'],
-  },
-  {
-    tick: 'Oct 2024',
-    label: '18 months ago',
-    date: 'October 2024',
-    answer:
-      'GPT-4 Turbo only. All other models require Security review and Legal sign-off before production use. Model selection must be documented in the project FRIA. Vendor AI Act compliance documentation not yet required.',
-    changes: ['Claude 2.1 added to approved list', 'FRIA requirement formalised'],
-  },
-  {
-    tick: 'Apr 2025',
-    label: '1 year ago',
-    date: 'April 2025',
-    answer:
-      'GPT-4 Turbo is the recommended baseline for customer-facing deployments given its production stability and vendor support. Claude 2.1 is approved for internal use only pending contract review. No Gemini models approved for production.',
-    changes: ['GPT-4o replaced GPT-4 Turbo as primary', 'Internal-only restriction on Claude lifted'],
-  },
-  {
-    tick: 'Oct 2025',
-    label: '6 months ago',
-    date: 'October 2025',
-    answer:
-      'Evaluate GPT-4o and Claude 3.5 Sonnet as primary options. Key criteria: context window (128K minimum for full ticket history), latency and vendor contractual commitments on data handling. EU AI Act compliance documentation is advisory at this stage.',
-    changes: ['Claude 3.5 Sonnet added to approved list', 'EU AI Act compliance moved to advisory'],
-  },
-  {
-    tick: 'Today',
-    label: 'Today',
-    date: 'April 2026',
-    answer:
-      "For customer-facing use cases, evaluate GPT-4o, Claude 3.5 and Gemini 2.0 Flash against your latency SLA (target P95 < 800ms) and your EU AI Act Annex III obligations. Prefer models with published system cards and audit trails. Thursdai's Role Bench v1 scores are available in /resources/role-bench.",
-    changes: [
-      'EU AI Act Annex III binding (Aug 2026)',
-      'Role Bench v1 published',
-      'Gemini 2.0 Flash added to approved list',
-    ],
-  },
-];
-
 const MONO_LABEL: React.CSSProperties = {
   fontFamily: 'var(--font-mono)',
   fontSize: '12px',
@@ -106,9 +55,9 @@ const MONO_LABEL: React.CSSProperties = {
 };
 
 export function TimeTravelScrubber({
-  question = DEFAULT_QUESTION,
+  question,
   questionLabel = 'Question',
-  snapshots = DEFAULT_SNAPSHOTS,
+  snapshots,
   initialIndex,
   sliderLabel = 'Time-Travel slider',
   markerText = 'On the receipt',

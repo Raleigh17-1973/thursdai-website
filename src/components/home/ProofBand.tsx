@@ -72,11 +72,6 @@ export function ProofBand() {
                 Read the Act on EUR-Lex<span className="sr-only"> (opens in a new tab)</span>
               </a>
             </li>
-            <li>
-              <Link href="/trust/annex-iii" style={UNDERLINED}>
-                How Thursdai maps to Annex III
-              </Link>
-            </li>
           </ul>
         </Cell>
 

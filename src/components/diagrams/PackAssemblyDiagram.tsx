@@ -9,7 +9,7 @@ const LEGEND: LegendItem[] = [
   { term: 'Receipts', detail: 'Already recorded and signed. Nothing is written for the audit.' },
   { term: 'Select', detail: 'By framework, period or system. The outlined receipts are the ones in scope.' },
   { term: 'Audit pack', detail: 'Cover, receipts, policy results and evidence, then a signature over the whole.' },
-  { term: 'Auditor', detail: 'Checks each receipt hash and the pack signature without an account.' },
+  { term: 'Auditor', detail: 'Can check each receipt hash and the pack signature.' },
 ];
 
 // Which of the 12 receipts fall in scope (row-major, 4 across).

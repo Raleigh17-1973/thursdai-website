@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Thursdai: Coming Soon',
   description:
-    'Thursdai is AI governance infrastructure for regulated enterprises. Decision replay, role-based moderation and policy-as-code. Launching soon.',
+    'Thursdai writes a signed AI Receipt for every AI decision you route to it. Launching soon.',
   robots: { index: false, follow: false },
 };
 
@@ -122,9 +122,9 @@ export default function ComingSoonPage() {
           color: '#a1a1b0', margin: 0,
           maxWidth: '520px',
         }}>
-          Thursdai gives regulated enterprises an AI layer that can explain every
-          decision, enforce policy automatically and pass any audit. We&apos;re
-          putting the finishing touches on the full site.
+          Thursdai writes a signed record of each AI decision you route to it, so you
+          can show what was decided, under which policies and on what evidence.
+          We&apos;re putting the finishing touches on the full site.
         </p>
 
         {/* Teaser bullets */}
@@ -145,10 +145,10 @@ export default function ComingSoonPage() {
             What&apos;s coming
           </p>
           {[
-            ['Role-based moderation', 'Legal, Finance and Engineering weigh in on every AI decision, automatically.'],
-            ['Decision replay', 'Rewind any AI answer to see exactly which sources, policies and roles shaped it.'],
-            ['Policy-as-code', 'Enforce your company\'s AI rules in YAML. No vendor calls required.'],
-            ['EU AI Act readiness', 'Built-in Annex III documentation, FRIA templates and human-override controls.'],
+            ['Signed AI Receipts', 'A signed record of each decision: what was decided, which policies ran and what evidence it used.'],
+            ['Decision replay', 'Reopen a decision as its audit trail recorded it.'],
+            ['Policy-as-code', 'Write rules as code. The results are recorded on the receipt.'],
+            ['Verify it yourself', 'Check the signature on a sample receipt without an account.'],
           ].map(([title, desc]) => (
             <div key={title} style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
               <span style={{

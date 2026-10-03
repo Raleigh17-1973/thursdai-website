@@ -14,7 +14,7 @@ import { RECEIPT_TERM } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Solutions: Thursdai',
-  description: `Thursdai for compliance and risk teams and for HR and People teams: a signed ${RECEIPT_TERM} for every AI decision they have to answer for.`,
+  description: `Thursdai for compliance and risk teams and for HR and People teams: a signed ${RECEIPT_TERM} for each AI decision they route to it.`,
 };
 
 const SOLUTIONS = [
@@ -23,7 +23,7 @@ const SOLUTIONS = [
     number: '01',
     label: 'Compliance and risk',
     title: 'For compliance and risk',
-    body: 'For compliance, risk and internal audit teams at firms that use AI in hiring, credit or insurance. Evidence for EU AI Act deployer obligations and signed audit packs on demand.',
+    body: 'For compliance, risk and internal audit teams at firms that use AI in hiring, credit or insurance. A signed record of each decision, which is raw material for EU AI Act deployer log-keeping.',
     cta: 'See compliance and risk',
   },
   {
@@ -31,7 +31,7 @@ const SOLUTIONS = [
     number: '02',
     label: 'HR and People',
     title: 'For HR and People',
-    body: 'For HR and talent acquisition leaders whose hiring tools use AI. A receipt for every screening decision and the evidence a Local Law 144 bias audit asks for.',
+    body: 'For HR and talent acquisition leaders whose hiring tools use AI. A receipt for each screening decision routed to Thursdai and a four-fifths impact-ratio dashboard for Local Law 144 work.',
     cta: 'See HR and People',
   },
 ] as const;
@@ -45,7 +45,7 @@ export default function SolutionsPage() {
           <Heading1 style={{ marginTop: '1rem' }}>Two teams answer for AI decisions.</Heading1>
           <Body variant="large" style={{ marginTop: '1.5rem' }}>
             Compliance and risk teams answer to examiners. HR and People teams answer to candidates,
-            auditors and regulators. Both need the same thing: a signed {RECEIPT_TERM} for every
+            auditors and regulators. Both need the same thing: a signed {RECEIPT_TERM} for each
             decision their AI systems make.
           </Body>
           <div style={{ marginTop: '2.5rem' }}>
@@ -98,8 +98,7 @@ export default function SolutionsPage() {
             </div>
             <Body className="lg:col-span-5 lg:self-end">
               Both solutions run on the same product: receipts, replay, compliance packs and policy
-              as code. What changes is the policies you check, the frameworks the evidence is shaped
-              to and who reads it.{' '}
+              as code. What changes is the policies you check and who reads the record.{' '}
               <Link href="/product" style={{ textDecoration: 'underline', textDecorationThickness: '1px' }}>
                 See the product
               </Link>

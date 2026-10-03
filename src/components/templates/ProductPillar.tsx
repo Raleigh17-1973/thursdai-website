@@ -13,6 +13,7 @@ import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { Breadcrumb } from '@/components/nav/Breadcrumb';
 import { Reveal } from '@/components/motion/Reveal';
 import { SAMPLE_DISPLAY as S } from '@/lib/receipts/display';
+import { DEMO_KEY_NOTE } from '@/config/site';
 
 // Product pillar template (docs/design/the-record.md, "Page anatomy" 2):
 // H1 and a one-sentence promise; the receipt or a live capture beside it; three
@@ -187,9 +188,9 @@ export function SignedAndVerified({ lead }: { lead: React.ReactNode }) {
           <div className="lg:col-start-6 lg:col-span-7" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <Body>{lead}</Body>
             <Body>
-              Each receipt is signed with Ed25519 over its canonical JSON and carries a sha256 fingerprint
-              that changes if a single character does. Anyone can check one without an account: recompute
-              the hash and verify the signature against the public key.{' '}
+              The sample receipt is signed with Ed25519 over its canonical JSON and carries a sha256
+              fingerprint that changes if a single character does. Anyone can check it without an account:
+              recompute the hash and verify the signature against the public key. {DEMO_KEY_NOTE}{' '}
               <Link href="/demo#receipt" style={UNDERLINED}>
                 Verify the sample receipt in the demo
               </Link>

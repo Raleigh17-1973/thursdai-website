@@ -65,7 +65,21 @@ const nextConfig: NextConfig = {
       { source: '/developers/api', destination: '/developers', permanent: true },
       { source: '/developers/docs', destination: '/developers', permanent: true },
       { source: '/trust/certifications', destination: '/trust', permanent: true },
-      { source: '/resources/research', destination: '/resources/role-bench', permanent: true },
+      // Pages withdrawn on 2026-10-02 because their copy claimed things Thursdai does not do or
+      // hold. Their source was deleted in the same change; git history has it. These are 307s, not
+      // 308s, so a browser never caches the move and a page can come back once its copy is
+      // rebuilt from sources.
+      { source: '/trust/deployment', destination: '/trust', permanent: false },
+      { source: '/trust/subprocessors', destination: '/security#subprocessors', permanent: false },
+      { source: '/trust/annex-iii', destination: '/trust', permanent: false },
+      { source: '/trust/data', destination: '/trust', permanent: false },
+      { source: '/developers/mcp', destination: '/developers', permanent: false },
+      { source: '/developers/sdk', destination: '/developers', permanent: false },
+      { source: '/resources/role-bench', destination: '/product', permanent: false },
+      { source: '/resources/research', destination: '/product', permanent: false },
+      { source: '/product/ambient-cases', destination: '/product', permanent: false },
+      { source: '/company', destination: '/company/team', permanent: false },
+      { source: '/compare/:path*', destination: '/product', permanent: false },
     ];
   },
   // Production builds use webpack (`next build`), dev keeps Turbopack. Turbopack's production

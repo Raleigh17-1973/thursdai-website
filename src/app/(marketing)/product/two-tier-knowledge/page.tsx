@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ProductPillar } from '@/components/templates/ProductPillar';
 import { TwoTierKnowledgeDiagram } from '@/components/diagrams/TwoTierKnowledgeDiagram';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
@@ -9,21 +8,20 @@ import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
 export const metadata: Metadata = {
   title: 'Two-Tier Knowledge: Thursdai',
   description:
-    'A shared standard corpus of regulations and standards, kept apart from your isolated tenant layer. Every answer cites which tier each source came from, and tenant content never trains a model.',
+    'A shared standard knowledge base kept apart from your own tenant layer, which is separated from other tenants by row-level security. An answer cites the sources it used.',
 };
-
-const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
 export default function TwoTierKnowledgePage() {
   return (
     <ProductPillar
       crumb="Two-Tier Knowledge"
       label="Two-Tier Knowledge"
-      title="Standard and tenant. Never mixed."
+      title="Standard and tenant, kept apart."
       promise={
         <>
-          Thursdai keeps a shared standard corpus of regulations and standards apart from your isolated
-          tenant layer, and every answer cites which tier each source came from.
+          Thursdai keeps a shared standard knowledge base apart from your own tenant layer. Your
+          documents are separated from other tenants by row-level security, and an answer cites the
+          sources it used.
         </>
       }
       visual={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ marginLeft: 'auto' }} />}
@@ -36,8 +34,8 @@ export default function TwoTierKnowledgePage() {
             label: 'Standard',
             body: (
               <>
-                Regulations and standards such as the EU AI Act, ISO 42001 and GDPR, maintained by Thursdai
-                and shared by every tenant.
+                Reference material maintained by Thursdai and shared by every tenant. Framework control
+                catalogs exist as data; the statute library is not yet populated.
               </>
             ),
           },
@@ -45,8 +43,8 @@ export default function TwoTierKnowledgePage() {
             label: 'Tenant',
             body: (
               <>
-                Your policies, rubrics, templates and precedents, isolated to your tenant and encrypted with a
-                tenant-specific key.
+                The documents you provide. They are separated from other tenants by Postgres row-level
+                security enforced in the database.
               </>
             ),
           },
@@ -54,11 +52,8 @@ export default function TwoTierKnowledgePage() {
             label: 'Training',
             body: (
               <>
-                Tenant content is never used to train models or to improve the standard corpus.{' '}
-                <Link href="/trust/data" style={UNDERLINED}>
-                  How we handle your data
-                </Link>
-                .
+                Our policy: we do not train on customer data. The contractual commitment will be in the
+                DPA, which is in preparation.
               </>
             ),
           },
@@ -66,19 +61,19 @@ export default function TwoTierKnowledgePage() {
       }}
       diagram={{
         label: 'Knowledge',
-        title: 'Two layers, one attributed answer.',
+        title: 'Two layers, one cited answer.',
         body: (
           <>
-            An answer can draw on both tiers. Each source keeps its tier on the receipt, and no path runs
-            from one tenant to another.
+            An answer can draw on both tiers and cites the sources it used. The evidence is listed on the
+            receipt.
           </>
         ),
         figure: <TwoTierKnowledgeDiagram />,
       }}
       verify={
         <>
-          Sources are recorded on the signed receipt with their versions, so you can show which tier an
-          answer relied on at the time it was given.
+          The evidence an answer relied on is listed on the signed receipt with its version, so you can show
+          what it drew on when it was given.
         </>
       }
       close={{

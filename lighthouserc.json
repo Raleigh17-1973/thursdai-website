@@ -8,7 +8,6 @@
         "http://localhost:3000/",
         "http://localhost:3000/product",
         "http://localhost:3000/trust",
-        "http://localhost:3000/compare/glean",
         "http://localhost:3000/developers",
         "http://localhost:3000/demo",
         "http://localhost:3000/product/ai-receipts",

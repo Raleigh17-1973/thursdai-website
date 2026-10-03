@@ -50,7 +50,7 @@ export function CaseStudyApplyForm() {
   if (status === 'success') {
     return (
       <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '16px' }}>
-        Application received. We&apos;ll be in touch within 5 business days.
+        Application received. We&apos;ll be in touch.
       </p>
     );
   }
