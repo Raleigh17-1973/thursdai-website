@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { TEMPLATE_ROUTES, settle } from './routes';
+import { TEMPLATE_ROUTES, presetConsent, settle } from './routes';
 
 // Plan Item 8.3: full-page snapshots of each template at 1440x900 and 390x844
 // (the "desktop" and "mobile" projects). Baselines are Linux-only and come
@@ -11,6 +11,9 @@ import { TEMPLATE_ROUTES, settle } from './routes';
 // Only Linux baselines exist. On other platforms the suite is skipped rather
 // than writing baselines that would never match CI.
 test.skip(process.platform !== 'linux' && !process.env.VISUAL_ANY_PLATFORM, 'Visual baselines are Linux-only');
+
+// The cookie banner is checked by the a11y suite; snapshots show the page without it.
+test.beforeEach(async ({ page }) => presetConsent(page, 'denied'));
 
 for (const route of TEMPLATE_ROUTES) {
   test(`visual ${route.name}`, async ({ page }) => {

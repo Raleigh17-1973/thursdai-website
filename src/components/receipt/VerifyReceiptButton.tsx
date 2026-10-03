@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { DEMO_KEY_NOTE } from '@/config/site';
+import { track } from '@/lib/analytics';
 
 // Runs the real verifier (/api/verify, backed by the signed fixture) in the page and shows
 // its response field by field: id, sha256, signed_at and valid. The optional tampered-id
@@ -32,6 +33,8 @@ export interface VerifyReceiptButtonProps {
   /** Extra actions rendered in the same row, after the verify buttons (e.g. a docs link). */
   children?: React.ReactNode;
   className?: string;
+  /** Send a demo_verify analytics event with the result (the /demo page). */
+  trackDemo?: boolean;
 }
 
 const MONO: React.CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: '13px', lineHeight: 1.5 };
@@ -51,6 +54,7 @@ export function VerifyReceiptButton({
   size = 'md',
   children,
   className = '',
+  trackDemo = false,
 }: VerifyReceiptButtonProps) {
   const [state, setState] = useState<State>({ status: 'idle' });
   const loading = state.status === 'loading';
@@ -63,7 +67,9 @@ export function VerifyReceiptButton({
         setState({ status: 'error', requested: id, rateLimited: res.status === 429 });
         return;
       }
-      setState({ status: 'done', requested: id, result: (await res.json()) as VerifyResponse });
+      const result = (await res.json()) as VerifyResponse;
+      if (trackDemo) track({ name: 'demo_verify', props: { valid: result.valid } });
+      setState({ status: 'done', requested: id, result });
     } catch {
       setState({ status: 'error', requested: id, rateLimited: false });
     }

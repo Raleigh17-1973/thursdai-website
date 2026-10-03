@@ -1,9 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { ThursdaiWordmark } from './ThursdaiWordmark';
+import { CookieSettingsButton } from '@/components/consent/CookieSettingsButton';
 import { FOOTER_COLUMNS, type FooterColumn } from '@/config/nav';
 import { CONTACT_EMAIL } from '@/config/site';
 import { getAllChangelog, getAllPosts } from '@/lib/velite';
+
+// Legal pages sit in the bottom row rather than a column: they are drafts pending legal review
+// and noindex, so they stay out of the sitemap and the nav columns that mirror it.
+const LEGAL = [
+  { href: '/privacy', label: 'Privacy policy' },
+  { href: '/terms', label: 'Terms of use' },
+];
 
 // The blog and changelog join their columns only while they have published entries, the
 // same rule the sitemap follows, so the footer never links an index that would 404.
@@ -73,6 +81,21 @@ export async function Footer() {
               {CONTACT_EMAIL}
             </a>
           </p>
+          <ul className="flex items-center gap-6 list-none p-0 m-0" aria-label="Legal">
+            {LEGAL.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="footer-link text-[14px]">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            {/* Only when Clarity is configured: without it there is nothing to consent to. */}
+            {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
+              <li>
+                <CookieSettingsButton className="text-[14px]" />
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     </footer>

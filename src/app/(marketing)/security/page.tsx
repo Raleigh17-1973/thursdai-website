@@ -72,9 +72,12 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                Thursdai runs on Railway, a managed cloud platform. Customers share one multi-tenant
-                deployment. Tenant data is separated by Postgres row-level security enforced in the
-                database. Dedicated databases are designed but not yet offered.
+                Thursdai runs on Railway, a managed cloud platform, in one US East region. Today all
+                customers share one multi-tenant deployment and one Postgres database. Tenant data
+                is separated by row-level security that is forced on every tenant table and enforced
+                by the database. Dedicated deployments for individual customers, with
+                customer-managed keys, are the model we are building towards: designed and being
+                built, not yet offered.
               </Body>
               <RecordTable
                 caption="Architecture components"
@@ -92,7 +95,7 @@ export default function SecurityPage() {
                   },
                   {
                     term: 'At rest',
-                    body: 'Encrypted at rest by our hosting provider (Railway). Not independently audited. Customer-managed keys are designed but not yet available.',
+                    body: 'Encrypted at rest by our hosting provider (Railway). Not independently audited. Customer-managed keys are designed and being built, not yet offered.',
                   },
                   {
                     term: 'Signing',

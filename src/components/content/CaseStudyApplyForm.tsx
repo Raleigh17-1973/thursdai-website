@@ -2,53 +2,56 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import { CONTACT_EMAIL } from '@/config/site';
-
-// There is no lead destination behind this form, so it does not pretend to send anything. It
-// fills in an email to CONTACT_EMAIL from the fields and hands it to the visitor's mail app.
-// Nothing leaves the browser until they press send there.
-
-const EMPTY = { companyName: '', role: '', email: '', outcome: '' };
+import { LeadFallback } from '@/components/ui/LeadFallback';
 
 export function CaseStudyApplyForm() {
-  const [fields, setFields] = useState(EMPTY);
-  const [mailtoHref, setMailtoHref] = useState<string | null>(null);
+  const [fields, setFields] = useState({
+    companyName: '',
+    role: '',
+    email: '',
+    outcome: '',
+  });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'fallback'>('idle');
 
   function update(key: keyof typeof fields, value: string) {
     setFields((f) => ({ ...f, [key]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      `Design partner application: ${fields.companyName}`,
-    )}&body=${encodeURIComponent(
-      [
-        `Company: ${fields.companyName}`,
-        `Role: ${fields.role}`,
-        `Email: ${fields.email}`,
-        `The AI decision I would put on the record first: ${fields.outcome}`,
-      ].join('\n'),
-    )}`;
-    setMailtoHref(href);
-    window.location.href = href;
+    setStatus('submitting');
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'design-partner',
+          companyName: fields.companyName,
+          role: fields.role,
+          email: fields.email,
+          outcome: fields.outcome,
+        }),
+      });
+      setStatus(res.ok ? 'success' : 'fallback');
+    } catch {
+      setStatus('fallback');
+    }
   }
 
-  if (mailtoHref) {
+  if (status === 'fallback') {
     return (
-      <div style={{ maxWidth: '560px' }}>
-        <p style={{ color: 'var(--color-text-primary)', fontWeight: 600, fontSize: '16px', margin: 0 }}>
-          Your email app should now have a draft addressed to {CONTACT_EMAIL}.
-        </p>
-        <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', lineHeight: 1.6, marginTop: '0.75rem' }}>
-          Nothing has been sent. The application reaches us when you send that email. If no draft
-          opened,{' '}
-          <a href={mailtoHref} style={{ textDecoration: 'underline', textDecorationThickness: '1px' }}>
-            open it again
-          </a>{' '}
-          or write to {CONTACT_EMAIL} yourself.
-        </p>
-      </div>
+      <LeadFallback
+        subject={`Design partner application: ${fields.companyName}`}
+        lines={[`Company: ${fields.companyName}`, `Role: ${fields.role}`, `Email: ${fields.email}`, `First decision to record: ${fields.outcome}`]}
+      />
+    );
+  }
+
+  if (status === 'success') {
+    return (
+      <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '16px' }}>
+        Application received. We&apos;ll be in touch within 5 business days.
+      </p>
     );
   }
 
@@ -111,12 +114,9 @@ export function CaseStudyApplyForm() {
           {fields.outcome.length}/200
         </p>
       </div>
-      <Button type="submit" variant="primary" size="md">
-        Prepare the email
+      <Button type="submit" variant="primary" size="md" disabled={status === 'submitting'}>
+        {status === 'submitting' ? 'Submitting…' : 'Apply to the program'}
       </Button>
-      <p style={{ fontSize: '13px', color: 'var(--color-text-tertiary)', margin: 0 }}>
-        This opens a draft in your email app. We only receive it when you send it.
-      </p>
     </form>
   );
 }

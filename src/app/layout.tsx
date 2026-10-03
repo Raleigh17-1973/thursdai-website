@@ -5,17 +5,21 @@ import { SITE_URL } from '@/config/site';
 import './globals.css';
 
 // Geist for text and UI, Latin subset (a fraction of the full variable files the geist
-// package ships: about 54KB together instead of 142KB). Geist Mono stays preloaded because
-// the hero receipt is set in it and a late swap shifts the hero (CLS).
+// package ships: about 54KB together instead of 142KB). Geist Sans is preloaded; Geist Mono is not (below).
 const geistSans = Geist({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist-sans',
 });
 
+// Geist Mono is not preloaded (OD-9): its 24KB counted against simulated LCP on every page.
+// adjustFontFallback gives the fallback size-adjusted metrics so the swap does not shift labels
+// or the hero receipt.
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   display: 'swap',
+  preload: false,
+  adjustFontFallback: true,
   variable: '--font-geist-mono',
 });
 
@@ -114,14 +118,6 @@ export default function RootLayout({
         />
         {/* RSS feed discovery */}
         <link rel="alternate" type="application/rss+xml" title="Thursdai Blog" href="/feed.xml" />
-        {/* Microsoft Clarity — loads only when NEXT_PUBLIC_CLARITY_PROJECT_ID is set */}
-        {process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID}");`,
-            }}
-          />
-        )}
       </head>
       <body>
         {children}

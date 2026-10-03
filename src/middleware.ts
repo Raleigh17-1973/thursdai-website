@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { matchesBypassSecret, readBypassSecret } from '@/lib/preview-bypass';
 
-const DISTINCT_ID_COOKIE = '__thursdai_id';
 const PREVIEW_COOKIE    = '__thursdai_preview';
-const COOKIE_MAX_AGE    = 60 * 60 * 24 * 365; // 1 year
 const PREVIEW_MAX_AGE   = 60 * 60 * 24;        // 24 hours
 
 // ─────────────────────────────────────────────────────────────────
@@ -60,21 +58,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  // ── PostHog distinct-ID cookie ─────────────────────────────────
-  const response = NextResponse.next();
-  if (!request.cookies.get(DISTINCT_ID_COOKIE)) {
-    response.cookies.set(DISTINCT_ID_COOKIE, crypto.randomUUID(), {
-      maxAge: COOKIE_MAX_AGE,
-      httpOnly: true,
-      sameSite: 'lax',
-      secure: process.env.NODE_ENV === 'production',
-      path: '/',
-    });
-  }
-
-  return response;
+  return NextResponse.next();
 }
 
+// Every page, not just /coming-soon: with COMING_SOON on, the gate has to see every request.
+// The middleware sets no cookie of its own (the __thursdai_id visitor cookie was removed).
 export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|og-backgrounds|fonts|api).*)'],
 };

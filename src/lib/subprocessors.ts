@@ -22,4 +22,8 @@ export const SUBPROCESSORS: readonly Subprocessor[] = [
   { name: 'Stripe', purpose: 'Billing and payment processing', dpa: PUBLISHED_DPA },
   { name: 'PagerDuty', purpose: 'Alerting and on-call management. No customer personal data', dpa: STANDARD_DPA },
   { name: 'Grafana Labs', purpose: 'Observability (metrics and logs), only when export is configured', dpa: STANDARD_DPA },
+  // Region: the platform's CSP allows only Sentry's US ingest host (*.ingest.us.sentry.io,
+  // thursdai packages/api/src/app.ts). The platform's own register lists the Sentry DPA as not
+  // yet confirmed, so this row says so rather than 'on file'.
+  { name: 'Sentry', purpose: 'Application error monitoring for the Thursdai platform (US region)', dpa: 'DPA pending confirmation' },
 ];

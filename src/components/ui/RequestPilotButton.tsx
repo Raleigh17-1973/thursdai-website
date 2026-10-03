@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from './Button';
 import { DemoRequestModal, type CtaLocation } from './DemoRequestModal';
+import { track } from '@/lib/analytics';
 
 interface RequestPilotButtonProps {
   /** Which placement opened the modal; sent with the lead as cta_location. */
@@ -27,7 +28,11 @@ export function RequestPilotButton({
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button variant={variant} size={size} className={className} style={style} onClick={() => setOpen(true)}>
+      <Button variant={variant} size={size} className={className} style={style} onClick={() => {
+          track({ name: 'cta_click', props: { location: source, label: typeof children === 'string' ? children : 'Request a pilot' } });
+          setOpen(true);
+        }}
+      >
         {children}
       </Button>
       <DemoRequestModal open={open} onClose={() => setOpen(false)} source={source} />
