@@ -102,7 +102,7 @@ export function ChangeOneField({ receipt, signature, sha256 }: ChangeOneFieldPro
           void send(outcome, recordedAt);
         }}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4" style={{ maxWidth: '320px' }}>
           <div>
             <label htmlFor={ids.outcome} style={{ ...MONO_LABEL, display: 'block', textTransform: 'none' }}>
               decision.outcome
