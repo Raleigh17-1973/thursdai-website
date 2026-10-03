@@ -26,7 +26,7 @@ export interface ReceiptField {
 }
 
 export interface ReceiptSource {
-  /** The external system that made the decision, e.g. "Greenhouse screening agent". */
+  /** The external system that made the decision, e.g. "Vendor applicant-screening agent". */
   system: string;
   /** Model and host, e.g. "GPT-4o / Azure". */
   model?: string;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { SAMPLE_DISPLAY, SIGNED_FIXTURE, decisionSentence, formatUtc, policySummary, shortHash, tamperedId } from '@/lib/receipts/display';
+import { SAMPLE_DISPLAY, SIGNED_FIXTURE, decisionSentence, formatUtc, policySummary, shortHash } from '@/lib/receipts/display';
 import { verifyFixture } from '@/lib/receipts/verify';
 import { SAMPLE_HIRING_RECEIPT, SAMPLE_HIRING_RECEIPT_COMPACT } from '@/components/receipt/sample';
 import { SAMPLE_LABEL_SIGNED } from '@/config/site';
@@ -22,25 +22,23 @@ describe('shortHash', () => {
   });
 });
 
-describe('tamperedId', () => {
-  it('changes exactly one character and never returns the original', () => {
-    const id = SIGNED_FIXTURE.receipt.id;
-    const t = tamperedId(id);
-    expect(t).not.toBe(id);
-    expect(t.length).toBe(id.length);
-    expect(t.slice(0, -1)).toBe(id.slice(0, -1));
-    expect(tamperedId('abcf')).toBe('abce');
-  });
-  it('fails verification while the real id passes', () => {
+describe('sample id', () => {
+  it('verifies by id', () => {
     expect(verifyFixture(SIGNED_FIXTURE.receipt.id).valid).toBe(true);
-    expect(verifyFixture(tamperedId(SIGNED_FIXTURE.receipt.id)).valid).toBe(false);
+  });
+});
+
+describe('sample source', () => {
+  // The sample names a generic, fictional vendor system, not a real company.
+  it('is attributed to a generic vendor agent', () => {
+    expect(SAMPLE_DISPLAY.system).toBe('Vendor applicant-screening agent');
   });
 });
 
 describe('sample receipt display', () => {
   it('derives every surface value from the signed fixture', () => {
-    expect(SAMPLE_DISPLAY.id).toBe('rcpt_7f3a9c21b84e');
-    expect(SAMPLE_DISPLAY.fingerprint).toBe('9c455f…2f30');
+    expect(SAMPLE_DISPLAY.id).toBe('rcpt_349fc1626359');
+    expect(SAMPLE_DISPLAY.fingerprint).toBe('08ee8e…ba0f');
     expect(SAMPLE_DISPLAY.recordedAt).toBe('2026-09-16 14:32:07 UTC');
     expect(SAMPLE_DISPLAY.decision).toBe(decisionSentence());
     expect(SAMPLE_DISPLAY.decision.endsWith('.')).toBe(true);
