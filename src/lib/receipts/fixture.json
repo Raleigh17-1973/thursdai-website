@@ -1,6 +1,6 @@
 {
   "receipt": {
-    "id": "rcpt_7f3a9c21b84e",
+    "id": "rcpt_349fc1626359",
     "schema": "thursdai.ai-receipt/1",
     "tenant": "Sample tenant: Northwind Financial (fictional).",
     "decision": {
@@ -12,7 +12,7 @@
     },
     "source": {
       "role": "recommender",
-      "system": "Greenhouse screening agent",
+      "system": "Vendor applicant-screening agent",
       "operator": "External vendor system, not operated by Thursdai",
       "model": "GPT-4o",
       "model_host": "Azure",
@@ -57,9 +57,9 @@
     "recorded_at": "2026-09-16T14:32:07Z",
     "scope_note": "This receipt proves what was recorded and when. It does not claim the decision was correct or fair."
   },
-  "sha256": "9c455f3f611903634fd20b85674033671e6d47e5f234c2235055e21a56eb2f30",
-  "signature": "TG5p+TUiUQj1Eq8+VNnKNdK9Jq+ERn+jQqPR7vCTf8fDkEyRfOmqvOXmidc32ZF6TUPvaA7L4t+Rh61uoMc6BA==",
+  "sha256": "08ee8ec9c1299c42fad669bde4806418ae9231a3b3f5f2c2725ea396dce0ba0f",
+  "signature": "yDpLg55UoUI56WNZVNq8swG7gA5EQJbfyF6ZBsN8nt8RTmEUFLaEpK/TYKcGuXiSzjvZgmTB1wsJbpP9FQr2CA==",
   "signature_algorithm": "ed25519",
-  "signed_at": "2026-10-02T19:35:12Z",
-  "key_id": "key_ddff902f519b"
+  "signed_at": "2026-10-03T05:30:41Z",
+  "key_id": "key_92a77ee6b869"
 }

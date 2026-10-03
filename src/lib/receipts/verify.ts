@@ -60,6 +60,40 @@ export function verifySigned(
   }
 }
 
+export type VerifyReason = 'hash_mismatch' | 'signature_mismatch';
+
+export interface VerifyObjectResult {
+  /** sha256 of the receipt exactly as submitted (canonical form). */
+  sha256: string;
+  valid: boolean;
+  /** Null when valid. Never anything beyond these two values. */
+  reason: VerifyReason | null;
+}
+
+/**
+ * Verifies a submitted receipt object against the committed public key, never a key from
+ * the request. Recomputes the canonical hash; when the caller states the fingerprint it was
+ * given (`sha256`) and the record no longer matches it, the reason is hash_mismatch.
+ * Otherwise the Ed25519 signature decides.
+ */
+export function verifyReceiptObject(
+  input: { receipt: Record<string, unknown>; signature: string; sha256?: string },
+  publicKeyPem: string = PUBLIC_KEY_PEM,
+): VerifyObjectResult {
+  const canonical = canonicalize(input.receipt);
+  const sha256 = createHash('sha256').update(canonical, 'utf8').digest('hex');
+  if (input.sha256 !== undefined && input.sha256.toLowerCase() !== sha256) {
+    return { sha256, valid: false, reason: 'hash_mismatch' };
+  }
+  let ok = false;
+  try {
+    ok = verify(null, Buffer.from(canonical, 'utf8'), createPublicKey(publicKeyPem), Buffer.from(input.signature, 'base64'));
+  } catch {
+    ok = false;
+  }
+  return ok ? { sha256, valid: true, reason: null } : { sha256, valid: false, reason: 'signature_mismatch' };
+}
+
 /** Unknown or tampered ids return valid:false with no other information. */
 export function verifyFixture(id: string): VerifyResult {
   return verifySigned(fixtureJson as unknown as SignedFixture, id);

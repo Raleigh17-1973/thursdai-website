@@ -10,13 +10,14 @@ import { H3_STYLE, LABEL_STYLE } from '@/components/typography/scale';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
 import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
 import { VerifyReceiptButton } from '@/components/receipt/VerifyReceiptButton';
+import { ChangeOneField } from '@/components/receipt/ChangeOneField';
 import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
 import { Reveal } from '@/components/motion/Reveal';
 import { TimeTravelScrubber } from '@/components/demos/TimeTravelScrubber';
 import { ClosingCTAs } from '@/components/ui/ClosingCTAs';
 import { DEMO_KEY_NOTE, RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
-import { SAMPLE_DISPLAY as S, SAMPLE_RECEIPT as R, tamperedId } from '@/lib/receipts/display';
+import { SAMPLE_DISPLAY as S, SAMPLE_RECEIPT as R, SIGNED_FIXTURE } from '@/lib/receipts/display';
 import { sampleArtifacts } from '@/lib/artifacts';
 import { TrackDemoView } from '@/components/analytics/TrackDemoView';
 
@@ -69,8 +70,6 @@ function SignedNote() {
 }
 
 export default function DemoPage() {
-  const tampered = tamperedId(S.id);
-
   return (
     <>
       <TrackDemoView />
@@ -124,8 +123,8 @@ export default function DemoPage() {
               </Body>
               <Body>
                 Verify it. The button calls the same verifier the downloadable receipt points to: it
-                recomputes the hash from the stored record and checks the Ed25519 signature. Then try an
-                id that is one character off.
+                recomputes the hash from the stored record and checks the Ed25519 signature. Then change one
+                field and send the copy back with the original signature.
               </Body>
               <Body variant="small">{DEMO_KEY_NOTE}</Body>
             </div>
@@ -135,7 +134,21 @@ export default function DemoPage() {
             </div>
 
             <div className="md:col-start-1 md:row-start-2" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <VerifyReceiptButton receiptId={S.id} tamperedId={tampered} trackDemo />
+              <VerifyReceiptButton receiptId={S.id} trackDemo />
+              <div style={{ borderTop: '1px solid var(--rule)', paddingTop: '1.5rem' }}>
+                <h3 style={H3_STYLE}>Change one field.</h3>
+                <Body variant="small" style={{ marginTop: '0.5rem' }}>
+                  Edit the outcome or the recorded time. The page sends the edited receipt to the
+                  verifier with the original signature and fingerprint. Reset sends it back unchanged.
+                </Body>
+                <div style={{ marginTop: '1rem' }}>
+                  <ChangeOneField
+                    receipt={SIGNED_FIXTURE.receipt}
+                    signature={SIGNED_FIXTURE.signature}
+                    sha256={SIGNED_FIXTURE.sha256}
+                  />
+                </div>
+              </div>
               <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '1rem' }}>
                 <Label as="p">Scope</Label>
                 <Body variant="small" style={{ marginTop: '0.375rem', color: 'var(--ink)' }}>

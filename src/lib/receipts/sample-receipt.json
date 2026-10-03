@@ -1,5 +1,5 @@
 {
-  "id": "rcpt_7f3a9c21b84e",
+  "id": "rcpt_349fc1626359",
   "schema": "thursdai.ai-receipt/1",
   "tenant": "Sample tenant: Northwind Financial (fictional).",
   "decision": {
@@ -11,7 +11,7 @@
   },
   "source": {
     "role": "recommender",
-    "system": "Greenhouse screening agent",
+    "system": "Vendor applicant-screening agent",
     "operator": "External vendor system, not operated by Thursdai",
     "model": "GPT-4o",
     "model_host": "Azure",

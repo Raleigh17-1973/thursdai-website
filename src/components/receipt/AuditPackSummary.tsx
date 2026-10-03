@@ -41,8 +41,9 @@ const CONTENTS = ['Cover', RECEIPT_TERM, 'Policy evaluation and evidence', 'Sign
 
 interface AuditPackSummaryProps {
   /**
-   * Compact drops the rows a neighbouring receipt or replay already shows (evidence and
-   * oversight), so the sheet can sit beside the replay on the home page at a matching height.
+   * Compact drops the rows the receipt on the same page already shows (policies, evidence,
+   * oversight and the full hash), so on the home page the sheet reads as the pack, not as the
+   * receipt a third time, and sits beside the replay at a matching height.
    */
   compact?: boolean;
 }
@@ -89,20 +90,20 @@ export function AuditPackSummary({ compact = false }: AuditPackSummaryProps = {}
           <Row label="Receipts">
             1 · {S.id}
           </Row>
-          <Row label="Policies">
-            {R.policies_evaluated.map((p) => (
-              <span key={p.id} style={{ display: 'block', color: p.result === 'pass' ? 'var(--status-pass)' : 'var(--status-flag)' }}>
-                {p.id}: {p.result === 'pass' ? 'passed' : p.result}
-              </span>
-            ))}
-          </Row>
           {compact ? null : (
             <>
+              <Row label="Policies">
+                {R.policies_evaluated.map((p) => (
+                  <span key={p.id} style={{ display: 'block', color: p.result === 'pass' ? 'var(--status-pass)' : 'var(--status-flag)' }}>
+                    {p.id}: {p.result === 'pass' ? 'passed' : p.result}
+                  </span>
+                ))}
+              </Row>
               <Row label="Evidence">{S.evidence}</Row>
               <Row label="Oversight">{S.oversight}</Row>
+              <Row label="Receipt sha256">{S.sha256}</Row>
             </>
           )}
-          <Row label="Receipt sha256">{S.sha256}</Row>
           <Row label="Contents">
             {CONTENTS.map((c, i) => (
               <span key={c} style={{ display: 'block' }}>
