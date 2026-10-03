@@ -85,5 +85,8 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: https://getthursdai.com
       - run: npx @lhci/cli@0.14.x autorun
+        # Report-only (decision D15): LCP sits at the 2.5s budget on CI and flips
+        # between pass and fail on identical code. Remove once LCP has margin.
+        continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
