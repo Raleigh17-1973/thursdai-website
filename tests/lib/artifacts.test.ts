@@ -41,7 +41,6 @@ describe('home page copy', () => {
     expect(band).toMatch(/Article 12/);
     expect(band).toMatch(/Article 26\(6\)/);
     expect(band).toMatch(/at least six months/);
-    expect(band).toContain("href=\"/trust/annex-iii\"");
     expect(band).toContain('eur-lex.europa.eu');
     // The plan's draft wording attributed the six months to Annex III itself; it does not.
     expect(copy).not.toMatch(/Annex III requires/);

@@ -23,8 +23,8 @@ describe('navigation', () => {
 
   it('reaches every sitemap route from the footer', () => {
     const footer = new Set(FOOTER_COLUMNS.flatMap((c) => c.links.map((l) => l.href)));
-    // Home is the wordmark; individual compare pages hang off /compare.
-    const exempt = (p: string) => p === '/' || p.startsWith('/compare/');
+    // Home is the wordmark.
+    const exempt = (p: string) => p === '/';
     for (const p of SITEMAP_PATHS) if (!exempt(p)) expect(footer, p).toContain(p);
   });
 

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description: `Thursdai records the decisions your AI systems make, checks them against your policies and signs each one as an ${RECEIPT_TERM} you can replay, bundle for an auditor and verify.`,
 };
 
-// Pillar order is fixed: receipts, replay, packs, policy, knowledge, cases, moderator.
+// Pillar order is fixed: receipts, replay, packs, policy, knowledge, moderator.
 const PILLARS = [
   {
     name: RECEIPT_TERM_PLURAL,
@@ -45,11 +45,6 @@ const PILLARS = [
     line: 'A shared standard corpus and your isolated tenant layer, cited by tier and never mixed.',
   },
   {
-    name: 'Ambient Cases',
-    href: '/product/ambient-cases',
-    line: 'Case files assembled from your event streams and receipts before anyone opens them. Early access.',
-  },
-  {
     name: 'Moderator',
     href: '/product/moderator',
     line: 'Thursdai’s own role panel. Its answers are recorded like a decision from any other system.',
@@ -61,7 +56,7 @@ function PillarIndex() {
     <Section>
       <Container>
         <Label as="p">The parts</Label>
-        <Heading2 style={{ marginTop: '1rem' }}>Seven parts, one record.</Heading2>
+        <Heading2 style={{ marginTop: '1rem' }}>Six parts, one record.</Heading2>
         <ol className="list-none m-0 p-0" style={{ marginTop: '3rem', borderTop: '1px solid var(--ink)' }}>
           {PILLARS.map((p, i) => (
             <li
@@ -117,7 +112,7 @@ export default function ProductPage() {
       verify={
         <>
           Every part of the product reads from or adds to the same signed receipts, so there is one
-          record to verify, not seven.
+          record to verify, not six.
         </>
       }
       close={{

@@ -71,22 +71,4 @@ export const CERT_ROADMAP: readonly RoadmapRow[] = [
     note: 'Not held. AI management system certification; our approach is on the ISO/IEC 42001 page.',
     href: '/trust/iso-42001',
   },
-  {
-    name: 'EU AI Act mapping for Annex III systems',
-    shortName: 'EU AI Act mapping',
-    status: 'ready',
-    auditorEngaged: null,
-    targetQuarter: null,
-    note: 'A published article-by-article mapping of what receipts record against the obligations for high-risk systems. It supports your own compliance work; it is not a conformity assessment.',
-    href: '/trust/annex-iii',
-  },
-  {
-    name: 'Architecture designed for HIPAA workloads',
-    shortName: 'Architecture for HIPAA workloads',
-    status: 'ready',
-    auditorEngaged: null,
-    targetQuarter: null,
-    note: 'Encryption, tenant isolation and retention controls built with HIPAA workloads in mind. No HIPAA attestation is held.',
-    href: '/trust/data',
-  },
 ];

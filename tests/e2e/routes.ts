@@ -7,9 +7,7 @@ export const TEMPLATE_ROUTES = [
   { name: 'product-pillar', path: '/product/ai-receipts' },
   { name: 'solution', path: '/solutions/compliance' },
   { name: 'trust', path: '/trust' },
-  { name: 'trust-document', path: '/trust/annex-iii' },
-  { name: 'long-form', path: '/resources/role-bench' },
-  { name: 'compare', path: '/compare/glean' },
+  { name: 'trust-document', path: '/trust/iso-42001' },
   { name: 'demo', path: '/demo' },
   { name: 'developers', path: '/developers' },
 ] as const;

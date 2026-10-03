@@ -112,11 +112,7 @@ export default function SecurityPage() {
               <Body>
                 The categories Thursdai processes in operation. Raw model conversation content is
                 not kept beyond the active session. Thursdai does not ingest or store payroll data,
-                bank account details or health records. Retention and isolation are on the{' '}
-                <Link href="/trust/data" style={UNDERLINED}>
-                  data handling
-                </Link>{' '}
-                page.
+                bank account details or health records.
               </Body>
               <RecordTable
                 caption="Data categories Thursdai processes"
@@ -136,11 +132,7 @@ export default function SecurityPage() {
             <>
               <Body>
                 Customers who have signed a DPA are told of material subprocessor changes at least
-                30 days in advance. The list is also kept on the{' '}
-                <Link href="/trust/subprocessors" style={UNDERLINED}>
-                  subprocessors
-                </Link>{' '}
-                page.
+                30 days in advance.
               </Body>
               <RecordTable
                 caption="Subprocessors, their purpose and DPA status"

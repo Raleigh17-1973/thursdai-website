@@ -237,11 +237,7 @@ export default function DevelopersPage() {
       }
       heroActions={
         <>
-          <VerifyReceiptButton receiptId={SAMPLE_DISPLAY.id} label="Verify a receipt" className="max-w-[640px]">
-            <ButtonLink href="/developers/sdk" variant="secondary" size="md">
-              Read the SDK guide
-            </ButtonLink>
-          </VerifyReceiptButton>
+          <VerifyReceiptButton receiptId={SAMPLE_DISPLAY.id} label="Verify a receipt" className="max-w-[640px]" />
           <Body variant="small" style={{ marginTop: '1rem' }}>
             Runs <Code>GET /api/verify?id={SAMPLE_DISPLAY.id}</Code> against the signed sample
             receipt from the{' '}
@@ -269,12 +265,8 @@ export default function DevelopersPage() {
                   term: 'SDKs',
                   body: (
                     <>
-                      TypeScript and Python SDKs and the{' '}
-                      <Link href="/developers/mcp" style={UNDERLINED}>
-                        MCP server
-                      </Link>{' '}
-                      are in private beta for design partners. Everything they do is available over
-                      REST.
+                      TypeScript and Python SDKs and an MCP server are in private beta for
+                      design partners. Everything they do is available over REST.
                     </>
                   ),
                 },
@@ -415,31 +407,6 @@ export default function DevelopersPage() {
                 {
                   term: 'Tenant API',
                   body: 'Limits are set per pilot tenant from your expected receipt volume. There are no published tiers yet.',
-                },
-              ]}
-            />
-          ),
-        },
-        {
-          id: 'tools',
-          title: 'Tools',
-          body: (
-            <RecordTable
-              caption="Developer tools"
-              columns={[
-                { key: 'tool', label: 'Tool', width: '28%' },
-                { key: 'what', label: 'What it is' },
-              ]}
-              rows={[
-                {
-                  id: 'mcp',
-                  tool: <Link href="/developers/mcp" style={{ color: 'var(--ink)' }}>MCP server</Link>,
-                  what: 'Read-only audit tools for querying your receipts from any MCP client. Private beta.',
-                },
-                {
-                  id: 'sdk',
-                  tool: <Link href="/developers/sdk" style={{ color: 'var(--ink)' }}>SDK guide</Link>,
-                  what: 'Writing, reading and searching receipts over REST while the SDKs are in private beta.',
                 },
               ]}
             />

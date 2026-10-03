@@ -110,33 +110,6 @@ export function MegaMenu({ isOpen, onClose, triggerRef }: MegaMenuProps) {
             </Link>
           ))}
         </div>
-
-        <div className="pt-4" style={{ borderTop: '1px solid var(--rule)' }}>
-          <Link
-            href="/resources/role-bench"
-            role="menuitem"
-            ref={(el) => { itemRefs.current[productItems.length] = el; }}
-            onClick={onClose}
-            className="inline-flex items-center gap-3 text-[15px]"
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '12px',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                color: 'var(--ink-2)',
-                border: '1px solid var(--color-border-strong)',
-                borderRadius: '2px',
-                padding: '1px 6px',
-              }}
-            >
-              New
-            </span>
-            Role Bench: see how Thursdai compares
-            <span aria-hidden="true">→</span>
-          </Link>
-        </div>
       </div>
     </div>
   );

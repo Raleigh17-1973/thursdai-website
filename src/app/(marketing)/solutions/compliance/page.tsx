@@ -163,13 +163,6 @@ export default function ComplianceSolutionPage() {
                   ]}
                 />
               </div>
-              <Body style={{ marginTop: '1.5rem' }}>
-                The article-by-article view is on the{' '}
-                <Link href="/trust/annex-iii" style={UNDERLINED}>
-                  EU AI Act mapping
-                </Link>
-                .
-              </Body>
             </div>
           </div>
         </Container>

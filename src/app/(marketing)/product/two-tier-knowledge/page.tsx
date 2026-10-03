@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ProductPillar } from '@/components/templates/ProductPillar';
 import { TwoTierKnowledgeDiagram } from '@/components/diagrams/TwoTierKnowledgeDiagram';
 import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
   description:
     'A shared standard corpus of regulations and standards, kept apart from your isolated tenant layer. Every answer cites which tier each source came from, and tenant content never trains a model.',
 };
-
-const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
 export default function TwoTierKnowledgePage() {
   return (
@@ -54,11 +51,7 @@ export default function TwoTierKnowledgePage() {
             label: 'Training',
             body: (
               <>
-                Tenant content is never used to train models or to improve the standard corpus.{' '}
-                <Link href="/trust/data" style={UNDERLINED}>
-                  How we handle your data
-                </Link>
-                .
+                Tenant content is never used to train models or to improve the standard corpus.
               </>
             ),
           },
