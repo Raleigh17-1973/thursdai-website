@@ -5,7 +5,7 @@
 import fixtureJson from './fixture.json';
 import { formatUtc, shortHash } from './format';
 
-export { formatUtc, shortHash, tamperedId } from './format';
+export { formatUtc, shortHash } from './format';
 
 export interface FixtureReceipt {
   id: string;

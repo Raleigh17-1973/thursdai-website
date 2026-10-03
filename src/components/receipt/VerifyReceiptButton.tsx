@@ -6,9 +6,8 @@ import { DEMO_KEY_NOTE } from '@/config/site';
 import { track } from '@/lib/analytics';
 
 // Runs the real verifier (/api/verify, backed by the signed fixture) in the page and shows
-// its response field by field: id, sha256, signed_at and valid. The optional tampered-id
-// action sends an id one character away from the real one, so a reader can watch the
-// same check fail. Results land in a polite live region for screen readers.
+// its response field by field: id, sha256, signed_at and valid. The tamper proof on /demo is a
+// separate component (ChangeOneField). Results land in a polite live region for screen readers.
 
 interface VerifyResponse {
   id: string;
@@ -25,8 +24,6 @@ type State =
 
 export interface VerifyReceiptButtonProps {
   receiptId: string;
-  /** When set, shows a secondary "Try a tampered id" action that verifies this id instead. */
-  tamperedId?: string;
   /** Primary button text. */
   label?: string;
   size?: 'md' | 'lg';
@@ -49,7 +46,6 @@ const MONO_LABEL: React.CSSProperties = {
 
 export function VerifyReceiptButton({
   receiptId,
-  tamperedId,
   label = 'Verify this receipt',
   size = 'md',
   children,
@@ -75,20 +71,12 @@ export function VerifyReceiptButton({
     }
   }
 
-  const requested = state.status === 'idle' ? null : state.requested;
-  const isTamperedRun = tamperedId !== undefined && requested === tamperedId;
-
   return (
     <div className={className}>
       <div className="flex flex-wrap items-center gap-3">
         <Button size={size} onClick={() => run(receiptId)} disabled={loading}>
-          {loading && !isTamperedRun ? 'Verifying…' : label}
+          {loading ? 'Verifying…' : label}
         </Button>
-        {tamperedId ? (
-          <Button size={size} variant="secondary" onClick={() => run(tamperedId)} disabled={loading}>
-            {loading && isTamperedRun ? 'Verifying…' : 'Try a tampered id'}
-          </Button>
-        ) : null}
         {children}
       </div>
 
@@ -109,7 +97,7 @@ export function VerifyReceiptButton({
                   : 'Could not reach the verifier. Try again shortly.'}
               </p>
             ) : (
-              <VerifyResult result={state.result} tampered={isTamperedRun} />
+              <VerifyResult result={state.result} />
             )}
           </div>
         ) : null}
@@ -118,7 +106,7 @@ export function VerifyReceiptButton({
   );
 }
 
-function VerifyResult({ result, tampered }: { result: VerifyResponse; tampered: boolean }) {
+function VerifyResult({ result }: { result: VerifyResponse }) {
   const rows: [string, string][] = [
     ['id', result.id],
     ['sha256', result.sha256 || '(none)'],
@@ -143,9 +131,7 @@ function VerifyResult({ result, tampered }: { result: VerifyResponse; tampered: 
       <p className="m-0 mt-1" style={{ fontSize: '15px', lineHeight: 1.55, color: 'var(--ink-2)' }}>
         {result.valid
           ? "The hash was recomputed from the stored record and the Ed25519 signature checked against the sample's public key. Nothing has changed since it was signed."
-          : tampered
-            ? 'This id is one character away from the real receipt. No signed record matches it, so the verifier returns nothing but valid: false.'
-            : 'No signed record matches this id.'}
+          : 'No signed record matches this id.'}
       </p>
       {result.valid ? (
         <p className="m-0 mt-2" style={{ fontSize: '13px', lineHeight: 1.5, color: 'var(--ink-3)' }}>

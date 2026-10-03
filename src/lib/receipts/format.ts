@@ -14,9 +14,3 @@ export function shortHash(hash: string): string {
   if (hex.length <= 12) return hex;
   return `${hex.slice(0, 6)}…${hex.slice(-4)}`;
 }
-
-/** A copy of an id with its last character changed, so it cannot match the signed record. */
-export function tamperedId(id: string): string {
-  const last = id.slice(-1);
-  return id.slice(0, -1) + (last === 'f' ? 'e' : 'f');
-}
