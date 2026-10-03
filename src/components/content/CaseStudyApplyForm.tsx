@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { LeadFallback } from '@/components/ui/LeadFallback';
 
 export function CaseStudyApplyForm() {
   const [fields, setFields] = useState({
@@ -10,7 +11,7 @@ export function CaseStudyApplyForm() {
     email: '',
     outcome: '',
   });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'fallback'>('idle');
 
   function update(key: keyof typeof fields, value: string) {
     setFields((f) => ({ ...f, [key]: value }));
@@ -24,18 +25,26 @@ export function CaseStudyApplyForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type: 'case-study-application',
+          type: 'design-partner',
           companyName: fields.companyName,
           role: fields.role,
           email: fields.email,
           outcome: fields.outcome,
         }),
       });
-      if (!res.ok) throw new Error('request failed');
-      setStatus('success');
+      setStatus(res.ok ? 'success' : 'fallback');
     } catch {
-      setStatus('error');
+      setStatus('fallback');
     }
+  }
+
+  if (status === 'fallback') {
+    return (
+      <LeadFallback
+        subject={`Design partner application: ${fields.companyName}`}
+        lines={[`Company: ${fields.companyName}`, `Role: ${fields.role}`, `Email: ${fields.email}`, `First decision to record: ${fields.outcome}`]}
+      />
+    );
   }
 
   if (status === 'success') {
@@ -63,11 +72,6 @@ export function CaseStudyApplyForm() {
       onSubmit={handleSubmit}
       style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '560px' }}
     >
-      {status === 'error' && (
-        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>
-          Something went wrong. Please try again.
-        </p>
-      )}
       <input
         type="text"
         required

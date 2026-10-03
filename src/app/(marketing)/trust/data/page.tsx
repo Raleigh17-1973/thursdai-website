@@ -85,11 +85,11 @@ export default function DataPage() {
               items={[
                 {
                   term: 'At rest',
-                  body: 'AES-256-GCM. Tenant corpus encrypted with a tenant-specific key. Customer-managed keys are available on dedicated deployments and above.',
+                  body: 'AES-256-GCM. Tenant corpus encrypted with a tenant-specific key. Customer-managed keys are available on every deployment model.',
                 },
                 {
                   term: 'In transit',
-                  body: 'TLS 1.3 minimum. Certificate pinning is available for dedicated deployments; mutual TLS is supported for your-cloud and on-premises deployments.',
+                  body: 'TLS 1.3 minimum. Certificate pinning is available on every deployment; mutual TLS is supported for your-cloud and on-premises deployments.',
                 },
               ]}
             />

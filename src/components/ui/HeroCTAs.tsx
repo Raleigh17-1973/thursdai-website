@@ -7,7 +7,7 @@ import { RequestPilotButton } from './RequestPilotButton';
 export function HeroCTAs() {
   return (
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-      <ButtonLink href="/demo" variant="primary" size="lg">
+      <ButtonLink href="/demo" variant="primary" size="lg" data-cta-location="hero" data-cta-label="Open the demo">
         Open the demo
       </ButtonLink>
       <RequestPilotButton source="hero" variant="secondary" size="lg" />

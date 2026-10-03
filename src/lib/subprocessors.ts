@@ -16,4 +16,8 @@ export const SUBPROCESSORS: readonly Subprocessor[] = [
   { name: 'Anthropic', purpose: 'Model inference for governed decisions and compliance analysis', dpa: 'DPA on file' },
   { name: 'OpenAI', purpose: 'Model inference (supplemental provider)', dpa: 'DPA on file' },
   { name: 'Stripe', purpose: 'Payment processing and billing', dpa: 'DPA on file' },
+  // Region: the platform's CSP allows only Sentry's US ingest host (*.ingest.us.sentry.io,
+  // thursdai packages/api/src/app.ts). The platform's own register lists the Sentry DPA as not
+  // yet confirmed, so this row says so rather than 'on file'.
+  { name: 'Sentry', purpose: 'Application error monitoring for the Thursdai platform (US region)', dpa: 'DPA pending confirmation' },
 ];

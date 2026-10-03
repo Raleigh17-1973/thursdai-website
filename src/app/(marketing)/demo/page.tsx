@@ -18,6 +18,7 @@ import { RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
 import { SAMPLE_DISPLAY as S, SAMPLE_RECEIPT as R, tamperedId } from '@/lib/receipts/display';
 import { sampleArtifacts } from '@/lib/artifacts';
+import { TrackDemoView } from '@/components/analytics/TrackDemoView';
 
 export const metadata: Metadata = {
   title: 'Demo: Thursdai',
@@ -72,6 +73,7 @@ export default function DemoPage() {
 
   return (
     <>
+      <TrackDemoView />
       {/* ── Intro ─────────────────────────────────────────────── */}
       <Section variant="compact">
         <Container>
@@ -132,7 +134,7 @@ export default function DemoPage() {
             </div>
 
             <div className="md:col-start-1 md:row-start-2" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <VerifyReceiptButton receiptId={S.id} tamperedId={tampered} />
+              <VerifyReceiptButton receiptId={S.id} tamperedId={tampered} trackDemo />
               <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '1rem' }}>
                 <Label as="p">Scope</Label>
                 <Body variant="small" style={{ marginTop: '0.375rem', color: 'var(--ink)' }}>

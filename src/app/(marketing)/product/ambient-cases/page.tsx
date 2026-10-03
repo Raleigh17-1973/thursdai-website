@@ -9,14 +9,14 @@ import { LABEL_STYLE } from '@/components/typography/scale';
 export const metadata: Metadata = {
   title: 'Ambient Cases: Thursdai',
   description:
-    'Thursdai watches your event streams and assembles a case file in the background, with the facts, the policies in scope and the related AI Receipts in place before anyone opens it. Early access with design partners.',
+    'Thursdai watches your event streams and assembles a case file in the background, with the facts, the policies in scope and the related AI Receipts in place before anyone opens it. Early access through the design partner program.',
 };
 
 function EarlyAccess() {
   return (
     <p className="m-0" style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '1rem', fontSize: '15px', lineHeight: 1.55, color: 'var(--ink)' }}>
       <span style={{ ...LABEL_STYLE, display: 'block', marginBottom: '0.25rem' }}>Early access</span>
-      Ambient Cases runs with design partners on one regulated workflow at a time. To try it on yours,
+      Ambient Cases is offered in early access through the design partner program, one regulated workflow at a time. To try it on yours,
       request a pilot.
     </p>
   );

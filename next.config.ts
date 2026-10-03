@@ -1,4 +1,9 @@
 import type { NextConfig } from 'next';
+import { posthogApiHost } from './src/lib/posthog-host';
+
+// Browser PostHog sends events here and nowhere else (no scripts from PostHog: posthog-js is
+// bundled and external loading is off), so it appears in connect-src only.
+const POSTHOG_HOST = posthogApiHost(process.env.NEXT_PUBLIC_POSTHOG_HOST);
 
 class VeliteWebpackPlugin {
   static started = false;
@@ -22,11 +27,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://app.posthog.com https://js.hs-scripts.com https://www.clarity.ms https://scripts.clarity.ms https://va.vercel-scripts.com",
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://js.hs-scripts.com https://www.clarity.ms https://scripts.clarity.ms https://va.vercel-scripts.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https:",
       "font-src 'self'",
-      "connect-src 'self' https://app.posthog.com https://api.hubapi.com https://c.clarity.ms https://f.clarity.ms https://vitals.vercel-insights.com",
+      `connect-src 'self' ${POSTHOG_HOST} https://api.hubapi.com https://c.clarity.ms https://f.clarity.ms https://vitals.vercel-insights.com`,
       "frame-ancestors 'none'",
     ].join('; '),
   },
@@ -34,6 +39,12 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Always inline the PostHog vars, as empty strings when unset, so the client never falls back
+  // to process.env at runtime (which pulls a process polyfill into the bundle).
+  env: {
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY ?? '',
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '',
+  },
   devIndicators: false,
   images: {
     formats: ['image/avif', 'image/webp'],
