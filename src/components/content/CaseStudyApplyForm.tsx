@@ -2,47 +2,53 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
+import { CONTACT_EMAIL } from '@/config/site';
+
+// There is no lead destination behind this form, so it does not pretend to send anything. It
+// fills in an email to CONTACT_EMAIL from the fields and hands it to the visitor's mail app.
+// Nothing leaves the browser until they press send there.
+
+const EMPTY = { companyName: '', role: '', email: '', outcome: '' };
 
 export function CaseStudyApplyForm() {
-  const [fields, setFields] = useState({
-    companyName: '',
-    role: '',
-    email: '',
-    outcome: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [fields, setFields] = useState(EMPTY);
+  const [mailtoHref, setMailtoHref] = useState<string | null>(null);
 
   function update(key: keyof typeof fields, value: string) {
     setFields((f) => ({ ...f, [key]: value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setStatus('submitting');
-    try {
-      const res = await fetch('/api/lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'case-study-application',
-          companyName: fields.companyName,
-          role: fields.role,
-          email: fields.email,
-          outcome: fields.outcome,
-        }),
-      });
-      if (!res.ok) throw new Error('request failed');
-      setStatus('success');
-    } catch {
-      setStatus('error');
-    }
+    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      `Design partner application: ${fields.companyName}`,
+    )}&body=${encodeURIComponent(
+      [
+        `Company: ${fields.companyName}`,
+        `Role: ${fields.role}`,
+        `Email: ${fields.email}`,
+        `The AI decision I would put on the record first: ${fields.outcome}`,
+      ].join('\n'),
+    )}`;
+    setMailtoHref(href);
+    window.location.href = href;
   }
 
-  if (status === 'success') {
+  if (mailtoHref) {
     return (
-      <p style={{ color: 'var(--color-accent)', fontWeight: 600, fontSize: '16px' }}>
-        Application received. We&apos;ll be in touch within 5 business days.
-      </p>
+      <div style={{ maxWidth: '560px' }}>
+        <p style={{ color: 'var(--color-text-primary)', fontWeight: 600, fontSize: '16px', margin: 0 }}>
+          Your email app should now have a draft addressed to {CONTACT_EMAIL}.
+        </p>
+        <p style={{ color: 'var(--color-text-secondary)', fontSize: '15px', lineHeight: 1.6, marginTop: '0.75rem' }}>
+          Nothing has been sent. The application reaches us when you send that email. If no draft
+          opened,{' '}
+          <a href={mailtoHref} style={{ textDecoration: 'underline', textDecorationThickness: '1px' }}>
+            open it again
+          </a>{' '}
+          or write to {CONTACT_EMAIL} yourself.
+        </p>
+      </div>
     );
   }
 
@@ -63,11 +69,6 @@ export function CaseStudyApplyForm() {
       onSubmit={handleSubmit}
       style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '560px' }}
     >
-      {status === 'error' && (
-        <p style={{ color: 'var(--status-flag)', fontSize: '14px' }}>
-          Something went wrong. Please try again.
-        </p>
-      )}
       <input
         type="text"
         required
@@ -110,9 +111,12 @@ export function CaseStudyApplyForm() {
           {fields.outcome.length}/200
         </p>
       </div>
-      <Button type="submit" variant="primary" size="md" disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Submitting…' : 'Apply to the program'}
+      <Button type="submit" variant="primary" size="md">
+        Prepare the email
       </Button>
+      <p style={{ fontSize: '13px', color: 'var(--color-text-tertiary)', margin: 0 }}>
+        This opens a draft in your email app. We only receive it when you send it.
+      </p>
     </form>
   );
 }
