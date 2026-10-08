@@ -234,6 +234,22 @@ export function ProductPillar(props: ProductPillarProps) {
   );
 }
 
+/**
+ * A pillar's availability, for the hero's `status` slot: a mono "Status" label and one plain
+ * sentence on a hairline rule. A fact, not a warning, so no box, colour or icon.
+ */
+export function PillarStatus({ children }: { children: React.ReactNode }) {
+  return (
+    <p
+      className="m-0 grid grid-cols-1 sm:grid-cols-[72px_1fr] gap-x-4 gap-y-1"
+      style={{ borderTop: '1px solid var(--rule)', paddingTop: '1rem', maxWidth: '560px' }}
+    >
+      <span style={{ ...LABEL_STYLE, color: 'var(--ink)', paddingTop: '0.2rem' }}>Status</span>
+      <span style={{ fontSize: '15px', lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>{children}</span>
+    </p>
+  );
+}
+
 /** A plain ruled section for the rare pillar that needs one more beat. */
 export function ProductPillarSection({
   label,

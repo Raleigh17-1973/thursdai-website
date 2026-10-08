@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import { ProductPillar } from '@/components/templates/ProductPillar';
+import { ProductPillar, PillarStatus } from '@/components/templates/ProductPillar';
 import { ReplayDiagram } from '@/components/diagrams/ReplayDiagram';
 import { SAMPLE_LABEL_SIGNED } from '@/config/site';
 import { HIRING_REPLAY, HIRING_REPLAY_DECISION_INDEX, HIRING_REPLAY_QUESTION } from '@/config/demo-hiring-replay';
@@ -24,6 +24,7 @@ export default function TimeTravelPage() {
       label="Time-Travel"
       title="See what was recorded when it decided."
       demoHref="/demo#replay"
+      status={<PillarStatus>In development. Replay is not yet available in pilots.</PillarStatus>}
       promise={
         <>
           Time-Travel reopens a recorded decision as its audit trail had it, with the knowledge,
