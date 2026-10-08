@@ -6,6 +6,12 @@ import { ReceiptFrame } from '@/components/receipt/ReceiptFrame';
 import { SAMPLE_HIRING_RECEIPT } from '@/components/receipt/sample';
 import { LABEL_STYLE } from '@/components/typography/scale';
 import { Body } from '@/components/typography/Body';
+import { Heading2 } from '@/components/typography/Heading';
+import { Label } from '@/components/typography/Label';
+import { Section } from '@/components/layout/Section';
+import { Container } from '@/components/layout/Container';
+import { ProductCapture, CAPTURE_SIZES } from '@/components/media/ProductCapture';
+import { RECORD_VIEW_APP, RECORD_VIEW_PROVENANCE } from '@/components/media/captures';
 import { RECEIPT_TERM, RECEIPT_TERM_PLURAL } from '@/config/site';
 import { sampleArtifacts } from '@/lib/artifacts';
 
@@ -84,6 +90,21 @@ export default function AiReceiptsPage() {
         ),
       }}
     >
+      {/* The real record view in the app, from staging (unsigned there). The signed sample stays in the hero. */}
+      <Section>
+        <Container>
+          <Label as="p">In the app</Label>
+          <Heading2 style={{ marginTop: '1rem' }}>A decision record, in the app.</Heading2>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-12" style={{ marginTop: '3rem' }}>
+            <ProductCapture capture={RECORD_VIEW_APP} sizes={CAPTURE_SIZES.full} className="lg:col-span-12" />
+            <ProductCapture
+              capture={RECORD_VIEW_PROVENANCE}
+              sizes={CAPTURE_SIZES.eight}
+              className="lg:col-start-5 lg:col-span-8"
+            />
+          </div>
+        </Container>
+      </Section>
       <ProductPillarSection label="Take it with you" title="The sample, as files.">
         <Body>
           Download the sample receipt and check it without us. The JSON carries the record, its signature

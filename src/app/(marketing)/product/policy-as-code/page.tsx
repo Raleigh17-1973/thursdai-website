@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import { ProductPillar } from '@/components/templates/ProductPillar';
+import { ProductPillar, PillarStatus } from '@/components/templates/ProductPillar';
 import { PolicyFlowDiagram } from '@/components/diagrams/PolicyFlowDiagram';
 import { SAMPLE_RECEIPT as R } from '@/lib/receipts/display';
 
@@ -21,6 +21,11 @@ export default function PolicyAsCodePage() {
       crumb="Policy-as-Code"
       label="Policy-as-Code"
       title="Rules as code. Results on the record."
+      status={
+        <PillarStatus>
+          Policies are set up with you during onboarding; a self-serve editor is not yet available.
+        </PillarStatus>
+      }
       promise={
         <>
           Policies are written as code, evaluated at defined points and recorded on the receipt.
