@@ -8,6 +8,8 @@ import { Label } from '@/components/typography/Label';
 import { SolutionTemplate } from '@/components/templates/SolutionTemplate';
 import { RecordTable } from '@/components/templates/RecordTable';
 import { ExecutiveDashboard } from '@/components/demos/ExecutiveDashboard';
+import { ProductCapture, CAPTURE_SIZES } from '@/components/media/ProductCapture';
+import { DECISION_LEDGER } from '@/components/media/captures';
 import { RECEIPT_TERM } from '@/config/site';
 import { EU_AI_ACT_URL, NYC_LL144_URL } from '@/config/sources';
 
@@ -104,6 +106,15 @@ export default function PeopleSolutionPage() {
         ),
       }}
     >
+      {/* The real decision ledger in the app, from staging with seeded decisions. */}
+      <Section>
+        <Container>
+          <Label as="p">In the app</Label>
+          <Heading2 style={{ marginTop: '1rem' }}>The decision ledger.</Heading2>
+          <ProductCapture capture={DECISION_LEDGER} sizes={CAPTURE_SIZES.full} style={{ marginTop: '3rem' }} />
+        </Container>
+      </Section>
+
       <Section>
         <Container>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6">
