@@ -179,9 +179,9 @@ export default function DevelopersPage() {
               <CodeBlock code={NODE_VERIFY} language="typescript" filename="verify_receipt.mjs" />
               <Body>
                 A valid result shows that this receipt&apos;s content has not changed since it was
-                signed. It checks one receipt, not the ledger it came from: the hash chain does not
-                yet prove that no record has been removed from a ledger. A receipt is proof of what
-                happened, not that it was right.
+                signed. Each record&apos;s signature can be checked against Thursdai&apos;s published
+                keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain
+                format is planned. A receipt is proof of what happened, not that it was right.
               </Body>
             </>
           ),

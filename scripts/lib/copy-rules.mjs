@@ -50,6 +50,25 @@ export const BANNED = [
     re: /\b(?:cannot|can['’]?t|can\s+not)\s+be\s+(?:deleted|removed|erased)\b|\bimpossible\s+to\s+(?:delete|remove|erase)\b|\b(?:deleted|removed|erased)\s+(?:undetected|without\s+(?:detection|a\s+trace|anyone\s+knowing))\b/i,
     label: 'records cannot be deleted or removed undetected (only the application blocks deletes)',
   },
+  // Owner rulings (2026-10-13): no claims about deletion at exit or contract end, data deleted after
+  // a set period, or insurance cover. "Insurance" as a customer industry ("hiring, credit or
+  // insurance", "insurance pricing") is legitimate copy, so the insurance rule only targets
+  // Thursdai's own cover.
+  {
+    id: 'deletion-at-exit',
+    re: /\bdelet(?:e|ed|es|ion|ing)\b[^.]{0,60}\b(?:at|on|after)\s+(?:the\s+)?(?:contract\s+end|end\s+of\s+(?:the\s+|your\s+)?(?:contract|pilot|term)|exit)\b/i,
+    label: 'deletion at contract end or exit (no exit terms are published)',
+  },
+  {
+    id: 'deleted-after-days',
+    re: /\bdeleted\s+(?:after|within)\s+\d+\s+days\b/i,
+    label: '"deleted after N days" (no retention period is published)',
+  },
+  {
+    id: 'insurance',
+    re: /\b(?:is|are|be|being|fully|we['’]re|we\s+are|Thursdai\s+is)\s+insured\b|\binsurance\s+(?:cover(?:age)?|polic(?:y|ies))\b|\b(?:cyber|liability|indemnity|professional|E&O|errors\s+and\s+omissions)\s+insurance\b|\b(?:we|Thursdai)\s+(?:carry|carries|hold|holds|have|has|maintain|maintains)\b[^.]{0,40}\binsurance\b/i,
+    label: 'insurance claim (make no claim about Thursdai insurance)',
+  },
 ];
 
 // Warning only. Three or more comma-separated items (each up to four words)

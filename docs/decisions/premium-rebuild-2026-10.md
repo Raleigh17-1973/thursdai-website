@@ -328,6 +328,16 @@ Source: the app team, confirmed in code on October 13, 2026. The chain link (pre
 | LC-2 | `check:copy` bans "tamper-proof", deletion-detection phrases ("detects deletion", "a missing record shows up"), "removing a record breaks the chain", completeness phrases ("proves completeness", "gap-free", "no gaps in the ledger") and "cannot be deleted" or "removed undetected", with unit tests that also pass the true copy. | The withdrawn claims cannot come back through a copy edit. | 90% |
 
 Revert condition: lift LC-1 and LC-2 only when chain v2 has shipped (prev_hash covered by the row hash and the signature) and anchors are live in production. Until both are true, deletion and completeness claims stay off the site.
+### Verification sentence and withdrawn claims (October 13, 2026)
+
+Source: Jeff's rulings of October 13, 2026. They supersede the LC-1 caveat wording and the OR-4 "in development" line.
+
+| # | Ruling | Applied |
+|---|---|---|
+| VS-1 | Wherever the site talks about checking records, it uses one approved sentence verbatim: "Each record's signature can be checked against Thursdai's published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned." Once per page, never next to a caveat that says the same thing. | Replaces the ledger caveats on `/security` (Ledger entry; the separate Anchoring entry is gone), `/developers` (Verify a receipt yourself) and `/demo` (Change one field). Added to `/trust` (Where we stand) and `/product/ai-receipts` (verify passage). |
+| VS-2 | No claims about exit or deletion at contract end, backup retention periods or insurance, on any page including the `/privacy` and `/terms` drafts. "Retention terms are not yet published" and "Encrypted daily backups held in AWS" may stay. | The `/security` "At contract end" line is removed and the section is retitled "Retention and the ledger". No backup period or insurance copy existed elsewhere. |
+| VS-3 | `check:copy` bans deletion at contract end or exit, "deleted after/within N days" and Thursdai insurance claims ("insured", "insurance coverage", "liability insurance", "we carry ... insurance"), with unit tests. "deletion certificate" was already banned (TP-6). Insurance as a customer industry still passes. | `scripts/lib/copy-rules.mjs`, `tests/scripts/copy-rules.test.ts`. |
+
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)

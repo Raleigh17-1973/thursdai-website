@@ -130,10 +130,6 @@ export default function SecurityPage() {
                       </>
                     ),
                   },
-                  {
-                    term: 'Anchoring',
-                    body: 'Designed to publish record hashes to write-once storage in S3. It has not anchored any records yet.',
-                  },
                 ]}
               />
             </>
@@ -192,7 +188,7 @@ export default function SecurityPage() {
         },
         {
           id: 'retention',
-          title: 'Retention and deletion',
+          title: 'Retention and the ledger',
           body: (
             <FactList
               items={[
@@ -201,12 +197,8 @@ export default function SecurityPage() {
                   body: 'Retention terms are not yet published.',
                 },
                 {
-                  term: 'At contract end',
-                  body: 'Tenant export and deletion at contract end are in development.',
-                },
-                {
                   term: 'Ledger',
-                  body: 'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it. Each record is hash-chained and signed, so it is tamper-evident for content changes: changing a record’s content breaks its hash and its signature. The chain does not yet prove that no record has been removed. Anchoring, which is designed to show that, is not active.',
+                  body: 'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it. Each record is hash-chained and signed, so it is tamper-evident for content changes: changing a record’s content breaks its hash and its signature. Each record’s signature can be checked against Thursdai’s published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned.',
                 },
               ]}
             />
