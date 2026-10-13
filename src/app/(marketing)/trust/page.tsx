@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
 
 const DOCUMENTS = [
-  { href: '/security', title: 'Security overview', covers: 'Architecture, encryption, data categories, subprocessors and the security contact. Written for vendor review.' },
+  { href: '/security', title: 'Security overview', covers: 'Architecture, hosting region, encryption, data categories, retention, sign-in, subprocessors and the security contact. Written for vendor review.' },
   { href: '/trust/iso-42001', title: 'ISO/IEC 42001', covers: 'What the AI management system standard is and where Thursdai stands against it.' },
 ];
 
@@ -58,9 +58,10 @@ export default function TrustPage() {
                   term: 'In place',
                   body: (
                     <>
-                      Each record is hash-chained to the one before it and signed with a key held in AWS
-                      KMS. Changing a record breaks the chain and the signature. Tenant data is separated
-                      by row-level security in the database. None of this has been independently audited.
+                      Each record is hash-chained to the one before it and signed on write with a key
+                      held in AWS KMS. Changing a record breaks the chain and the signature. Tenant data
+                      is separated by row-level security in the database. None of this has been
+                      independently audited, and no customer data has been processed in production yet.
                       The{' '}
                       <Link href="/security" style={UNDERLINED}>
                         security overview

@@ -63,7 +63,7 @@ export const SAMPLE_DISPLAY = {
   riskTier: `${SAMPLE_RECEIPT.risk.tier[0].toUpperCase()}${SAMPLE_RECEIPT.risk.tier.slice(1)} / ${SAMPLE_RECEIPT.risk.framework.replace(/^EU AI Act /, '')}`,
   oversight: `${SAMPLE_RECEIPT.human_oversight.reviewer_role}: ${humanize(SAMPLE_RECEIPT.human_oversight.action).replace(/^recommendation /, '')}`,
   evidence: SAMPLE_RECEIPT.evidence.map((e) => e.ref).join(', '),
-  subject: `${SAMPLE_RECEIPT.decision.subject_ref} (pseudonymized)`,
+  subject: `${SAMPLE_RECEIPT.decision.subject_ref} (applicant reference)`,
   outcome: humanize(SAMPLE_RECEIPT.decision.outcome).replace(/^./, (c) => c.toUpperCase()),
   confidence: `${Math.round(SAMPLE_RECEIPT.decision.confidence * 100)}% (reported by source)`,
 } as const;

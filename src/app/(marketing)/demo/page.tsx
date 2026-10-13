@@ -49,7 +49,7 @@ const REAL_THING = [
   },
   {
     title: 'SSO',
-    body: 'SSO via WorkOS is integrated; availability is confirmed per pilot.',
+    body: 'Sign-in via WorkOS, by invitation. SSO available on request during pilot setup. There is no self-serve signup.',
   },
 ];
 

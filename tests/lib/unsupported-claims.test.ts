@@ -13,7 +13,7 @@ const WITHDRAWN: { phrase: RegExp; why: string }[] = [
   { phrase: /business days?/i, why: 'no response-time commitment exists; the site promises a reply, never a deadline' },
   { phrase: /Trusted by/i, why: 'there are no customers to be trusted by' },
   { phrase: /Merkle|cannot be altered|cannot be backdated/i, why: 'anchoring is built but off, and not independently verifiable yet' },
-  { phrase: /ThursdaiClient|thy_live_|api\.getthursdai\.com/, why: 'no public API or published SDK exists' },
+  { phrase: /ThursdaiClient|thy_live_|api\.getthursdai\.com/, why: 'the receipts API is pilot-only and undocumented, and no SDK is published' },
   { phrase: /pricing_floor|pii_block|legal_review_gate|required_attribution/, why: 'not primitives in the policy engine' },
   { phrase: /Real signatures/, why: 'the sample is signed with a demonstration key' },
   { phrase: /rules the model cannot break/i, why: 'policies are evaluated at defined points; no hard fence' },

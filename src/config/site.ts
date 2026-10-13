@@ -17,8 +17,9 @@ export const PUBLIC_KEYS_URL = `https://${PUBLIC_KEYS_PATH}`;
 export const SAMPLE_LABEL_SIGNED = 'Sample tenant: Northwind Financial (fictional). Signed with a demonstration key.';
 
 // Scope note for every claim about how the sample is signed. The sample uses an Ed25519 key held
-// by this website; production records use a different key held in AWS KMS.
-export const DEMO_KEY_NOTE = `Signed with a demonstration key held by this website. Production records use an AWS KMS ES256 key; its public key set is published at ${PUBLIC_KEYS_PATH}.`;
+// by this website; production signs on write with a different key held in AWS KMS. Truth pass
+// 2026-10-13: no customer record has been signed in production yet, so never imply one has.
+export const DEMO_KEY_NOTE = `Signed with a demonstration key held by this website. Production signs each record on write with an AWS KMS ES256 key, and its public key set is published at ${PUBLIC_KEYS_PATH}. No customer records have been signed in production yet.`;
 
 // Where people reach us when an automated channel is unavailable.
 export const CONTACT_EMAIL = 'thursdai@getthursdai.com';

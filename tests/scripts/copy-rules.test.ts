@@ -41,6 +41,38 @@ describe('banned words', () => {
     expect(findViolations(items)).toEqual([]);
   });
 
+  it('bans the claims the 2026-10-13 app truth pass withdrew', () => {
+    const items = [
+      'Hosted in one US East region.',
+      'Hosted in US-East.',
+      'Records are pseudonymised before storage.',
+      'Subjects are pseudonymized.',
+      'Data is de-identified.',
+      'You receive a deletion certificate at exit.',
+      'An encrypted ledger of every decision.',
+      'Install our SDK to get started.',
+      'Hosted in EU West.',
+      'Data stays in Amsterdam.',
+    ].map((text, i) => ({ file: 'f', line: i + 1, text }));
+    expect(findViolations(items).map((v) => v.rule)).toEqual([
+      'us-east',
+      'us-east',
+      'pseudonymised',
+      'pseudonymised',
+      'de-identified',
+      'deletion-certificate',
+      'encrypted-ledger',
+      'install-sdk',
+      'eu-west',
+      'amsterdam',
+    ]);
+  });
+
+  it('keeps the US East rule case-sensitive', () => {
+    const items = [{ file: 'f', line: 1, text: 'arn:aws:kms:us-east-1' }];
+    expect(findViolations(items)).toEqual([]);
+  });
+
   it('honours an allowlist entry scoped by file, rule and match', () => {
     const items = [{ file: 'f', line: 1, text: 'AIDR spec' }];
     expect(findViolations(items, [{ file: 'f', rule: 'aidr', match: 'AIDR spec', reason: 'test' }])).toEqual([]);

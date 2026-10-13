@@ -120,7 +120,7 @@ export function AuditPackSummary({ compact = false }: AuditPackSummaryProps = {}
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 pt-3">
           <span style={{ ...MONO_LABEL, color: 'var(--ink)', letterSpacing: '0.12em' }}>Signed</span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--ink-2)' }}>
-            Ed25519 · {S.keyId}
+            Ed25519, demonstration key
           </span>
         </div>
         <p className="m-0 mt-3" style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', lineHeight: 1.4, color: 'var(--ink-3)' }}>

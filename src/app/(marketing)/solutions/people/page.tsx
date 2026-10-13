@@ -25,7 +25,7 @@ const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecor
 const FRAMEWORKS = [
   {
     name: 'NYC Local Law 144',
-    detail: 'An impact-ratio dashboard on live HR data: impact ratios by category, as the law requires a bias audit to calculate, with the EEOC four-fifths rule of thumb shown for reference. The law sets no pass mark. The independent audit and the public summary remain yours.',
+    detail: 'An impact-ratio dashboard on the hiring decisions you send to Thursdai: impact ratios by category, as the law requires a bias audit to calculate, with the EEOC four-fifths rule of thumb shown for reference. The law sets no pass mark. The independent audit and the public summary remain yours.',
   },
   {
     name: 'EU AI Act, Articles 12 and 26',

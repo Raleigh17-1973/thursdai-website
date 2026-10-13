@@ -31,7 +31,12 @@ export default function PrivacyPage() {
           This policy explains what personal information {LEGAL_ENTITY} (&quot;Thursdai&quot;, &quot;we&quot;)
           collects through this website, getthursdai.com, why and what choices you have. It covers the website
           only. Data that customers put into the Thursdai platform is handled under their customer agreement and
-          data processing agreement.
+          data processing agreement [in preparation]. The platform is hosted separately from this website; where its data goes and its
+          subprocessors are set out in the{' '}
+          <Link href="/security" style={A}>
+            security overview
+          </Link>
+          .
         </>
       }
     >
