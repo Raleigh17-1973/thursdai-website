@@ -51,6 +51,8 @@ describe('banned words', () => {
       'You receive a deletion certificate at exit.',
       'An encrypted ledger of every decision.',
       'Install our SDK to get started.',
+      'Hosted in EU West.',
+      'Data stays in Amsterdam.',
     ].map((text, i) => ({ file: 'f', line: i + 1, text }));
     expect(findViolations(items).map((v) => v.rule)).toEqual([
       'us-east',
@@ -61,11 +63,13 @@ describe('banned words', () => {
       'deletion-certificate',
       'encrypted-ledger',
       'install-sdk',
+      'eu-west',
+      'amsterdam',
     ]);
   });
 
-  it('allows the AWS region id us-east-1', () => {
-    const items = [{ file: 'f', line: 1, text: 'KMS, S3 and SES run in AWS us-east-1.' }];
+  it('keeps the US East rule case-sensitive', () => {
+    const items = [{ file: 'f', line: 1, text: 'arn:aws:kms:us-east-1' }];
     expect(findViolations(items)).toEqual([]);
   });
 

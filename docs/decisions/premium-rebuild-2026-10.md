@@ -283,31 +283,40 @@ Plan Item 6.1. Source: `outputs/product-captures` (staging, the fictional Acme t
 
 ### App truth pass (October 13, 2026)
 
-Source: the app truth pass of October 13, 2026, checked read-only against production (platform commit e89f6b775, deployed October 10). It overrides older registers and docs in this repo. Production is in Railway EU West (Amsterdam); no customer data has been processed; the decision ledger is stored in clear and is not pseudonymised; there is no deletion at exit and records have no retention limit; the SDK is unpublished and the HR connectors are stubs; WorkOS is a subprocessor and Grafana, PagerDuty and Vercel are not.
+Source: the app truth pass of October 13, 2026, checked read-only against production (platform commit e89f6b775, deployed October 10). It overrides older registers and docs in this repo. No customer data has been processed; the decision ledger is stored in clear; there is no deletion at exit; the SDK is unpublished and the HR connectors are stubs; WorkOS is a subprocessor and Grafana, PagerDuty and Vercel are not. Jeff's rulings of the same day (OR-1 to OR-7) then narrowed what the site may say.
 
 | # | Decision | Why | Confidence |
 |---|---|---|---|
-| TP-1 | `/security` rewritten against production: EU West hosting with the operator console in US West; a "Where data goes" section (KMS, S3 backups and SES in us-east-1, model prompts unredacted to Anthropic or OpenAI, Sentry scrubbed); encryption at rest split into infrastructure-level and application-level, with the decision ledger named as not covered; decision records described as holding free-form subject and actor ids in clear; redaction scope and the absence of a special-category block stated; new "Retention and deletion" and "Sign-in and access" sections; anchoring marked as not yet running; "no customer data processed" in the summary. | Every line now matches what production does. Where the honest answer depends on a decision only Jeff can make, the page states today's behaviour and promises nothing. | 85% |
-| TP-2 | `src/lib/subprocessors.ts`: Grafana Labs, PagerDuty and Vercel removed; WorkOS added (sign-in: name and email); a location column added (Railway EU West, AWS us-east-1, the rest United States); each purpose says what data the provider receives. Every DPA stays "Not confirmed". GitHub, Discord and Stripe deliberately not added. Pinned by `tests/lib/subprocessors.test.ts`. | Prometheus is self-hosted, PagerDuty has no routing key and Vercel hosts only this website, so none receives platform data. | 90% |
-| TP-3 | `DEMO_KEY_NOTE`, the record-view captions and `/trust` now say production signs on write and that no customer records have been signed yet, instead of "production records are signed". | Signing is on, but zero records exist; the old wording implied signed customer records. | 90% |
-| TP-4 | `/developers`: the receipts endpoint and the inbound HMAC CloudEvents webhook are described as the two pilot paths, neither yet run with a customer; "no published SDK" and "no native connectors" stated. `/customers` and `/solutions/people` say the same in one line each; "live HR data" removed. `/demo` SSO line now says "on request during the pilot" and "no self-serve signup". | The SDK is unpublished and the named HR connectors are labels on the generic webhook. | 85% |
-| TP-5 | `/privacy` (still a noindex draft) points to the platform's EU West hosting and the security overview; `/terms` (draft) names both fictional sample companies. | Factual corrections only; legal placeholders untouched. | 85% |
-| TP-6 | `check:copy` bans "US East" (case-sensitive, so `us-east-1` stays allowed), "pseudonymised", "de-identified", "deletion certificate", "encrypted ledger" and "install our SDK", with unit tests. | The worst of the old claims cannot come back through a copy edit. | 90% |
-| TP-7 | Colorado SB 24-205 and Mobley were not cited anywhere on built pages, so nothing was removed. The draft MCP blog post (not built) still shows an `npx` install; left as is because drafts are never rendered. | Nothing user-facing to change. | 90% |
+| TP-1 | `/security` rewritten against production: architecture with no hosting region; a "Where data goes" section (Railway, AWS KMS, encrypted daily backups held in AWS, Anthropic or OpenAI prompts, SES, Sentry); encryption at rest split into infrastructure-level and application-level, with the decision ledger named as not covered; decision records described as having no name fields, with subject and actor ids stored as sent and to be treated as personal data; "Retention and deletion" and "Sign-in and access" sections; anchoring marked as not yet running; "no customer data processed" in the summary. | Every line matches what production does, within the owner rulings below. | 85% |
+| TP-2 | `src/lib/subprocessors.ts`: Grafana Labs, PagerDuty and Vercel removed; WorkOS added (sign-in: name and email); no location field; each purpose says what data the provider receives. Every DPA stays "Not confirmed". GitHub, Discord and Stripe not listed. Pinned by `tests/lib/subprocessors.test.ts`. | Prometheus is self-hosted, PagerDuty has no routing key and Vercel hosts only this website. | 90% |
+| TP-3 | `DEMO_KEY_NOTE`, the record-view captions and `/trust` say production signs on write and that no customer records have been signed yet. Key ids are no longer displayed on the audit pack summary or the pillar signing note. | Signing is on, but zero records exist; key ids are not something the site should surface (OR-5). | 90% |
+| TP-4 | `/developers`: the receipts endpoint and the inbound HMAC CloudEvents webhook are the two pilot paths, neither yet run with a customer; "no published SDK" and "no native connectors" stated. `/customers` and `/solutions/people` say the same in one line each; "live HR data" removed. `/demo` sign-in line matches `/security`. | The SDK is unpublished and the named HR connectors are labels on the generic webhook. | 85% |
+| TP-5 | `/privacy` (still a noindex draft) points to the security overview for the platform; `/terms` (draft) names both fictional sample companies. | Factual corrections only; legal placeholders untouched. | 85% |
+| TP-6 | `check:copy` bans "US East" (case-sensitive), "EU West", "Amsterdam", "pseudonymised", "de-identified", "deletion certificate", "encrypted ledger" and "install our SDK", with unit tests. | The withdrawn claims cannot come back through a copy edit. | 90% |
+| TP-7 | Colorado SB 24-205 and Mobley were not cited on any built page. The draft MCP blog post (not built) still shows an `npx` install; left as is because drafts are never rendered. | Nothing user-facing to change. | 90% |
+
+#### Owner rulings (October 13, 2026)
+
+| # | Ruling | Applied |
+|---|---|---|
+| OR-1 | No hosting region claim anywhere: production is due to move to a US Railway region before the first pilot, and that is unverified. No DR region promise. | Region removed from `/security`, `/privacy` and the subprocessor table (no location column); "us-east-1" removed from site copy; "US East", "EU West" and "Amsterdam" banned in `check:copy`. |
+| OR-2 | Backups: "encrypted daily backups held in AWS" only. No point-in-time recovery or cross-region replication claim. GitHub stays off the subprocessor list. | `/security` and the AWS row say exactly that; the CI pipeline line is gone. |
+| OR-3 | Say nothing about minimisation, redaction, pseudonymisation or de-identification until pseudonymisation ships. The "no name fields, ids stored as sent, treat as personal data" disclosure may stay. | Redaction scope line removed; "not redacted" and "scrubbed" wording removed; the disclosure kept. |
+| OR-4 | Promise no retention period, no deletion at contract end and no deletion certificate. | Specific periods and "no limit" removed; `/security` says retention terms are not yet published and tenant export and deletion at contract end are in development. |
+| OR-5 | Signing: never mention key ids; keep "signed on write, no customer records yet". | Key id displays removed; the signing line kept. |
+| OR-6 | Auth: WorkOS in production is on a test key, so no external tenant can be onboarded yet. No MFA claim of any kind. Sign-in copy reads only "Sign-in via WorkOS, by invitation", "SSO available on request during pilot setup" and "no self-serve signup". | MFA and SCIM lines removed from `/security`; `/security` and `/demo` use that wording. |
+| OR-7 | Subprocessors: WorkOS added; Grafana, PagerDuty and Vercel removed; Stripe and Discord not listed; no locations. | As TP-2. |
 
 #### Open for Jeff (truth pass)
 
-1. Pseudonymisation: the site now says subject and actor ids are stored in clear. Decide whether to build pseudonymisation before a pilot, or keep this wording.
-2. Special-category data: there is no block, and ACCOMMODATE decisions and reviewer free text are accepted. The site asks pilots not to send health, payroll or bank data. Decide on a block or a contractual exclusion.
-3. Retention and exit: decision records, audit events and cases have no retention limit, and there is no tenant export, exit deletion or deletion evidence. The site says so and promises nothing. Decide pilot exit terms.
-4. MFA: the site says Thursdai does not enforce MFA itself. Decide whether to require it in the WorkOS environment, then update `/security`.
-5. `signOnWriteSince` is null in the public key set because the env var is unset. Set it.
-6. The rotated ARN key id in the key set contains the AWS account id. Accept or prune it.
-7. Subprocessors: decide whether GitHub (nightly DB dumps run on Actions runners), Discord (alert webhook) and Stripe (test mode) are listed. The site says only that backups are copied "by our CI pipeline".
-8. Model prompts go to Anthropic and OpenAI unredacted, with record excerpts and the user's identity block. Decide whether to redact before a pilot.
-9. DPAs: every subprocessor DPA is still "Not confirmed", and the customer DPA is "in preparation".
-10. The app UI is still behind the pre-launch Basic Auth gate, and a receipts:write key can only be minted through the API. Both affect what a pilot can do on day one.
-
+1. Pseudonymisation: until it ships the site says nothing about it beyond the "treat as personal data" disclosure.
+2. Retention stance and pilot exit terms (tenant export, deletion at contract end).
+3. Region move: once production is verified in its new region, decide whether to state it, then lift the region bans in `check:copy`.
+4. WorkOS production key: switch from the test key before onboarding a pilot tenant.
+5. `signOnWriteSince` is null in the public key set because the env var is unset; and the rotated key entry that contains the AWS account id needs accepting or pruning.
+6. Special-category data: there is no block; the site only asks pilots not to send health, payroll or bank data.
+7. DPAs: every subprocessor DPA is still "Not confirmed", and the customer DPA is "in preparation".
+8. Pilot day one: the app UI is still behind the pre-launch Basic Auth gate, and a receipts:write key can only be minted through the API.
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)

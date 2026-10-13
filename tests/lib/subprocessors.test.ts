@@ -15,9 +15,11 @@ describe('subprocessors', () => {
     }
   });
 
-  it('puts Railway in EU West and AWS in us-east-1', () => {
-    expect(SUBPROCESSORS.find((s) => s.name === 'Railway')?.location).toBe('EU West (Amsterdam)');
-    expect(SUBPROCESSORS.find((s) => s.name === 'Amazon Web Services')?.location).toContain('us-east-1');
+  it('makes no region or location claim (owner ruling, 2026-10-13)', () => {
+    for (const s of SUBPROCESSORS) {
+      expect(Object.keys(s)).toEqual(['name', 'purpose', 'dpa']);
+      expect(s.purpose).not.toMatch(/EU West|Amsterdam|us-east|US East|US West|United States/i);
+    }
   });
 
   it('shows every DPA as not confirmed', () => {

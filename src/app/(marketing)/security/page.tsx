@@ -17,7 +17,7 @@ import { CONTACT_EMAIL, PUBLIC_KEYS_PATH, PUBLIC_KEYS_URL, RECEIPT_TERM } from '
 export const metadata: Metadata = {
   title: 'Security overview: Thursdai',
   description:
-    'Technical and procedural security controls for Thursdai: architecture, hosting region, encryption, data categories, retention, sign-in, subprocessors, certification status and the security contact, for procurement and compliance teams.',
+    'Technical and procedural security controls for Thursdai: architecture, encryption, data categories, retention, sign-in, subprocessors, certification status and the security contact, for procurement and compliance teams.',
 };
 
 const UNDERLINED: React.CSSProperties = { textDecoration: 'underline', textDecorationThickness: '1px' };
@@ -54,10 +54,9 @@ export default function SecurityPage() {
       ]}
       label="Security overview"
       title="Security, in plain terms."
-      lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, where data lives, what it holds and for how long, who processes it and where certification stands."
+      lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, where data goes, what it holds, who processes it and where certification stands."
       meta={[
         { label: 'Status as of', value: 'October 2026' },
-        { label: 'Hosting region', value: 'EU West (Amsterdam)' },
       ]}
       sections={[
         {
@@ -89,9 +88,7 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                Thursdai runs on Railway, a managed cloud platform, in its EU West region
-                (Amsterdam). The API, worker, Postgres database, Redis, Temporal and monitoring all
-                run there; only the internal operator console runs in a US West region. Today all
+                Thursdai runs on Railway, a managed cloud platform. Today all
                 customers share one multi-tenant deployment and one Postgres database. Tenant data
                 is separated by row-level security that is forced on every tenant table and enforced
                 by the database. Dedicated deployments for individual customers, with
@@ -141,35 +138,33 @@ export default function SecurityPage() {
           ),
         },
         {
-          id: 'residency',
+          id: 'data-flows',
           title: 'Where data goes',
           body: (
-            <>
-              <Body>
-                The platform and its primary database are in Railway&apos;s EU West region. Some
-                data leaves that region, and there is no choice of region today:
-              </Body>
-              <FactList
-                items={[
-                  {
-                    term: 'Signing',
-                    body: 'To sign a record, its full bytes are sent to AWS KMS in us-east-1.',
-                  },
-                  {
-                    term: 'Backups',
-                    body: 'Encrypted nightly database backups are copied by our CI pipeline to AWS S3 in us-east-1 and kept for 35 days. There is no point-in-time recovery.',
-                  },
-                  {
-                    term: 'Model calls',
-                    body: 'Assistant prompts go to Anthropic, or to OpenAI as a fallback, in the United States. They can include record excerpts and the signed-in user’s identity details, and they are not redacted.',
-                  },
-                  {
-                    term: 'Email and errors',
-                    body: 'Notification email is sent through AWS SES in us-east-1. Error reports go to Sentry in the United States with personal data scrubbed.',
-                  },
-                ]}
-              />
-            </>
+            <FactList
+              items={[
+                {
+                  term: 'Platform',
+                  body: 'The API, worker, database and monitoring run on Railway.',
+                },
+                {
+                  term: 'Signing',
+                  body: 'To sign a record, its full bytes are sent to AWS KMS.',
+                },
+                {
+                  term: 'Backups',
+                  body: 'Encrypted daily backups held in AWS.',
+                },
+                {
+                  term: 'Model calls',
+                  body: 'Assistant prompts go to Anthropic, or to OpenAI as a fallback. They can include record excerpts and the signed-in user’s identity details.',
+                },
+                {
+                  term: 'Email and errors',
+                  body: 'Notification email is sent through AWS SES. Application error reports go to Sentry.',
+                },
+              ]}
+            />
           ),
         },
         {
@@ -178,11 +173,9 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                The categories Thursdai processes in operation. Automatic redaction applies only to
-                free text on receipts and catches patterns such as social security numbers, email
-                addresses, phone numbers, dates of birth and card numbers. It does not detect names.
-                Thursdai does not block special-category or health data, so during a pilot please do
-                not send payroll, bank or health data. Keep names out of free text too.
+                The categories Thursdai processes in operation. Thursdai does not block
+                special-category or health data, so during a pilot please do not send payroll, bank
+                or health data.
               </Body>
               <RecordTable
                 caption="Data categories Thursdai processes"
@@ -202,24 +195,16 @@ export default function SecurityPage() {
             <FactList
               items={[
                 {
-                  term: 'Decision records',
-                  body: 'Kept with no retention limit. The ledger is append-only, so a record cannot be deleted or edited once written.',
-                },
-                {
-                  term: 'Audit and cases',
-                  body: 'Audit events and cases are kept with no retention limit.',
-                },
-                {
-                  term: 'Assistant data',
-                  body: 'Saved memories are kept for 90 days. Deleted chat is removed after 30 days.',
-                },
-                {
-                  term: 'Erasure',
-                  body: 'Data about an individual user or candidate can be erased on request, outside the decision ledger.',
+                  term: 'Retention',
+                  body: 'Retention terms are not yet published.',
                 },
                 {
                   term: 'At contract end',
-                  body: 'Tenant export and deletion at contract end are not built yet, so we cannot certify deletion when a contract ends. Ask us before a pilot if your exit terms need either.',
+                  body: 'Tenant export and deletion at contract end are in development.',
+                },
+                {
+                  term: 'Ledger',
+                  body: 'The decision ledger is append-only, so a record cannot be edited once written.',
                 },
               ]}
             />
@@ -233,19 +218,11 @@ export default function SecurityPage() {
               items={[
                 {
                   term: 'Sign-in',
-                  body: 'Through WorkOS, by invitation only. There is no self-serve signup.',
+                  body: 'Sign-in via WorkOS, by invitation. There is no self-serve signup.',
                 },
                 {
                   term: 'SSO',
-                  body: 'SAML and OIDC single sign-on are available on request during pilot setup. Not yet used in production.',
-                },
-                {
-                  term: 'SCIM',
-                  body: 'User provisioning (beta): users only, without group sync. Not yet tested with a customer directory.',
-                },
-                {
-                  term: 'MFA',
-                  body: 'Thursdai does not enforce multi-factor authentication itself. It applies when your identity provider requires it.',
+                  body: 'SSO available on request during pilot setup.',
                 },
                 {
                   term: 'Admin actions',
@@ -266,12 +243,11 @@ export default function SecurityPage() {
                 separately on Vercel, which receives no platform customer data.
               </Body>
               <RecordTable
-                caption="Subprocessors, their purpose, location and DPA status"
+                caption="Subprocessors, their purpose and DPA status"
                 columns={[
-                  { key: 'name', label: 'Subprocessor', width: '20%' },
+                  { key: 'name', label: 'Subprocessor', width: '24%' },
                   { key: 'purpose', label: 'Purpose and data received' },
-                  { key: 'location', label: 'Location', width: '18%' },
-                  { key: 'dpa', label: 'DPA', width: '14%' },
+                  { key: 'dpa', label: 'DPA', width: '18%' },
                 ]}
                 rows={SUBPROCESSORS.map((s) => ({ id: s.name, ...s }))}
               />

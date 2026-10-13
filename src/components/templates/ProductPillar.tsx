@@ -198,7 +198,7 @@ export function SignedAndVerified({ lead }: { lead: React.ReactNode }) {
             </Body>
             <Body>A receipt is proof of what happened, not that it was right.</Body>
             <p className="m-0" style={NOTE_STYLE}>
-              Sample: sha256 {S.fingerprint} · {S.algorithm} · {S.keyId}
+              Sample: sha256 {S.fingerprint} · {S.algorithm}
             </p>
           </div>
         </div>

@@ -13,11 +13,12 @@ export const BANNED = [
   // ("as planned" in prose is fine).
   { id: 'planned', re: /\bPlanned\b|\bPLANNED\b/, label: '"Planned" (status label)' },
   { id: 'will-live-here', re: /will live here/i, label: '"will live here" (placeholder copy)' },
-  // App truth pass (2026-10-13): claims the production platform contradicts. Prod is in Railway
-  // EU West; decision records are stored in clear; there is no deletion at exit; no SDK is
-  // published. Case-sensitive on purpose for the region, so the AWS region id us-east-1 (where
-  // KMS, S3 and SES really are) stays allowed.
-  { id: 'us-east', re: /\bUS[- ]East\b/, label: '"US East" (prod is in Railway EU West, Amsterdam)' },
+  // App truth pass (2026-10-13) and owner rulings: no hosting region claim until the planned move
+  // is verified; decision records are stored in clear; there is no deletion at exit; no SDK is
+  // published. The US East rule is case-sensitive, so a lowercase AWS region id is not caught.
+  { id: 'us-east', re: /\bUS[- ]East\b/, label: '"US East" (no hosting region claim until the move is verified)' },
+  { id: 'eu-west', re: /\bEU[- ]West\b/i, label: '"EU West" (no hosting region claim until the move is verified)' },
+  { id: 'amsterdam', re: /\bAmsterdam\b/i, label: '"Amsterdam" (no hosting region claim until the move is verified)' },
   { id: 'pseudonymised', re: /pseudonymi[sz]/i, label: '"pseudonymised" (decision records are not pseudonymised)' },
   { id: 'de-identified', re: /de-identif/i, label: '"de-identified" (hashing a subject id is not de-identification)' },
   { id: 'deletion-certificate', re: /deletion certificates?/i, label: '"deletion certificate" (not implemented)' },

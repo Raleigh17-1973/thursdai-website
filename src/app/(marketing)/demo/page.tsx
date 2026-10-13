@@ -49,7 +49,7 @@ const REAL_THING = [
   },
   {
     title: 'SSO',
-    body: 'SAML or OIDC single sign-on through WorkOS, set up on request during the pilot. Sign-in is by invitation; there is no self-serve signup.',
+    body: 'Sign-in via WorkOS, by invitation. SSO available on request during pilot setup. There is no self-serve signup.',
   },
 ];
 
