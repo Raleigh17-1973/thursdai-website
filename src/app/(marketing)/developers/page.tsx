@@ -14,7 +14,7 @@ import { CONTACT_EMAIL, DEMO_KEY_NOTE, RECEIPT_TERM, SAMPLE_LABEL_SIGNED } from 
 
 export const metadata: Metadata = {
   title: 'Developers: Thursdai',
-  description: `A signed sample ${RECEIPT_TERM}, its schema and a short script that verifies its signature without an account. There is no public API or SDK yet.`,
+  description: `A signed sample ${RECEIPT_TERM}, its schema and a short script that verifies its signature without an account. There is no published SDK, and the API is not publicly documented yet.`,
 };
 
 // Mirrors src/lib/receipts/verify.ts, so what we tell developers is what the verifier does.
@@ -43,7 +43,7 @@ const SCHEMA_FIELDS = [
   { field: 'id', type: 'string', meaning: 'Receipt id, prefixed rcpt_.' },
   { field: 'schema', type: 'string', meaning: 'Schema version. Currently thursdai.ai-receipt/1.' },
   { field: 'tenant', type: 'string', meaning: 'The tenant that recorded the decision.' },
-  { field: 'decision', type: 'object', meaning: 'summary, type, outcome, subject_ref (a reference, never a name) and confidence.' },
+  { field: 'decision', type: 'object', meaning: 'summary, type, outcome, subject_ref and confidence. subject_ref is whatever id your system uses for the person; there is no name field.' },
   { field: 'source', type: 'object', meaning: 'The system that decided: role, system, operator, model, model_host and version.' },
   { field: 'policies_evaluated', type: 'array', meaning: 'Each policy checked: id, name, result (pass, flag or block) and detail.' },
   { field: 'evidence', type: 'array', meaning: 'What the decision relied on: kind and ref for each item.' },
@@ -92,8 +92,8 @@ export default function DevelopersPage() {
       lead={
         <>
           The sample {RECEIPT_TERM} on this site is signed, and you can check it without an account.
-          This page shows the receipt format and a short script that verifies it. There is no public
-          API or SDK yet.
+          This page shows the receipt format and a short script that verifies it. There is no published
+          SDK, and the API is not publicly documented yet.
         </>
       }
       heroActions={
@@ -111,7 +111,7 @@ export default function DevelopersPage() {
       }
       meta={[
         { label: 'Schema', value: 'thursdai.ai-receipt/1' },
-        { label: 'API', value: 'Not public' },
+        { label: 'API', value: 'Pilot access only' },
       ]}
       sections={[
         {
@@ -124,15 +124,23 @@ export default function DevelopersPage() {
                   term: 'API',
                   body: (
                     <>
-                      There is no public API. To connect one of your systems,{' '}
+                      There is no public API documentation. During a pilot your system sends each
+                      decision to Thursdai over HTTP: either by calling the receipts endpoint with an
+                      API key issued for your tenant, or by sending signed CloudEvents JSON to an
+                      inbound webhook that accepts seven HR decision types. Neither has run with a
+                      customer yet. To talk through connecting a system,{' '}
                       <a href={mail} style={UNDERLINED}>
                         email us
-                      </a>{' '}
-                      and we will talk through what a pilot involves.
+                      </a>
+                      .
                     </>
                   ),
                 },
-                { term: 'SDK', body: 'A TypeScript SDK exists in our repository and is not yet published.' },
+                { term: 'SDK', body: 'There is no published SDK. A TypeScript SDK is in development, so for now a pilot makes plain HTTP calls.' },
+                {
+                  term: 'Connectors',
+                  body: 'There are no native connectors yet. Systems such as applicant tracking or HR platforms connect through the generic webhook above. Native connectors are in development.',
+                },
                 { term: 'Verify', body: 'Verifying a receipt needs no key: use the public check above or the public key in the sample file.' },
               ]}
             />

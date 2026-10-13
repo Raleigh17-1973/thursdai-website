@@ -23,7 +23,7 @@ export interface Capture {
 export const CAPTION_PREFIX = 'Sample tenant: Acme (fictional), staging.';
 
 const RECORD_NOT_SIGNED =
-  'Staging does not sign records, so this one reads not signed; production records are signed.';
+  'Staging does not sign records, so this one reads not signed; production signs each record on write.';
 
 /** The record view, cropped to the record: breadcrumb, status chips, integrity lines, summary. */
 export const RECORD_VIEW_SUMMARY: Capture = {

@@ -69,8 +69,8 @@ export default function TermsPage() {
 
       <LongFormSection title="Sample artifacts" id="samples">
         <Body>
-          The sample receipts, audit packs, dashboards and demo data on this site describe a fictional company
-          (Northwind Financial) and are provided for illustration of the format only. They are not records of
+          The sample receipts, audit packs, dashboards, product screenshots and demo data on this site describe
+          fictional companies (Northwind Financial and Acme) and are provided to show the format only. They are not records of
           real decisions. They are provided as is, without warranty of any kind, and you should not rely on
           them for any purpose other than understanding how Thursdai works.
         </Body>

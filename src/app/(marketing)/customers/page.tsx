@@ -92,7 +92,7 @@ const CLAUSES: Clause[] = [
     terms: [
       {
         title: 'Connect at least one system',
-        detail: 'So that what you tell us comes from receipts on your decisions, not from a slide.',
+        detail: 'So that what you tell us comes from receipts on your decisions, not from a slide. Today that means your system calls our receipts API or sends a signed webhook; native connectors are in development.',
       },
       {
         title: 'Regular, candid feedback',

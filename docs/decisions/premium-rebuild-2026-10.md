@@ -280,6 +280,34 @@ Plan Item 6.1. Source: `outputs/product-captures` (staging, the fictional Acme t
 | PC-5 | `/solutions/people`: a new "In the app" section, "The decision ledger.", before Frameworks, with `decision-ledger` across the container. The sample `ExecutiveDashboard` under Oversight is unchanged. | It follows "What a hiring decision leaves behind" with every decision in one ledger. | 80% |
 | PC-6 | No captures anywhere else. `receipts-list.png` is not used, and nothing is placed on Time-Travel, Compliance Packs, Policy-as-Code or Two-Tier Knowledge. | Repetitive rows make the product look thin; those features are not reachable by a pilot in production today (`captures.md`). | 95% |
 | PC-7 | Captions all start "Sample tenant: Acme (fictional), staging." Record views: "The record view in the Thursdai app. Staging does not sign records, so this one reads not signed; production records are signed." The provenance view adds what it shows. Dashboard: "The decision ledger, computed live from seeded sample decisions. The EU AI Act panel classifies risk tiers; it is not a compliance report." Alt text describes what is visible and never claims signing, compliance reporting, audit packs or Local Law 144 reporting (tested). | `captures.md`: staging records are unsigned, the tier panel is classification only, the "full audit pack" tile is a completeness percentage and `ll144-screening` is a seeded label. | 90% |
+
+### App truth pass (October 13, 2026)
+
+Source: the app truth pass of October 13, 2026, checked read-only against production (platform commit e89f6b775, deployed October 10). It overrides older registers and docs in this repo. Production is in Railway EU West (Amsterdam); no customer data has been processed; the decision ledger is stored in clear and is not pseudonymised; there is no deletion at exit and records have no retention limit; the SDK is unpublished and the HR connectors are stubs; WorkOS is a subprocessor and Grafana, PagerDuty and Vercel are not.
+
+| # | Decision | Why | Confidence |
+|---|---|---|---|
+| TP-1 | `/security` rewritten against production: EU West hosting with the operator console in US West; a "Where data goes" section (KMS, S3 backups and SES in us-east-1, model prompts unredacted to Anthropic or OpenAI, Sentry scrubbed); encryption at rest split into infrastructure-level and application-level, with the decision ledger named as not covered; decision records described as holding free-form subject and actor ids in clear; redaction scope and the absence of a special-category block stated; new "Retention and deletion" and "Sign-in and access" sections; anchoring marked as not yet running; "no customer data processed" in the summary. | Every line now matches what production does. Where the honest answer depends on a decision only Jeff can make, the page states today's behaviour and promises nothing. | 85% |
+| TP-2 | `src/lib/subprocessors.ts`: Grafana Labs, PagerDuty and Vercel removed; WorkOS added (sign-in: name and email); a location column added (Railway EU West, AWS us-east-1, the rest United States); each purpose says what data the provider receives. Every DPA stays "Not confirmed". GitHub, Discord and Stripe deliberately not added. Pinned by `tests/lib/subprocessors.test.ts`. | Prometheus is self-hosted, PagerDuty has no routing key and Vercel hosts only this website, so none receives platform data. | 90% |
+| TP-3 | `DEMO_KEY_NOTE`, the record-view captions and `/trust` now say production signs on write and that no customer records have been signed yet, instead of "production records are signed". | Signing is on, but zero records exist; the old wording implied signed customer records. | 90% |
+| TP-4 | `/developers`: the receipts endpoint and the inbound HMAC CloudEvents webhook are described as the two pilot paths, neither yet run with a customer; "no published SDK" and "no native connectors" stated. `/customers` and `/solutions/people` say the same in one line each; "live HR data" removed. `/demo` SSO line now says "on request during the pilot" and "no self-serve signup". | The SDK is unpublished and the named HR connectors are labels on the generic webhook. | 85% |
+| TP-5 | `/privacy` (still a noindex draft) points to the platform's EU West hosting and the security overview; `/terms` (draft) names both fictional sample companies. | Factual corrections only; legal placeholders untouched. | 85% |
+| TP-6 | `check:copy` bans "US East" (case-sensitive, so `us-east-1` stays allowed), "pseudonymised", "de-identified", "deletion certificate", "encrypted ledger" and "install our SDK", with unit tests. | The worst of the old claims cannot come back through a copy edit. | 90% |
+| TP-7 | Colorado SB 24-205 and Mobley were not cited anywhere on built pages, so nothing was removed. The draft MCP blog post (not built) still shows an `npx` install; left as is because drafts are never rendered. | Nothing user-facing to change. | 90% |
+
+#### Open for Jeff (truth pass)
+
+1. Pseudonymisation: the site now says subject and actor ids are stored in clear. Decide whether to build pseudonymisation before a pilot, or keep this wording.
+2. Special-category data: there is no block, and ACCOMMODATE decisions and reviewer free text are accepted. The site asks pilots not to send health, payroll or bank data. Decide on a block or a contractual exclusion.
+3. Retention and exit: decision records, audit events and cases have no retention limit, and there is no tenant export, exit deletion or deletion evidence. The site says so and promises nothing. Decide pilot exit terms.
+4. MFA: the site says Thursdai does not enforce MFA itself. Decide whether to require it in the WorkOS environment, then update `/security`.
+5. `signOnWriteSince` is null in the public key set because the env var is unset. Set it.
+6. The rotated ARN key id in the key set contains the AWS account id. Accept or prune it.
+7. Subprocessors: decide whether GitHub (nightly DB dumps run on Actions runners), Discord (alert webhook) and Stripe (test mode) are listed. The site says only that backups are copied "by our CI pipeline".
+8. Model prompts go to Anthropic and OpenAI unredacted, with record excerpts and the user's identity block. Decide whether to redact before a pilot.
+9. DPAs: every subprocessor DPA is still "Not confirmed", and the customer DPA is "in preparation".
+10. The app UI is still behind the pre-launch Basic Auth gate, and a receipts:write key can only be minted through the API. Both affect what a pilot can do on day one.
+
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)
