@@ -118,8 +118,10 @@ export default function SecurityPage() {
                     body: (
                       <>
                         Records are signed on write with an ES256 key held in AWS KMS, and the private
-                        key never leaves KMS. No customer records have been signed in production yet.
-                        The public key set is published at{' '}
+                        key never leaves KMS. Signing on write has been enabled in production since
+                        19 August 2026, and the public key set publishes that date as signOnWriteSince.
+                        No customer records have been signed in production yet. The public key set is
+                        published at{' '}
                         <a href={PUBLIC_KEYS_URL} rel="noopener noreferrer" target="_blank" style={UNDERLINED}>
                           {PUBLIC_KEYS_PATH}
                           <span className="sr-only"> (opens in a new tab)</span>
