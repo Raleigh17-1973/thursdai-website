@@ -24,6 +24,32 @@ export const BANNED = [
   { id: 'deletion-certificate', re: /deletion certificates?/i, label: '"deletion certificate" (not implemented)' },
   { id: 'encrypted-ledger', re: /encrypted (?:decision )?ledger/i, label: '"encrypted ledger" (the ledger has no application-level encryption)' },
   { id: 'install-sdk', re: /install (?:our|the Thursdai) SDK/i, label: '"install our SDK" (no SDK is published)' },
+  // Ledger claims (2026-10-13): the chain link is covered by neither the row hash nor the signature
+  // and no anchors exist, so the ledger is tamper-evident for content changes only. It cannot yet
+  // show that a record was removed. Lift these when chain v2 ships and anchors are live. Each rule
+  // targets a claim phrase, so honest copy ("does not yet prove that no record has been removed",
+  // "blocks updates and deletes") passes.
+  { id: 'tamper-proof', re: /\btamper[- ]?proof/i, label: '"tamper-proof" (say "tamper-evident for content changes")' },
+  {
+    id: 'detects-deletion',
+    re: /\bdetect(?:s|ed|ing|able)?\s+(?:any\s+|a\s+|every\s+)?(?:deletions?|removals?|deleted|removed|missing\s+records?)\b|\b(?:deletions?|removals?)\s+(?:is|are|would\s+be|becomes?)\s+(?:detectable|detected|evident|visible)\b|\bmissing\s+records?\s+(?:shows?\s+up|is\s+detected|would\s+show|stands?\s+out)\b/i,
+    label: 'deletion detection claim (the chain cannot yet show a removed record)',
+  },
+  {
+    id: 'removal-breaks-chain',
+    re: /\b(?:remov|delet)\w*\b[^.]{0,80}\b(?:breaks?\s+the\s+chain|chain\s+(?:breaks|is\s+broken|would\s+break))\b/i,
+    label: 'removal breaks the chain (it does not until chain v2)',
+  },
+  {
+    id: 'completeness',
+    re: /\bprov(?:e|es|en|ing)\s+(?:its\s+|the\s+)?completeness\b|\bprov(?:e|es|en|ing)\s+(?:that\s+)?(?:the\s+|a\s+|your\s+)?(?:history|ledger|record|trail|audit\s+trail)\s+is\s+complete\b|\bgap-?free\b|\bno\s+gaps\s+in\s+(?:the\s+|your\s+)?(?:ledger|chain|history|record|audit\s+trail)\b/i,
+    label: 'completeness claim (the ledger cannot yet prove no record is missing)',
+  },
+  {
+    id: 'cannot-be-deleted',
+    re: /\b(?:cannot|can['’]?t|can\s+not)\s+be\s+(?:deleted|removed|erased)\b|\bimpossible\s+to\s+(?:delete|remove|erase)\b|\b(?:deleted|removed|erased)\s+(?:undetected|without\s+(?:detection|a\s+trace|anyone\s+knowing))\b/i,
+    label: 'records cannot be deleted or removed undetected (only the application blocks deletes)',
+  },
 ];
 
 // Warning only. Three or more comma-separated items (each up to four words)

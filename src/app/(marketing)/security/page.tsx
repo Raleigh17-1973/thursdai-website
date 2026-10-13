@@ -206,7 +206,7 @@ export default function SecurityPage() {
                 },
                 {
                   term: 'Ledger',
-                  body: 'The decision ledger is append-only, so a record cannot be edited once written.',
+                  body: 'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it. Each record is hash-chained and signed, so it is tamper-evident for content changes: changing a record’s content breaks its hash and its signature. The chain does not yet prove that no record has been removed. Anchoring, which is designed to show that, is not active.',
                 },
               ]}
             />
