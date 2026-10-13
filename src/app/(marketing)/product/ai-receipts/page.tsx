@@ -17,7 +17,7 @@ import { sampleArtifacts } from '@/lib/artifacts';
 
 export const metadata: Metadata = {
   title: `${RECEIPT_TERM_PLURAL}: Thursdai`,
-  description: `Thursdai writes an ${RECEIPT_TERM} for each decision an AI system makes: what it decided, which policies ran, the evidence it used and who reviewed it, signed so any change is detectable.`,
+  description: `Thursdai writes an ${RECEIPT_TERM} for each decision an AI system makes: what it decided, which policies ran, the evidence it used and who reviewed it, signed so a change to its content is detectable.`,
 };
 
 const DOWNLOADS = sampleArtifacts().filter((d) => d.href.includes('receipt'));
@@ -32,7 +32,7 @@ export default function AiReceiptsPage() {
       promise={
         <>
           Thursdai writes an {RECEIPT_TERM} for each decision an AI system makes: what it decided, which
-          policies ran, the evidence it used and who reviewed it, signed so that any later change shows.
+          policies ran, the evidence it used and who reviewed it, signed so that a later change to its content shows.
         </>
       }
       visual={<ReceiptFrame {...SAMPLE_HIRING_RECEIPT} style={{ marginLeft: 'auto' }} />}

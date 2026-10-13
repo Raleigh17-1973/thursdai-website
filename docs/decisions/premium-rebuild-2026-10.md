@@ -317,6 +317,17 @@ Source: the app truth pass of October 13, 2026, checked read-only against produc
 6. Special-category data: there is no block; the site only asks pilots not to send health, payroll or bank data.
 7. DPAs: every subprocessor DPA is still "Not confirmed", and the customer DPA is "in preparation".
 8. Pilot day one: the app UI is still behind the pre-launch Basic Auth gate, and a receipts:write key can only be minted through the API.
+
+### Ledger claims (October 13, 2026)
+
+Source: the app team, confirmed in code on October 13, 2026. The chain link (prev_hash) is covered by neither the row hash nor the signature, so someone with database-owner access could delete a record and repoint the next row without the chain walk or the signatures failing. Merkle anchors would catch it, but production has 0 anchors. A fix (chain v2) is planned, not shipped.
+
+| # | Decision | Why | Confidence |
+|---|---|---|---|
+| LC-1 | The site claims only what holds: each record is hash-chained and signed on write (KMS, ES256); changing a record's content breaks its hash and signature; an immutability trigger blocks updates and deletes through the application ("append-only in the application", "tamper-evident for content changes"); anchoring is designed, not active. No copy says the ledger detects deletion, proves completeness or has no gaps, that records cannot be removed undetected or that it is tamper-proof. `/trust`, `/security` (Ledger row now states the limit), `/developers` (a valid result covers one receipt, not the ledger), the `/demo` change-one-field note, the AI Receipts metadata and promise, the Compliance Packs signature fact and the AI Receipts nav description were rewritten. | The chain cannot yet show a removed record. | 90% |
+| LC-2 | `check:copy` bans "tamper-proof", deletion-detection phrases ("detects deletion", "a missing record shows up"), "removing a record breaks the chain", completeness phrases ("proves completeness", "gap-free", "no gaps in the ledger") and "cannot be deleted" or "removed undetected", with unit tests that also pass the true copy. | The withdrawn claims cannot come back through a copy edit. | 90% |
+
+Revert condition: lift LC-1 and LC-2 only when chain v2 has shipped (prev_hash covered by the row hash and the signature) and anchors are live in production. Until both are true, deletion and completeness claims stay off the site.
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)

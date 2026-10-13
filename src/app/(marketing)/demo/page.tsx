@@ -140,6 +140,7 @@ export default function DemoPage() {
                 <Body variant="small" style={{ marginTop: '0.5rem' }}>
                   Edit the outcome or the recorded time. The page sends the edited receipt to the
                   verifier with the original signature and fingerprint. Reset sends it back unchanged.
+                  This tests a change to one receipt&apos;s content, not whether a record was removed.
                 </Body>
                 <div style={{ marginTop: '1rem' }}>
                   <ChangeOneField

@@ -7,7 +7,7 @@ export const NAV_ITEMS = [
     label: 'Product',
     megamenu: true,
     items: [
-      { label: 'AI Receipts', href: '/product/ai-receipts', description: 'The provable record of every AI decision' },
+      { label: 'AI Receipts', href: '/product/ai-receipts', description: 'A signed, checkable record of each AI decision' },
       { label: 'Time-Travel', href: '/product/time-travel', description: 'Reopen a decision as its audit trail recorded it' },
       { label: 'Compliance Packs', href: '/product/compliance-packs', description: 'Receipts gathered into one signed document' },
       { label: 'Policy-as-Code', href: '/product/policy-as-code', description: 'Rules written as code, results recorded on the receipt' },
