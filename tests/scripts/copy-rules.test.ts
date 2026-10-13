@@ -61,6 +61,7 @@ describe('banned words', () => {
       'pseudonymised',
       'de-identified',
       'deletion-certificate',
+      'deletion-at-exit',
       'encrypted-ledger',
       'install-sdk',
       'eu-west',
@@ -119,12 +120,53 @@ describe('banned words', () => {
       'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it.',
       'The chain does not yet prove that no record has been removed.',
       'This tests a change to one receipt’s content, not whether a record was removed.',
-      'Tenant export and deletion at contract end are in development.',
+      'Each record’s signature can be checked against Thursdai’s published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned.',
+      'Retention terms are not yet published.',
+      'Encrypted daily backups held in AWS.',
       'Have it corrected or deleted.',
       'The cookie it used to set has been removed.',
       'The share of decisions with complete evidence.',
       'The EU AI Act puts a price on that gap.',
       'Every field is signed, so an edit after the fact is detectable.',
+    ].map((text, i) => ({ file: 'f', line: i + 1, text }));
+    expect(findViolations(items)).toEqual([]);
+  });
+
+  it('bans exit deletion, deletion periods and insurance claims', () => {
+    const items = [
+      'Tenant export and deletion at contract end are in development.',
+      'Your data is deleted at exit.',
+      'We delete tenant data at the end of the contract.',
+      'Backups are deleted after 30 days.',
+      'Form data is deleted within 90 days.',
+      'You receive a deletion certificate.',
+      'Thursdai is insured.',
+      'We are fully insured.',
+      'We carry cyber liability insurance.',
+      'Insurance coverage details are available on request.',
+      'Thursdai holds professional indemnity insurance.',
+    ].map((text, i) => ({ file: 'f', line: i + 1, text }));
+    expect(findViolations(items).map((v) => v.rule)).toEqual([
+      'deletion-at-exit',
+      'deletion-at-exit',
+      'deletion-at-exit',
+      'deleted-after-days',
+      'deleted-after-days',
+      'deletion-certificate',
+      'insurance',
+      'insurance',
+      'insurance',
+      'insurance',
+      'insurance',
+    ]);
+  });
+
+  it('lets insurance as a customer industry through', () => {
+    const items = [
+      'For teams that use AI in hiring, credit or insurance.',
+      'Essential private and public services: credit scoring, insurance risk assessment.',
+      'AI used in hiring, credit scoring and life and health insurance pricing is high-risk.',
+      'Regulated teams putting AI into hiring, lending, insurance or similar decisions.',
     ].map((text, i) => ({ file: 'f', line: i + 1, text }));
     expect(findViolations(items)).toEqual([]);
   });

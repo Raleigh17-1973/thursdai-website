@@ -140,7 +140,9 @@ export default function DemoPage() {
                 <Body variant="small" style={{ marginTop: '0.5rem' }}>
                   Edit the outcome or the recorded time. The page sends the edited receipt to the
                   verifier with the original signature and fingerprint. Reset sends it back unchanged.
-                  This tests a change to one receipt&apos;s content, not whether a record was removed.
+                  Each record&apos;s signature can be checked against Thursdai&apos;s published keys.
+                  Chain completeness and anchoring are Thursdai-attested today; an upgraded chain
+                  format is planned.
                 </Body>
                 <div style={{ marginTop: '1rem' }}>
                   <ChangeOneField

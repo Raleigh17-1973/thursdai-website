@@ -78,6 +78,8 @@ export default function AiReceiptsPage() {
         <>
           The receipt on this page is the sample from the demo: a fictional tenant with a genuine
           signature. Its id, hash and fields are read from the same signed file the verifier checks.
+          Each record&apos;s signature can be checked against Thursdai&apos;s published keys. Chain
+          completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned.
         </>
       }
       close={{

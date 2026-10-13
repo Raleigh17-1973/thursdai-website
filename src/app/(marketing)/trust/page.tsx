@@ -72,6 +72,10 @@ export default function TrustPage() {
                   ),
                 },
                 {
+                  term: 'Checking records',
+                  body: 'Each record’s signature can be checked against Thursdai’s published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned.',
+                },
+                {
                   term: 'Not held',
                   body: 'SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 42001. No auditor is engaged yet, so no date is given.',
                 },
