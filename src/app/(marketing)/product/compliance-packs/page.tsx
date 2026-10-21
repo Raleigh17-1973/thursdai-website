@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { ProductPillar, ProductPillarSection } from '@/components/templates/ProductPillar';
+import { ProductPillar, ProductPillarSection, PillarStatus } from '@/components/templates/ProductPillar';
 import { PackAssemblyDiagram } from '@/components/diagrams/PackAssemblyDiagram';
 import { AuditPackSummary } from '@/components/receipt/AuditPackSummary';
 import { Body } from '@/components/typography/Body';
@@ -19,6 +19,7 @@ export default function CompliancePacksPage() {
       label="Compliance Packs"
       title="Evidence an auditor can check."
       demoHref="/demo#audit-pack"
+      status={<PillarStatus>In development. Packs are not yet available in pilots.</PillarStatus>}
       promise={
         <>
           A compliance pack gathers the receipts for a framework, period or system into one signed
