@@ -87,8 +87,8 @@ const CLAUSES: Clause[] = [
   {
     number: '03',
     label: 'What we ask',
-    heading: 'Feedback, and a reference only if you choose.',
-    intro: 'The program works when the feedback is grounded in real use. That is the whole ask.',
+    heading: 'A fee, candid feedback and, once there are results, a reference.',
+    intro: 'The program works when the feedback is grounded in real use.',
     terms: [
       {
         title: 'Connect at least one system',
@@ -100,9 +100,14 @@ const CLAUSES: Clause[] = [
           'On a cadence that suits you, for example a short call every two weeks. What is missing matters more to us than what works.',
       },
       {
-        title: 'A reference, only if you choose',
+        title: 'A paid design partnership',
         detail:
-          'If the pilot is useful and you want to say so, we would value a reference. It is your call, and saying no changes nothing about the pilot.',
+          '$18,000 a year, fixed for two years. Invoicing starts when your first AI system sends its first signed record, not at signature.',
+      },
+      {
+        title: 'Logo, references and a case study, with your approval',
+        detail:
+          'Once there are real results, we ask for your logo on this site, four reference calls a year and a joint case study. Each needs your written approval of the final wording.',
       },
     ],
   },
@@ -113,14 +118,14 @@ const CLAUSES: Clause[] = [
     intro: 'Three things to rule out before you apply.',
     terms: [
       {
-        title: 'Not a paid trial in disguise',
+        title: 'Leave at any quarter',
         detail:
-          'The pilot is not a sales stage with a countdown. Any commercial conversation happens separately and only if you want one.',
+          'Either side can end the program at the end of any quarter, with no fee for the rest of the term.',
       },
       {
         title: 'Nothing published without permission',
         detail:
-          'We do not publish your name, logo, quotes or results without your written permission. That is why there are no partner logos on this site.',
+          'We do not publish your name, logo, quotes or results without your written permission. There are no partner logos here yet because no partner has approved one.',
       },
       {
         title: 'Not an audit',
