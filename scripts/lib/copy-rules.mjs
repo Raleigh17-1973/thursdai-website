@@ -13,12 +13,25 @@ export const BANNED = [
   // ("as planned" in prose is fine).
   { id: 'planned', re: /\bPlanned\b|\bPLANNED\b/, label: '"Planned" (status label)' },
   { id: 'will-live-here', re: /will live here/i, label: '"will live here" (placeholder copy)' },
-  // App truth pass (2026-10-13) and owner rulings: no hosting region claim until the planned move
-  // is verified; decision records are stored in clear; there is no deletion at exit; no SDK is
-  // published. The US East rule is case-sensitive, so a lowercase AWS region id is not caught.
-  { id: 'us-east', re: /\bUS[- ]East\b/, label: '"US East" (no hosting region claim until the move is verified)' },
-  { id: 'eu-west', re: /\bEU[- ]West\b/i, label: '"EU West" (no hosting region claim until the move is verified)' },
-  { id: 'amsterdam', re: /\bAmsterdam\b/i, label: '"Amsterdam" (no hosting region claim until the move is verified)' },
+  // App truth pass (2026-10-13) and owner rulings: decision records are stored in clear; there is
+  // no deletion at exit; no SDK is published. Hosting region: the move to Railway US East was
+  // verified on 2026-11-08, and the owner ruling allows exactly "Hosting location: United States
+  // (US East)". So "US East" passes only inside "United States (US East)"; any other phrasing still
+  // fails. The rule is case-sensitive, so a lowercase AWS region id is not caught. The old EU
+  // region stays banned, as do residency and "only in the US" claims.
+  {
+    id: 'us-east',
+    re: /(?<!United States \()\bUS[- ]East\b|\bUS[- ]East\b(?!\))/,
+    label: '"US East" (only "United States (US East)" is approved)',
+  },
+  { id: 'eu-west', re: /\bEU[- ]West\b/i, label: '"EU West" (not the hosting region)' },
+  { id: 'amsterdam', re: /\bAmsterdam\b/i, label: '"Amsterdam" (not the hosting region)' },
+  { id: 'data-residency', re: /\bdata[- ]residency\b/i, label: '"data residency" (make no residency claim)' },
+  {
+    id: 'only-in-us',
+    re: /\b(?:only|exclusively)\s+in\s+the\s+(?:US\b|U\.S\.|United\s+States\b)/i,
+    label: '"only / exclusively in the US" (state the hosting location, not exclusivity)',
+  },
   { id: 'pseudonymised', re: /pseudonymi[sz]/i, label: '"pseudonymised" (decision records are not pseudonymised)' },
   { id: 'de-identified', re: /de-identif/i, label: '"de-identified" (hashing a subject id is not de-identification)' },
   { id: 'deletion-certificate', re: /deletion certificates?/i, label: '"deletion certificate" (not implemented)' },

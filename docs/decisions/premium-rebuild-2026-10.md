@@ -338,6 +338,16 @@ Source: Jeff's rulings of October 13, 2026. They supersede the LC-1 caveat wordi
 | VS-2 | No claims about exit or deletion at contract end, backup retention periods or insurance, on any page including the `/privacy` and `/terms` drafts. "Retention terms are not yet published" and "Encrypted daily backups held in AWS" may stay. | The `/security` "At contract end" line is removed and the section is retitled "Retention and the ledger". No backup period or insurance copy existed elsewhere. |
 | VS-3 | `check:copy` bans deletion at contract end or exit, "deleted after/within N days" and Thursdai insurance claims ("insured", "insurance coverage", "liability insurance", "we carry ... insurance"), with unit tests. "deletion certificate" was already banned (TP-6). Insurance as a customer industry still passes. | `scripts/lib/copy-rules.mjs`, `tests/scripts/copy-rules.test.ts`. |
 
+### Hosting location (November 8, 2026)
+
+Source: the app team verified on November 8, 2026 that production runs on Railway US East (API, worker, console and database). Jeff's earlier ruling allows a region claim once the move is verified, in one wording only. This supersedes the October 13 "no hosting region claim anywhere" ruling for that wording alone.
+
+| # | Ruling | Applied |
+|---|---|---|
+| HL-1 | The site states "Hosting location: United States (US East)" and nothing broader: no "only" or "exclusively" in the US, no residency wording and no mention of the move or the earlier region. The AWS services (KMS, S3 backups and SES) keep their no-region wording. | `/security` meta line (where "Hosting region" sat before PR #37) and the `/privacy` draft (still noindex). |
+| HL-2 | The subprocessor list gives Railway the location "United States (US East)" and aligns Sentry with the app's public list (location US; error and crash monitoring; three data categories). Every other row states no location; every DPA stays "Not confirmed". | `src/lib/subprocessors.ts`, the `/security` table, `tests/lib/subprocessors.test.ts`. |
+| HL-3 | `check:copy` allows "US East" only inside "United States (US East)", keeps the "EU West" and "Amsterdam" bans and adds bans for "data residency" and "only" or "exclusively in the US / United States". | `scripts/lib/copy-rules.mjs`, `tests/scripts/copy-rules.test.ts`. |
+
 ## For review (confidence under 90%)
 
 ### Priority: needs Jeff (facts only he has, or legal exposure)

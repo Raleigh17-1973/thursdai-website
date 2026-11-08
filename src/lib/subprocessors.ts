@@ -1,7 +1,8 @@
 // The one subprocessor list, shown on /security. Reconciled on 2026-10-13 against prod config
 // (the app truth pass), which overrides the older register in the platform repository.
-// No locations on purpose (owner ruling, 2026-10-13): the hosting region is due to change before
-// the first pilot and is unverified, so the site makes no region claim anywhere.
+// Locations (owner ruling, 2026-11-08): the move to Railway US East was verified on 2026-11-08,
+// so Railway says "United States (US East)" and Sentry says "US", matching the app's public list.
+// Every other row makes no location claim. Never "only" or "exclusively" and no residency wording.
 // Not listed, on purpose:
 // - Temporal and Prometheus: self-hosted on Railway, so not third parties.
 // - Grafana Labs: monitoring is self-hosted Prometheus. PagerDuty: no routing key is set.
@@ -13,6 +14,10 @@
 export interface Subprocessor {
   name: string;
   purpose: string;
+  /** Listed under the purpose. Only where the app's public list itemises them. */
+  dataCategories?: readonly string[];
+  /** Only Railway and Sentry state a location. */
+  location?: string;
   dpa: string;
 }
 
@@ -24,6 +29,7 @@ export const SUBPROCESSORS: readonly Subprocessor[] = [
   {
     name: 'Railway',
     purpose: 'Hosts the platform: the API, worker, Postgres database, Redis, Temporal, monitoring and the operator console.',
+    location: 'United States (US East)',
     dpa: DPA_NOT_CONFIRMED,
   },
   {
@@ -45,7 +51,13 @@ export const SUBPROCESSORS: readonly Subprocessor[] = [
   },
   {
     name: 'Sentry',
-    purpose: 'Application error monitoring. Receives application error reports.',
+    purpose: 'Error and crash monitoring for the API, background workers and web app',
+    dataCategories: [
+      'Error events and stack traces',
+      'Request and browser context',
+      'Customer data that appears in an error message or request URL',
+    ],
+    location: 'US',
     dpa: DPA_NOT_CONFIRMED,
   },
   {

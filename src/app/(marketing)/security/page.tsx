@@ -57,6 +57,8 @@ export default function SecurityPage() {
       lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, where data goes, what it holds, who processes it and where certification stands."
       meta={[
         { label: 'Status as of', value: 'October 2026' },
+        // Owner ruling: this exact wording, allowed once the move was verified (2026-11-08).
+        { label: 'Hosting location:', value: 'United States (US East)' },
       ]}
       sections={[
         {
@@ -243,7 +245,28 @@ export default function SecurityPage() {
                   { key: 'purpose', label: 'Purpose and data received' },
                   { key: 'dpa', label: 'DPA', width: '18%' },
                 ]}
-                rows={SUBPROCESSORS.map((s) => ({ id: s.name, ...s }))}
+                rows={SUBPROCESSORS.map((s) => ({
+                  id: s.name,
+                  name: s.name,
+                  purpose: (
+                    <>
+                      {s.purpose}
+                      {s.dataCategories?.length ? (
+                        <ul className="m-0 list-disc" style={{ paddingLeft: '1.25rem', marginTop: '0.5rem' }}>
+                          {s.dataCategories.map((c) => (
+                            <li key={c}>{c}</li>
+                          ))}
+                        </ul>
+                      ) : null}
+                      {s.location ? (
+                        <span className="block" style={{ marginTop: '0.5rem' }}>
+                          Location: {s.location}
+                        </span>
+                      ) : null}
+                    </>
+                  ),
+                  dpa: s.dpa,
+                }))}
               />
             </>
           ),

@@ -171,6 +171,43 @@ describe('banned words', () => {
     expect(findViolations(items)).toEqual([]);
   });
 
+  it('allows exactly "United States (US East)" and nothing else with US East', () => {
+    const allowed = ['Hosting location: United States (US East)', 'Hosts the platform in the United States (US East).'];
+    expect(findViolations(allowed.map((text, i) => ({ file: 'f', line: i + 1, text })))).toEqual([]);
+    const banned = [
+      'Hosted in US East.',
+      'United States (US East region)',
+      'United States, US East',
+      'US East (United States)',
+      'United States (US East) and US-East backups',
+    ].map((text, i) => ({ file: 'f', line: i + 1, text }));
+    expect(findViolations(banned).map((v) => v.rule)).toEqual(['us-east', 'us-east', 'us-east', 'us-east', 'us-east']);
+  });
+
+  it('bans residency and exclusivity claims about the hosting location', () => {
+    const items = [
+      'Full data residency in the US.',
+      'Data-residency guarantees.',
+      'Data is held only in the US.',
+      'Data is held only in the United States.',
+      'Stored exclusively in the US.',
+      'Stored exclusively in the United States.',
+    ].map((text, i) => ({ file: 'f', line: i + 1, text }));
+    expect(findViolations(items).map((v) => v.rule)).toEqual([
+      'data-residency',
+      'data-residency',
+      'only-in-us',
+      'only-in-us',
+      'only-in-us',
+      'only-in-us',
+    ]);
+  });
+
+  it('keeps the EU West and Amsterdam bans', () => {
+    const items = ['EU West (Amsterdam)'].map((text) => ({ file: 'f', line: 1, text }));
+    expect(findViolations(items).map((v) => v.rule)).toEqual(['eu-west', 'amsterdam']);
+  });
+
   it('keeps the US East rule case-sensitive', () => {
     const items = [{ file: 'f', line: 1, text: 'arn:aws:kms:us-east-1' }];
     expect(findViolations(items)).toEqual([]);
