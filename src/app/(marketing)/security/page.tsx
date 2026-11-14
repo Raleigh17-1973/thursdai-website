@@ -56,7 +56,7 @@ export default function SecurityPage() {
       title="Security, in plain terms."
       lead="For security, compliance and procurement teams evaluating Thursdai as a vendor: how it is built, where data goes, what it holds, who processes it and where certification stands."
       meta={[
-        { label: 'Status as of', value: 'October 2026' },
+        { label: 'Status as of', value: 'November 2026' },
         // Owner ruling: this exact wording, allowed once the move was verified (2026-11-08).
         { label: 'Hosting location:', value: 'United States (US East)' },
       ]}
@@ -195,12 +195,20 @@ export default function SecurityPage() {
             <FactList
               items={[
                 {
+                  term: 'Anchoring',
+                  body: 'A scheduled job that writes a signed summary hash of new records to a write-once storage bucket is switched on in production. Nothing has been anchored yet, because production holds no decisions, and a third party cannot yet confirm an anchor independently.',
+                },
+                {
+                  term: 'What integrity shows',
+                  body: 'A valid signature and an unbroken chain show that a record has not changed since it was written and that Thursdai wrote it. They do not show that the decision was correct, fair or lawful.',
+                },
+                {
                   term: 'Retention',
                   body: 'Retention terms are not yet published.',
                 },
                 {
                   term: 'Ledger',
-                  body: 'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it. Each record is hash-chained and signed, so it is tamper-evident for content changes: changing a record’s content breaks its hash and its signature. Each record’s signature can be checked against Thursdai’s published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned.',
+                  body: 'The decision ledger is append-only in the application: an immutability trigger blocks updates and deletes made through it. Each record is hash-chained and signed, so it is tamper-evident for content changes: changing a record’s content breaks its hash and its signature. Each record’s signature can be checked against Thursdai’s published keys. Chain completeness and anchoring are Thursdai-attested today; an upgraded chain format is planned. Thursdai holds the signing key, so the ledger does not protect against Thursdai itself.',
                 },
               ]}
             />
@@ -234,8 +242,9 @@ export default function SecurityPage() {
           body: (
             <>
               <Body>
-                Our policy is to tell customers at least 30 days before a new subprocessor is added.
-                The DPA that will carry this commitment is in preparation. This website is hosted
+                Our intent is to tell customers at least 30 days before a new subprocessor is added. No
+                customer DPA is in force yet, so this is not a contractual commitment. The DPA that
+                will carry it is in preparation. This website is hosted
                 separately on Vercel, which receives no platform customer data.
               </Body>
               <RecordTable
@@ -272,6 +281,21 @@ export default function SecurityPage() {
           ),
         },
         {
+          id: 'not-done',
+          title: 'What we have not done',
+          body: (
+            <FactList
+              items={[
+                { term: 'Audit', body: 'No SOC 2 engagement has started, and no auditor is engaged.' },
+                { term: 'Penetration test', body: 'None has been performed.' },
+                { term: 'Contracts', body: 'The DPA and the master agreement exist only as templates. None is signed or in force.' },
+                { term: 'Customer-managed keys', body: 'Not available. The code paths exist behind switches that are off.' },
+                { term: 'Dedicated hosting', body: 'Not available. All customers share one deployment and one database.' },
+              ]}
+            />
+          ),
+        },
+        {
           id: 'certifications',
           title: 'Certification status',
           body: (
@@ -291,14 +315,27 @@ export default function SecurityPage() {
           id: 'contact',
           title: 'Security contact',
           body: (
-            <Body>
-              For security questions, vulnerability reports, DPA requests or a vendor questionnaire,
-              email{' '}
-              <a href={mail} style={UNDERLINED}>
-                {CONTACT_EMAIL}
-              </a>
-              .
-            </Body>
+            <>
+              <Body>
+                For security questions, vulnerability reports, DPA requests or a vendor questionnaire,
+                email{' '}
+                <a href={mail} style={UNDERLINED}>
+                  {CONTACT_EMAIL}
+                </a>
+                .
+              </Body>
+              <Body>
+                Related pages, both covering this website only: the{' '}
+                <Link href="/privacy" style={UNDERLINED}>
+                  privacy policy (draft)
+                </Link>{' '}
+                and the website{' '}
+                <Link href="/terms" style={UNDERLINED}>
+                  terms of use (draft)
+                </Link>
+                .
+              </Body>
+            </>
           ),
         },
       ]}
